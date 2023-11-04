@@ -1,0 +1,10 @@
+<map id="pdcpp::SoundEffect" name="pdcpp::SoundEffect">
+<area shape="rect" id="node1" title=" " alt="" coords="5,157,152,184"/>
+<area shape="rect" id="node2" href="$classpdcpp_1_1BitCrushAndUndersample.html" title=" " alt="" coords="200,5,436,32"/>
+<area shape="rect" id="node3" href="$classpdcpp_1_1CustomSoundEffect.html" title=" " alt="" coords="220,56,416,83"/>
+<area shape="rect" id="node4" href="$classpdcpp_1_1Delay.html" title=" " alt="" coords="265,107,371,133"/>
+<area shape="rect" id="node5" href="$classpdcpp_1_1OnePoleFilter.html" title=" " alt="" coords="240,157,396,184"/>
+<area shape="rect" id="node6" href="$classpdcpp_1_1Overdrive.html" title=" " alt="" coords="251,208,385,235"/>
+<area shape="rect" id="node7" href="$classpdcpp_1_1RingModulator.html" title=" " alt="" coords="236,259,400,285"/>
+<area shape="rect" id="node8" href="$classpdcpp_1_1TwoPoleFilter.html" title=" " alt="" coords="241,309,395,336"/>
+</map>
