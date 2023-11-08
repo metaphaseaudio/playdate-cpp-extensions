@@ -10,6 +10,7 @@
 
 #pragma once
 #include "pd_api.h"
+#include <pdcpp/core/util.h>
 
 namespace pdcpp
 {
@@ -26,6 +27,22 @@ namespace pdcpp
          * @returns the current value of the Signal
          */
         [[ nodiscard ]] float getValue() const;
+
+        /**
+         * Offsets the signal’s output by the given amount. This will come after
+         * the scaling factor
+         *
+         * @param bias the value to add to the signal;
+         */
+        void setBias(float bias);
+
+        /**
+         * Scales the signal’s output by the given factor. The scale is applied
+         * before the offset
+         *
+         * @param scale the factor to apply
+         */
+        void setScale(float scale);
 
         /**
          * Abstract. Implementations must provide an implicit conversion to a
@@ -70,12 +87,6 @@ namespace pdcpp
          */
         CustomSignal();
 
-        // Move constructor
-        CustomSignal(CustomSignal&& other);
-
-        // Move-assignment constructor
-        CustomSignal& operator=(CustomSignal&& other);
-
          // Destructor. Cleans up the custom signal.
         virtual ~CustomSignal();
 
@@ -116,7 +127,9 @@ namespace pdcpp
 
         [[ nodiscard ]] operator ::PDSynthSignalValue*() const override;  // NOLINT (*-explicit-constructor)
 
+
     private:
         PDSynthSignal* p_Signal;
+        PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSignal);
     };
 }

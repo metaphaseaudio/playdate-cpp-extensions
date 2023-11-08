@@ -9,6 +9,7 @@
  */
 #pragma once
 
+#include <functional>
 #include <string>
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
@@ -19,6 +20,17 @@ namespace pdcpp
     class Image
     {
     public:
+
+        /**
+         * Creates a new Image with a specific height and width, optionally
+         * filled with a color.
+         *
+         * @param width the width of the image
+         * @param height the height of the image
+         * @param bgColor the fill color. default is clear.
+         */
+        Image(int width, int height, LCDColor bgColor=kColorClear);
+
         /**
          * Loads an image from a given path and manages its memory. Any issues
          * loading the path will generate system errors with logging. Don't
@@ -155,7 +167,7 @@ namespace pdcpp
          * height, or both. Negative scales correspond with flips. Does not
          * modify the image.
          *
-         * @param location the upper right corner of the image to draw
+         * @param location the center of the image to draw
          * @param centerX the ratio of the image's width at which to place the
          *     center point around which to rotate. Default is 0.5f, the center
          *     of the image's width.
@@ -168,6 +180,18 @@ namespace pdcpp
          * @param yScale the optional scale factor to apply to the height
          */
         void draw(const Point<int>& location, float degrees, float centerX=0.5f, float centerY=0.5f, float xScale=1.0f, float yScale=1.0f) const;
+
+        /**
+         * Use the playdate graphics API to draw an image
+         *
+         * @param bounds the bounds (ignoring the origin) of the image
+         * @param drawFunc the function which will be used to draw the image
+         * @param fillColor optional background color with which the image will
+         *     be filled before drawing.
+         * @return the drawn image
+         */
+        static Image drawAsImage
+            (const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor=kColorClear);
 
         /**
          * Provides access to the underlying LCDBitmap for use with the C API.

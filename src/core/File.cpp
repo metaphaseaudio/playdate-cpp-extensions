@@ -82,3 +82,20 @@ std::vector<std::string> pdcpp::FileHelpers::listFilesInDirectory(const std::str
 
     return rv;
 }
+
+bool pdcpp::FileHelpers::fileExists(const std::string& path)
+{
+    FileStat stat;
+    stat.isdir = true;
+    return pdcpp::GlobalPlaydateAPI::get()->file->stat(path.c_str(), &stat) == 0 && !stat.isdir;
+}
+
+int pdcpp::FileHelpers::mkdir(const std::string& path)
+{
+    return pdcpp::GlobalPlaydateAPI::get()->file->mkdir(path.c_str());
+}
+
+int pdcpp::FileHelpers::rename(const std::string& from, const std::string& to)
+{
+    return 0;
+}

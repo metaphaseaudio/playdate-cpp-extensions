@@ -12,7 +12,19 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 float pdcpp::Signal::getValue() const
-    { return pdcpp::GlobalPlaydateAPI::get()->sound->signal->getValue(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *())); }
+{
+    return pdcpp::GlobalPlaydateAPI::get()->sound->signal->getValue(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()));
+}
+
+void pdcpp::Signal::setBias(float bias)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueOffset(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), bias);
+}
+
+void pdcpp::Signal::setScale(float scale)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueScale(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), scale);
+}
 
 float stepShim(void* userdata, int* iosamples, float* ifval)
 {
@@ -34,6 +46,7 @@ void noteOffShim(void* userdata, int stopped, int offset)
 
 void deallocShim(void*) { /* NO-OP, the destructor handles this */ };
 
+
 pdcpp::CustomSignal::CustomSignal()
     : p_Signal(pdcpp::GlobalPlaydateAPI::get()->sound->signal->newSignal(stepShim, noteOnShim, noteOffShim, deallocShim, this))
 {}
@@ -43,15 +56,5 @@ pdcpp::CustomSignal::~CustomSignal()
     if (p_Signal != nullptr)
         { pdcpp::GlobalPlaydateAPI::get()->sound->signal->freeSignal(p_Signal); }
 }
-pdcpp::CustomSignal::operator ::PDSynthSignalValue*() const { return reinterpret_cast<PDSynthSignalValue*>(p_Signal); }
-
-pdcpp::CustomSignal::CustomSignal(pdcpp::CustomSignal&& other)
-    : p_Signal(other.p_Signal)
-{ other.p_Signal = nullptr; }
-
-pdcpp::CustomSignal& pdcpp::CustomSignal::operator=(pdcpp::CustomSignal&& other)
-{
-    p_Signal = other.p_Signal;
-    other.p_Signal = nullptr;
-    return *this;
-}
+pdcpp::CustomSignal::operator ::PDSynthSignalValue*() const
+    { return reinterpret_cast<PDSynthSignalValue*>(p_Signal); }

@@ -1,0 +1,5 @@
+project(PlaydateCPPExtensionsContextMenuExample)
+add_playdate_application(pdcpp_example_context_menu)
+file(GLOB_RECURSE PDCPP_EXAMPLE_CONTEXT_MENU_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
+target_sources(pdcpp_example_context_menu PUBLIC ${PDCPP_EXAMPLE_CONTEXT_MENU_SRC})
+target_link_libraries(pdcpp_example_context_menu pdcpp)

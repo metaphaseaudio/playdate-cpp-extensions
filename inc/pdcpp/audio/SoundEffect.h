@@ -16,7 +16,6 @@
 
 namespace pdcpp
 {
-
     /**
      * Base class of all Channel sound effects. Handles common controls for all
      * sound effects, and requires all sub-classes be able to implicitly convert
@@ -59,10 +58,10 @@ namespace pdcpp
         CustomSoundEffect();
 
         // Move constructor
-        CustomSoundEffect(CustomSoundEffect&& other);
+        CustomSoundEffect(CustomSoundEffect&& other) noexcept ;
 
         // Move-assignment constructor
-        CustomSoundEffect& operator=(CustomSoundEffect&& other);
+        CustomSoundEffect& operator=(CustomSoundEffect&& other) noexcept ;
 
         // Destructor
         ~CustomSoundEffect();

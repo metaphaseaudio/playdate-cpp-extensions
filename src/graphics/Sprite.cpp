@@ -37,7 +37,7 @@ static void updateFunc(LCDSprite* sprite)
 static void redrawFunc(LCDSprite* sprite, PDRect bounds, PDRect drawrect)
 {
     auto thisPtr = pdcpp::Sprite::castSprite(sprite);
-    thisPtr->redraw(bounds, drawrect);
+    thisPtr->redraw(pdcpp::Rectangle<float>(bounds), pdcpp::Rectangle<float>(drawrect));
 }
 
 /**
@@ -85,12 +85,20 @@ pdcpp::Sprite::Sprite(LCDBitmap* img, LCDBitmapFlip flip, uint8_t tag)
 
 pdcpp::Sprite::Sprite(pdcpp::Sprite&& other) noexcept
     : p_Sprite(other.p_Sprite)
-{ other.p_Sprite = nullptr; }
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    pd->sprite->setUserdata(p_Sprite, this);
+    other.p_Sprite = nullptr;
+}
 
 pdcpp::Sprite& pdcpp::Sprite::operator=(pdcpp::Sprite&& rhs) noexcept
 {
     p_Sprite = rhs.p_Sprite;
     rhs.p_Sprite = nullptr;
+
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    pd->sprite->setUserdata(p_Sprite, this);
+
     return *this;
 }
 
@@ -122,12 +130,29 @@ void pdcpp::Sprite::setImage(LCDBitmap* img, LCDBitmapFlip flip)
 }
 
 void pdcpp::Sprite::setImage(const pdcpp::Image& img, LCDBitmapFlip flip) { setImage(img.operator LCDBitmap* (), flip); }
-void pdcpp::Sprite::setSize(float width, float height) { pdcpp::GlobalPlaydateAPI::get()->sprite->setSize(p_Sprite, width, height); }
-void pdcpp::Sprite::setBounds(PDRect bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setBounds(p_Sprite, bounds); }
-PDRect pdcpp::Sprite::getBounds() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite); }
+
+void pdcpp::Sprite::setSize(float width, float height)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setSize(p_Sprite, width, height);
+    resized();
+}
+
+void pdcpp::Sprite::setBounds(const pdcpp::Rectangle<float>& bounds)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setBounds(p_Sprite, bounds);
+    resized();
+}
+
+pdcpp::Rectangle<float> pdcpp::Sprite::getBounds() const
+{
+    return pdcpp::Rectangle<float>(pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite));
+}
 void pdcpp::Sprite::setCollisionsEnabled(bool enabled) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollisionsEnabled(p_Sprite, enabled); }
-void pdcpp::Sprite::setCollideRect(PDRect bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }
-PDRect pdcpp::Sprite::getCollideBounds() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getCollideRect(p_Sprite); }
+void pdcpp::Sprite::setCollideRect(const pdcpp::Rectangle<float>& bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }
+pdcpp::Rectangle<float> pdcpp::Sprite::getCollideBounds() const
+{
+    return pdcpp::Rectangle<float>(pdcpp::GlobalPlaydateAPI::get()->sprite->getCollideRect(p_Sprite));
+}
 void pdcpp::Sprite::clearCollideRect() { pdcpp::GlobalPlaydateAPI::get()->sprite->clearCollideRect(p_Sprite); }
 uint8_t pdcpp::Sprite::getTag() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getTag(p_Sprite); }
 void pdcpp::Sprite::setTag(uint8_t tag) { pdcpp::GlobalPlaydateAPI::get()->sprite->setTag(p_Sprite, tag); }
@@ -154,7 +179,7 @@ pdcpp::CollisionInfo pdcpp::Sprite::moveWithCollisions(float x, float y)
 pdcpp::CollisionInfo pdcpp::Sprite::moveByWithCollisions(float x, float y)
 {
     auto center = getCenter();
-    return moveWithCollisions(center.getX() + x, center.getY() + y);
+    return moveWithCollisions(center.x + x, center.y + y);
 }
 
 pdcpp::Point<float> pdcpp::Sprite::getCenter() const
@@ -166,7 +191,7 @@ pdcpp::Point<float> pdcpp::Sprite::getCenter() const
 pdcpp::CollisionInfo pdcpp::Sprite::checkRelativeCollisions(float targetX, float targetY)
 {
     auto center = getCenter();
-    return checkCollisions(center.getX() + targetX, center.getY() + targetY);
+    return checkCollisions(center.x + targetX, center.y + targetY);
 }
 
 
@@ -178,17 +203,10 @@ pdcpp::Point<float> pdcpp::Sprite::getPosition() const
     return {x, y};
 }
 
-void pdcpp::Sprite::markAreaAsDirty(const PDRect& dirtyArea) const
+void pdcpp::Sprite::markAreaAsDirty(const pdcpp::Rectangle<float>& dirtyArea) const
     { pdcpp::GlobalPlaydateAPI::get()->sprite->addDirtyRect(LCDMakeRect(dirtyArea.x, dirtyArea.y, dirtyArea.width, dirtyArea.height)); }
 
-pdcpp::Sprite* pdcpp::Sprite::castSprite(LCDSprite* toCast)
-{
-    auto pd = pdcpp::GlobalPlaydateAPI::get();
-    auto usrData = pd->sprite->getUserdata(toCast);
-    return reinterpret_cast<pdcpp::Sprite*>(usrData);
-}
-
-PDRect pdcpp::Sprite::getAbsoluteCollideBounds() const
+pdcpp::Rectangle<float> pdcpp::Sprite::getAbsoluteCollideBounds() const
 {
     const auto bounds = getBounds();
     const auto collideBounds = getCollideBounds();
@@ -198,4 +216,21 @@ PDRect pdcpp::Sprite::getAbsoluteCollideBounds() const
         collideBounds.width,
         collideBounds.height
     };
+}
+
+pdcpp::Sprite* pdcpp::Sprite::castSprite(LCDSprite* toCast)
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    auto usrData = pd->sprite->getUserdata(toCast);
+    return reinterpret_cast<pdcpp::Sprite*>(usrData);
+}
+
+void pdcpp::Sprite::updateAndRedrawAllSprites()
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->updateAndDrawSprites();
+}
+
+void pdcpp::Sprite::setDrawMode(LCDBitmapDrawMode drawMode)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setDrawMode(p_Sprite, drawMode);
 }

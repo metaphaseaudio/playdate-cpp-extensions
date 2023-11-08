@@ -7,12 +7,15 @@
  *  Created: 9/28/2023
  *  Original author: MrBZapp
  */
-
 #pragma once
 #include <pd_api.h>
+#include "Point.h"
 
 namespace pdcpp
 {
+    /**
+     * Generally, use pdcpp::Rectangle<T> instead of any of these.
+     */
     class RectHelpers
     {
     public:
@@ -21,5 +24,8 @@ namespace pdcpp
          * @returns a PDRect of the overlapping area.
          */
         static PDRect getOverlappingRect(const PDRect& x, const PDRect& y);
+
+        static pdcpp::Point<float> getCenter(const PDRect& rect);
+        static pdcpp::Point<float> getBottomRight(const PDRect& rect);
     };
 }

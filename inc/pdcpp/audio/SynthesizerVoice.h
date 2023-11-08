@@ -19,23 +19,95 @@
 
 namespace pdcpp
 {
-    class SynthesizerVoice
+    class CustomSynthGenerator
+    {
+    public:
+        static constexpr int kFloatScalar = 0x7fffff;
+
+        /**
+         * Create a custom generator for a synthesizer voice. Inherit from this,
+         * devine the virtual methods and use the `setGenerator` method of a
+         * pdcpp::SynthesizerVoice, to start generating data for that voice.
+         */
+        explicit CustomSynthGenerator(bool isStereo) : m_IsStereo(isStereo) {};
+
+        // Destructor
+        virtual ~CustomSynthGenerator() = default;
+
+        /**
+         * Provides custom waveform generator functions for the synth.
+         *
+         * @param leftSamps sample buffers in Q8.24 format
+         * @param rightSamps sample buffers in Q8.24 format if this is a stereo
+         *     generator
+         * @param nSamps the number of frames to generate
+         * @param rate the amount to change a (Q32) phase accumulator each
+         *     sample. Can be ignored if you're just using `noteOn`, but are
+         *     required for any kind of transposition or modulation function to
+         *     work smoothly.
+         * @param drate the amount to change `rate` each sample. Can be
+         *     ignored if you're just using `noteOn`, but are required for any
+         *     kind of transposition or modulation function to work smoothly.
+         * @return the number of samples processed. Returning less than nSamps
+         *     will inform the voice it's done playing, and this generator won't
+         *     be called again until the next note-on.
+         */
+        virtual int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) = 0;
+
+        /**
+         * @returns whether this is a stereo generator
+         */
+        [[ nodiscard ]] bool isStereo() const { return  m_IsStereo; };
+
+        /**
+         * Called when the SynthesizerVoice gets a Note On.
+         *
+         * @param note the note to start playing
+         * @param velo the velocity of the note
+         * @param length optionally how long to play. -1 means play until
+         *     release.
+         */
+        virtual void noteOn(MIDINote note, float velo, float length) {};
+
+        /**
+         * SynthesizerVoice has received a note off.
+         *
+         * @param allowTail true if the voice isn't being stolen. false if the
+         *     generator can safely produce a tail of data for a while.
+         */
+        virtual void release(bool allowTail) {};
+
+        /**
+         * Called by the SynthesizerVoice when someone tries to use
+         * `setParameter` or when a modulator tries to update a parameter.
+         * Note that convention dictates that parameters are 1-indexed!
+         *
+         * @param parameter the parameter index being updated
+         * @param value the value of the parameter being updated
+         * @return 1 if the parameter was valid, 0 if it was not.
+         */
+        virtual int setParameter(int parameter, float value) { return 0; };
+
+        /**
+         * @returns the number of parameters supported by this generator.
+         */
+        [[ nodiscard ]] virtual int getNParameters() const { return 0; }
+
+    private:
+        friend class SynthesizerVoiceShims;
+        // Maybe don't use this? It's not, like, a destructor or anything.
+        virtual void deallocateCalled() {};
+        bool m_IsStereo;
+        PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSynthGenerator);
+    };
+
+    class SynthesizerVoiceContainer
         : public pdcpp::SoundSource
     {
     public:
-        /**
-         * Creates a new SynthesizerVoice
-         */
-        SynthesizerVoice();
+        explicit SynthesizerVoiceContainer(PDSynth* synth);
 
-        // Move constructor
-        SynthesizerVoice(SynthesizerVoice&& other) noexcept;
-
-        // Move-assignment constructor
-        SynthesizerVoice& operator=(SynthesizerVoice&& other) noexcept;
-
-        // Destructor
-        ~SynthesizerVoice();
+        virtual ~SynthesizerVoiceContainer() = default;
 
         /**
          * Sets the waveform to be used by this voice
@@ -76,6 +148,16 @@ namespace pdcpp
          * @param nRows the number of cells vertically across the wavetable
          */
         void setWavetable(const pdcpp::AudioSample& sample, int log2size, int nColumns, int nRows);
+
+        /**
+         * Tell the voice to use a custom signal generator instead any of the
+         * built-in signal types.
+         *
+         * @param generator the generator to use;
+         */
+        void setCustomGenerator(CustomSynthGenerator& generator);
+
+        void clearCustomGenerator();
 
         /**
          * Set the attack (rise to maximum) time of the synthesizer voice's
@@ -120,17 +202,107 @@ namespace pdcpp
           */
         void setAmplitudeModulator(const pdcpp::Signal& mod);
 
-        [[ nodiscard ]] pdcpp::Envelope getEnvelope() const;
+        /**
+         * @returns the number of parameters for this voice
+         */
+        [[ nodiscard ]] int getParameterCount() const;
+
+        /**
+         * Sets the value of a voice's parameters.
+         *
+         * @param paramNumber the parameter number to change
+         * @param value the new value of the parameter
+         * @returns whether or not the parameter ID was valid
+         */
+        bool setParameter(int paramNumber, float value);
+
+        /**
+         * Modulate a voice's parameters. Note that the paramNumber is
+         * 1-indexed! 0 is still technically valid, but is a no-op on the voice,
+         * allowing one to use a voice to trigger a pdcpp::Signal modulating
+         * something completely separated.
+         *
+         * @param paramNumber the parameter ID number to modulate
+         * @param mod the modulator to use
+         */
+        void setParameterModulator(int paramNumber, const pdcpp::Signal& mod);
+
+        /**
+         * Removes the modulator for the given parameter number
+         *
+         * @param paramNumber the parameter number for which the modulation
+         *     should be cleared.
+         */
+        void clearParameterModulator(int paramNumber);
+
+        /**
+         * @returns the amplitude envelope of this voice
+         */
+        [[nodiscard]] pdcpp::Envelope getEnvelope() const;
+
+        /**
+         * Starts a note on this voice.
+         *
+         * @param note the MIDInote to play
+         * @param vel a velocity for the note (0.0f - 1.0f)
+         * @param len optional length for the note. If -1, will play until note
+         *     off. Default -1.
+         * @param when an optional time the note should be played. 0 to play the
+         *     note immediately. Default 0.
+         */
+        void playMIDINote(MIDINote note, float vel, float len=-1, uint32_t when=0);
+
+        /**
+         * stops the currently playing note.
+         *
+         * @param when an optional time at which to stop the note. 0 to stop
+         *     immediately. Default 0.
+         */
+        void noteOff(uint32_t when=0);
+
+        /**
+         * Sets the transposition of the voice. Virtual because Synth voices
+         * with custom generators can't honor the transposition (no
+         * `getTranspose`) so inheritance is the best way to handle this.
+         *
+         * @param halfSteps how many half-steps to transpose the voice
+         */
+        virtual void setTranspose(float halfSteps);
 
         /**
          * implicit conversion to a ::PDSynth* for use with the C API
          */
-        [[ nodiscard ]] operator ::PDSynth* () const { return p_Synth; } // NOLINT(*-explicit-constructor)
+        [[nodiscard]] operator ::PDSynth*() const
+        { return p_Synth; } // NOLINT(*-explicit-constructor)
 
         // Implements base class
-        [[ nodiscard ]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
-    private:
+        [[nodiscard]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
+
+        bool operator==(SynthesizerVoiceContainer* other) { return other->p_Synth == p_Synth; }
+    protected:
         PDSynth* p_Synth;
+    };
+
+
+    class SynthesizerVoice
+        : public SynthesizerVoiceContainer
+    {
+    public:
+        /**
+         * Creates a new SynthesizerVoiceContainer. Does not own the pointer
+         */
+        SynthesizerVoice();
+
+        // Move constructor
+        SynthesizerVoice(SynthesizerVoice&& other) noexcept;
+
+        // Move-assignment constructor
+        SynthesizerVoice& operator=(SynthesizerVoice&& other) noexcept;
+
+        // Destructor
+        ~SynthesizerVoice() override;
+    private:
         PDCPP_DECLARE_NON_COPYABLE(SynthesizerVoice);
     };
+
 }

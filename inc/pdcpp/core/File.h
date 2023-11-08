@@ -109,9 +109,33 @@ namespace pdcpp
          */
         static std::vector<std::string> listFilesInDirectory(const std::string& dirPath, bool showHidden=false);
 
-        static int mkdir(const std::string& path, bool make_parents=false);
+        /**
+         * Creates the given path in the `Data/<gameid> folder. Does not create
+         * intermediate folders
+         *
+         * @param path the path to create
+         * @return 0 on success, -1 on failure.
+         */
+        static int mkdir(const std::string& path);
+
+        /**
+         * Renates a file from one name to another. Will overwrite the
+         * destination name without confirmation.
+         *
+         * @param from the file to rename
+         * @param to the new name of the file
+         * @return 0 on success, -1 on failure.
+         */
         static int rename(const std::string& from, const std::string& to);
 
+        /**
+         * Stats a path to indicate whether the file exists and is not a
+         * directory.
+         *
+         * @param path the filepath to check
+         * @return true if the file exists, false if it does not.
+         */
+        static bool fileExists(const std::string& path);
     };
 
     template <std::size_t Size>

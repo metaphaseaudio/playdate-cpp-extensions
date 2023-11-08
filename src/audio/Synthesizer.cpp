@@ -39,14 +39,20 @@ void pdcpp::Synthesizer::addVoice(const pdcpp::SynthesizerVoice& voice, MIDINote
     if (err == 0)
         { pd->system->error("Failed to add voice to instrument"); }
 }
-void pdcpp::Synthesizer::noteOn(MIDINote note, float vel, float len, uint32_t when)
-    { pdcpp::GlobalPlaydateAPI::get()->sound->instrument->playMIDINote(p_Instrument, note, vel, len, when); }
+pdcpp::SynthesizerVoiceContainer pdcpp::Synthesizer::noteOn(MIDINote note, float vel, float len, uint32_t when)
+    { return pdcpp::SynthesizerVoiceContainer(pdcpp::GlobalPlaydateAPI::get()->sound->instrument->playMIDINote(p_Instrument, note, vel, len, when)); }
 
-void pdcpp::Synthesizer::noteOn(MIDINote note, float vel, uint32_t when)
-    { noteOn(note, vel, -1, when); }
+pdcpp::SynthesizerVoiceContainer pdcpp::Synthesizer::noteOn(MIDINote note, float vel, uint32_t when)
+    { return noteOn(note, vel, -1, when); }
 
 void pdcpp::Synthesizer::noteOff(MIDINote note, uint32_t when)
-    { pdcpp::GlobalPlaydateAPI::get()->sound->instrument->noteOff(p_Instrument, note, when);}
+{
+    // This is a bug. if `when` is 0, it should turn off *right now* but it
+    // doesn't, so we'll fake it for the caller.
+    if (when == 0)
+        { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
+    pdcpp::GlobalPlaydateAPI::get()->sound->instrument->noteOff(p_Instrument, note, when);
+}
 
 void pdcpp::Synthesizer::allNotesOff(uint32_t when)
     { pdcpp::GlobalPlaydateAPI::get()->sound->instrument->allNotesOff(p_Instrument, when); }

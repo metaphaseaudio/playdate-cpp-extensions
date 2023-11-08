@@ -10,7 +10,9 @@
 
 #pragma once
 #include <string>
+#include <vector>
 #include <pd_api.h>
+#include <pdcpp/graphics/Rectangle.h>
 
 
 namespace pdcpp
@@ -62,15 +64,29 @@ namespace pdcpp
         void drawText(const std::string& text, int x, int y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) const;
 
         /**
+         * Takes a piece of text as a string, and returns a vector of lines
+         * which fit the maximum width. Use this to pre-wrap text and calculate
+         * the required height of wrapped text block.
+         *
+         * @param text The text to wrap
+         * @param maxWidth the maximum width in pixels to which the words should
+         *     be limited and wrapped.
+         * @param encoding optional encoding of the string. default ASCII
+         * @return a vector of strings for each line of the wrapped text.
+         */
+        [[nodiscard]] std::vector<std::string> wrapText(const std::string& text, int maxWidth, PDStringEncoding encoding=kASCIIEncoding) const;
+
+        /**
          * Draws the given text within the given bounds, wrapping the text on
          * words.
          *
          * @param text the text to draw with this font
-         * @param x the x coordinate of the upper left corner of the text
-         * @param y the y coordinate of the upper left corner of the text
+         * @param bounds a rectangle which specifies the point at which the text
+         *    should be drawn, and the width at which to limit each wrapped line
          * @param encoding the encoding type of the string. Default is ASCII
+         * @returns the height of the resulting text block
          */
-        void drawWrappedText(const std::string& text, PDRect bounds, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding);
+        [[nodiscard]] int drawWrappedText(const std::string& text, const Rectangle<float>& bounds, PDStringEncoding encoding=kASCIIEncoding) const;
 
     private:
         int m_Tracking, m_Leading;

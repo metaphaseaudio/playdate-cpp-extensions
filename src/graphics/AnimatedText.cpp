@@ -20,7 +20,7 @@ pdcpp::AnimatedText::AnimatedText(const pdcpp::Font& font, std::string text, uns
 
 void pdcpp::AnimatedText::update() { tick(); }
 
-void pdcpp::AnimatedText::redraw(PDRect bounds, PDRect drawrect)
+void pdcpp::AnimatedText::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     const auto newString = std::string(m_Text.begin(), m_Text.begin() + m_NVisible);
     r_Font.drawText(newString, bounds.x, bounds.y, m_Encoding);

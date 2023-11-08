@@ -11,6 +11,12 @@
 #include <stdexcept>
 #include <pdcpp/graphics/Image.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include "pdcpp/graphics/ScopedGraphicsContext.h"
+
+
+pdcpp::Image::Image(int width, int height, LCDColor bgColor)
+    : p_Data(pdcpp::GlobalPlaydateAPI::get()->graphics->newBitmap(width, height, bgColor))
+{}
 
 pdcpp::Image::Image(const std::string& imgPath)
 {
@@ -89,15 +95,31 @@ LCDBitmap* pdcpp::Image::getMask() const { return pdcpp::GlobalPlaydateAPI::get(
 void pdcpp::Image::clearMask() { pdcpp::GlobalPlaydateAPI::get()->graphics->setBitmapMask(p_Data, nullptr); }
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, LCDBitmapFlip flip) const
-    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawBitmap(p_Data, location.getX(), location.getY(), flip); }
+    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawBitmap(p_Data, location.x, location.y, flip); }
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, float xScale, float yScale) const
-    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawScaledBitmap(p_Data, location.getX(), location.getY(), xScale, yScale); }
+    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawScaledBitmap(p_Data, location.x, location.y, xScale, yScale); }
 
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, float degrees, float centerX, float centerY, float xScale, float yScale) const
 {
-    pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.getX(), location.getY(), degrees, centerX, centerY, xScale, yScale);
+    // TODO: This is to work around a bug where drawing is inverted around the
+    //  centerY axis when the rotation angle is 90 or 180 degrees:
+    //  https://devforum.play.date/t/drawrotatedbitmap-draws-from-wrong-center-if-degrees-is-one-of-the-four-cardinal-directions/3620/8
+    //  remove it when the bug is actually fixed.
+    if ((degrees) == 90.0f || ::fabs(degrees) == 180.0f)
+        { centerY = 1.0f - centerY; }
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.x, location.y, degrees, centerX, centerY, xScale, yScale);
 }
 
-void pdcpp::Image::fill(LCDColor color) { pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color); }
+void pdcpp::Image::fill(LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color);
+}
+
+pdcpp::Image pdcpp::Image::drawAsImage(const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor)
+{
+    pdcpp::ScopedGraphicsContext context(bounds, fillColor, false);
+    drawFunc(pdcpp::GlobalPlaydateAPI::get()->graphics);
+    return context.getCopyAsImage();
+}

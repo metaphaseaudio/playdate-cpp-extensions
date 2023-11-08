@@ -13,6 +13,7 @@
 #include <functional>
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
+#include <pdcpp/graphics/Rectangle.h>
 
 #include "CollisionInfo.h"
 #include "Image.h"
@@ -57,7 +58,7 @@ namespace pdcpp
         Sprite& operator=(Sprite&& rhs) noexcept;
 
         // Destructor. Removes and frees the sprite.
-        ~Sprite();
+        virtual ~Sprite();
 
         // Adds the sprite to the system's display lists. Enabled by default
         void addSprite();
@@ -135,22 +136,22 @@ namespace pdcpp
          * Marks the area of the given sprite, relative to its bounds, to be
          * checked for collisions with other sprites' collide rects
          *
-         * @param bounds a PDRect for the bounds of the collisions
+         * @param bounds a const pdcpp::Rectangle<float>& for the bounds of the collisions
          */
-        void setCollideRect(PDRect bounds);
+        void setCollideRect(const pdcpp::Rectangle<float>& bounds);
 
         /**
          * @returns the current collision rectangle bounds relative to the
          *     Sprite.
          */
-        [[ nodiscard ]] PDRect getCollideBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getCollideBounds() const;
 
 
         /**
          * @returns the current collision rectangle bounds relative to the
          *     world.
          */
-        [[ nodiscard ]] PDRect getAbsoluteCollideBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getAbsoluteCollideBounds() const;
 
 
         //Removes the collision rectangle from this sprite.
@@ -188,15 +189,15 @@ namespace pdcpp
         /**
          * Sets the the bounds of the sprite
          *
-         * @param bounds a PDRect for the position, width, and height of the
+         * @param bounds a const pdcpp::Rectangle<float>& for the position, width, and height of the
          *     Sprite
          */
-        void setBounds(PDRect bounds);
+        void setBounds(const pdcpp::Rectangle<float>& bounds);
 
         /**
-         * @returns a PDRect representing the current bounds of the sprite
+         * @returns a const pdcpp::Rectangle<float>& representing the current bounds of the sprite
          */
-        [[ nodiscard ]] PDRect getBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getBounds() const;
 
         /**
          * @returns a Point<float> of the position of the sprite.
@@ -237,6 +238,8 @@ namespace pdcpp
          */
         [[ nodiscard ]] Point<float> getCenter() const;
 
+        void setDrawMode(LCDBitmapDrawMode drawMode);
+
         /**
          * Indicate that this sprite needs to be re-drawn. Many of the other
          * methods such as setting size, moving, changing image, etc. will all
@@ -251,7 +254,7 @@ namespace pdcpp
          *
          * @param dirtyArea the bounds of the area to mark as dirty
          */
-        void markAreaAsDirty(const PDRect& dirtyArea) const;
+        void markAreaAsDirty(const pdcpp::Rectangle<float>& dirtyArea) const;
 
         /**
          * Gives this Sprite an identifiable. Very useful as a lightweight
@@ -282,13 +285,14 @@ namespace pdcpp
          * `updateAndDrawSprites` methods are called, unless the Sprite has an
          * `Image` set. Inherit from `Sprite` and override this method to
          * specify what should be drawn.
+         *
          * @param bounds the bounds of the sprite. You can get this from
          *     `getBounds` as well, but it's likely you'll want this anyway, so
          *     can save you a little extra code.
          * @param drawrect the current dirty rect being updated by the display
          *     list.
          */
-        virtual void redraw(PDRect bounds, PDRect drawrect) {};
+        virtual void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) {};
 
         /**
          * When collisions are enabled on this sprite, this function will be
@@ -313,6 +317,11 @@ namespace pdcpp
         virtual SpriteCollisionResponseType handleCollision(Sprite* other) { return kCollisionTypeOverlap; };
 
         /**
+         * Called whenever the dimensions of this sprite have changed.
+         */
+        virtual void resized() {};
+
+        /**
          * Attempts to retrieve the pointer to a raw Sprite from an LCDSprite's
          * User Data. Will return a nullptr if the LCDSprite does not resolve to
          * a pdcpp::Sprite.
@@ -322,6 +331,11 @@ namespace pdcpp
          */
         static Sprite* castSprite(LCDSprite* toCast);
 
+        /**
+         * Alias for the C API's sprite->updateAndRedraw so you don't have to
+         * include the Global API header.
+         */
+         static void updateAndRedrawAllSprites();
     protected:
         LCDSprite* p_Sprite;
         PDCPP_DECLARE_NON_COPYABLE(Sprite);
