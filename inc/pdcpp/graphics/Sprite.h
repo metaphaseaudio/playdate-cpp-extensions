@@ -322,6 +322,11 @@ namespace pdcpp
          */
         static Sprite* castSprite(LCDSprite* toCast);
 
+        /**
+         * Alias for the C API's sprite->updateAndRedraw so you don't have to
+         * include the Global API header.
+         */
+         static void updateAndRedrawAllSprites();
     protected:
         LCDSprite* p_Sprite;
         PDCPP_DECLARE_NON_COPYABLE(Sprite);

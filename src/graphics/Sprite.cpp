@@ -181,13 +181,6 @@ pdcpp::Point<float> pdcpp::Sprite::getPosition() const
 void pdcpp::Sprite::markAreaAsDirty(const PDRect& dirtyArea) const
     { pdcpp::GlobalPlaydateAPI::get()->sprite->addDirtyRect(LCDMakeRect(dirtyArea.x, dirtyArea.y, dirtyArea.width, dirtyArea.height)); }
 
-pdcpp::Sprite* pdcpp::Sprite::castSprite(LCDSprite* toCast)
-{
-    auto pd = pdcpp::GlobalPlaydateAPI::get();
-    auto usrData = pd->sprite->getUserdata(toCast);
-    return reinterpret_cast<pdcpp::Sprite*>(usrData);
-}
-
 PDRect pdcpp::Sprite::getAbsoluteCollideBounds() const
 {
     const auto bounds = getBounds();
@@ -198,4 +191,16 @@ PDRect pdcpp::Sprite::getAbsoluteCollideBounds() const
         collideBounds.width,
         collideBounds.height
     };
+}
+
+pdcpp::Sprite* pdcpp::Sprite::castSprite(LCDSprite* toCast)
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    auto usrData = pd->sprite->getUserdata(toCast);
+    return reinterpret_cast<pdcpp::Sprite*>(usrData);
+}
+
+void pdcpp::Sprite::updateAndRedrawAllSprites()
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->updateAndDrawSprites();
 }
