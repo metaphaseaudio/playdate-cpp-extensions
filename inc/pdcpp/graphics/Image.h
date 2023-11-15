@@ -19,6 +19,17 @@ namespace pdcpp
     class Image
     {
     public:
+
+        /**
+         * Creates a new Image with a specific height and width, optionally
+         * filled with a color.
+         *
+         * @param width the width of the image
+         * @param height the height of the image
+         * @param bgColor the fill color. default is clear.
+         */
+        Image(int width, int height, LCDColor bgColor=kColorClear);
+
         /**
          * Loads an image from a given path and manages its memory. Any issues
          * loading the path will generate system errors with logging. Don't

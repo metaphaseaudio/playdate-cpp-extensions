@@ -12,6 +12,11 @@
 #include <pdcpp/graphics/Image.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
+
+pdcpp::Image::Image(int width, int height, LCDColor bgColor)
+    : p_Data(pdcpp::GlobalPlaydateAPI::get()->graphics->newBitmap(width, height, bgColor))
+{}
+
 pdcpp::Image::Image(const std::string& imgPath)
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
@@ -100,4 +105,7 @@ void pdcpp::Image::draw(const pdcpp::Point<int>& location, float degrees, float 
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.getX(), location.getY(), degrees, centerX, centerY, xScale, yScale);
 }
 
-void pdcpp::Image::fill(LCDColor color) { pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color); }
+void pdcpp::Image::fill(LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color);
+}

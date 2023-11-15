@@ -85,12 +85,20 @@ pdcpp::Sprite::Sprite(LCDBitmap* img, LCDBitmapFlip flip, uint8_t tag)
 
 pdcpp::Sprite::Sprite(pdcpp::Sprite&& other) noexcept
     : p_Sprite(other.p_Sprite)
-{ other.p_Sprite = nullptr; }
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    pd->sprite->setUserdata(p_Sprite, this);
+    other.p_Sprite = nullptr;
+}
 
 pdcpp::Sprite& pdcpp::Sprite::operator=(pdcpp::Sprite&& rhs) noexcept
 {
     p_Sprite = rhs.p_Sprite;
     rhs.p_Sprite = nullptr;
+
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    pd->sprite->setUserdata(p_Sprite, this);
+
     return *this;
 }
 
