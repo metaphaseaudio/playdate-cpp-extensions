@@ -40,7 +40,7 @@ namespace pdcpp
          *     accordingly.
          * @param bgColor fills the context with a color. default is clear.
          */
-        explicit ScopedGraphicsContext(const PDRect& bounds, LCDColor bgColor=kColorClear);
+        explicit ScopedGraphicsContext(const PDRect& bounds, LCDColor bgColor=kColorClear, bool drawOnExit=true);
 
         /**
          * Copies the current state of the context's drawing buffer and returns
@@ -56,6 +56,7 @@ namespace pdcpp
     private:
         const PDRect& m_Bounds;
         LCDBitmap* m_Context;
+        bool m_DrawOnExit;
 
         PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(ScopedGraphicsContext);
     };

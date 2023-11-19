@@ -12,8 +12,9 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 
-pdcpp::ScopedGraphicsContext::ScopedGraphicsContext(const PDRect& bounds, LCDColor bgColor)
+pdcpp::ScopedGraphicsContext::ScopedGraphicsContext(const PDRect& bounds, LCDColor bgColor, bool drawOnExit)
     : m_Bounds(bounds)
+    , m_DrawOnExit(drawOnExit)
 {
     auto pd = GlobalPlaydateAPI::get();
     m_Context = pd->graphics->newBitmap(int(bounds.width), int(bounds.height), bgColor);
@@ -24,7 +25,8 @@ pdcpp::ScopedGraphicsContext::~ScopedGraphicsContext()
 {
     auto pd = GlobalPlaydateAPI::get();
     pd->graphics->popContext();
-    pd->graphics->drawBitmap(m_Context, int(m_Bounds.x), int(m_Bounds.y), kBitmapUnflipped);
+    if (m_DrawOnExit)
+        { pd->graphics->drawBitmap(m_Context, int(m_Bounds.x), int(m_Bounds.y), kBitmapUnflipped); }
     pd->graphics->freeBitmap(m_Context);
 }
 
