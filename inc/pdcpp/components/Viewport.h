@@ -6,6 +6,7 @@
 
 #include "Component.h"
 #include "pdcpp/graphics/Point.h"
+#include "pdcpp/graphics/Sprite.h"
 #include <pd_api.h>
 
 namespace pdcpp
@@ -23,6 +24,8 @@ namespace pdcpp
         void draw() override;
 
         void setContentOffset(int x, int y);
+        [[ nodiscard ]] pdcpp::Point<int> getContentOffset() const;
+
         void moveContentBy(int x, int y);
 
     private:

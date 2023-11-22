@@ -26,8 +26,9 @@ namespace pdcpp
          *
          * @param intervalMs the number of milliseconds to allow to elapse
          *     triggering the callback
+         * @param startEnabled optionally defer the enablement of the timer
          */
-        explicit Timer(unsigned int intervalMs);
+        explicit Timer(unsigned int intervalMs, bool startEnabled=true);
 
         /**
          * Change the interval of this timer, optionally resetting the timer.
@@ -36,6 +37,14 @@ namespace pdcpp
          * @param reset optionally resets the timer
          */
         void setInterval(unsigned int intervalMs, bool reset=false);
+
+        /**
+         * Turns the timer on or off. Will not reset the frame count if disabled
+         * in the middle of a countdown.
+         *
+         * @param shouldEnable enable/disable the timer
+         */
+        void enable(bool shouldEnable);
 
         /**
          * Check the time and fire the callback if the time has elapsed. Higher
@@ -51,7 +60,10 @@ namespace pdcpp
 
     private:
         unsigned int m_LastMilliseconds, m_Interval;
+        bool m_Enabled;
     };
+
+////////////////////////////////////////////////////////////////////////////////
 
     class FrameTimer
     {
@@ -64,8 +76,9 @@ namespace pdcpp
          *
          * @param nFrames the number of `tick` calls to wait before calling the
          *     `timerCallback` method.
+         * @param startEnabled optionally defer the enablement of the timer
          */
-        explicit FrameTimer(unsigned int nFrames);
+        explicit FrameTimer(unsigned int nFrames, bool startEnabled=true);
 
         /**
          * Changes the number of tick calls before hitting the callback,
@@ -75,6 +88,14 @@ namespace pdcpp
          * @param reset whether the count should be reset to 0
          */
         void setNFrames(unsigned int nFrames, bool reset=false);
+
+        /**
+         * Turns the timer on or off. Will not reset the frame count if disabled
+         * in the middle of a countdown.
+         *
+         * @param shouldEnable enable/disable the timer
+         */
+        void enable(bool shouldEnable);
 
         /**
          * Call this to advance the timer. Once the timer has been `tick`'d
@@ -91,6 +112,6 @@ namespace pdcpp
 
     private:
         unsigned int m_NFrames, m_FramesRemaining;
+        bool m_Enabled;
     };
-
 }

@@ -50,3 +50,5 @@ void pdcpp::Viewport::setContentOffset(int x, int y)
     m_OffsetY = y;
     redraw();
 }
+
+pdcpp::Point<int> pdcpp::Viewport::getContentOffset() const { return {m_OffsetX, m_OffsetY}; }
