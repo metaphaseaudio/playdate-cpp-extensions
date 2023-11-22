@@ -1,6 +1,8 @@
 //
 // Created by Matt on 11/19/2023.
 //
+#include <algorithm>
+#include <cassert>
 #include "pdcpp/components/Component.h"
 
 
@@ -13,13 +15,26 @@ void pdcpp::Component::redraw()
     for (auto child : m_Children) { child->redraw(); }
 }
 
-void pdcpp::Component::addChild(pdcpp::Component* child)
-
+void pdcpp::Component::addChildComponent(Component* child)
 {
+    // Don't add yourself, that's a recipe for a stack overflow.
+    assert(child != this);
     m_Children.emplace_back(child);
 }
 
-void pdcpp::Component::removeChild(pdcpp::Component* child)
+void pdcpp::Component::removeChildComponent(Component* child)
 {
     m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; }));
 }
+
+size_t pdcpp::Component::childCount() const
+{
+    return m_Children.size();
+}
+
+pdcpp::Component* pdcpp::Component::getChildComponent(int index) const
+{
+    return m_Children[index];
+}
+
+const std::vector<pdcpp::Component*>& pdcpp::Component::getChildren() const { return m_Children; }

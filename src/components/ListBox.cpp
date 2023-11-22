@@ -4,6 +4,14 @@
 
 #include "pdcpp/components/ListBox.h"
 
+class ComponentContainer
+    : public pdcpp::Component
+{
+public:
+    ComponentContainer();
+
+};
+
 
 pdcpp::ListBox::ListBox(pdcpp::ListBoxModel* model)
 {
@@ -17,6 +25,8 @@ void pdcpp::ListBox::updateContent()
 
 void pdcpp::ListBox::selectRow(int rowNumber, bool display, bool deselectOther)
 {
+    rowNumber = rowNumber < 0 ? 0 : rowNumber;
+
 
 }
 

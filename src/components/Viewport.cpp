@@ -41,10 +41,12 @@ void pdcpp::Viewport::moveContentBy(int x, int y)
 {
     m_OffsetX += x;
     m_OffsetY += y;
+    redraw();
 }
 
 void pdcpp::Viewport::setContentOffset(int x, int y)
 {
     m_OffsetX = x;
     m_OffsetY = y;
+    redraw();
 }
