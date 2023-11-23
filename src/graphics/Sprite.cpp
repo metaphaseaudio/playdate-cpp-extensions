@@ -130,8 +130,19 @@ void pdcpp::Sprite::setImage(LCDBitmap* img, LCDBitmapFlip flip)
 }
 
 void pdcpp::Sprite::setImage(const pdcpp::Image& img, LCDBitmapFlip flip) { setImage(img.operator LCDBitmap* (), flip); }
-void pdcpp::Sprite::setSize(float width, float height) { pdcpp::GlobalPlaydateAPI::get()->sprite->setSize(p_Sprite, width, height); }
-void pdcpp::Sprite::setBounds(PDRect bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setBounds(p_Sprite, bounds); }
+
+void pdcpp::Sprite::setSize(float width, float height)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setSize(p_Sprite, width, height);
+    resized();
+}
+
+void pdcpp::Sprite::setBounds(PDRect bounds)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setBounds(p_Sprite, bounds);
+    resized();
+}
+
 PDRect pdcpp::Sprite::getBounds() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite); }
 void pdcpp::Sprite::setCollisionsEnabled(bool enabled) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollisionsEnabled(p_Sprite, enabled); }
 void pdcpp::Sprite::setCollideRect(PDRect bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }

@@ -19,7 +19,7 @@ namespace pdcpp
         void addChildToFocusContainer(pdcpp::Component* child);
         void removeChildFromFocusContainer(pdcpp::Component* child, bool resetFocus=true);
 
-        void updateTransition();
+        bool updateTransition();
 
     protected:
         void resized(PDRect newBounds) override;
@@ -32,5 +32,4 @@ namespace pdcpp
         int m_FocusIndex = -1;
         int m_TransitionFramesRemaining = 0;
     };
-
-} // pdcpp
+}

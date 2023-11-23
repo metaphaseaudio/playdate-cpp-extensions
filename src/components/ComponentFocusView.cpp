@@ -2,7 +2,6 @@
 // Created by Matt on 11/20/2023.
 //
 
-#include <cassert>
 #include "pdcpp/components/ComponentFocusView.h"
 
 class pdcpp::ComponentFocusView::FocusContainer
@@ -68,7 +67,7 @@ void pdcpp::ComponentFocusView::resizeFocusContainer()
     m_FocusContainer->setBounds(bounds);
 }
 
-void pdcpp::ComponentFocusView::updateTransition()
+bool pdcpp::ComponentFocusView::updateTransition()
 {
     if (m_TransitionFramesRemaining >= 0)
     {
@@ -86,6 +85,7 @@ void pdcpp::ComponentFocusView::updateTransition()
 
         m_Viewport.setContentOffset(target.getX(), target.getY());
         m_TransitionFramesRemaining--;
+        return true;
     }
-    redraw();
+    return false;
 }

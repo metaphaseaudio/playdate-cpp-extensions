@@ -12,7 +12,8 @@ PDRect pdcpp::Component::getBounds() const { return m_Bounds; }
 void pdcpp::Component::redraw()
 {
     draw();
-    for (auto child : m_Children) { child->redraw(); }
+    for (auto child : m_Children)
+        { child->redraw(); }
 }
 
 void pdcpp::Component::addChildComponent(Component* child)

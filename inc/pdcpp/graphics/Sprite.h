@@ -282,6 +282,7 @@ namespace pdcpp
          * `updateAndDrawSprites` methods are called, unless the Sprite has an
          * `Image` set. Inherit from `Sprite` and override this method to
          * specify what should be drawn.
+         *
          * @param bounds the bounds of the sprite. You can get this from
          *     `getBounds` as well, but it's likely you'll want this anyway, so
          *     can save you a little extra code.
@@ -311,6 +312,11 @@ namespace pdcpp
          *     should respond to the collision.
          */
         virtual SpriteCollisionResponseType handleCollision(Sprite* other) { return kCollisionTypeOverlap; };
+
+        /**
+         * Called whenever the dimensions of this sprite have changed.
+         */
+        virtual void resized() {};
 
         /**
          * Attempts to retrieve the pointer to a raw Sprite from an LCDSprite's
