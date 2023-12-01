@@ -52,3 +52,12 @@ void pdcpp::Viewport::setContentOffset(int x, int y)
 }
 
 pdcpp::Point<int> pdcpp::Viewport::getContentOffset() const { return {m_OffsetX, m_OffsetY}; }
+
+void pdcpp::Viewport::setViewPosition(int x, int y)
+{
+    m_OffsetX = -x;
+    m_OffsetY = -y;
+    redraw();
+}
+
+pdcpp::Point<int> pdcpp::Viewport::getViewPosition() const { return {-m_OffsetX, -m_OffsetY}; }

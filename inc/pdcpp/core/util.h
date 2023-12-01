@@ -27,3 +27,10 @@ constexpr float kAudioHardwareSampleRate = 44100.0f;
 #define PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(classname) \
     PDCPP_DECLARE_NON_COPYABLE(classname); \
     classname(classname&&) = delete;
+
+namespace pdcpp
+{
+    template<typename T>
+    T limit(T min, T max, T val)
+        { return std::min<T>(std::max<T>(val, min), max); }
+}

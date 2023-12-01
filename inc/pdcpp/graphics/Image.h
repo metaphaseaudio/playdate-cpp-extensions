@@ -9,6 +9,7 @@
  */
 #pragma once
 
+#include <functional>
 #include <string>
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
@@ -179,6 +180,18 @@ namespace pdcpp
          * @param yScale the optional scale factor to apply to the height
          */
         void draw(const Point<int>& location, float degrees, float centerX=0.5f, float centerY=0.5f, float xScale=1.0f, float yScale=1.0f) const;
+
+        /**
+         * Use the playdate graphics API to draw an image
+         *
+         * @param bounds the bounds (ignoring the origin) of the image
+         * @param drawFunc the function which will be used to draw the image
+         * @param fillColor optional background color with which the image will
+         *     be filled before drawing.
+         * @return the drawn image
+         */
+        static Image drawAsImage
+            (const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor=kColorClear);
 
         /**
          * Provides access to the underlying LCDBitmap for use with the C API.

@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <pdcpp/graphics/Image.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include "pdcpp/graphics/ScopedGraphicsContext.h"
 
 
 pdcpp::Image::Image(int width, int height, LCDColor bgColor)
@@ -108,4 +109,11 @@ void pdcpp::Image::draw(const pdcpp::Point<int>& location, float degrees, float 
 void pdcpp::Image::fill(LCDColor color)
 {
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color);
+}
+
+pdcpp::Image pdcpp::Image::drawAsImage(const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor)
+{
+    pdcpp::ScopedGraphicsContext context(bounds, fillColor, false);
+    drawFunc(pdcpp::GlobalPlaydateAPI::get()->graphics);
+    return context.getCopyAsImage();
 }

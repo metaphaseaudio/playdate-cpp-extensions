@@ -4,9 +4,15 @@
 #include <algorithm>
 #include <cassert>
 #include "pdcpp/components/Component.h"
+#include "pdcpp/graphics/ScopedGraphicsContext.h"
 
 
-void pdcpp::Component::setBounds(PDRect bounds) { m_Bounds = bounds; resized(bounds); }
+void pdcpp::Component::setBounds(PDRect bounds)
+{
+    m_Bounds = bounds;
+    resized(bounds);
+}
+
 PDRect pdcpp::Component::getBounds() const { return m_Bounds; }
 
 void pdcpp::Component::redraw()
@@ -39,3 +45,32 @@ pdcpp::Component* pdcpp::Component::getChildComponent(int index) const
 }
 
 const std::vector<pdcpp::Component*>& pdcpp::Component::getChildren() const { return m_Children; }
+
+void pdcpp::Component::removeAllChildren() { m_Children.clear(); }
+
+void pdcpp::Component::resizeToFitChildren()
+{
+    if (m_Children.empty())
+    {
+        setBounds({0, 0, 0, 0 });
+        return;
+    }
+
+    PDRect bounds = m_Children[0]->getBounds();
+    for (auto child : m_Children)
+    {
+        const auto childBounds = child->getBounds();
+        bounds.x = std::min(bounds.x, childBounds.x);
+        bounds.y = std::min(bounds.y, childBounds.y);
+        bounds.width = std::max(bounds.width, (childBounds.width + childBounds.x) - bounds.x);
+        bounds.height = std::max(bounds.height, (childBounds.height + childBounds.y) - bounds.y);
+    }
+
+    setBounds(bounds);
+}
+
+PDRect pdcpp::Component::getLocalBounds() const
+{
+    const auto bounds = getBounds();
+    return {0, 0, bounds.width, bounds.height};
+}

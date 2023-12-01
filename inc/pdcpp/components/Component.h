@@ -16,15 +16,23 @@ namespace pdcpp
         Component() = default;
 
         void setBounds(PDRect bounds);
-        [[ nodiscard ]] virtual PDRect getBounds() const;
+        [[ nodiscard ]] PDRect getBounds() const;
+
+        [[ nodiscard ]] PDRect getLocalBounds() const;
 
         void redraw();
 
         void addChildComponent(Component* child);
         void removeChildComponent(Component* child);
+
         [[ nodiscard ]] pdcpp::Component* getChildComponent(int index) const;
         [[ nodiscard ]] size_t childCount() const;
         [[ nodiscard ]] const std::vector<Component*>& getChildren() const;
+        void removeAllChildren();
+
+        void resizeToFitChildren();
+
+        virtual bool updateAnimation() { return false; };
 
     protected:
         virtual void draw() {};

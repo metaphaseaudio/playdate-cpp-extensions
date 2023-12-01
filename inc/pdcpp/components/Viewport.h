@@ -23,6 +23,9 @@ namespace pdcpp
 
         void draw() override;
 
+        void setViewPosition(int x, int y);
+        [[ nodiscard ]] pdcpp::Point<int> getViewPosition() const;
+
         void setContentOffset(int x, int y);
         [[ nodiscard ]] pdcpp::Point<int> getContentOffset() const;
 

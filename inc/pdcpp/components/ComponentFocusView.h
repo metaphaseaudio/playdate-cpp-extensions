@@ -18,14 +18,16 @@ namespace pdcpp
 
         void addChildToFocusContainer(pdcpp::Component* child);
         void removeChildFromFocusContainer(pdcpp::Component* child, bool resetFocus=true);
+        void clearFocusView();
 
-        bool updateTransition();
+        bool updateAnimation() override;
+
+        [[ nodiscard ]] const pdcpp::Viewport& getViewport() const { return m_Viewport; }
 
     protected:
         void resized(PDRect newBounds) override;
 
     private:
-        void resizeFocusContainer();
         class FocusContainer;
         std::unique_ptr<pdcpp::Component> m_FocusContainer;
         pdcpp::Viewport m_Viewport;

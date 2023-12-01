@@ -10,6 +10,7 @@
 
 #pragma once
 #include <pd_api.h>
+#include "Point.h"
 
 namespace pdcpp
 {
@@ -21,5 +22,7 @@ namespace pdcpp
          * @returns a PDRect of the overlapping area.
          */
         static PDRect getOverlappingRect(const PDRect& x, const PDRect& y);
+
+        static pdcpp::Point<float> getCenter(const PDRect& rect);
     };
 }
