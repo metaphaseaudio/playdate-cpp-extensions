@@ -7,8 +7,8 @@
  *  Created: 8/25/2023
  *  Original author: MrBZapp
  */
-
 #pragma once
+#include <algorithm>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
 

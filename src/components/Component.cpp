@@ -18,7 +18,7 @@ PDRect pdcpp::Component::getBounds() const { return m_Bounds; }
 void pdcpp::Component::redraw()
 {
     draw();
-    for (auto child : m_Children)
+    for (auto* child : m_Children)
         { child->redraw(); }
 }
 
@@ -31,7 +31,7 @@ void pdcpp::Component::addChildComponent(Component* child)
 
 void pdcpp::Component::removeChildComponent(Component* child)
 {
-    m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; }));
+    m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; }), m_Children.end());
 }
 
 size_t pdcpp::Component::childCount() const

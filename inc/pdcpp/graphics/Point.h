@@ -16,11 +16,6 @@ namespace pdcpp
     class Point
     {
     public:
-         Point(T xIn, T yIn) : x(xIn), y(yIn) {}
-         [[ nodiscard ]] T getX() const { return x; }
-         [[ nodiscard ]] T getY() const { return y; }
-
-    private:
         T x, y;
     };
 }

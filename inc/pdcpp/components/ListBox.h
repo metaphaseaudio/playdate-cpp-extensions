@@ -31,20 +31,29 @@ namespace pdcpp
 
         [[ nodiscard ]] int getNumRows() const;
 
-        void highlightRow(int rowNumber, bool dontScroll=false, bool unHighlightOther=true);
-        void selectRow(int rowNumber, bool dontScroll=false, bool deselectOther=true);
-        void deselectRow(int rowNumber);
-        [[ nodiscard ]] int getNumSelected() const;
-        [[ nodiscard ]] int getSelectedRow(int index=0) const;
-        [[ nodiscard ]] bool isRowSelected(int rowIndex) const;
+        void bringItemIntoView(int itemIndex);
+        bool isItemVisible(int itemIndex);
 
-        [[ nodiscard ]] bool isRowVisible(int rowIndex) const;
-
-        void scrollToEnsureRowIsOnscreen(int row);
-
-        bool updateAnimation() override;
         [[ nodiscard ]] ListBoxModel* getListBoxModel() const { return p_Model; }
         [[ nodiscard ]] int getIndexOfFirstVisibleRow() const { return std::max(0, m_FirstIndex - 1); }
+
+        class ItemProperty
+        {
+        public:
+            ItemProperty(ListBox& owner, bool multiMark);
+            void markItem(int item, bool bringIntoView=true, bool unmarkOthers=true);
+            void unmarkItem(int itemIndex);
+            [[ nodiscard ]] bool isItemMarked(int itemIndex) const;
+            [[ nodiscard ]] size_t getNumMarked() const;
+            [[ nodiscard ]] int getMarkedItem(int itemIndex=0) const;
+
+        private:
+            ListBox& r_Owner;
+            pdcpp::SparseSet<unsigned int> m_Marked;
+            bool m_MultiMark;
+        };
+
+        ItemProperty selected;
 
     protected:
 
@@ -52,11 +61,12 @@ namespace pdcpp
         void resized(PDRect newBounds) override;
 
     private:
-        class RowComponent
+
+        class ItemComponent
             : public pdcpp::Component
         {
         public:
-            explicit RowComponent(ListBox& owner);
+            explicit ItemComponent(ListBox& owner);
 
             void draw() override;
             [[ nodiscard ]] int getRow() const { return m_Row; }
@@ -76,16 +86,14 @@ namespace pdcpp
             bool m_Selected = false;
         };
 
-        [[ nodiscard ]] RowComponent* getComponentForRowIfOnscreen(int row) const noexcept;
+        [[ nodiscard ]] ItemComponent* getComponentForRowIfOnscreen(int row) const noexcept;
 
         ListBoxModel* p_Model;
-        pdcpp::Viewport m_RowView;
+        pdcpp::Viewport m_ItemView;
         pdcpp::Component m_Content;
-        std::vector<std::unique_ptr<RowComponent>> m_Rows;
-        pdcpp::SparseSet<unsigned int> m_Selected;
+        std::vector<std::unique_ptr<ItemComponent>> m_Items;
         int m_RowHeight;
-        int m_FirstIndex = 0, m_FirstWholeIndex = 0, m_LastWholeIndex = 0;
-        bool m_HasUpdated = false, m_MultipleSelection;
-        int m_LastRowSelected = -1;
+        int m_FirstIndex = 0;
+        bool m_HasUpdated = false;
     };
 } // pdcpp

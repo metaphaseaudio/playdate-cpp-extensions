@@ -32,8 +32,6 @@ namespace pdcpp
 
         void resizeToFitChildren();
 
-        virtual bool updateAnimation() { return false; };
-
     protected:
         virtual void draw() {};
         virtual void resized(PDRect newBounds) {};

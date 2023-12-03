@@ -173,7 +173,7 @@ pdcpp::CollisionInfo pdcpp::Sprite::moveWithCollisions(float x, float y)
 pdcpp::CollisionInfo pdcpp::Sprite::moveByWithCollisions(float x, float y)
 {
     auto center = getCenter();
-    return moveWithCollisions(center.getX() + x, center.getY() + y);
+    return moveWithCollisions(center.x + x, center.y + y);
 }
 
 pdcpp::Point<float> pdcpp::Sprite::getCenter() const
@@ -185,7 +185,7 @@ pdcpp::Point<float> pdcpp::Sprite::getCenter() const
 pdcpp::CollisionInfo pdcpp::Sprite::checkRelativeCollisions(float targetX, float targetY)
 {
     auto center = getCenter();
-    return checkCollisions(center.getX() + targetX, center.getY() + targetY);
+    return checkCollisions(center.x + targetX, center.y + targetY);
 }
 
 

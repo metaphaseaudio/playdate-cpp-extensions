@@ -95,15 +95,15 @@ LCDBitmap* pdcpp::Image::getMask() const { return pdcpp::GlobalPlaydateAPI::get(
 void pdcpp::Image::clearMask() { pdcpp::GlobalPlaydateAPI::get()->graphics->setBitmapMask(p_Data, nullptr); }
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, LCDBitmapFlip flip) const
-    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawBitmap(p_Data, location.getX(), location.getY(), flip); }
+    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawBitmap(p_Data, location.x, location.y, flip); }
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, float xScale, float yScale) const
-    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawScaledBitmap(p_Data, location.getX(), location.getY(), xScale, yScale); }
+    { pdcpp::GlobalPlaydateAPI::get()->graphics->drawScaledBitmap(p_Data, location.x, location.y, xScale, yScale); }
 
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, float degrees, float centerX, float centerY, float xScale, float yScale) const
 {
-    pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.getX(), location.getY(), degrees, centerX, centerY, xScale, yScale);
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.x, location.y, degrees, centerX, centerY, xScale, yScale);
 }
 
 void pdcpp::Image::fill(LCDColor color)

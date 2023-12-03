@@ -24,5 +24,6 @@ namespace pdcpp
         static PDRect getOverlappingRect(const PDRect& x, const PDRect& y);
 
         static pdcpp::Point<float> getCenter(const PDRect& rect);
+        static pdcpp::Point<float> getBottomRight(const PDRect& rect);
     };
 }

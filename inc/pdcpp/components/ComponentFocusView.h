@@ -13,14 +13,12 @@ namespace pdcpp
     {
     public:
         ComponentFocusView();
-        void setComponentFocus(size_t index, int transitionFrames=0);
+        void setComponentFocus(size_t index);
         [[ nodiscard ]] int getComponentFocusIndex() const;
 
         void addChildToFocusContainer(pdcpp::Component* child);
         void removeChildFromFocusContainer(pdcpp::Component* child, bool resetFocus=true);
         void clearFocusView();
-
-        bool updateAnimation() override;
 
         [[ nodiscard ]] const pdcpp::Viewport& getViewport() const { return m_Viewport; }
 
@@ -32,6 +30,5 @@ namespace pdcpp
         std::unique_ptr<pdcpp::Component> m_FocusContainer;
         pdcpp::Viewport m_Viewport;
         int m_FocusIndex = -1;
-        int m_TransitionFramesRemaining = 0;
     };
 }

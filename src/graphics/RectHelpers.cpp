@@ -33,3 +33,8 @@ pdcpp::Point<float> pdcpp::RectHelpers::getCenter(const PDRect& rect)
 {
     return {rect.x + rect.width * 0.5f, rect.y + rect.height * 0.5f};
 }
+
+pdcpp::Point<float> pdcpp::RectHelpers::getBottomRight(const PDRect& rect)
+{
+    return {rect.x + rect.width, rect.y + rect.height};
+}

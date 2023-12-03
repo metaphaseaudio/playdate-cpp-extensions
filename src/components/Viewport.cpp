@@ -24,14 +24,12 @@ void pdcpp::Viewport::draw()
 {
     if (p_Content == nullptr) { return; }
 
-    pdcpp::Image img(0,0);
-    {
-        pdcpp::ScopedGraphicsContext context(p_Content->getBounds(), kColorClear, false);
+    auto img = pdcpp::Image::drawAsImage(p_Content->getBounds(), [&](const playdate_graphics* g) {
         p_Content->redraw();
-        img = context.getCopyAsImage();
-    }
+    });
 
     const auto bounds = getBounds();
+
     pdcpp::GlobalPlaydateAPI::get()->graphics->setClipRect(bounds.x, bounds.y, bounds.width, bounds.height);
     img.draw({int(bounds.x) + m_OffsetX, int(bounds.y) + m_OffsetY});
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearClipRect();

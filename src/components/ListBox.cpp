@@ -6,21 +6,23 @@
 #include <cmath>
 #include <memory>
 #include <algorithm>
+#include <utility>
 
 #include "pdcpp/components/ListBox.h"
+#include "pdcpp/graphics/RectHelpers.h"
 
 
-pdcpp::ListBox::RowComponent::RowComponent(pdcpp::ListBox& lb)
+pdcpp::ListBox::ItemComponent::ItemComponent(pdcpp::ListBox& lb)
     : p_Owner(lb)
 {}
 
-void pdcpp::ListBox::RowComponent::draw()
+void pdcpp::ListBox::ItemComponent::draw()
 {
     if (auto* m = p_Owner.getListBoxModel())
         { m->drawItem(getRow(), getBounds(), false, isSelected()); }
 }
 
-void pdcpp::ListBox::RowComponent::updateRowAndSelection(const int newRow, const bool nowSelected)
+void pdcpp::ListBox::ItemComponent::updateRowAndSelection(const int newRow, const bool nowSelected)
 {
     const auto rowChanged = std::exchange(m_Row, newRow) != newRow;
     const auto selectionChanged = std::exchange(m_Selected, nowSelected) != nowSelected;
@@ -34,7 +36,7 @@ void pdcpp::ListBox::RowComponent::updateRowAndSelection(const int newRow, const
     }
 }
 
-void pdcpp::ListBox::RowComponent::update(const int newRow, const bool nowSelected)
+void pdcpp::ListBox::ItemComponent::update(const int newRow, const bool nowSelected)
 {
     updateRowAndSelection(newRow, nowSelected);
 
@@ -50,7 +52,7 @@ void pdcpp::ListBox::RowComponent::update(const int newRow, const bool nowSelect
     }
 }
 
-void pdcpp::ListBox::RowComponent::resized(PDRect newBounds)
+void pdcpp::ListBox::ItemComponent::resized(PDRect newBounds)
 {
     if (p_CustomComponent != nullptr)
         { p_CustomComponent->setBounds(newBounds); }
@@ -59,9 +61,10 @@ void pdcpp::ListBox::RowComponent::resized(PDRect newBounds)
 ////////////////////////////////////////////////////////////////////////////////
 pdcpp::ListBox::ListBox(pdcpp::ListBoxModel* model)
     : p_Model(model)
+    , selected(*this, false)
 {
-    m_RowView.setContent(&m_Content);
-    addChildComponent(&m_RowView);
+    m_ItemView.setContent(&m_Content);
+    addChildComponent(&m_ItemView);
     updateContent();
 }
 
@@ -72,33 +75,31 @@ void pdcpp::ListBox::updateContent()
 
     if (rowH > 0)
     {
-        auto y = m_RowView.getViewPosition().getY();
-        auto w = m_RowView.getBounds().width;
+        auto y = m_ItemView.getViewPosition().y;
+        auto w = m_ItemView.getBounds().width;
         auto h = getBounds().height;
         m_Content.setBounds({0, 0, w, float(rowH * getNumRows())});
 
         const auto numNeeded = (size_t) (4 + h / rowH);
-        m_Rows.resize(std::min(numNeeded, m_Rows.size()));
+        m_Items.resize(std::min(numNeeded, m_Items.size()));
 
-        while (numNeeded > m_Rows.size())
+        while (numNeeded > m_Items.size())
         {
-            m_Rows.emplace_back(std::make_unique<RowComponent>(*this));
-            m_Content.addChildComponent(m_Rows.back().get());
+            m_Items.emplace_back(std::make_unique<ItemComponent>(*this));
+            m_Content.addChildComponent(m_Items.back().get());
         }
 
         m_FirstIndex = y / rowH;
-        m_FirstWholeIndex = (y + rowH - 1) / rowH;
-        m_LastWholeIndex = (y + h - 1) / rowH;
 
         const auto startIndex = getIndexOfFirstVisibleRow();
-        const auto lastIndex = startIndex + (int) m_Rows.size();
+        const auto lastIndex = startIndex + (int) m_Items.size();
 
         for (auto row = startIndex; row < lastIndex; ++row)
         {
             if (auto* rowComp = getComponentForRowIfOnscreen(row))
             {
                 rowComp->setBounds({0, float(row * rowH), w, float(rowH)});
-                rowComp->update(row, isRowSelected(row));
+                rowComp->update(row, selected.isItemMarked(row));
             }
             else
             {
@@ -106,57 +107,8 @@ void pdcpp::ListBox::updateContent()
             }
         }
     }
-    m_RowView.redraw();
+    m_ItemView.redraw();
 }
-
-void pdcpp::ListBox::selectRow(int row, bool dontScroll, bool deselectOthers)
-{
-    if (!m_MultipleSelection)
-        { deselectOthers = true; }
-
-    if (isRowSelected(row) && !(deselectOthers && getNumSelected() > 1))
-        { return; }
-
-    const auto bounds = getBounds();
-    if (bounds.height == 0 || bounds.width == 0)
-        { dontScroll = true; }
-
-    const auto totalRows = p_Model != nullptr ? p_Model->getNumRows() : 0;
-
-    if (deselectOthers)
-        { m_Selected.clear(); }
-
-        m_Selected.insert(row);
-
-    const auto height = bounds.height;
-    m_HasUpdated = false;
-
-    if (row < m_FirstWholeIndex && !dontScroll)
-        { m_RowView.setViewPosition(0, row * m_RowHeight); }
-
-    else if (row >= m_LastWholeIndex && !dontScroll)
-    {
-        const int rowsOnScreen = m_LastWholeIndex - m_FirstWholeIndex;
-
-        if (row >= m_LastRowSelected + rowsOnScreen && rowsOnScreen < totalRows - 1)
-        {
-            m_RowView.setViewPosition(0, pdcpp::limit(0, std::max(0, totalRows - rowsOnScreen), row) * m_RowHeight);
-        }
-        else
-        {
-            m_RowView.setViewPosition(0, std::max(0.0f, (row  + 1) * m_RowHeight - height));
-        }
-    }
-
-    if (!m_HasUpdated)
-        { updateContent(); }
-
-    m_LastRowSelected = row;
-}
-
-int pdcpp::ListBox::getNumSelected() const { return m_Selected.size(); }
-
-int pdcpp::ListBox::getSelectedRow(int index) const { return m_Selected[index]; }
 
 void pdcpp::ListBox::setRowHeight(int height)
 {
@@ -164,48 +116,16 @@ void pdcpp::ListBox::setRowHeight(int height)
     updateContent();
 }
 
-bool pdcpp::ListBox::isRowSelected(int rowIndex) const
-    { return std::any_of(m_Selected.begin(), m_Selected.end(), [rowIndex](auto x) { return x == rowIndex; } ); }
-
-void pdcpp::ListBox::deselectRow(int rowNumber)
-{
-    m_Selected.erase(rowNumber);
-    updateContent();
-}
-
-bool pdcpp::ListBox::isRowVisible(int rowIndex) const
-{
-    const auto position = m_RowView.getViewPosition();
-    auto topIndex = float(position.getY()) / float(m_RowHeight);
-    auto bottomIndex = topIndex + getBounds().height;
-    return rowIndex >= ::ceilf(topIndex) && rowIndex  <= ::floorf(bottomIndex);
-}
 
 void pdcpp::ListBox::resized(PDRect newBounds)
 {
-    m_RowView.setBounds(newBounds);
+    m_ItemView.setBounds(newBounds);
     updateContent();
 }
-
-bool pdcpp::ListBox::updateAnimation() { return m_RowView.updateAnimation(); }
 
 int pdcpp::ListBox::getNumRows() const { return p_Model->getNumRows(); }
 
 int pdcpp::ListBox::getRowHeight() const { return m_RowHeight; }
-
-void pdcpp::ListBox::scrollToEnsureRowIsOnscreen(int row)
-{
-    const auto height = getBounds().height;
-
-    if (row < m_FirstWholeIndex)
-    {
-        m_RowView.setViewPosition(0, row * m_RowHeight);
-    }
-    else if (row >= m_LastWholeIndex)
-    {
-        m_RowView.setViewPosition(0, std::max(0.0f, (row  + 1) * m_RowHeight - height));
-    }
-}
 
 void pdcpp::ListBox::updateVisibleArea(const bool forceUpdate)
 {
@@ -228,11 +148,90 @@ void pdcpp::ListBox::updateVisibleArea(const bool forceUpdate)
         { updateContent(); }
 }
 
-pdcpp::ListBox::RowComponent* pdcpp::ListBox::getComponentForRowIfOnscreen(int row) const noexcept
+pdcpp::ListBox::ItemComponent* pdcpp::ListBox::getComponentForRowIfOnscreen(int row) const noexcept
 {
     const auto startIndex = getIndexOfFirstVisibleRow();
 
-    return (startIndex <= row && row < startIndex + (int) m_Rows.size())
-        ? m_Rows[(size_t) (row % std::max (1, int(m_Rows.size())))].get()
+    return (startIndex <= row && row < startIndex + (int) m_Items.size())
+        ? m_Items[(size_t) (row % std::max (1, int(m_Items.size())))].get()
         : nullptr;
+}
+
+void pdcpp::ListBox::bringItemIntoView(int itemIndex)
+{
+    if (isItemVisible(itemIndex)) { return; }
+
+    auto itemBounds = m_Items[itemIndex]->getBounds();
+    const auto viewBounds = m_ItemView.getBounds();
+    const auto viewPosition = m_ItemView.getViewPosition();
+    itemBounds = {itemBounds.x - viewPosition.x, itemBounds.y - viewPosition.y, itemBounds.width, itemBounds.height};
+
+    const pdcpp::Point<float> viewBottomRight = pdcpp::RectHelpers::getBottomRight(viewBounds);
+    const pdcpp::Point<float> itemBottomRight = pdcpp::RectHelpers::getBottomRight(itemBounds);
+    int x = viewPosition.x, y = viewPosition.y;
+
+    if      (itemBounds.x > viewBottomRight.x) { x = viewPosition.x + (itemBottomRight.x - viewBottomRight.x); } // Move left
+    else if (viewBounds.x > itemBottomRight.x) { x = itemBounds.x; } // Move right
+
+    if      (itemBounds.y > viewBottomRight.y) { y = viewPosition.y + (itemBottomRight.y - viewBottomRight.y); } // Move up
+    else if (viewBounds.y > itemBottomRight.y) { y = itemBounds.y; } // Move down
+
+    m_ItemView.setViewPosition(x, y);
+}
+
+bool pdcpp::ListBox::isItemVisible(int itemIndex)
+{
+    auto itemBounds = m_Items[itemIndex]->getBounds();
+    const auto viewBounds = m_ItemView.getBounds();
+    const auto viewOffset = m_ItemView.getContentOffset();
+
+    itemBounds = {itemBounds.x - viewOffset.x, itemBounds.y - viewOffset.y, itemBounds.width, itemBounds.height};
+
+    const auto overlap = pdcpp::RectHelpers::getOverlappingRect(itemBounds, viewBounds);
+    return overlap.width == itemBounds.width && overlap.height == itemBounds.height;
+}
+
+
+pdcpp::ListBox::ItemProperty::ItemProperty(pdcpp::ListBox& owner, bool multiMark)
+    : r_Owner(owner)
+    , m_MultiMark(multiMark)
+{}
+
+void pdcpp::ListBox::ItemProperty::markItem(int item, bool bringIntoView, bool unmarkOthers)
+{
+    if (!m_MultiMark)
+        { unmarkOthers = true; }
+
+    if (isItemMarked(item) && !(unmarkOthers && getNumMarked() > 1))
+        { return; }
+
+    const auto bounds = r_Owner.getBounds();
+    if (bounds.height == 0 || bounds.width == 0)
+        { bringIntoView = true; }
+
+    if (unmarkOthers)
+        { m_Marked.clear(); }
+
+    m_Marked.insert(item);
+    r_Owner.updateContent();
+
+    if (bringIntoView)
+        { r_Owner.bringItemIntoView(item); }
+}
+
+bool pdcpp::ListBox::ItemProperty::isItemMarked(int itemIndex) const
+    { return std::any_of(m_Marked.begin(), m_Marked.end(), [itemIndex](auto x) { return x == itemIndex; } ); }
+
+size_t pdcpp::ListBox::ItemProperty::getNumMarked() const
+    { return m_Marked.size(); }
+
+void pdcpp::ListBox::ItemProperty::unmarkItem(int itemIndex)
+{
+    m_Marked.erase(itemIndex);
+    r_Owner.updateContent();
+}
+
+int pdcpp::ListBox::ItemProperty::getMarkedItem(int itemIndex) const
+{
+    return m_Marked[itemIndex];
 }

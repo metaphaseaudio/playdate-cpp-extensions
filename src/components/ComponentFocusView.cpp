@@ -16,14 +16,16 @@ pdcpp::ComponentFocusView::ComponentFocusView()
 { addChildComponent(&m_Viewport); }
 
 
-void pdcpp::ComponentFocusView::setComponentFocus(size_t index, int transitionFrames)
+void pdcpp::ComponentFocusView::setComponentFocus(size_t index)
 {
     if (index < 0 || index >= m_FocusContainer->childCount()) { return; }
-
+    const auto bounds = getBounds();
+    const auto focusBounds = m_FocusContainer->getChildComponent(m_FocusIndex)->getBounds();
+    const pdcpp::Point<float> focusCenter = pdcpp::RectHelpers::getCenter(focusBounds);
+    const pdcpp::Point<float> boundsCenter = pdcpp::RectHelpers::getCenter({0, 0, bounds.width, bounds.height});
+    pdcpp::Point<float> target = {boundsCenter.x - focusCenter.x, boundsCenter.y - focusCenter.y};
+    m_Viewport.setContentOffset(target.x, target.y);
     m_FocusIndex = index;
-    m_TransitionFramesRemaining = transitionFrames;
-    if (transitionFrames == 0)
-        { updateAnimation(); }
 }
 
 int pdcpp::ComponentFocusView::getComponentFocusIndex() const { return m_FocusIndex; }
@@ -49,30 +51,7 @@ void pdcpp::ComponentFocusView::removeChildFromFocusContainer(pdcpp::Component* 
         { setComponentFocus(m_FocusIndex); }
 }
 
-bool pdcpp::ComponentFocusView::updateAnimation()
-{
-    if (m_TransitionFramesRemaining >= 0)
-    {
-        const auto bounds = getBounds();
-        const auto focusBounds = m_FocusContainer->getChildComponent(m_FocusIndex)->getBounds();
-        const pdcpp::Point<float> focusCenter = pdcpp::RectHelpers::getCenter(focusBounds);
-        const pdcpp::Point<float> boundsCenter = pdcpp::RectHelpers::getCenter({0, 0, bounds.width, bounds.height});
-        pdcpp::Point<float> target = {boundsCenter.getX() - focusCenter.getX(), boundsCenter.getY() - focusCenter.getY()};
-        if (m_TransitionFramesRemaining != 0)
-        {
-            auto current = m_Viewport.getContentOffset();
-            target = {
-                ((target.getX() - current.getX()) / m_TransitionFramesRemaining) + current.getX(),
-                ((target.getY() - current.getY()) / m_TransitionFramesRemaining) + current.getY()
-            };
-        }
 
-        m_Viewport.setContentOffset(target.getX(), target.getY());
-        m_TransitionFramesRemaining--;
-        return true;
-    }
-    return false;
-}
 
 void pdcpp::ComponentFocusView::clearFocusView()
 {
