@@ -13,6 +13,7 @@
 #include <functional>
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
+#include <pdcpp/graphics/Rectangle.h>
 
 #include "CollisionInfo.h"
 #include "Image.h"
@@ -135,22 +136,22 @@ namespace pdcpp
          * Marks the area of the given sprite, relative to its bounds, to be
          * checked for collisions with other sprites' collide rects
          *
-         * @param bounds a PDRect for the bounds of the collisions
+         * @param bounds a const pdcpp::Rectangle<float>& for the bounds of the collisions
          */
-        void setCollideRect(PDRect bounds);
+        void setCollideRect(const pdcpp::Rectangle<float>& bounds);
 
         /**
          * @returns the current collision rectangle bounds relative to the
          *     Sprite.
          */
-        [[ nodiscard ]] PDRect getCollideBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getCollideBounds() const;
 
 
         /**
          * @returns the current collision rectangle bounds relative to the
          *     world.
          */
-        [[ nodiscard ]] PDRect getAbsoluteCollideBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getAbsoluteCollideBounds() const;
 
 
         //Removes the collision rectangle from this sprite.
@@ -188,15 +189,15 @@ namespace pdcpp
         /**
          * Sets the the bounds of the sprite
          *
-         * @param bounds a PDRect for the position, width, and height of the
+         * @param bounds a const pdcpp::Rectangle<float>& for the position, width, and height of the
          *     Sprite
          */
-        void setBounds(PDRect bounds);
+        void setBounds(const pdcpp::Rectangle<float>& bounds);
 
         /**
-         * @returns a PDRect representing the current bounds of the sprite
+         * @returns a const pdcpp::Rectangle<float>& representing the current bounds of the sprite
          */
-        [[ nodiscard ]] PDRect getBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getBounds() const;
 
         /**
          * @returns a Point<float> of the position of the sprite.
@@ -251,7 +252,7 @@ namespace pdcpp
          *
          * @param dirtyArea the bounds of the area to mark as dirty
          */
-        void markAreaAsDirty(const PDRect& dirtyArea) const;
+        void markAreaAsDirty(const pdcpp::Rectangle<float>& dirtyArea) const;
 
         /**
          * Gives this Sprite an identifiable. Very useful as a lightweight
@@ -289,7 +290,7 @@ namespace pdcpp
          * @param drawrect the current dirty rect being updated by the display
          *     list.
          */
-        virtual void redraw(PDRect bounds, PDRect drawrect) {};
+        virtual void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) {};
 
         /**
          * When collisions are enabled on this sprite, this function will be

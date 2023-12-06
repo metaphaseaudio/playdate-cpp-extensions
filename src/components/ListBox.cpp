@@ -14,12 +14,14 @@
 
 pdcpp::ListBox::ItemComponent::ItemComponent(pdcpp::ListBox& lb)
     : p_Owner(lb)
+    , p_CustomComponent(nullptr)
 {}
 
 void pdcpp::ListBox::ItemComponent::draw()
 {
+    if (p_CustomComponent != nullptr) { return; };
     if (auto* m = p_Owner.getListBoxModel())
-        { m->drawItem(getRow(), getBounds(), false, isSelected()); }
+        {m->drawItem(getRow(), getBounds(), false, isSelected()); }
 }
 
 void pdcpp::ListBox::ItemComponent::updateRowAndSelection(const int newRow, const bool nowSelected)
@@ -42,17 +44,18 @@ void pdcpp::ListBox::ItemComponent::update(const int newRow, const bool nowSelec
 
     if (auto* m = p_Owner.getListBoxModel())
     {
-        p_CustomComponent.reset (m->refreshComponentForRow(newRow, false, nowSelected, p_CustomComponent.release()));
+        p_CustomComponent = m->refreshComponentForRow(newRow, false, nowSelected, p_CustomComponent);
 
         if (p_CustomComponent != nullptr)
         {
-            addChildComponent(p_CustomComponent.get());
+            removeAllChildren();
+            addChildComponent(p_CustomComponent);
             p_CustomComponent->setBounds(getBounds());
         }
     }
 }
 
-void pdcpp::ListBox::ItemComponent::resized(PDRect newBounds)
+void pdcpp::ListBox::ItemComponent::resized(const pdcpp::Rectangle<float>& newBounds)
 {
     if (p_CustomComponent != nullptr)
         { p_CustomComponent->setBounds(newBounds); }
@@ -117,7 +120,7 @@ void pdcpp::ListBox::setRowHeight(int height)
 }
 
 
-void pdcpp::ListBox::resized(PDRect newBounds)
+void pdcpp::ListBox::resized(const pdcpp::Rectangle<float>& newBounds)
 {
     m_ItemView.setBounds(newBounds);
     updateContent();
@@ -162,19 +165,29 @@ void pdcpp::ListBox::bringItemIntoView(int itemIndex)
     if (isItemVisible(itemIndex)) { return; }
 
     auto itemBounds = m_Items[itemIndex]->getBounds();
-    const auto viewBounds = m_ItemView.getBounds();
+
+    // Item not visible and never will be
+    if (itemBounds.height == 0 || itemBounds.width == 0) { return; }
+
+    const auto viewBounds = m_ItemView.getBounds().withOrigin({0, 0});
     const auto viewPosition = m_ItemView.getViewPosition();
-    itemBounds = {itemBounds.x - viewPosition.x, itemBounds.y - viewPosition.y, itemBounds.width, itemBounds.height};
+
+    itemBounds = { itemBounds.x - viewPosition.x, itemBounds.y - viewPosition.y, itemBounds.width, itemBounds.height };
 
     const pdcpp::Point<float> viewBottomRight = pdcpp::RectHelpers::getBottomRight(viewBounds);
     const pdcpp::Point<float> itemBottomRight = pdcpp::RectHelpers::getBottomRight(itemBounds);
+
     int x = viewPosition.x, y = viewPosition.y;
 
-    if      (itemBounds.x > viewBottomRight.x) { x = viewPosition.x + (itemBottomRight.x - viewBottomRight.x); } // Move left
-    else if (viewBounds.x > itemBottomRight.x) { x = itemBounds.x; } // Move right
+    if (itemBounds.x > viewBottomRight.x)  // Move left
+        { x = viewPosition.x + (itemBottomRight.x - viewBottomRight.x); }
+    else if (viewBounds.x > itemBounds.x)  // Move right
+        { x = itemBounds.x + viewPosition.x; }
 
-    if      (itemBounds.y > viewBottomRight.y) { y = viewPosition.y + (itemBottomRight.y - viewBottomRight.y); } // Move up
-    else if (viewBounds.y > itemBottomRight.y) { y = itemBounds.y; } // Move down
+    if (itemBottomRight.y > viewBottomRight.y)  // Move up
+        { y = viewPosition.y + (itemBottomRight.y - viewBottomRight.y); }
+    else if (viewBounds.y > itemBounds.y)  // Move down
+        { y = itemBounds.y + viewPosition.y; }
 
     m_ItemView.setViewPosition(x, y);
 }
@@ -182,10 +195,11 @@ void pdcpp::ListBox::bringItemIntoView(int itemIndex)
 bool pdcpp::ListBox::isItemVisible(int itemIndex)
 {
     auto itemBounds = m_Items[itemIndex]->getBounds();
+
     const auto viewBounds = m_ItemView.getBounds();
     const auto viewOffset = m_ItemView.getContentOffset();
 
-    itemBounds = {itemBounds.x - viewOffset.x, itemBounds.y - viewOffset.y, itemBounds.width, itemBounds.height};
+    itemBounds = {itemBounds.x + viewOffset.x + viewBounds.x, itemBounds.y + viewBounds.y + viewOffset.y, itemBounds.width, itemBounds.height};
 
     const auto overlap = pdcpp::RectHelpers::getOverlappingRect(itemBounds, viewBounds);
     return overlap.width == itemBounds.width && overlap.height == itemBounds.height;

@@ -25,5 +25,6 @@ namespace pdcpp
 
         static pdcpp::Point<float> getCenter(const PDRect& rect);
         static pdcpp::Point<float> getBottomRight(const PDRect& rect);
+
     };
 }

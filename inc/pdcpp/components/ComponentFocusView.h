@@ -9,26 +9,28 @@
 namespace pdcpp
 {
     class ComponentFocusView
-        : public pdcpp::Component
+        : public pdcpp::Viewport
     {
     public:
         ComponentFocusView();
         void setComponentFocus(size_t index);
-        [[ nodiscard ]] int getComponentFocusIndex() const;
+        void bringComponentIntoView(size_t index);
+        [[ nodiscard ]] bool isComponentVisible(size_t index) const;
 
         void addChildToFocusContainer(pdcpp::Component* child);
         void removeChildFromFocusContainer(pdcpp::Component* child, bool resetFocus=true);
         void clearFocusView();
 
+
+
         [[ nodiscard ]] const pdcpp::Viewport& getViewport() const { return m_Viewport; }
 
     protected:
-        void resized(PDRect newBounds) override;
+        void resized(const pdcpp::Rectangle<float>& newBounds) override;
 
     private:
         class FocusContainer;
         std::unique_ptr<pdcpp::Component> m_FocusContainer;
         pdcpp::Viewport m_Viewport;
-        int m_FocusIndex = -1;
     };
 }

@@ -37,7 +37,7 @@ static void updateFunc(LCDSprite* sprite)
 static void redrawFunc(LCDSprite* sprite, PDRect bounds, PDRect drawrect)
 {
     auto thisPtr = pdcpp::Sprite::castSprite(sprite);
-    thisPtr->redraw(bounds, drawrect);
+    thisPtr->redraw(pdcpp::Rectangle<float>(bounds), pdcpp::Rectangle<float>(drawrect));
 }
 
 /**
@@ -137,16 +137,22 @@ void pdcpp::Sprite::setSize(float width, float height)
     resized();
 }
 
-void pdcpp::Sprite::setBounds(PDRect bounds)
+void pdcpp::Sprite::setBounds(const pdcpp::Rectangle<float>& bounds)
 {
     pdcpp::GlobalPlaydateAPI::get()->sprite->setBounds(p_Sprite, bounds);
     resized();
 }
 
-PDRect pdcpp::Sprite::getBounds() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite); }
+pdcpp::Rectangle<float> pdcpp::Sprite::getBounds() const
+{
+    return pdcpp::Rectangle<float>(pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite));
+}
 void pdcpp::Sprite::setCollisionsEnabled(bool enabled) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollisionsEnabled(p_Sprite, enabled); }
-void pdcpp::Sprite::setCollideRect(PDRect bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }
-PDRect pdcpp::Sprite::getCollideBounds() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getCollideRect(p_Sprite); }
+void pdcpp::Sprite::setCollideRect(const pdcpp::Rectangle<float>& bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }
+pdcpp::Rectangle<float> pdcpp::Sprite::getCollideBounds() const
+{
+    return pdcpp::Rectangle<float>(pdcpp::GlobalPlaydateAPI::get()->sprite->getCollideRect(p_Sprite));
+}
 void pdcpp::Sprite::clearCollideRect() { pdcpp::GlobalPlaydateAPI::get()->sprite->clearCollideRect(p_Sprite); }
 uint8_t pdcpp::Sprite::getTag() const { return pdcpp::GlobalPlaydateAPI::get()->sprite->getTag(p_Sprite); }
 void pdcpp::Sprite::setTag(uint8_t tag) { pdcpp::GlobalPlaydateAPI::get()->sprite->setTag(p_Sprite, tag); }
@@ -197,10 +203,10 @@ pdcpp::Point<float> pdcpp::Sprite::getPosition() const
     return {x, y};
 }
 
-void pdcpp::Sprite::markAreaAsDirty(const PDRect& dirtyArea) const
+void pdcpp::Sprite::markAreaAsDirty(const pdcpp::Rectangle<float>& dirtyArea) const
     { pdcpp::GlobalPlaydateAPI::get()->sprite->addDirtyRect(LCDMakeRect(dirtyArea.x, dirtyArea.y, dirtyArea.width, dirtyArea.height)); }
 
-PDRect pdcpp::Sprite::getAbsoluteCollideBounds() const
+pdcpp::Rectangle<float> pdcpp::Sprite::getAbsoluteCollideBounds() const
 {
     const auto bounds = getBounds();
     const auto collideBounds = getCollideBounds();

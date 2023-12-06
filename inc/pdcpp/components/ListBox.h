@@ -14,7 +14,7 @@ namespace pdcpp
     public:
         ListBoxModel() = default;
         virtual int getNumRows() = 0;
-        virtual void drawItem(int rowNumber, PDRect bounds, bool isFocused, bool isSelected) = 0;
+        virtual void drawItem(int rowNumber, const pdcpp::Rectangle<float>& bounds, bool isFocused, bool isSelected) = 0;
         virtual Component* refreshComponentForRow(int rowNumber, bool isFocused, bool isRowSelected, Component* toUpdate) { return toUpdate; };
     };
 
@@ -58,7 +58,7 @@ namespace pdcpp
     protected:
 
         void updateVisibleArea(bool forceUpdate);
-        void resized(PDRect newBounds) override;
+        void resized(const pdcpp::Rectangle<float>& newBounds) override;
 
     private:
 
@@ -73,14 +73,14 @@ namespace pdcpp
             [[ nodiscard ]] bool isSelected() const { return m_Selected; }
             void update(int newRow, bool nowSelected);
             void updateRowAndSelection(int newRow, bool nowSelected);
-            void resized(PDRect newBounds) override;
+            void resized(const pdcpp::Rectangle<float>& newBounds) override;
 
             [[ nodiscard ]] pdcpp::ListBox& getOwner() const { return p_Owner; }
-            [[ nodiscard ]] Component* getCustomComponent() const { return p_CustomComponent.get(); }
+            [[ nodiscard ]] Component* getCustomComponent() const { return p_CustomComponent; }
 
         private:
             pdcpp::ListBox& p_Owner;
-            std::unique_ptr<Component> p_CustomComponent;
+            Component* p_CustomComponent;
 
             int m_Row = -1;
             bool m_Selected = false;

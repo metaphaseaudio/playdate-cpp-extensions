@@ -7,6 +7,8 @@
 #include <vector>
 #include <pd_api.h>
 #include "pdcpp/core/util.h"
+#include "LookAndFeel.h"
+#include "pdcpp/graphics/Rectangle.h"
 
 namespace pdcpp
 {
@@ -15,10 +17,10 @@ namespace pdcpp
     public:
         Component() = default;
 
-        void setBounds(PDRect bounds);
-        [[ nodiscard ]] PDRect getBounds() const;
+        void setBounds(pdcpp::Rectangle<float> bounds);
+        [[ nodiscard ]] pdcpp::Rectangle<float> getBounds() const;
 
-        [[ nodiscard ]] PDRect getLocalBounds() const;
+        [[ nodiscard ]] pdcpp::Rectangle<float> getLocalBounds() const;
 
         void redraw();
 
@@ -32,13 +34,17 @@ namespace pdcpp
 
         void resizeToFitChildren();
 
+        void setLookAndFeel(LookAndFeel* newLAF);
+        pdcpp::LookAndFeel* getLookAndFeel() const;
+
     protected:
         virtual void draw() {};
-        virtual void resized(PDRect newBounds) {};
+        virtual void resized(const pdcpp::Rectangle<float>& newBounds) {};
 
     private:
-        PDRect m_Bounds = {0, 0, 0, 0};
+        pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};
         std::vector<Component*> m_Children;
+        pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
     };
 }

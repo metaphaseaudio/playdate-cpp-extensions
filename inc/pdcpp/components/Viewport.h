@@ -11,7 +11,6 @@
 
 namespace pdcpp
 {
-
     class Viewport
         : public Component
     {

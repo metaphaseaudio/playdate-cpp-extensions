@@ -7,13 +7,13 @@
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 
 
-void pdcpp::Component::setBounds(PDRect bounds)
+void pdcpp::Component::setBounds(pdcpp::Rectangle<float> bounds)
 {
     m_Bounds = bounds;
     resized(bounds);
 }
 
-PDRect pdcpp::Component::getBounds() const { return m_Bounds; }
+pdcpp::Rectangle<float> pdcpp::Component::getBounds() const { return m_Bounds; }
 
 void pdcpp::Component::redraw()
 {
@@ -56,7 +56,7 @@ void pdcpp::Component::resizeToFitChildren()
         return;
     }
 
-    PDRect bounds = m_Children[0]->getBounds();
+    pdcpp::Rectangle<float> bounds = m_Children[0]->getBounds();
     for (auto child : m_Children)
     {
         const auto childBounds = child->getBounds();
@@ -69,8 +69,22 @@ void pdcpp::Component::resizeToFitChildren()
     setBounds(bounds);
 }
 
-PDRect pdcpp::Component::getLocalBounds() const
+pdcpp::Rectangle<float> pdcpp::Component::getLocalBounds() const
 {
     const auto bounds = getBounds();
     return {0, 0, bounds.width, bounds.height};
+}
+
+pdcpp::LookAndFeel* pdcpp::Component::getLookAndFeel() const
+{
+    if (m_CustomLookAndFeel != nullptr)
+        { return m_CustomLookAndFeel; }
+    return pdcpp::LookAndFeel::getDefaultLookAndFeel();
+}
+
+void pdcpp::Component::setLookAndFeel(pdcpp::LookAndFeel* newLAF)
+{
+    m_CustomLookAndFeel = newLAF;
+    for (auto& child : m_Children)
+        { child->setLookAndFeel(newLAF); }
 }

@@ -11,6 +11,7 @@
 #pragma once
 #include "Font.h"
 #include "Sprite.h"
+#include <pdcpp/graphics/Rectangle.h>
 #include <pdcpp/core/Timer.h>
 
 namespace pdcpp
@@ -35,7 +36,7 @@ namespace pdcpp
         void update() override;
 
         // Overridden virtual method
-        void redraw(PDRect bounds, PDRect drawrect) override;
+        void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
 
         // resets the visible text to 0
         void reset();
