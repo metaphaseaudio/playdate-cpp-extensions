@@ -26,7 +26,39 @@ void pdcpp::ButtonManager::checkStateAndNotify()
 }
 
 void pdcpp::ButtonManager::addListener(pdcpp::ButtonManager::Listener* toAdd)
-    { m_Listeners.emplace_back(toAdd); }
+{
+    if (toAdd == nullptr){ return; }
+    m_Listeners.emplace_back(toAdd);
+}
 
 void pdcpp::ButtonManager::removeListener(pdcpp::ButtonManager::Listener* toRemove)
-    { m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove)); }
+{
+    if (toRemove == nullptr) { return; }
+    m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove));
+}
+
+pdcpp::KeyRepeatTimer::KeyRepeatTimer(int initialDelayMs, int repeatDelayMs)
+    : pdcpp::Timer(initialDelayMs, false)
+    , m_InitialDelay(initialDelayMs)
+    , m_RepeatDelay(repeatDelayMs)
+    , m_OnKeyRepeat([](){})
+{}
+
+void pdcpp::KeyRepeatTimer::keyPressed(std::function<void()> action)
+{
+    action();
+    m_OnKeyRepeat = std::move(action);
+    enable(true);
+    setInterval(m_InitialDelay, true);
+}
+
+void pdcpp::KeyRepeatTimer::keyReleased()
+{
+    enable(false);
+}
+
+void pdcpp::KeyRepeatTimer::timerCallback()
+{
+    setInterval(m_RepeatDelay);
+    m_OnKeyRepeat();
+}

@@ -9,8 +9,10 @@
  */
 #pragma once
 
+#include <functional>
 #include <vector>
 #include <pd_api.h>
+#include "Timer.h"
 
 namespace pdcpp
 {
@@ -74,5 +76,25 @@ namespace pdcpp
 
     private:
         std::vector<Listener*> m_Listeners;
+
+    };
+
+    class KeyRepeatTimer
+        : pdcpp::Timer
+    {
+    public:
+        explicit KeyRepeatTimer(int initialDelayMs=300, int repeatDelayMs=100);
+
+        void keyPressed(std::function<void()> action);
+        void keyReleased();
+
+        void tick() { pdcpp::Timer::tick(); }
+
+
+    private:
+        void timerCallback() override;
+
+        std::function<void()> m_OnKeyRepeat;
+        int m_InitialDelay, m_RepeatDelay;
     };
 }

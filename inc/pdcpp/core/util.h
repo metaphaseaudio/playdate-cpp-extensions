@@ -11,6 +11,8 @@
 #include <algorithm>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
+constexpr float kPI = 3.14159;
+
 
 /**
  * Use this macro from within a class definition to delete the copy and
@@ -33,4 +35,8 @@ namespace pdcpp
     template<typename T>
     T limit(T min, T max, T val)
         { return std::min<T>(std::max<T>(val, min), max); }
+
+
+    template <typename T=float>
+    float degToRad(float deg) { return deg * kPI / 180.0f; }
 }

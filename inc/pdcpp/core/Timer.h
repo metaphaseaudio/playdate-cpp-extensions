@@ -39,6 +39,11 @@ namespace pdcpp
         void setInterval(unsigned int intervalMs, bool reset=false);
 
         /**
+         * @returns the millisecond interval between timer callbacks.
+         */
+        [[ nodiscard ]] int getInterval() const { return m_Interval; };
+
+        /**
          * Turns the timer on or off. Will not reset the frame count if disabled
          * in the middle of a countdown.
          *
@@ -88,6 +93,11 @@ namespace pdcpp
          * @param reset whether the count should be reset to 0
          */
         void setNFrames(unsigned int nFrames, bool reset=false);
+
+        /**
+         * @returns the current number of frames in a cycle
+         */
+        [[ nodiscard ]] int getNFrames() const { return m_NFrames; };
 
         /**
          * Turns the timer on or off. Will not reset the frame count if disabled
