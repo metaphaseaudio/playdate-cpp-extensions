@@ -16,6 +16,23 @@ namespace pdcpp
     class Point
     {
     public:
+        [[ nodiscard ]] float distance(const Point<T>& other) const
+        {
+            auto a2 = ::powf(::abs(other.x - x), 2);
+            auto b2 = ::powf(::abs(other.y - y), 2);
+            return ::sqrtf(a2 + b2);
+        }
+
+        [[ nodiscard ]] Point<float> toFloat() const { return {float(x), float(y)}; }
+
+        [[ nodiscard ]] Point<T> operator- (Point<T> other) const { return {x - other.x, y - other.y}; }
+        [[ nodiscard ]] Point<T> operator+ (Point<T> other) const { return {x + other.x, y + other.y}; }
+
+        [[ nodiscard ]] Point<T> operator* (T value) const
+        {
+            return {x * value, y * value};
+        }
+
         T x, y;
     };
 }

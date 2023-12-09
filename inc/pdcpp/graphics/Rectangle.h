@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <algorithm>
 #include <pd_api.h>
 #include "Point.h"
 
