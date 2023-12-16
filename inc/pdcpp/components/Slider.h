@@ -21,7 +21,7 @@ namespace pdcpp
         Slider(float min, float max, float startingValue, int nSteps=20);
         ~Slider();
 
-        void setValue(float newValue);
+        void setValue(float newValue, bool notify=true);
         [[ nodiscard ]] float getValue() const;
 
         void setMin(float minValue);

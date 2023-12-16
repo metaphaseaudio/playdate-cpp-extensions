@@ -19,11 +19,12 @@ pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps)
     , m_IncrementSize((m_Max - m_Min) / float(nSteps))
 { onChange = [](float){}; }
 
-void pdcpp::Slider::setValue(float newValue)
+void pdcpp::Slider::setValue(float newValue, bool notify)
 {
     newValue = pdcpp::limit(m_Min, m_Max, newValue);
     m_CurrentValue = newValue;
-    notifyListeners();
+    if (notify)
+        { notifyListeners(); }
 }
 
 float pdcpp::Slider::getValue() const
