@@ -2,8 +2,8 @@
 // Created by Matt on 12/4/2023.
 //
 #include <memory>
-#include "pdcpp/components/LookAndFeel.h"
-#include "pdcpp/components/Colours.h"
+#include "pdcpp/graphics/LookAndFeel.h"
+#include "pdcpp/graphics/Colours.h"
 
 
 static std::unique_ptr<pdcpp::LookAndFeel> defaultLookAndFeel;

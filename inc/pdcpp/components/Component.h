@@ -7,7 +7,7 @@
 #include <vector>
 #include <pd_api.h>
 #include "pdcpp/core/util.h"
-#include "LookAndFeel.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/graphics/Rectangle.h"
 
 namespace pdcpp

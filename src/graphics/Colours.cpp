@@ -2,7 +2,7 @@
 // Created by Matt on 9/27/2023.
 //
 
-#include "pdcpp/components/Colours.h"
+#include "pdcpp/graphics/Colours.h"
 
 LCDPattern transparent50GrayAPattern = {
         // Bitmap
