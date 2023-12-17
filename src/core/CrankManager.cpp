@@ -1,0 +1,29 @@
+//
+// Created by Matt on 12/17/2023.
+//
+
+#include <pdcpp/core/GlobalPlaydateAPI.h>
+#include <pdcpp/core/CrankManager.h>
+
+void pdcpp::CrankManager::checkStateAndNotify()
+{
+    auto delta = pdcpp::GlobalPlaydateAPI::get()->system->getCrankChange();
+    if (delta != 0)
+    {
+        auto absolute = pdcpp::GlobalPlaydateAPI::get()->system->getCrankAngle();
+        for (auto* l: m_Listeners)
+            { l->crankStateChanged(absolute, delta); }
+    }
+}
+
+void pdcpp::CrankManager::addListener(pdcpp::CrankManager::Listener* toAdd)
+{
+    if (toAdd == nullptr){ return; }
+    m_Listeners.emplace_back(toAdd);
+}
+
+void pdcpp::CrankManager::removeListener(pdcpp::CrankManager::Listener* toRemove)
+{
+    if (toRemove == nullptr) { return; }
+    m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove));
+}

@@ -1,35 +1,15 @@
-/**
- *  This file is part of the Playdate CPP Extensions library, and covered under
- *  the license terms found in the LICENSE file at the root of the repository.
- *
- *  Copyright (c) 2023 - Metaphase
- *
- *  Created: 9/24/2023
- *  Original author: MrBZapp
- */
-#pragma once
+//
+// Created by Matt on 12/17/2023.
+//
 
-#include <functional>
+#pragma once
 #include <vector>
-#include <pd_api.h>
-#include "Timer.h"
 
 namespace pdcpp
 {
-    /**
-     * A class to enable a "listener" pattern for button state modification.
-     * This patter allows the logic for button input management to be spread out
-     * across multiple classes, minimizing the need for a monolithic and
-     * repetitive button-management function/method in the main update routine.
-     *
-     * Create one, add a bunch of listeners, and call `checkStateAndNotify` in
-     * your game's main update loop. All your listeners will be informed when
-     * the button state changes.
-     */
-    class ButtonManager
+    class CrankManager
     {
     public:
-
         /**
          * Base class for anything that cares about button state. Inherit from
          * this class, implement the `buttonStateChanged` method to define
@@ -49,7 +29,7 @@ namespace pdcpp
              * @param released the buttons that have transitioned to and up
              *     state since the last cycle
              */
-            virtual void buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released) {};
+            virtual void crankStateChanged(float absolute, float delta) {};
         };
 
         /**
@@ -76,25 +56,5 @@ namespace pdcpp
 
     private:
         std::vector<Listener*> m_Listeners;
-
-    };
-
-    class KeyRepeatTimer
-        : pdcpp::Timer
-    {
-    public:
-        explicit KeyRepeatTimer(int initialDelayMs=300, int repeatDelayMs=100);
-
-        void keyPressed(std::function<void()> action);
-        void keyReleased();
-
-        void tick() { pdcpp::Timer::tick(); }
-
-
-    private:
-        void timerCallback() override;
-
-        std::function<void()> m_OnKeyRepeat;
-        int m_InitialDelay, m_RepeatDelay;
     };
 }
