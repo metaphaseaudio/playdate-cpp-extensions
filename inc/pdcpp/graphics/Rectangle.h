@@ -23,6 +23,7 @@ namespace pdcpp
 
         pdcpp::Point<T> getBottomRight();
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
+        void setCenter(pdcpp::Point<T> center);
         
         Rectangle<T> getOverlap(const Rectangle<T>& other);
         
@@ -40,6 +41,13 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    void Rectangle<T>::setCenter(Point<T> center)
+    {
+        x = center.x - (width / 2.0f);
+        y = center.y - (height / 2.0f);
+    }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::withOrigin(const Point<T>& newOrigin)
