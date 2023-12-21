@@ -24,6 +24,7 @@ namespace pdcpp
         }
 
         [[ nodiscard ]] Point<float> toFloat() const { return {float(x), float(y)}; }
+        [[ nodiscard ]] Point<int> toInt() const { return {int(x), int(y)}; }
 
         [[ nodiscard ]] Point<T> operator- (Point<T> other) const { return {x - other.x, y - other.y}; }
         [[ nodiscard ]] Point<T> operator+ (Point<T> other) const { return {x + other.x, y + other.y}; }
