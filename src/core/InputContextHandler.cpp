@@ -2,17 +2,17 @@
 // Created by Matt on 12/17/2023.
 //
 
-#include <pdcpp/core/InputContextHandler.h>
+#include <pdcpp/core/InputContext.h>
 #include <cassert>
 
 
-void pdcpp::InputContextHandler::popContext()
+void pdcpp::InputContext::popContext()
 {
     if (p_CurrentManager != nullptr)
         { p_CurrentManager->popContext(); }
 }
 
-void pdcpp::InputContextHandler::pushChildContext(pdcpp::InputContextHandler* context)
+void pdcpp::InputContext::pushChildContext(pdcpp::InputContext* context)
 {
     if (p_CurrentManager == nullptr)
     {
@@ -22,11 +22,11 @@ void pdcpp::InputContextHandler::pushChildContext(pdcpp::InputContextHandler* co
     p_CurrentManager->pushContext(context);
 }
 
-pdcpp::InputContextHandler::InputContextHandler()
+pdcpp::InputContext::InputContext()
     : p_CurrentManager(nullptr)
 {}
 
-pdcpp::InputContextManager::InputContextManager(InputContextHandler* baseContext, bool crankBeforeButtons)
+pdcpp::InputContextManager::InputContextManager(InputContext* baseContext, bool crankBeforeButtons)
     : m_CheckCrankBeforeButtons(crankBeforeButtons)
 { pushContext(baseContext); }
 
@@ -44,7 +44,7 @@ void pdcpp::InputContextManager::update()
     }
 }
 
-void pdcpp::InputContextManager::pushContext(InputContextHandler* newContext)
+void pdcpp::InputContextManager::pushContext(InputContext* newContext)
 {
     if (!m_ContextStack.empty())
     {

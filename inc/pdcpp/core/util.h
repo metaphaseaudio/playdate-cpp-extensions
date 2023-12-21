@@ -39,4 +39,6 @@ namespace pdcpp
 
     template <typename T=float>
     float degToRad(float deg) { return deg * kPI / 180.0f; }
+
+    static int wrapIndex(int index, int max) { return ((index % max) + max) % max; };
 }

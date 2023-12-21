@@ -238,6 +238,8 @@ namespace pdcpp
          */
         [[ nodiscard ]] Point<float> getCenter() const;
 
+        void setDrawMode(LCDBitmapDrawMode drawMode);
+
         /**
          * Indicate that this sprite needs to be re-drawn. Many of the other
          * methods such as setting size, moving, changing image, etc. will all

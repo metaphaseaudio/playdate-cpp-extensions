@@ -9,18 +9,18 @@
 
 namespace pdcpp
 {
-    class InputContextHandler
+    class InputContext
         : protected pdcpp::ButtonManager::Listener
         , protected pdcpp::CrankManager::Listener
     {
     public:
-        InputContextHandler();
-        virtual ~InputContextHandler() = default;
+        InputContext();
+        virtual ~InputContext() = default;
         void popContext();
         virtual void contextEntered() {};
         virtual void contextExited() {};
     protected:
-        void pushChildContext(InputContextHandler* context);
+        void pushChildContext(InputContext* context);
     private:
         friend class InputContextManager;
         class InputContextManager* p_CurrentManager;
@@ -32,15 +32,15 @@ namespace pdcpp
         , public pdcpp::CrankManager
     {
     public:
-        explicit InputContextManager(InputContextHandler* baseContext, bool crankBeforeButtons=false);
+        explicit InputContextManager(InputContext* baseContext, bool crankBeforeButtons=false);
 
         void update();
-        void pushContext(InputContextHandler* newContext);
+        void pushContext(InputContext* newContext);
         void popContext();
 
     private:
         bool m_CheckCrankBeforeButtons;
-        std::deque<InputContextHandler*> m_ContextStack;
+        std::deque<InputContext*> m_ContextStack;
     };
 
 }

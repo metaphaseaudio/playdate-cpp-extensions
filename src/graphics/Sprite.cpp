@@ -229,3 +229,8 @@ void pdcpp::Sprite::updateAndRedrawAllSprites()
 {
     pdcpp::GlobalPlaydateAPI::get()->sprite->updateAndDrawSprites();
 }
+
+void pdcpp::Sprite::setDrawMode(LCDBitmapDrawMode drawMode)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sprite->setDrawMode(p_Sprite, drawMode);
+}
