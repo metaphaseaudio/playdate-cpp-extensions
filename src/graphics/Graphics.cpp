@@ -36,6 +36,14 @@ void pdcpp::Graphics::drawDashedLine
 
         pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(a.x, a.y, b.x, b.y, weightPx, dash.color);
     }
+}
 
+pdcpp::Rectangle<float> pdcpp::Graphics::getScreenBounds()
+{
+    return {
+        0, 0,
+        float(pdcpp::GlobalPlaydateAPI::get()->display->getWidth()),
+        float(pdcpp::GlobalPlaydateAPI::get()->display->getHeight())
+    };
 }
 

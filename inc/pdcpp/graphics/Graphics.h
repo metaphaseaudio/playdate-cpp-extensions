@@ -11,6 +11,7 @@ namespace pdcpp
     class Graphics
     {
     public:
+        static pdcpp::Rectangle<float> getScreenBounds();
         static void drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
         static void fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
 

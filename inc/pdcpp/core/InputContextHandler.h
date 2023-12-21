@@ -14,13 +14,16 @@ namespace pdcpp
         , protected pdcpp::CrankManager::Listener
     {
     public:
+        InputContextHandler();
+        virtual ~InputContextHandler() = default;
         void popContext();
         virtual void contextEntered() {};
         virtual void contextExited() {};
-
+    protected:
+        void pushChildContext(InputContextHandler* context);
     private:
         friend class InputContextManager;
-        InputContextManager* p_CurrentManager = nullptr;
+        class InputContextManager* p_CurrentManager;
     };
 
 

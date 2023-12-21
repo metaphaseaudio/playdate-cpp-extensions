@@ -39,9 +39,9 @@ void pdcpp::ButtonManager::removeListener(pdcpp::ButtonManager::Listener* toRemo
 
 pdcpp::KeyRepeatTimer::KeyRepeatTimer(int initialDelayMs, int repeatDelayMs)
     : pdcpp::Timer(initialDelayMs, false)
+    , m_OnKeyRepeat([](){})
     , m_InitialDelay(initialDelayMs)
     , m_RepeatDelay(repeatDelayMs)
-    , m_OnKeyRepeat([](){})
 {}
 
 void pdcpp::KeyRepeatTimer::keyPressed(std::function<void()> action)

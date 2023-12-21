@@ -63,8 +63,8 @@ void pdcpp::ListBox::ItemComponent::resized(const pdcpp::Rectangle<float>& newBo
 
 ////////////////////////////////////////////////////////////////////////////////
 pdcpp::ListBox::ListBox(pdcpp::ListBoxModel* model)
-    : p_Model(model)
-    , selected(*this, false)
+    : selected(*this, false)
+    , p_Model(model)
 {
     m_ItemView.setContent(&m_Content);
     addChildComponent(&m_ItemView);
@@ -110,6 +110,7 @@ void pdcpp::ListBox::updateContent()
             }
         }
     }
+//    p_Model->selectedRowsChanged(selected.getNumMarked() > 0 ? selected.getMarkedItem(selected.getNumMarked() - 1): -1);
     m_ItemView.redraw();
 }
 

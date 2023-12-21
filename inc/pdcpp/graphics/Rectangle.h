@@ -21,6 +21,7 @@ namespace pdcpp
             : x(rect.x), y(rect.y), width(rect.width), height(rect.height)
         {}
 
+        pdcpp::Point<T> getUpperLeft();
         pdcpp::Point<T> getBottomRight();
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
         void setCenter(pdcpp::Point<T> center);
@@ -41,6 +42,9 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Point<T> Rectangle<T>::getUpperLeft() { return {x, y}; }
 
     template<typename T>
     void Rectangle<T>::setCenter(Point<T> center)

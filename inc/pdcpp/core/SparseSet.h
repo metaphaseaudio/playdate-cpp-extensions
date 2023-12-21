@@ -18,14 +18,9 @@ namespace pdcpp
     {
         static_assert(std::is_unsigned<T>::value, "SparseSet can only contain unsigned integers");
 
-    private:
-        std::vector<T> dense;	//Dense set of elements
-        std::vector<T> sparse;	//Map of elements to dense set indices
-
-        size_t size_ = 0;	//Current size (number of elements)
-        size_t capacity_ = 0;	//Current capacity (maximum value + 1)
-
     public:
+        SparseSet() = default;
+
         using iterator       = typename std::vector<T>::const_iterator;
         using const_iterator = typename std::vector<T>::const_iterator;
 
@@ -83,5 +78,13 @@ namespace pdcpp
         }
 
         T operator[] (int index) const { return dense[index]; }
+
+    private:
+        std::vector<T> dense;	//Dense set of elements
+        std::vector<T> sparse;	//Map of elements to dense set indices
+
+        size_t size_ = 0;	//Current size (number of elements)
+        size_t capacity_ = 0;	//Current capacity (maximum value + 1)
+        PDCPP_DECLARE_NON_COPYABLE(SparseSet);
     };
 }

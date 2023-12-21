@@ -13,9 +13,9 @@ void pdcpp::Slider::draw()
 }
 
 pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps)
-    : m_Min(min)
+    : m_CurrentValue(startingValue)
+    , m_Min(min)
     , m_Max(max)
-    , m_CurrentValue(startingValue)
     , m_IncrementSize((m_Max - m_Min) / float(nSteps))
 { onChange = [](float){}; }
 

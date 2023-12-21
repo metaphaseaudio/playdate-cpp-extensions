@@ -5,13 +5,26 @@
 #include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/graphics/Colours.h"
 
-
-static std::unique_ptr<pdcpp::LookAndFeel> defaultLookAndFeel;
-//pdcpp::LookAndFeel* pdcpp::LookAndFeel::defaultLookAndFeel = nullptr;
+pdcpp::LookAndFeel* pdcpp::LookAndFeel::defaultLookAndFeel = nullptr;
 
 pdcpp::LookAndFeel::LookAndFeel()
     : m_DefaultFont("/System/Fonts/Asheville-Sans-14-Bold.pft")
 {}
+
+pdcpp::LookAndFeel* pdcpp::LookAndFeel::getDefaultLookAndFeel()
+{
+    if (defaultLookAndFeel == nullptr)
+        { defaultLookAndFeel = new LookAndFeel(); }
+    return defaultLookAndFeel;
+}
+
+void pdcpp::LookAndFeel::setDefaultLookAndFeel(pdcpp::LookAndFeel* newLAF)
+{
+    delete defaultLookAndFeel;
+    defaultLookAndFeel = newLAF;
+}
+
+void pdcpp::LookAndFeel::setDefaultFont(pdcpp::Font newFont) { m_DefaultFont = newFont; }
 
 pdcpp::Font& pdcpp::LookAndFeel::getDefaultFont()
 {
@@ -46,17 +59,14 @@ void pdcpp::LookAndFeel::drawSlider(const playdate_graphics* g, const pdcpp::Rec
     g->fillPolygon(5, polyPoints, kColorBlack, kPolygonFillNonZero);
 }
 
-pdcpp::LookAndFeel* pdcpp::LookAndFeel::getDefaultLookAndFeel()
+void pdcpp::LookAndFeel::drawButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed)
 {
-    if (defaultLookAndFeel == nullptr)
-        { defaultLookAndFeel = std::make_unique<LookAndFeel>(); }
-    return defaultLookAndFeel.get();
+
 }
 
-void pdcpp::LookAndFeel::setDefaultLookAndFeel(pdcpp::LookAndFeel* newLAF)
+void
+pdcpp::LookAndFeel::drawToggleButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed, bool
+toggleState)
 {
-    defaultLookAndFeel.reset(newLAF);
+
 }
-
-void pdcpp::LookAndFeel::setDefaultFont(pdcpp::Font newFont) { m_DefaultFont = newFont; }
-

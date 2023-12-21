@@ -13,9 +13,11 @@ namespace pdcpp
     {
     public:
         ListBoxModel() = default;
+        virtual ~ListBoxModel() = default;
         virtual int getNumRows() = 0;
         virtual void drawItem(int rowNumber, const pdcpp::Rectangle<float>& bounds, bool isFocused, bool isSelected) = 0;
         virtual Component* refreshComponentForRow(int rowNumber, bool isFocused, bool isRowSelected, Component* toUpdate) { return toUpdate; };
+
     };
 
     class ListBox
@@ -53,10 +55,9 @@ namespace pdcpp
             bool m_MultiMark;
         };
 
-        ItemProperty selected;
-
+        ItemProperty& getSelectedProperty() { return selected; }
+        const ItemProperty& getSelectedProperty() const { return selected; }
     protected:
-
         void updateVisibleArea(bool forceUpdate);
         void resized(const pdcpp::Rectangle<float>& newBounds) override;
 
@@ -92,6 +93,8 @@ namespace pdcpp
         pdcpp::Viewport m_ItemView;
         pdcpp::Component m_Content;
         std::vector<std::unique_ptr<ItemComponent>> m_Items;
+
+        ItemProperty selected;
         int m_RowHeight;
         int m_FirstIndex = 0;
         bool m_HasUpdated = false;

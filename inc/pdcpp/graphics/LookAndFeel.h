@@ -15,8 +15,12 @@ namespace pdcpp
     {
     public:
         LookAndFeel();
+        virtual ~LookAndFeel() = default;
 
         virtual void drawSlider(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, float min, float max, float value);
+        virtual void drawButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed);
+        virtual void drawToggleButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed, bool
+        toggleState);
 
         void setDefaultFont(Font newFont);
         pdcpp::Font& getDefaultFont();
@@ -26,6 +30,9 @@ namespace pdcpp
 
     private:
         Font m_DefaultFont;
+
+        static LookAndFeel* defaultLookAndFeel;
+
     };
 
 } // pdcpp

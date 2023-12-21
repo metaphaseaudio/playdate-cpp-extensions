@@ -3,6 +3,7 @@
 //
 
 #include <pdcpp/core/InputContextHandler.h>
+#include <cassert>
 
 
 void pdcpp::InputContextHandler::popContext()
@@ -10,6 +11,20 @@ void pdcpp::InputContextHandler::popContext()
     if (p_CurrentManager != nullptr)
         { p_CurrentManager->popContext(); }
 }
+
+void pdcpp::InputContextHandler::pushChildContext(pdcpp::InputContextHandler* context)
+{
+    if (p_CurrentManager == nullptr)
+    {
+        assert(false);
+        return;
+    }
+    p_CurrentManager->pushContext(context);
+}
+
+pdcpp::InputContextHandler::InputContextHandler()
+    : p_CurrentManager(nullptr)
+{}
 
 pdcpp::InputContextManager::InputContextManager(InputContextHandler* baseContext, bool crankBeforeButtons)
     : m_CheckCrankBeforeButtons(crankBeforeButtons)
