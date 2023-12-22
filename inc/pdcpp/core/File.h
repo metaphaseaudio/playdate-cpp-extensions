@@ -111,7 +111,7 @@ namespace pdcpp
 
         static int mkdir(const std::string& path, bool make_parents=false);
         static int rename(const std::string& from, const std::string& to);
-
+        static bool fileExists(const std::string& path);
     };
 
     template <std::size_t Size>
