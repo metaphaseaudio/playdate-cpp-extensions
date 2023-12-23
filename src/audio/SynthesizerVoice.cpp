@@ -11,6 +11,44 @@
 #include <pdcpp/audio/SynthesizerVoice.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
+namespace pdcpp
+{
+    class SynthesizerVoiceShims
+    {
+    public:
+        static int render(void* obj,  int32_t* left, int32_t* right, int nsamples, uint32_t rate, int32_t drate)
+        {
+            auto thisPtr = static_cast<pdcpp::CustomSynthSignalGenerator*>(obj);
+            return thisPtr->renderBlock(left, right, nsamples, rate, drate);
+        };
+
+        static void noteOn(void* obj, MIDINote note, float velocity, float len)
+        {
+            auto thisPtr = static_cast<pdcpp::CustomSynthSignalGenerator*>(obj);
+            thisPtr->noteOn(note, velocity, len);
+        };
+
+        static void release(void* obj, int ended)
+        {
+            auto thisPtr = static_cast<pdcpp::CustomSynthSignalGenerator*>(obj);
+            thisPtr->release(!bool(ended));
+        }
+
+        static int setParameter(void* obj, int parameter, float value)
+        {
+            auto thisPtr = static_cast<pdcpp::CustomSynthSignalGenerator*>(obj);
+            return thisPtr->setParameter(parameter, value);
+        }
+
+        static void dealloc(void* obj)
+        {
+            auto thisPtr = static_cast<pdcpp::CustomSynthSignalGenerator*>(obj);
+            thisPtr->deallocateCalled();
+        }
+    };
+}
+
+
 pdcpp::SynthesizerVoice::SynthesizerVoice()
     : p_Synth(pdcpp::GlobalPlaydateAPI::get()->sound->synth->newSynth())
 {}
@@ -66,3 +104,18 @@ pdcpp::SynthesizerVoice::operator ::SoundSource*() const
 {
     return reinterpret_cast<::SoundSource*>(p_Synth);
 }
+
+void pdcpp::SynthesizerVoice::setCustomGenerator(pdcpp::CustomSynthSignalGenerator& generator)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->synth->setGenerator(
+        p_Synth,
+        generator.isStereo(),
+        SynthesizerVoiceShims::render,
+        SynthesizerVoiceShims::noteOn,
+        SynthesizerVoiceShims::release,
+        SynthesizerVoiceShims::setParameter,
+        SynthesizerVoiceShims::dealloc,
+        &generator
+    );
+}
+

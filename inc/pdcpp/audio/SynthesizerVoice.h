@@ -19,6 +19,23 @@
 
 namespace pdcpp
 {
+    class CustomSynthSignalGenerator
+    {
+    public:
+        static constexpr int kFloatScalar = 0x7fffff;
+
+        virtual int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) = 0;
+        virtual bool isStereo() = 0;
+        virtual void noteOn(MIDINote note, float velo, float length) {};
+        virtual void release(bool allowTail) {};
+        virtual int setParameter(int parameter, float value) { return 0; };
+
+    private:
+        friend class SynthesizerVoiceShims;
+        // Maybe don't use this? It's not, like, a destructor or anything.
+        virtual void deallocateCalled() {};
+    };
+
     class SynthesizerVoice
         : public pdcpp::SoundSource
     {
@@ -78,6 +95,14 @@ namespace pdcpp
         void setWavetable(const pdcpp::AudioSample& sample, int log2size, int nColumns, int nRows);
 
         /**
+         * Tell the voice to use a custom signal generator instead any of the
+         * built-in signal types.
+         *
+         * @param generator the generator to use;
+         */
+        void setCustomGenerator(CustomSynthSignalGenerator& generator);
+
+        /**
          * Set the attack (rise to maximum) time of the synthesizer voice's
          * envelope
          *
@@ -133,4 +158,5 @@ namespace pdcpp
         PDSynth* p_Synth;
         PDCPP_DECLARE_NON_COPYABLE(SynthesizerVoice);
     };
+
 }
