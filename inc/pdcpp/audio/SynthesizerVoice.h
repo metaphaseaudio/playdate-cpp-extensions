@@ -19,16 +19,18 @@
 
 namespace pdcpp
 {
-    class CustomSynthSignalGenerator
+    class CustomSynthGenerator
     {
     public:
         static constexpr int kFloatScalar = 0x7fffff;
 
+        virtual ~CustomSynthGenerator() = default;
         virtual int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) = 0;
         virtual bool isStereo() = 0;
         virtual void noteOn(MIDINote note, float velo, float length) {};
         virtual void release(bool allowTail) {};
         virtual int setParameter(int parameter, float value) { return 0; };
+        [[ nodiscard ]] virtual int getNParameters() const { return 0; }
 
     private:
         friend class SynthesizerVoiceShims;
@@ -36,23 +38,13 @@ namespace pdcpp
         virtual void deallocateCalled() {};
     };
 
-    class SynthesizerVoice
+    class SynthesizerVoiceContainer
         : public pdcpp::SoundSource
     {
     public:
-        /**
-         * Creates a new SynthesizerVoice
-         */
-        SynthesizerVoice();
+        explicit SynthesizerVoiceContainer(PDSynth* synth);
 
-        // Move constructor
-        SynthesizerVoice(SynthesizerVoice&& other) noexcept;
-
-        // Move-assignment constructor
-        SynthesizerVoice& operator=(SynthesizerVoice&& other) noexcept;
-
-        // Destructor
-        ~SynthesizerVoice();
+        virtual ~SynthesizerVoiceContainer() = default;
 
         /**
          * Sets the waveform to be used by this voice
@@ -100,7 +92,7 @@ namespace pdcpp
          *
          * @param generator the generator to use;
          */
-        void setCustomGenerator(CustomSynthSignalGenerator& generator);
+        void setCustomGenerator(CustomSynthGenerator& generator);
 
         /**
          * Set the attack (rise to maximum) time of the synthesizer voice's
@@ -145,17 +137,58 @@ namespace pdcpp
           */
         void setAmplitudeModulator(const pdcpp::Signal& mod);
 
-        [[ nodiscard ]] pdcpp::Envelope getEnvelope() const;
+        [[nodiscard]] pdcpp::Envelope getEnvelope() const;
+
+        /**
+         *
+         * @param note
+         * @param vel
+         * @param len
+         * @param when
+         */
+        void playMIDINote(MIDINote note, float vel, float len = -1, uint32_t when = 0);
+
+        /**
+         *
+         * @param when
+         */
+        void noteOff(uint32_t when = 0);
+
+        void setTranspose(float halfSteps);
 
         /**
          * implicit conversion to a ::PDSynth* for use with the C API
          */
-        [[ nodiscard ]] operator ::PDSynth* () const { return p_Synth; } // NOLINT(*-explicit-constructor)
+        [[nodiscard]] operator ::PDSynth*() const
+        { return p_Synth; } // NOLINT(*-explicit-constructor)
 
         // Implements base class
-        [[ nodiscard ]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
-    private:
+        [[nodiscard]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
+
+        bool operator==(SynthesizerVoiceContainer* other) { return other->p_Synth == p_Synth; }
+    protected:
         PDSynth* p_Synth;
+    };
+
+
+    class SynthesizerVoice
+        : public SynthesizerVoiceContainer
+    {
+    public:
+        /**
+         * Creates a new SynthesizerVoiceContainer. Does not own the pointer
+         */
+        SynthesizerVoice();
+
+        // Move constructor
+        SynthesizerVoice(SynthesizerVoice&& other) noexcept;
+
+        // Move-assignment constructor
+        SynthesizerVoice& operator=(SynthesizerVoice&& other) noexcept;
+
+        // Destructor
+        ~SynthesizerVoice() override;
+    private:
         PDCPP_DECLARE_NON_COPYABLE(SynthesizerVoice);
     };
 

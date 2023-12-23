@@ -26,15 +26,23 @@ pdcpp::CustomSoundEffect::CustomSoundEffect()
     : p_Effect(pdcpp::GlobalPlaydateAPI::get()->sound->effect->newEffect(effectProcBridge, this))
 {}
 
-pdcpp::CustomSoundEffect::~CustomSoundEffect() { pdcpp::GlobalPlaydateAPI::get()->sound->effect->freeEffect(p_Effect); }
+pdcpp::CustomSoundEffect::~CustomSoundEffect()
+{
+    if (p_Effect != nullptr)
+        { pdcpp::GlobalPlaydateAPI::get()->sound->effect->freeEffect(p_Effect); }
+}
 
-pdcpp::CustomSoundEffect::CustomSoundEffect(pdcpp::CustomSoundEffect&& other)
+pdcpp::CustomSoundEffect::CustomSoundEffect(pdcpp::CustomSoundEffect&& other) noexcept
     : p_Effect(other.p_Effect)
-{ other.p_Effect = nullptr; }
+{
+    other.p_Effect = nullptr;
+    pdcpp::GlobalPlaydateAPI::get()->sound->effect->setUserdata(p_Effect, this);
+}
 
-pdcpp::CustomSoundEffect& pdcpp::CustomSoundEffect::operator=(pdcpp::CustomSoundEffect&& other)
+pdcpp::CustomSoundEffect& pdcpp::CustomSoundEffect::operator=(pdcpp::CustomSoundEffect&& other) noexcept
 {
     p_Effect = other.p_Effect;
     other.p_Effect = nullptr;
+    pdcpp::GlobalPlaydateAPI::get()->sound->effect->setUserdata(p_Effect, this);
     return *this;
 }

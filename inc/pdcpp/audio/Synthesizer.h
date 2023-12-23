@@ -89,7 +89,7 @@ namespace pdcpp
          * @param when the time in milliseconds to turn the note on. Default is
          *     0 or "right now"
          */
-        void noteOn(MIDINote note, float vel, uint32_t when=0);
+        SynthesizerVoiceContainer noteOn(MIDINote note, float vel, uint32_t when=0);
 
         /**
          * The same as `noteOn(note, vel, when)` but with a specific length for
@@ -100,7 +100,7 @@ namespace pdcpp
          * @param len the time in seconds for which the note should be played
          * @param when the time in milliseconds to turn the note on
          */
-        void noteOn(MIDINote note, float vel, float len, uint32_t when=0);
+        SynthesizerVoiceContainer noteOn(MIDINote note, float vel, float len, uint32_t when=0);
 
         /**
          * Sends a note off event to the synth to turn off the given note.
