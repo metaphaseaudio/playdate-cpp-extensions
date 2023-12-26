@@ -24,6 +24,8 @@ namespace pdcpp
     public:
         static constexpr int kFloatScalar = 0x7fffff;
 
+        CustomSynthGenerator() = default;
+
         virtual ~CustomSynthGenerator() = default;
         virtual int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) = 0;
         virtual bool isStereo() = 0;
@@ -36,6 +38,8 @@ namespace pdcpp
         friend class SynthesizerVoiceShims;
         // Maybe don't use this? It's not, like, a destructor or anything.
         virtual void deallocateCalled() {};
+
+        PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSynthGenerator);
     };
 
     class SynthesizerVoiceContainer
@@ -94,6 +98,8 @@ namespace pdcpp
          */
         void setCustomGenerator(CustomSynthGenerator& generator);
 
+        void clearCustomGenerator();
+
         /**
          * Set the attack (rise to maximum) time of the synthesizer voice's
          * envelope
@@ -137,24 +143,39 @@ namespace pdcpp
           */
         void setAmplitudeModulator(const pdcpp::Signal& mod);
 
+        /**
+         * Sets the value of a voice's parameters.
+         *
+         * @param paramNumber the parameter number to change
+         * @param value the new value of the parameter
+         * @returns whether or not the parameter ID was valid
+         */
+        bool setParameter(int paramNumber, float value);
+
+        /**
+         * Modulate a voice's parameters
+         *
+         * @param paramNumber the parameter ID number to modulate
+         * @param mod the modulator to use
+         */
+        void setParameterModulator(int paramNumber, const pdcpp::Signal& mod);
+
+        void clearParameterModulator(int paramNumber);
+
+        /**
+         * @returns the amplitude envelope of this voice
+         */
         [[nodiscard]] pdcpp::Envelope getEnvelope() const;
 
-        /**
-         *
-         * @param note
-         * @param vel
-         * @param len
-         * @param when
-         */
-        void playMIDINote(MIDINote note, float vel, float len = -1, uint32_t when = 0);
 
         /**
+         * Sets the transposition of the voice. Virtual because Synth voices
+         * with custom generators can't honor the transposition (no
+         * `getTranspose`) so inheritance is the best way to handle this.
          *
-         * @param when
+         * @param halfSteps how many half-steps to transpose the voice
          */
-        void noteOff(uint32_t when = 0);
-
-        void setTranspose(float halfSteps);
+        virtual void setTranspose(float halfSteps);
 
         /**
          * implicit conversion to a ::PDSynth* for use with the C API

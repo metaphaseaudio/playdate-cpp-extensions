@@ -18,30 +18,35 @@ namespace pdcpp
     public:
         static int render(void* obj,  int32_t* left, int32_t* right, int nsamples, uint32_t rate, int32_t drate)
         {
+            if (obj == nullptr) { return 0; }
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             return thisPtr->renderBlock(left, right, nsamples, rate, drate);
         };
 
         static void noteOn(void* obj, MIDINote note, float velocity, float len)
         {
+            if (obj == nullptr) { return; }
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             thisPtr->noteOn(note, velocity, len);
         };
 
         static void release(void* obj, int ended)
         {
+            if (obj == nullptr) { return; }
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             thisPtr->release(!bool(ended));
         }
 
         static int setParameter(void* obj, int parameter, float value)
         {
+            if (obj == nullptr) { return 0; }
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             return thisPtr->setParameter(parameter, value);
         }
 
         static void dealloc(void* obj)
         {
+            if (obj == nullptr) { return; }
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             thisPtr->deallocateCalled();
         }
@@ -97,25 +102,50 @@ void pdcpp:: SynthesizerVoiceContainer::setCustomGenerator(pdcpp::CustomSynthGen
     );
 }
 
-void pdcpp:: SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
+void pdcpp::SynthesizerVoiceContainer::clearCustomGenerator()
 {
-    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
-    pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when);
+    pdcpp::GlobalPlaydateAPI::get()->sound->synth->setGenerator(
+            p_Synth,
+            true,
+            SynthesizerVoiceShims::render,
+            SynthesizerVoiceShims::noteOn,
+            SynthesizerVoiceShims::release,
+            SynthesizerVoiceShims::setParameter,
+            SynthesizerVoiceShims::dealloc,
+            nullptr
+    );
 }
 
-void pdcpp:: SynthesizerVoiceContainer::noteOff(uint32_t when)
-{
-    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
-    pdcpp::GlobalPlaydateAPI::get()->sound->synth->noteOff(p_Synth, when);
-}
+// TODO: the following functions appear to be broken in the C API. We can
+//  replace these when we know they're working, or how they're supposed to work.
+//void pdcpp:: SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
+//{
+//    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
+//    pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when);
+//}
+//
+//void pdcpp:: SynthesizerVoiceContainer::noteOff(uint32_t when)
+//{
+//    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
+//    pdcpp::GlobalPlaydateAPI::get()->sound->synth->noteOff(p_Synth, when);
+//}
 
 pdcpp::SynthesizerVoiceContainer::SynthesizerVoiceContainer(PDSynth* synth)
     : p_Synth(synth)
 {}
 
 void pdcpp::SynthesizerVoiceContainer::setTranspose(float halfSteps)
+    { pdcpp::GlobalPlaydateAPI::get()->sound->synth->setTranspose(p_Synth, halfSteps); }
+
+void pdcpp::SynthesizerVoiceContainer::setParameterModulator(int paramNumber, const pdcpp::Signal& mod)
+    { pdcpp::GlobalPlaydateAPI::get()->sound->synth->setParameterModulator(p_Synth, paramNumber, mod); }
+
+bool pdcpp::SynthesizerVoiceContainer::setParameter(int paramNumber, float value)
+    { return pdcpp::GlobalPlaydateAPI::get()->sound->synth->setParameter(p_Synth, paramNumber, value) != 0; }
+
+void pdcpp::SynthesizerVoiceContainer::clearParameterModulator(int paramNumber)
 {
-    pdcpp::GlobalPlaydateAPI::get()->sound->synth->setTranspose(p_Synth, halfSteps);
+    pdcpp::GlobalPlaydateAPI::get()->sound->synth->setParameterModulator(p_Synth, paramNumber, nullptr);
 }
 
 pdcpp::SynthesizerVoice::SynthesizerVoice()
@@ -136,5 +166,7 @@ pdcpp::SynthesizerVoice& pdcpp::SynthesizerVoice::operator=(pdcpp::SynthesizerVo
 pdcpp::SynthesizerVoice::~SynthesizerVoice()
 {
     if (p_Synth != nullptr)
-        { pdcpp::GlobalPlaydateAPI::get()->sound->synth->freeSynth(p_Synth); }
+    {
+        pdcpp::GlobalPlaydateAPI::get()->sound->synth->freeSynth(p_Synth);
+    }
 }

@@ -44,11 +44,11 @@ void pdcpp::ListBox::ItemComponent::update(const int newRow, const bool nowSelec
 
     if (auto* m = p_Owner.getListBoxModel())
     {
+        removeAllChildren();
         p_CustomComponent = m->refreshComponentForRow(newRow, false, nowSelected, p_CustomComponent);
 
         if (p_CustomComponent != nullptr)
         {
-            removeAllChildren();
             addChildComponent(p_CustomComponent);
             p_CustomComponent->setBounds(getBounds());
         }
@@ -80,8 +80,8 @@ void pdcpp::ListBox::updateContent()
     {
         auto y = m_ItemView.getViewPosition().y;
         auto w = m_ItemView.getBounds().width;
-        auto h = getBounds().height;
         m_Content.setBounds({0, 0, w, float(rowH * getNumRows())});
+        auto h = m_Content.getBounds().height;
 
         const auto numNeeded = (size_t) (4 + h / rowH);
         m_Items.resize(std::min(numNeeded, m_Items.size()));
