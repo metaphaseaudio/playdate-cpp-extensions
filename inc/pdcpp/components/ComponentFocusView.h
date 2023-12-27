@@ -21,16 +21,10 @@ namespace pdcpp
         void removeChildFromFocusContainer(pdcpp::Component* child, bool resetFocus=true);
         void clearFocusView();
 
-
-
-        [[ nodiscard ]] const pdcpp::Viewport& getViewport() const { return m_Viewport; }
-
-    protected:
-        void resized(const pdcpp::Rectangle<float>& newBounds) override;
-
     private:
         class FocusContainer;
         std::unique_ptr<pdcpp::Component> m_FocusContainer;
-        pdcpp::Viewport m_Viewport;
+
+        PDCPP_DECLARE_NON_COPYABLE(ComponentFocusView);
     };
 }

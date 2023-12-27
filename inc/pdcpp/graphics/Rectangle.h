@@ -33,7 +33,7 @@ namespace pdcpp
         Rectangle<T> removeFromTop(T amt);
         Rectangle<T> removeFromBottom(T amt);
         Rectangle<T> reduced(T amt) const;
-        Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin);
+        Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
 
         T getRight() { x + width; }
         T getBottom() { y + height; }
@@ -54,7 +54,7 @@ namespace pdcpp
     }
 
     template<typename T>
-    Rectangle<T> Rectangle<T>::withOrigin(const Point<T>& newOrigin)
+    Rectangle<T> Rectangle<T>::withOrigin(const Point<T>& newOrigin) const
         { return Rectangle<T>(newOrigin.x, newOrigin.y, width, height); }
 
     template<typename T>

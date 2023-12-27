@@ -18,7 +18,10 @@ pdcpp::Viewport::Viewport(pdcpp::Component* content)
     , m_OffsetY(0)
 {}
 
-void pdcpp::Viewport::setContent(pdcpp::Component* content) { p_Content = content; }
+void pdcpp::Viewport::setContent(pdcpp::Component* content)
+{
+    p_Content = content;
+}
 
 void pdcpp::Viewport::draw()
 {
