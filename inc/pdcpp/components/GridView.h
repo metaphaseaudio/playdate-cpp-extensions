@@ -21,6 +21,9 @@ namespace pdcpp
 
         void displayCell(int row, int column);
 
+        void setCellWidth(float width);
+        void setCellHeight(float height);
+
     protected:
         void resized(const Rectangle<float>& newBounds) override;
         virtual Component* refreshComponentForCell(int row, int column, bool hasFocus, Component* toUpdate) = 0;

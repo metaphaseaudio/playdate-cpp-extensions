@@ -61,3 +61,15 @@ pdcpp::Point<int> pdcpp::GridView::getCellFocus() const
     return {m_ColFocus, m_RowFocus};
 }
 
+void pdcpp::GridView::setCellWidth(float width)
+{
+    m_CellWidth = width;
+    refreshContent();
+}
+
+void pdcpp::GridView::setCellHeight(float height)
+{
+    m_CellHeight = height;
+    refreshContent();
+}
+
