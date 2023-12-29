@@ -143,6 +143,8 @@ namespace pdcpp
           */
         void setAmplitudeModulator(const pdcpp::Signal& mod);
 
+        [[ nodiscard ]] int getParameterCount() const;
+
         /**
          * Sets the value of a voice's parameters.
          *

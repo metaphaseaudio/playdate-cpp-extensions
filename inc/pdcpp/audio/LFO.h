@@ -29,13 +29,13 @@ namespace pdcpp
         explicit LFO(PDSynthLFO* lfoToOwn);
 
         // Move constructor
-        LFO(LFO&& other);
+        LFO(LFO&& other) noexcept;
 
         // Move assignment constructor
-        LFO& operator=(LFO&& other);
+        LFO& operator=(LFO&& other) noexcept;
 
         // Destructor. frees the owned pointer.
-        ~LFO();
+        virtual ~LFO();
 
         /**
          * Set the rate of the LFO in Hertz.
@@ -122,4 +122,5 @@ namespace pdcpp
          */
         void setType(Waveform lfoType);
     };
+
 }

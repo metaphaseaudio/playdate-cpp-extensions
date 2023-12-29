@@ -17,6 +17,10 @@ namespace pdcpp
         : public pdcpp::LFO
     {
     public:
+        CustomLFO(CustomLFO&& other) noexcept;
+        ~CustomLFO() override;
+
+
         /**
          * Base class for a custom LFO. This is a simplified version of the
          * CustomSignal class and leverages portions of the C API specific for
@@ -33,5 +37,11 @@ namespace pdcpp
          * @return the next value of this LFO
          */
         virtual float nextValue() = 0;
+
+        [[ nodiscard ]] bool wantsInterpolation() const;
+
+    private:
+        CustomLFO& operator=(CustomLFO&& other) noexcept = delete;
+        bool m_WantsInterpoloation;
     };
 }

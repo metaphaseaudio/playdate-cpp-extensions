@@ -10,6 +10,7 @@
 
 #pragma once
 #include "pd_api.h"
+#include <pdcpp/core/util.h>
 
 namespace pdcpp
 {
@@ -70,12 +71,6 @@ namespace pdcpp
          */
         CustomSignal();
 
-        // Move constructor
-        CustomSignal(CustomSignal&& other);
-
-        // Move-assignment constructor
-        CustomSignal& operator=(CustomSignal&& other);
-
          // Destructor. Cleans up the custom signal.
         virtual ~CustomSignal();
 
@@ -116,7 +111,9 @@ namespace pdcpp
 
         [[ nodiscard ]] operator ::PDSynthSignalValue*() const override;  // NOLINT (*-explicit-constructor)
 
+
     private:
         PDSynthSignal* p_Signal;
+        PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSignal);
     };
 }

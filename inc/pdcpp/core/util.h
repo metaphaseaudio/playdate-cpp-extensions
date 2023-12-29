@@ -19,16 +19,21 @@ constexpr float kPI = 3.14159f;
  * assignment constructors for the given class.
  */
 #define PDCPP_DECLARE_NON_COPYABLE(classname) \
-    classname(const classname&) = delete;\
-    classname& operator= (const classname&) = delete;
+    classname(const classname&) = delete; \
+    classname& operator= (classname&) = delete;
 
 /**
  * Use this macro from within a class definition to delete the copy, move, and
  * assignment constructors for the given class.
  */
+#define PDCPP_DECLARE_NON_MOVABLE(classname) \
+    classname(classname&&) = delete; \
+    classname& operator= (classname&&) = delete;
+
 #define PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(classname) \
-    PDCPP_DECLARE_NON_COPYABLE(classname); \
-    classname(classname&&) = delete;
+    PDCPP_DECLARE_NON_COPYABLE(classname) \
+    PDCPP_DECLARE_NON_MOVABLE(classname)
+
 
 namespace pdcpp
 {

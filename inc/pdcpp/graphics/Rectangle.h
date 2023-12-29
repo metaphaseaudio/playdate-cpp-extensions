@@ -26,13 +26,14 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
         void setCenter(pdcpp::Point<T> center);
         
-        Rectangle<T> getOverlap(const Rectangle<T>& other);
+        Rectangle<T> getOverlap(const Rectangle<T>& other) const;
         
         Rectangle<T> removeFromLeft(T amt);
         Rectangle<T> removeFromRight(T amt);
         Rectangle<T> removeFromTop(T amt);
         Rectangle<T> removeFromBottom(T amt);
         Rectangle<T> reduced(T amt) const;
+        Rectangle<T> expanded(T amt) const;
         Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
 
         T getRight() { x + width; }
@@ -42,6 +43,7 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
 
     template<typename T>
     Point<T> Rectangle<T>::getUpperLeft() const { return {x, y}; }
@@ -64,6 +66,12 @@ namespace pdcpp
     }
 
     template<typename T>
+    Rectangle<T> Rectangle<T>::expanded(T amt) const
+    {
+        return Rectangle<T>(x - amt, y - amt, width + amt * 2, height + amt * 2);
+    }
+
+    template<typename T>
     Rectangle<T>::operator PDRect() const
         { return {float(x), float(y), float(width), float(height)}; }
 
@@ -75,7 +83,7 @@ namespace pdcpp
         { return {x + T(width / 2.0f), y + T(height / 2.0f)}; }
 
     template<typename T>
-    Rectangle<T> Rectangle<T>::getOverlap(const Rectangle<T>& other)
+    Rectangle<T> Rectangle<T>::getOverlap(const Rectangle<T>& other) const
     {
         const auto overlapStartX = std::max(x, other.x);
         const auto overlapEndX = std::min(other.x + other.width, x + width);

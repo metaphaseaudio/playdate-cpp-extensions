@@ -15,11 +15,11 @@ pdcpp::LFO::LFO(PDSynthLFO* lfo)
     : p_LFO(lfo)
 {}
 
-pdcpp::LFO::LFO(pdcpp::LFO&& other)
+pdcpp::LFO::LFO(pdcpp::LFO&& other) noexcept
     : p_LFO(other.p_LFO)
 { other.p_LFO = nullptr; }
 
-pdcpp::LFO& pdcpp::LFO::operator=(pdcpp::LFO&& other)
+pdcpp::LFO& pdcpp::LFO::operator=(pdcpp::LFO&& other) noexcept
 {
     p_LFO = other.p_LFO ;
     other.p_LFO = nullptr;
