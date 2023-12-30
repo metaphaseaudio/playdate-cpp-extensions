@@ -47,3 +47,25 @@ pdcpp::Rectangle<float> pdcpp::Graphics::getScreenBounds()
     };
 }
 
+void pdcpp::Graphics::fillPolygon(const std::vector<pdcpp::Point<float>>& points,  LCDColor color, LCDPolygonFillRule fillRule)
+{
+    std::vector<int> intPoints;
+    for (auto& point : points)
+    {
+        intPoints.push_back(point.x);
+        intPoints.push_back(point.y);
+    }
+
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillPolygon(intPoints.size() / 2.0f, intPoints.data(), color, fillRule);
+}
+
+void pdcpp::Graphics::drawPolygon(const std::vector<pdcpp::Point<float>>& points, int thickness, LCDColor color)
+{
+    for (int i = 0; i < points.size() - 1; i++)
+    {
+        const auto start = points.at(i);
+        const auto end = points.at(i + 1);
+        pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(start.x, start.y, end.x, end.y, thickness, color);
+    }
+}
+

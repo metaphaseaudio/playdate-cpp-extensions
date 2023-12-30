@@ -39,7 +39,7 @@ namespace pdcpp
 {
     template<typename T>
     T limit(T min, T max, T val)
-        { return std::min<T>(std::max<T>(val, min), max); }
+        { return std::min<T>(std::max<T>(val, min < max ? min : max), max > min ? max : min); }
 
 
     template <typename T=float>

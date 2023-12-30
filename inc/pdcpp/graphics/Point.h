@@ -31,6 +31,8 @@ namespace pdcpp
         [[ nodiscard ]] Point<T> operator- (Point<T> other) const { return {x - other.x, y - other.y}; }
         [[ nodiscard ]] Point<T> operator+ (Point<T> other) const { return {x + other.x, y + other.y}; }
         [[ nodiscard ]] Point<T> operator* (T value) const { return {x * value, y * value}; }
+        [[ nodiscard ]] bool operator== (const Point<T>& other) const { return x == other.x && y == other.y; }
+        [[ nodiscard ]] bool operator!= (const Point<T>& other) const { return x != other.x || y != other.y; }
 
         T x, y;
     };

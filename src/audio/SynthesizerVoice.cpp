@@ -169,6 +169,8 @@ pdcpp::SynthesizerVoice::~SynthesizerVoice()
 {
     if (p_Synth != nullptr)
     {
+        for (int i = getParameterCount(); --i >= 0;)
+            { clearParameterModulator(i); }
         pdcpp::GlobalPlaydateAPI::get()->sound->synth->freeSynth(p_Synth);
     }
 }

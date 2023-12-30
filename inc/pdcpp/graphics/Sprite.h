@@ -58,7 +58,7 @@ namespace pdcpp
         Sprite& operator=(Sprite&& rhs) noexcept;
 
         // Destructor. Removes and frees the sprite.
-        ~Sprite();
+        virtual ~Sprite();
 
         // Adds the sprite to the system's display lists. Enabled by default
         void addSprite();

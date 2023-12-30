@@ -167,7 +167,7 @@ namespace pdcpp
          * height, or both. Negative scales correspond with flips. Does not
          * modify the image.
          *
-         * @param location the upper right corner of the image to draw
+         * @param location the center of the image to draw
          * @param centerX the ratio of the image's width at which to place the
          *     center point around which to rotate. Default is 0.5f, the center
          *     of the image's width.

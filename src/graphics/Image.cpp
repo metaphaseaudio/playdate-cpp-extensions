@@ -103,6 +103,12 @@ void pdcpp::Image::draw(const pdcpp::Point<int>& location, float xScale, float y
 
 void pdcpp::Image::draw(const pdcpp::Point<int>& location, float degrees, float centerX, float centerY, float xScale, float yScale) const
 {
+    // TODO: This is to work around a bug where drawing is inverted around the
+    //  centerY axis when the rotation angle is 90 or 180 degrees:
+    //  https://devforum.play.date/t/drawrotatedbitmap-draws-from-wrong-center-if-degrees-is-one-of-the-four-cardinal-directions/3620/8
+    //  remove it when the bug is actually fixed.
+    if ((degrees) == 90.0f || ::fabs(degrees) == 180.0f)
+        { centerY = 1.0f - centerY; }
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawRotatedBitmap(p_Data, location.x, location.y, degrees, centerX, centerY, xScale, yScale);
 }
 
