@@ -35,6 +35,7 @@ namespace pdcpp
         Rectangle<T> reduced(T amt) const;
         Rectangle<T> expanded(T amt) const;
         Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
+        Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
 
         T getRight() { x + width; }
         T getBottom() { y + height; }
@@ -43,6 +44,14 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Rectangle<T> Rectangle<T>::withCenter(const Point<T>& newCenter) const
+    {
+        const auto currentCenter = getCenter();
+        const auto diff = newCenter - currentCenter;
+        return Rectangle<T>(x + diff.x, y + diff.y, width, height);
+    }
 
 
     template<typename T>
