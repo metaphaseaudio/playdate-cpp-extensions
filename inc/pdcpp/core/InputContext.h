@@ -37,6 +37,7 @@ namespace pdcpp
         void update();
         void pushContext(InputContext* newContext);
         void popContext();
+        void resetToBaseContext();
 
     private:
         bool m_CheckCrankBeforeButtons;

@@ -12,7 +12,19 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 float pdcpp::Signal::getValue() const
-    { return pdcpp::GlobalPlaydateAPI::get()->sound->signal->getValue(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *())); }
+{
+    return pdcpp::GlobalPlaydateAPI::get()->sound->signal->getValue(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()));
+}
+
+void pdcpp::Signal::setValueOffset(float bias)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueOffset(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), bias);
+}
+
+void pdcpp::Signal::setValueScale(float scale)
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueScale(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), scale);
+}
 
 float stepShim(void* userdata, int* iosamples, float* ifval)
 {

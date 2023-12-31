@@ -77,3 +77,9 @@ void pdcpp::InputContextManager::popContext()
     pdcpp::CrankManager::addListener(m_ContextStack.back());
 }
 
+void pdcpp::InputContextManager::resetToBaseContext()
+{
+    while (m_ContextStack.size() != 1)
+        { popContext(); }
+}
+

@@ -29,6 +29,19 @@ namespace pdcpp
         [[ nodiscard ]] float getValue() const;
 
         /**
+         * Offsets the signal’s output by the given amount.
+         * @param bias the value to add to the signal;
+         */
+        void setValueOffset(float bias);
+
+        /**
+         * Scales the signal’s output by the given factor. The scale is applied
+         * before the offset
+         * @param scale the factor to apply
+         */
+        void setValueScale(float scale);
+
+        /**
          * Abstract. Implementations must provide an implicit conversion to a
          * raw playdate ::PDSynthSignalValue* to allow for direct use with the
          * playdate C API.
