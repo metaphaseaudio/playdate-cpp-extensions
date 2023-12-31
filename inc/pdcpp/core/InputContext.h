@@ -39,6 +39,8 @@ namespace pdcpp
         void popContext();
         void resetToBaseContext();
 
+        [[ nodiscard ]] InputContext* getCurrentContext() const;
+
     private:
         bool m_CheckCrankBeforeButtons;
         std::deque<InputContext*> m_ContextStack;

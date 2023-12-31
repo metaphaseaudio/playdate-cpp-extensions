@@ -83,3 +83,8 @@ void pdcpp::InputContextManager::resetToBaseContext()
         { popContext(); }
 }
 
+pdcpp::InputContext* pdcpp::InputContextManager::getCurrentContext() const
+{
+    return m_ContextStack.back();
+}
+
