@@ -54,11 +54,11 @@ void pdcpp::InputContextManager::pushContext(InputContext* newContext)
     }
 
     newContext->p_CurrentManager = this;
-    newContext->contextEntered();
     m_ContextStack.push_back(newContext);
-
     pdcpp::ButtonManager::addListener(m_ContextStack.back());
     pdcpp::CrankManager::addListener(m_ContextStack.back());
+
+    newContext->contextEntered();
 }
 
 void pdcpp::InputContextManager::popContext()
@@ -71,10 +71,11 @@ void pdcpp::InputContextManager::popContext()
     m_ContextStack.back()->p_CurrentManager = nullptr;
     m_ContextStack.back()->contextExited();
     m_ContextStack.pop_back();
-    m_ContextStack.back()->contextEntered();
 
     pdcpp::ButtonManager::addListener(m_ContextStack.back());
     pdcpp::CrankManager::addListener(m_ContextStack.back());
+
+    m_ContextStack.back()->contextEntered();
 }
 
 void pdcpp::InputContextManager::resetToBaseContext()
