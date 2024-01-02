@@ -15,5 +15,15 @@ namespace pdcpp
         static LCDColor solid50GrayA;
         static LCDColor solid50GrayB;
         static LCDColor sparseCheckerA;
+
+        static LCDColor steppedDither0;
+        static LCDColor steppedDither1;
+        static LCDColor steppedDither2;
+        static LCDColor steppedDither3;
+        static LCDColor steppedDither4;
+        static LCDColor steppedDither5;
+        static LCDColor steppedDither6;
+
+        static LCDColor gradient[9];
     };
 }
