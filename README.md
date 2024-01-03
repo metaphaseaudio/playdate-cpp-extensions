@@ -3,12 +3,12 @@ Being able to use C++ for Playdate development is a great start, but since the
 SDK is all in C, you'll still end up writing a lot of C, and that wasn't really
 the point, was it?
 
-This library extends the core `playdate-cpp` library, and provides RIIA
+This library extends the core `playdate-cpp` library, and provides RAII
 compliant C++ objects for the C API, as well as other useful objects to ease
 development. The goal of this library to let you write as much C++, (and as 
 little C) as possible.
 
-At the moment the library provides a fairly a la carte approach to development,
+At the moment the library provides a fairly à la carte approach to development,
 but a long-term goal of this library to include classes which would provide
 users a clearly structured game engine.
 

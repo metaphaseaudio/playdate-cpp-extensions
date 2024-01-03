@@ -169,6 +169,25 @@ namespace pdcpp
          */
         [[nodiscard]] pdcpp::Envelope getEnvelope() const;
 
+        /**
+         * Starts a note on this voice.
+         *
+         * @param note the MIDInote to play
+         * @param vel a velocity for the note (0.0f - 1.0f)
+         * @param len optional length for the note. If -1, will play until note
+         *     off. Default -1.
+         * @param when an optional time the note should be played. 0 to play the
+         *     note immediately. Default 0.
+         */
+        void playMIDINote(MIDINote note, float vel, float len=-1, uint32_t when=0);
+
+        /**
+         * stops the currently playing note.
+         *
+         * @param when an optional time at which to stop the note. 0 to stop
+         *     immediately. Default 0.
+         */
+        void noteOff(uint32_t when=0);
 
         /**
          * Sets the transposition of the voice. Virtual because Synth voices
