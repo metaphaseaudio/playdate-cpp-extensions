@@ -26,13 +26,12 @@ pdcpp::InputContext::InputContext()
     : p_CurrentManager(nullptr)
 {}
 
-pdcpp::InputContextManager::InputContextManager(InputContext* baseContext, bool crankBeforeButtons)
-    : m_CheckCrankBeforeButtons(crankBeforeButtons)
+pdcpp::InputContextManager::InputContextManager(InputContext* baseContext)
 { pushContext(baseContext); }
 
 void pdcpp::InputContextManager::update()
 {
-    if (m_CheckCrankBeforeButtons)
+    if (m_ContextStack.back()->wantsCrankBeforeButtons())
     {
         pdcpp::CrankManager::checkStateAndNotify();
         pdcpp::ButtonManager::checkStateAndNotify();

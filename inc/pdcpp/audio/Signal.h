@@ -29,17 +29,20 @@ namespace pdcpp
         [[ nodiscard ]] float getValue() const;
 
         /**
-         * Offsets the signal’s output by the given amount.
+         * Offsets the signal’s output by the given amount. This will come after
+         * the scaling factor
+         *
          * @param bias the value to add to the signal;
          */
-        void setValueOffset(float bias);
+        void setBias(float bias);
 
         /**
          * Scales the signal’s output by the given factor. The scale is applied
          * before the offset
+         *
          * @param scale the factor to apply
          */
-        void setValueScale(float scale);
+        void setScale(float scale);
 
         /**
          * Abstract. Implementations must provide an implicit conversion to a

@@ -16,12 +16,12 @@ float pdcpp::Signal::getValue() const
     return pdcpp::GlobalPlaydateAPI::get()->sound->signal->getValue(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()));
 }
 
-void pdcpp::Signal::setValueOffset(float bias)
+void pdcpp::Signal::setBias(float bias)
 {
     pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueOffset(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), bias);
 }
 
-void pdcpp::Signal::setValueScale(float scale)
+void pdcpp::Signal::setScale(float scale)
 {
     pdcpp::GlobalPlaydateAPI::get()->sound->signal->setValueScale(reinterpret_cast<PDSynthSignal*>(this->operator ::PDSynthSignalValue *()), scale);
 }

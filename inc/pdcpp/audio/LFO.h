@@ -53,10 +53,19 @@ namespace pdcpp
         void setPhase(float phase);
 
         /**
+         * Sets the starting phase (0-1) upon re-triggering of this LFO.
+         *
+         * @param phase the initial phase 0-1 to use.
+         */
+        void setStartPhase(float phase);
+
+        /**
          * Sets the center point of the LFO. LFOs are typically treated as
          * oscillating between +/- depth (with some exceptions for oscillators
          * like arpeggiators,) and this adds a constant to the value, "biasing"
-         * the LFO toward the value.
+         * the LFO toward the value. This is applied after the scaling inherited
+         * from pdcpp::Signal, so you can use this to introduce a constant value
+         * by setting the scale to 0, and using a constant bias.
          *
          * @param center the new center value of the LFO
          */
