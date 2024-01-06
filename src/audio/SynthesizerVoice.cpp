@@ -116,8 +116,6 @@ void pdcpp::SynthesizerVoiceContainer::clearCustomGenerator()
     );
 }
 
-// TODO: the following functions appear to be broken in the C API. We can
-//  replace these when we know they're working, or how they're supposed to work.
 void pdcpp::SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
 {
     if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }

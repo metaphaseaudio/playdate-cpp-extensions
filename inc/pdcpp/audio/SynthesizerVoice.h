@@ -24,21 +24,80 @@ namespace pdcpp
     public:
         static constexpr int kFloatScalar = 0x7fffff;
 
-        CustomSynthGenerator() = default;
+        /**
+         * Create a custom generator for a synthesizer voice. Inherit from this,
+         * devine the virtual methods and use the `setGenerator` method of a
+         * pdcpp::SynthesizerVoice, to start generating data for that voice.
+         */
+        explicit CustomSynthGenerator(bool isStereo) : m_IsStereo(isStereo) {};
 
+        // Destructor
         virtual ~CustomSynthGenerator() = default;
+
+        /**
+         * Provides custom waveform generator functions for the synth.
+         *
+         * @param leftSamps sample buffers in Q8.24 format
+         * @param rightSamps sample buffers in Q8.24 format if this is a stereo
+         *     generator
+         * @param nSamps the number of frames to generate
+         * @param rate the amount to change a (Q32) phase accumulator each
+         *     sample. Can be ignored if you're just using `noteOn`, but are
+         *     required for any kind of transposition or modulation function to
+         *     work smoothly.
+         * @param drate the amount to change `rate` each sample. Can be
+         *     ignored if you're just using `noteOn`, but are required for any
+         *     kind of transposition or modulation function to work smoothly.
+         * @return the number of samples processed. Returning less than nSamps
+         *     will inform the voice it's done playing, and this generator won't
+         *     be called again until the next note-on.
+         */
         virtual int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) = 0;
-        virtual bool isStereo() = 0;
+
+        /**
+         * @returns whether this is a stereo generator
+         */
+        [[ nodiscard ]] bool isStereo() const { return  m_IsStereo; };
+
+        /**
+         * Called when the SynthesizerVoice gets a Note On.
+         *
+         * @param note the note to start playing
+         * @param velo the velocity of the note
+         * @param length optionally how long to play. -1 means play until
+         *     release.
+         */
         virtual void noteOn(MIDINote note, float velo, float length) {};
+
+        /**
+         * SynthesizerVoice has received a note off.
+         *
+         * @param allowTail true if the voice isn't being stolen. false if the
+         *     generator can safely produce a tail of data for a while.
+         */
         virtual void release(bool allowTail) {};
+
+        /**
+         * Called by the SynthesizerVoice when someone tries to use
+         * `setParameter` or when a modulator tries to update a parameter.
+         * Note that convention dictates that parameters are 1-indexed!
+         *
+         * @param parameter the parameter index being updated
+         * @param value the value of the parameter being updated
+         * @return 1 if the parameter was valid, 0 if it was not.
+         */
         virtual int setParameter(int parameter, float value) { return 0; };
+
+        /**
+         * @returns the number of parameters supported by this generator.
+         */
         [[ nodiscard ]] virtual int getNParameters() const { return 0; }
 
     private:
         friend class SynthesizerVoiceShims;
         // Maybe don't use this? It's not, like, a destructor or anything.
         virtual void deallocateCalled() {};
-
+        bool m_IsStereo;
         PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSynthGenerator);
     };
 
@@ -143,6 +202,9 @@ namespace pdcpp
           */
         void setAmplitudeModulator(const pdcpp::Signal& mod);
 
+        /**
+         * @returns the number of parameters for this voice
+         */
         [[ nodiscard ]] int getParameterCount() const;
 
         /**
@@ -155,13 +217,22 @@ namespace pdcpp
         bool setParameter(int paramNumber, float value);
 
         /**
-         * Modulate a voice's parameters
+         * Modulate a voice's parameters. Note that the paramNumber is
+         * 1-indexed! 0 is still technically valid, but is a no-op on the voice,
+         * allowing one to use a voice to trigger a pdcpp::Signal modulating
+         * something completely separated.
          *
          * @param paramNumber the parameter ID number to modulate
          * @param mod the modulator to use
          */
         void setParameterModulator(int paramNumber, const pdcpp::Signal& mod);
 
+        /**
+         * Removes the modulator for the given parameter number
+         *
+         * @param paramNumber the parameter number for which the modulation
+         *     should be cleared.
+         */
         void clearParameterModulator(int paramNumber);
 
         /**

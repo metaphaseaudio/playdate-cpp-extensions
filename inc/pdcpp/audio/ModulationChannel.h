@@ -1,7 +1,12 @@
-//
-// Created by Matt on 1/2/2024.
-//
-
+/**
+ *  This file is part of the Playdate CPP Extensions library, and covered under
+ *  the license terms found in the LICENSE file at the root of the repository.
+ *
+ *  Copyright (c) 2023 - Metaphase
+ *
+ *  Created: 1/2/2024
+ *  Original author: MrBZapp
+ */
 #pragma once
 #include "Signal.h"
 #include "SynthesizerVoice.h"
@@ -9,7 +14,6 @@
 
 namespace pdcpp
 {
-
     class ModulationChannel
         : public pdcpp::CustomSignal
     {
@@ -39,34 +43,18 @@ namespace pdcpp
          */
         void removeAllModulators();
 
-        /**
-         * Sets a value by which the output will be multiplied. Negatives will
-         * invert the output.
-         *
-         * @param factor the factor by which to multiply all the modulators
-         */
-        void setGainFactor(float factor);
-
-        /**
-         * @returns the current gain factor of this channel
-         */
-        [[ nodiscard ]] float getGainFactor() const;
-
     private:
         class DummySum
             : public pdcpp::CustomSynthGenerator
         {
         public:
+            DummySum();
             float getCurrentSum();
             void reset() { m_CurrentSum = 0.0f; }
-
-            bool isStereo() override;
-
         private:
             // These two functions make up our "summing" function.
             int renderBlock(int32_t* leftSamps, int32_t* rightSamps, int nSamps, uint32_t rate, int32_t drate) override;
             int setParameter(int parameter, float value) override;
-
             float m_CurrentSum;
         };
 
@@ -76,7 +64,6 @@ namespace pdcpp
 
         void resetParameterNumbers();
 
-        float m_GainFactor = 1.0f;
         std::vector<pdcpp::Signal*> m_Modulators;
         DummySum m_Summer;
         pdcpp::SynthesizerVoice m_Voice;

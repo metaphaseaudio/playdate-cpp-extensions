@@ -1,8 +1,14 @@
-//
-// Created by Matt on 9/27/2023.
-//
+/**
+ *  This file is part of the Playdate CPP Extensions library, and covered under
+ *  the license terms found in the LICENSE file at the root of the repository.
+ *
+ *  Copyright (c) 2023 - Metaphase
+ *
+ *  Created: 9/27/2023
+ *  Original author: MrBZapp
+ */
 
-#include "pdcpp/graphics/Colours.h"
+#include "pdcpp/graphics/Colors.h"
 
 LCDPattern transparent50GrayAPattern = {
         // Bitmap
@@ -118,24 +124,24 @@ LCDPattern steppedDitherPattern6 = {
         0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
 };
 
-LCDColor pdcpp::Colours::transparent50GrayA = reinterpret_cast<LCDColor>(transparent50GrayAPattern);
-LCDColor pdcpp::Colours::transparent50GrayB = reinterpret_cast<LCDColor>(transparent50GrayBPattern);
+LCDColor pdcpp::Colors::transparent50GrayA = reinterpret_cast<LCDColor>(transparent50GrayAPattern);
+LCDColor pdcpp::Colors::transparent50GrayB = reinterpret_cast<LCDColor>(transparent50GrayBPattern);
 
-LCDColor pdcpp::Colours::solid50GrayA = reinterpret_cast<LCDColor>(solid50GrayAPattern);
-LCDColor pdcpp::Colours::solid50GrayB = reinterpret_cast<LCDColor>(solid50GrayBPattern);
+LCDColor pdcpp::Colors::solid50GrayA = reinterpret_cast<LCDColor>(solid50GrayAPattern);
+LCDColor pdcpp::Colors::solid50GrayB = reinterpret_cast<LCDColor>(solid50GrayBPattern);
 
-LCDColor pdcpp::Colours::sparseCheckerA = reinterpret_cast<LCDColor>(sparseCheckerAPattern);
+LCDColor pdcpp::Colors::sparseCheckerA = reinterpret_cast<LCDColor>(sparseCheckerAPattern);
 
-LCDColor pdcpp::Colours::steppedDither0 = reinterpret_cast<LCDColor>(steppedDitherPattern0);
-LCDColor pdcpp::Colours::steppedDither1 = reinterpret_cast<LCDColor>(steppedDitherPattern1);
-LCDColor pdcpp::Colours::steppedDither2 = reinterpret_cast<LCDColor>(steppedDitherPattern2);
-LCDColor pdcpp::Colours::steppedDither3 = reinterpret_cast<LCDColor>(steppedDitherPattern3);
-LCDColor pdcpp::Colours::steppedDither4 = reinterpret_cast<LCDColor>(steppedDitherPattern4);
-LCDColor pdcpp::Colours::steppedDither5 = reinterpret_cast<LCDColor>(steppedDitherPattern5);
-LCDColor pdcpp::Colours::steppedDither6 = reinterpret_cast<LCDColor>(steppedDitherPattern6);
+LCDColor pdcpp::Colors::steppedDither0 = reinterpret_cast<LCDColor>(steppedDitherPattern0);
+LCDColor pdcpp::Colors::steppedDither1 = reinterpret_cast<LCDColor>(steppedDitherPattern1);
+LCDColor pdcpp::Colors::steppedDither2 = reinterpret_cast<LCDColor>(steppedDitherPattern2);
+LCDColor pdcpp::Colors::steppedDither3 = reinterpret_cast<LCDColor>(steppedDitherPattern3);
+LCDColor pdcpp::Colors::steppedDither4 = reinterpret_cast<LCDColor>(steppedDitherPattern4);
+LCDColor pdcpp::Colors::steppedDither5 = reinterpret_cast<LCDColor>(steppedDitherPattern5);
+LCDColor pdcpp::Colors::steppedDither6 = reinterpret_cast<LCDColor>(steppedDitherPattern6);
 
 
-LCDColor pdcpp::Colours::gradient[9] = {
+LCDColor pdcpp::Colors::gradient[9] = {
     kColorBlack,
     steppedDither0,
     steppedDither1,

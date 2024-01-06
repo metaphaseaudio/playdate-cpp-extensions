@@ -1,11 +1,18 @@
-//
-// Created by Matt on 12/17/2023.
-//
+/**
+ *  This file is part of the Playdate CPP Extensions library, and covered under
+ *  the license terms found in the LICENSE file at the root of the repository.
+ *
+ *  Copyright (c) 2023 - Metaphase
+ *
+ *  Created: 12/17/2023
+ *  Original author: MrBZapp
+ */
 
 #pragma once
 #include <deque>
 #include <pdcpp/core/ButtonManager.h>
 #include "CrankManager.h"
+#include <pdcpp/core/util.h>
 
 namespace pdcpp
 {

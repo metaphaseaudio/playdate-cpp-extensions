@@ -1,6 +1,12 @@
-//
-// Created by Matt on 12/4/2023.
-//
+/**
+ *  This file is part of the Playdate CPP Extensions library, and covered under
+ *  the license terms found in the LICENSE file at the root of the repository.
+ *
+ *  Copyright (c) 2023 - Metaphase
+ *
+ *  Created: 12/4/2023
+ *  Original author: MrBZapp
+ */
 
 #include <cassert>
 #include "pdcpp/components/Slider.h"
@@ -18,6 +24,8 @@ pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps)
     , m_Max(max)
     , m_IncrementSize((m_Max - m_Min) / float(nSteps))
 { onChange = [](float){}; }
+
+pdcpp::Slider::~Slider() { m_Listeners.clear(); }
 
 void pdcpp::Slider::setValue(float newValue, bool notify)
 {
@@ -64,6 +72,3 @@ void pdcpp::Slider::notifyListeners()
     for (auto* listener : m_Listeners)
         { listener->sliderValueChanged(this); }
 }
-
-pdcpp::Slider::~Slider()
-    { m_Listeners.clear(); }

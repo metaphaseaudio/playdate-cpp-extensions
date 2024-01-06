@@ -12,9 +12,12 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 
-pdcpp::Channel::Channel()
+pdcpp::Channel::Channel(bool startAdded)
     : p_Chan(pdcpp::GlobalPlaydateAPI::get()->sound->channel->newChannel())
-{ pdcpp::GlobalPlaydateAPI::get()->sound->addChannel(p_Chan); }
+{
+    if (!startAdded)
+        { pdcpp::GlobalPlaydateAPI::get()->sound->removeChannel(p_Chan); }
+}
 
 pdcpp::Channel::~Channel()
 {
@@ -51,15 +54,25 @@ void pdcpp::Channel::setPanModulator(const pdcpp::Signal& mod) { pdcpp::GlobalPl
 pdcpp::SignalContainer pdcpp::Channel::getPanModulator() const
     { return  pdcpp::SignalContainer(pdcpp::GlobalPlaydateAPI::get()->sound->channel->getPanModulator(p_Chan)); }
 
-pdcpp::Channel::Channel(pdcpp::Channel&& other)
+pdcpp::Channel::Channel(pdcpp::Channel&& other) noexcept
     : p_Chan(other.p_Chan)
 { other.p_Chan = nullptr; }
 
-pdcpp::Channel& pdcpp::Channel::operator=(pdcpp::Channel&& other)
+pdcpp::Channel& pdcpp::Channel::operator=(pdcpp::Channel&& other) noexcept
 {
     p_Chan = other.p_Chan;
     other.p_Chan = nullptr;
     return *this;
+}
+
+void pdcpp::Channel::addToSoundEngine()
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->addChannel(p_Chan);
+}
+
+void pdcpp::Channel::removeFromSoundEngine()
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->removeChannel(p_Chan);
 }
 
 

@@ -1,9 +1,16 @@
-//
-// Created by Matt on 12/4/2023.
-//
+/**
+ *  This file is part of the Playdate CPP Extensions library, and covered under
+ *  the license terms found in the LICENSE file at the root of the repository.
+ *
+ *  Copyright (c) 2023 - Metaphase
+ *
+ *  Created: 12/4/2023
+ *  Original author: MrBZapp
+ */
+
 #include <memory>
 #include "pdcpp/graphics/LookAndFeel.h"
-#include "pdcpp/graphics/Colours.h"
+#include "pdcpp/graphics/Colors.h"
 
 pdcpp::LookAndFeel* pdcpp::LookAndFeel::defaultLookAndFeel = nullptr;
 
@@ -45,7 +52,7 @@ void pdcpp::LookAndFeel::drawSlider(const playdate_graphics* g, const pdcpp::Rec
 
     g->fillRect(startMarker.x, startMarker.y, startMarker.width, startMarker.height, kColorBlack);
     g->fillRect(endMarker.x, endMarker.y, endMarker.width, endMarker.height, kColorBlack);
-    g->fillRect(middleLine.x, middleLine.y, middleLine.width, middleLine.height, pdcpp::Colours::solid50GrayA);
+    g->fillRect(middleLine.x, middleLine.y, middleLine.width, middleLine.height, pdcpp::Colors::solid50GrayA);
 
     // draw the Slider
     int sliderPosition = ratio * localBounds.width;
@@ -59,14 +66,3 @@ void pdcpp::LookAndFeel::drawSlider(const playdate_graphics* g, const pdcpp::Rec
     g->fillPolygon(5, polyPoints, kColorBlack, kPolygonFillNonZero);
 }
 
-void pdcpp::LookAndFeel::drawButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed)
-{
-
-}
-
-void
-pdcpp::LookAndFeel::drawToggleButton(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, bool hasFocus, bool isPressed, bool
-toggleState)
-{
-
-}

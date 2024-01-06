@@ -23,14 +23,17 @@ namespace pdcpp
         /**
          * Creates a new audio Channel. Channels allow for groupwise control of
          * pdcpp::SoundSource's effects and volumes.
+         *
+         * @param startAdded add the channel to the sound engine as part of
+         *     construction
          */
-        Channel();
+        explicit Channel(bool startAdded=true);
 
         // Move constructor
-        Channel(Channel&& other);
+        Channel(Channel&& other) noexcept;
 
         // Move-assignment constructor
-        Channel& operator=(Channel&& other);
+        Channel& operator=(Channel&& other) noexcept;
 
         /**
          * Destructor. Cleans up the channel object, not any of the sources.
@@ -38,7 +41,17 @@ namespace pdcpp
         virtual ~Channel();
 
         /**
-         * Adds a source to this channel
+         * Adds the channel to the sound engine.
+         */
+        void addToSoundEngine();
+
+        /*
+         * Removes the channel from the sound engine.
+         */
+        void removeFromSoundEngine();
+
+        /**
+         * Adds a source to this channel.
          *
          * @param source the pdcpp::SoundSource to add
          */
@@ -108,6 +121,8 @@ namespace pdcpp
          * @returns a C API-compatible pointer to the pan modulator
          */
         [[ nodiscard ]] pdcpp::SignalContainer getPanModulator() const;
+
+        SoundChannel* get() { return p_Chan; }
 
     protected:
         SoundChannel* p_Chan;
