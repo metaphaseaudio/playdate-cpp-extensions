@@ -44,10 +44,11 @@ void pdcpp::Viewport::draw()
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearClipRect();
 }
 
-void pdcpp::Viewport::moveContentBy(int x, int y)
+void pdcpp::Viewport::moveContentBy(int x, int y, bool locked)
 {
-    m_OffsetX += x;
-    m_OffsetY += y;
+
+    m_OffsetX += pdcpp::limit<float>(0 - m_OffsetX, -p_Content->getBounds().width + m_OffsetX, x);
+    m_OffsetY += pdcpp::limit<float>(0 - m_OffsetY, -p_Content->getBounds().height + m_OffsetY, y);
     redraw();
 }
 

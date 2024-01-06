@@ -77,8 +77,10 @@ namespace pdcpp
          *
          * @param x the distance along the x axis to move the content
          * @param y the distance along the y axis to move the content
+         * @param locked don't move the content so that it is out of bounds.
+         *     default is off.
          */
-        void moveContentBy(int x, int y);
+        void moveContentBy(int x, int y, bool locked=false);
 
         // Overrides base class method.
         void draw() override;

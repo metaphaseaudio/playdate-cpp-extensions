@@ -26,8 +26,10 @@ namespace pdcpp
             : x(rect.x), y(rect.y), width(rect.width), height(rect.height)
         {}
 
-        pdcpp::Point<T> getTopLeft() const;
-        pdcpp::Point<T> getBottomRight() const;
+        [[ nodiscard ]] pdcpp::Point<T> getTopLeft() const;
+        [[ nodiscard ]] pdcpp::Point<T> getTopRight() const;
+        [[ nodiscard ]] pdcpp::Point<T> getBottomLeft() const;
+        [[ nodiscard ]] pdcpp::Point<T> getBottomRight() const;
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
         void setCenter(pdcpp::Point<T> center);
         
@@ -37,18 +39,26 @@ namespace pdcpp
         Rectangle<T> removeFromRight(T amt);
         Rectangle<T> removeFromTop(T amt);
         Rectangle<T> removeFromBottom(T amt);
-        Rectangle<T> reduced(T amt) const;
-        Rectangle<T> expanded(T amt) const;
-        Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
-        Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
+        [[ nodiscard ]] Rectangle<T> reduced(T amt) const;
+        [[ nodiscard ]] Rectangle<T> expanded(T amt) const;
+        [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
+        [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
 
         T getRight() { x + width; }
         T getBottom() { y + height; }
+
+        [[ nodiscard ]] Rectangle<int> toInt() const;
 
         [[ nodiscard ]] operator PDRect() const;  // NOLINT (*-explicit-constructor)
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Rectangle<int> Rectangle<T>::toInt() const
+    {
+        { return {int(x), int(y), int(width), int(height)}; }
+    }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::withCenter(const Point<T>& newCenter) const
@@ -58,9 +68,6 @@ namespace pdcpp
         return Rectangle<T>(x + diff.x, y + diff.y, width, height);
     }
 
-
-    template<typename T>
-    Point<T> Rectangle<T>::getTopLeft() const { return {x, y}; }
 
     template<typename T>
     void Rectangle<T>::setCenter(Point<T> center)
@@ -88,6 +95,15 @@ namespace pdcpp
     template<typename T>
     Rectangle<T>::operator PDRect() const
         { return {float(x), float(y), float(width), float(height)}; }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getTopLeft() const { return {x, y}; }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getTopRight() const { return Point<T>(x + width, y); }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getBottomLeft() const { return Point<T>(x, y + height); }
 
     template<typename T>
     Point<T> Rectangle<T>::getBottomRight() const { return {x + width, y + height}; }

@@ -31,6 +31,7 @@ namespace pdcpp
         /**
          * Creates a Slider component. Actual drawing of the slider is delegated
          * to the LookAndFeel.
+         *
          * @param min The minimum value of the slider
          * @param max the maximum value of the slider
          * @param startingValue the starting value of the slider

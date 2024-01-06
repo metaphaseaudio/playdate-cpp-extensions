@@ -22,7 +22,15 @@ namespace pdcpp
          */
         static pdcpp::Rectangle<float> getScreenBounds();
 
-        static void drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
+        static void drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, int px, LCDColor color=kColorBlack);
+
+        static void drawEllipse(const pdcpp::Rectangle<int>& rect, int lineThickness, float startAngle, float endAngle, LCDColor color=kColorBlack);
+        static void fillEllipse(const pdcpp::Rectangle<int>& rect, float startAngle, float endAngle, LCDColor color=kColorBlack);
+
+        static void drawRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color=kColorBlack);
+        static void fillRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color=kColorBlack);
+
+        static void drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, int linePx, LCDColor color=kColorBlack);
         static void fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
 
         struct Dash

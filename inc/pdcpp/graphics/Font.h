@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include <pd_api.h>
+#include <pdcpp/graphics/Rectangle.h>
 
 
 namespace pdcpp
@@ -70,7 +71,8 @@ namespace pdcpp
          * @param y the y coordinate of the upper left corner of the text
          * @param encoding the encoding type of the string. Default is ASCII
          */
-        void drawWrappedText(const std::string& text, PDRect bounds, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding);
+        void drawWrappedText(const std::string& text, const pdcpp::Rectangle<float>& bounds, PDStringEncoding
+        encoding=PDStringEncoding::kASCIIEncoding) const;
 
     private:
         int m_Tracking, m_Leading;

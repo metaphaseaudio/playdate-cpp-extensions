@@ -11,14 +11,47 @@
 #include <pdcpp/graphics/Graphics.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
-void pdcpp::Graphics::drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color)
+void pdcpp::Graphics::drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, int linePx, LCDColor color)
 {
+    auto rectBounds = bounds.reduced(radius);
 
+    // left/right
+    auto lBounds = rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(radius, 0));
+    pdcpp::Graphics::drawLine(lBounds.getTopLeft(), lBounds.getBottomLeft(), linePx, color);
+
+    auto rBounds = rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(radius, 0));
+    pdcpp::Graphics::drawLine(rBounds.getTopRight(), rBounds.getBottomRight(), linePx, color);
+
+    auto tBounds = rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(0, radius));
+    pdcpp::Graphics::drawLine(tBounds.getTopLeft(), tBounds.getTopRight(), linePx, color);
+
+    auto bBounds = rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(0, radius));
+    pdcpp::Graphics::drawLine(bBounds.getBottomLeft(), bBounds.getBottomRight(), linePx, color);
+
+    auto ellipseBounds = pdcpp::Rectangle<int>(0, 0, radius + radius, radius + radius);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getTopLeft()), linePx, 270, 0, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getTopRight()), linePx, 0, 90, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getBottomRight()), linePx, 90, 180, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getBottomLeft()), linePx, 180, 270, color);
 }
 
 void pdcpp::Graphics::fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color)
 {
+    auto rectBounds = bounds.reduced(radius);
 
+    // left/right
+    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(radius, 0)), color);
+    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(radius, 0)), color);
+
+    // up/down
+    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(0, radius)), color);
+    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(0, radius)), color);
+
+    auto ellipseBounds = pdcpp::Rectangle<int>(0, 0, radius + radius, radius + radius);
+    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getTopLeft()), 270, 0, color);
+    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getTopRight()), 0, 90, color);
+    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getBottomRight()), 90, 180, color);
+    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getBottomLeft()), 180, 270, color);
 }
 
 void pdcpp::Graphics::drawDashedLine
@@ -73,5 +106,30 @@ void pdcpp::Graphics::drawPolygon(const std::vector<pdcpp::Point<float>>& points
         const auto end = points.at(i + 1);
         pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(start.x, start.y, end.x, end.y, thickness, color);
     }
+}
+
+void pdcpp::Graphics::drawRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawRect(rect.x, rect.y, rect.width, rect.height, color);
+}
+
+void pdcpp::Graphics::fillRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillRect(rect.x, rect.y, rect.width, rect.height, color);
+}
+
+void pdcpp::Graphics::drawEllipse(const pdcpp::Rectangle<int>& rect, int lineThickness, float startAngle, float endAngle, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawEllipse(rect.x, rect.y, rect.width, rect.height, lineThickness, startAngle, endAngle, color);
+}
+
+void pdcpp::Graphics::fillEllipse(const pdcpp::Rectangle<int>& rect, float startAngle, float endAngle, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillEllipse(rect.x, rect.y, rect.width, rect.height, startAngle, endAngle, color);
+}
+
+void pdcpp::Graphics::drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, int px, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(a.x, a.y, b.x, b.y, px, color);
 }
 
