@@ -6,7 +6,7 @@
 #include <pdcpp/graphics/Sprite.h>
 #include <pdcpp/graphics/Font.h>
 #include <pdcpp/components/Viewport.h>
-#include "pdcpp/core/InputContext.h"
+#include <pdcpp/core/InputContext.h>
 
 class TextBlock
     : public pdcpp::Component
@@ -28,10 +28,17 @@ class ABMenu
 {
 public:
     explicit ABMenu(std::string text);
+
+    void contextEntered() override;
+
+    void contextExited() override;
+
     void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
 
 protected:
     void crankStateChanged(float absolute, float delta) override;
+
+    void buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released) override;
 
 public:
 

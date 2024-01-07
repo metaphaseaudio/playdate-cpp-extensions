@@ -3,8 +3,9 @@
 //
 
 #include "App.h"
-#include "pdcpp/graphics/Graphics.h"
-#include "pdcpp/graphics/Colors.h"
+#include <pdcpp/graphics/Graphics.h>
+#include <pdcpp/graphics/Colors.h>
+#include <pdcpp/graphics/ScopedGraphicsContext.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 const std::string kLorumIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore "
@@ -21,13 +22,16 @@ TextBlock::TextBlock(std::string text, const pdcpp::Font& font)
 void TextBlock::draw()
 {
     auto bounds = getLocalBounds();
-    r_Font.drawWrappedText(m_Text, bounds);
+    bounds.height = r_Font.drawWrappedText(m_Text, bounds);
+    setBounds(bounds);
 }
 
 ABMenu::ABMenu(std::string text)
     : m_Text(std::move(text), pdcpp::LookAndFeel::getDefaultLookAndFeel()->getDefaultFont())
     , m_Viewport(&m_Text)
-{}
+{
+    setVisible(false);
+}
 
 void ABMenu::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
@@ -60,24 +64,47 @@ void ABMenu::resized()
 
 void ABMenu::crankStateChanged(float absolute, float delta)
 {
-    m_Viewport.moveContentBy(0, delta, true);
+    m_Viewport.moveContentBy(0, -delta, true);
 }
+
+void ABMenu::buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released)
+{
+    if (PDButtons::kButtonB & pressed)
+    {
+        popContext();
+    }
+}
+
+void ABMenu::contextEntered(){ setVisible(true); }
+void ABMenu::contextExited() { setVisible(false); }
 
 App::App()
     : m_ContextManager(this)
     , m_Menu(kLorumIpsum)
 {
     m_Menu.setBounds(pdcpp::Graphics::getScreenBounds().reduced(20));
-    m_ContextManager.pushContext(&m_Menu);
 }
 
 int App::update()
 {
     m_ContextManager.update();
     pdcpp::Sprite::updateAndRedrawAllSprites();
+    if (m_ContextManager.getCurrentContext() == this)
+    {
+        auto screenBounds = pdcpp::Graphics::getScreenBounds();
+        pdcpp::ScopedGraphicsContext context(screenBounds);
+
+        std::string msg = "Press A to change contexts.";
+        const auto font = pdcpp::LookAndFeel::getDefaultLookAndFeel()->getDefaultFont();
+        const auto screenCenter = screenBounds.getCenter();
+        const auto point = pdcpp::Rectangle<float>(0, 0, font.getTextWidth(msg), font.getFontHeight()).withCenter(screenCenter).getTopLeft();
+        font.drawText(msg, point.x, point.y);
+    }
     return 1;
 }
 
 void App::buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released)
 {
+    if (PDButtons::kButtonA & pressed)
+        { pushChildContext(&m_Menu); }
 }

@@ -47,8 +47,16 @@ void pdcpp::Viewport::draw()
 void pdcpp::Viewport::moveContentBy(int x, int y, bool locked)
 {
 
-    m_OffsetX += pdcpp::limit<float>(0 - m_OffsetX, -p_Content->getBounds().width + m_OffsetX, x);
-    m_OffsetY += pdcpp::limit<float>(0 - m_OffsetY, -p_Content->getBounds().height + m_OffsetY, y);
+    if (locked)
+    {
+        m_OffsetX = pdcpp::limit<float>(-p_Content->getBounds().width + getBounds().width, 0, m_OffsetX + x);
+        m_OffsetY = pdcpp::limit<float>(-p_Content->getBounds().height + getBounds().height, 0, m_OffsetY + y);
+    }
+    else
+    {
+        m_OffsetX += x;
+        m_OffsetY += y;
+    }
     redraw();
 }
 
