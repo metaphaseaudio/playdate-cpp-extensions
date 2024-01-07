@@ -44,17 +44,19 @@ pdcpp::KeyRepeatTimer::KeyRepeatTimer(int initialDelayMs, int repeatDelayMs)
     , m_RepeatDelay(repeatDelayMs)
 {}
 
-void pdcpp::KeyRepeatTimer::keyPressed(std::function<void()> action)
+void pdcpp::KeyRepeatTimer::keyPressed(std::function<void()> action, bool resetTimer)
 {
     action();
     m_OnKeyRepeat = std::move(action);
     enable(true);
-    setInterval(m_InitialDelay, true);
+    if (resetTimer)
+        { setInterval(m_InitialDelay, true); }
 }
 
 void pdcpp::KeyRepeatTimer::keyReleased()
 {
     enable(false);
+    setInterval(m_InitialDelay, true);
 }
 
 void pdcpp::KeyRepeatTimer::timerCallback()

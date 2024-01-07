@@ -26,6 +26,10 @@ namespace pdcpp
             : x(rect.x), y(rect.y), width(rect.width), height(rect.height)
         {}
 
+        Rectangle(pdcpp::Point<T> upperLeft, pdcpp::Point<T> bottomRight)
+            : x(upperLeft.x), y(upperLeft.y), width(bottomRight.x - upperLeft.x), height(bottomRight.y - upperLeft.y)
+        {}
+
         [[ nodiscard ]] pdcpp::Point<T> getTopLeft() const;
         [[ nodiscard ]] pdcpp::Point<T> getTopRight() const;
         [[ nodiscard ]] pdcpp::Point<T> getBottomLeft() const;
@@ -47,18 +51,16 @@ namespace pdcpp
         T getRight() { x + width; }
         T getBottom() { y + height; }
 
-        [[ nodiscard ]] Rectangle<int> toInt() const;
+        template <typename T2>
+        [[ nodiscard ]] Rectangle<T2> toType() const
+            { return Rectangle<T2>(T2(x), T2(y), T2(width), T2(height)); };
+        [[ nodiscard ]] Rectangle<int> toInt() const { return toType<int>(); };
+        [[ nodiscard ]] Rectangle<float> toFloat() const { return toType<float>(); };
 
         [[ nodiscard ]] operator PDRect() const;  // NOLINT (*-explicit-constructor)
 
         T x = 0, y = 0, width = 0, height = 0;
     };
-
-    template<typename T>
-    Rectangle<int> Rectangle<T>::toInt() const
-    {
-        { return {int(x), int(y), int(width), int(height)}; }
-    }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::withCenter(const Point<T>& newCenter) const
@@ -115,20 +117,20 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::getOverlap(const Rectangle<T>& other) const
     {
-        const auto overlapStartX = std::max(x, other.x);
-        const auto overlapEndX = std::min(other.x + other.width, x + width);
-        const auto overlapLenX = std::max(0.0f, overlapEndX - overlapStartX);
+        const auto overlapStartX = std::max<T>(x, other.x);
+        const auto overlapEndX = std::min<T>(other.x + other.width, x + width);
+        const auto overlapLenX = std::max<T>(0.0f, overlapEndX - overlapStartX);
 
-        const auto overlapStartY = std::max(other.y, y);
-        const auto overlapEndY = std::min(other.y + other.height, y + height);
-        const auto overlapLenY = std::max(0.0f, overlapEndY - overlapStartY);
+        const auto overlapStartY = std::max<T>(other.y, y);
+        const auto overlapEndY = std::min<T>(other.y + other.height, y + height);
+        const auto overlapLenY = std::max<T>(0.0f, overlapEndY - overlapStartY);
 
-        return {
+        return Rectangle<T>(
             overlapLenX > 0 ? overlapStartX : 0.0f,
             overlapLenY > 0 ? overlapStartY : 0.0f,
             overlapLenX,
             overlapLenY
-        }; 
+        );
     }
 
     template<typename T>

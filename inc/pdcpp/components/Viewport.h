@@ -82,6 +82,7 @@ namespace pdcpp
          */
         void moveContentBy(int x, int y, bool locked=false);
 
+    protected:
         // Overrides base class method.
         void draw() override;
 

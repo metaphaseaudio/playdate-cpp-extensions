@@ -20,17 +20,77 @@ namespace pdcpp
         /**
          * @returns the screen bounds as a pdcpp::Rectangle<float>
          */
-        static pdcpp::Rectangle<float> getScreenBounds();
+        static pdcpp::Rectangle<int> getScreenBounds();
 
+        /**
+         * Draws a line from point a to point b with thickness px, and an
+         * optional color. Alias for the C API that uses pdcpp::Points.
+         *
+         * @param a starting point
+         * @param b ending point
+         * @param px thickness of the line in pixels
+         * @param color optional color for the line. default is black.
+         */
         static void drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, int px, LCDColor color=kColorBlack);
 
+        /**
+         * Draws a line forming an ellipse within the bounds of a rectangle.
+         *
+         * @param rect the bounds of the ellipse.
+         * @param lineThickness the thickness of the line.
+         * @param startAngle the starting angle from which to draw in degrees.
+         *     0 is straight up.
+         * @param endAngle the ending angle to which to draw in degrees. Will
+         *     draw a complete ellipse if equal to `startAngle`.
+         * @param color optional color of for line. default is black.
+         */
         static void drawEllipse(const pdcpp::Rectangle<int>& rect, int lineThickness, float startAngle, float endAngle, LCDColor color=kColorBlack);
+
+        /**
+         * Fills an ellipse with a color within the bounds of a rectangle.
+         *
+         * @param rect the bounds of the ellipse.
+         * @param startAngle the starting angle from which to fill in degrees.
+         *     0 is straight up.
+         * @param endAngle the ending angle to which to fill in degrees. Will
+         *     fill a complete ellipse if equal to `startAngle`.
+         * @param color optional color of for line. default is black.
+         */
         static void fillEllipse(const pdcpp::Rectangle<int>& rect, float startAngle, float endAngle, LCDColor color=kColorBlack);
 
+        /**
+         * Draws a rectangle with 1-pixel wide lines.
+         *
+         * @param rect the rectangle to draw.
+         * @param color optional color for the lines. default is black.
+         */
         static void drawRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color=kColorBlack);
+
+        /**
+         * Fills a rectangular area with a color
+         *
+         * @param rect the rectangle to fill
+         * @param color optional color to fill. default is black.
+         */
         static void fillRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color=kColorBlack);
 
+        /**
+         * Draws a rectangle where each of the corners is rounded over.
+         *
+         * @param bounds the boundaries of the rectangle
+         * @param radius the radius of the roundover in pixels
+         * @param linePx the thickeness of the lines in pixels
+         * @param color optional color for the lines. default is black.
+         */
         static void drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, int linePx, LCDColor color=kColorBlack);
+
+        /**
+         * Fills a rectangular area where each of the corners is rounded over.
+         *
+         * @param bounds the boundaries of the rectangle
+         * @param radius the radius of the roundover in pixels
+         * @param color optional color for the lines. default is black.
+         */
         static void fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
 
         struct Dash
@@ -71,5 +131,26 @@ namespace pdcpp
          * @param color the color of the lines
          */
         static void drawPolygon(const std::vector<pdcpp::Point<float>>& points, int thickness, LCDColor color);
+
+        /**
+         * C++ Alias for the C API so you can avoid having to import the
+         * `GlobalPlaydateAPI` just to set the draw mode.
+         *
+         * @param drawMode the new LCDBitmapDrawMode to use
+         */
+        static void setDrawMode(LCDBitmapDrawMode drawMode);
+
+        /**
+         * Sets the area where drawing is permitted within the current graphics
+         * context.
+         *
+         * @param clipRect the area where drawing will be visible.
+         */
+        static void setClipRect(const pdcpp::Rectangle<int>& clipRect);
+
+        /**
+         * Removes any boundaries to drawing.
+         */
+        static void clearClipRect();
     };
 }

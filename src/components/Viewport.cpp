@@ -10,6 +10,7 @@
 
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/components/Viewport.h"
+#include "pdcpp/graphics/Graphics.h"
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 
@@ -39,14 +40,13 @@ void pdcpp::Viewport::draw()
 
     const auto bounds = getBounds();
 
-    pdcpp::GlobalPlaydateAPI::get()->graphics->setClipRect(bounds.x, bounds.y, bounds.width, bounds.height);
+    pdcpp::Graphics::setClipRect(bounds.toInt());
     img.draw({int(bounds.x) + m_OffsetX, int(bounds.y) + m_OffsetY});
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearClipRect();
 }
 
 void pdcpp::Viewport::moveContentBy(int x, int y, bool locked)
 {
-
     if (locked)
     {
         m_OffsetX = pdcpp::limit<float>(-p_Content->getBounds().width + getBounds().width, 0, m_OffsetX + x);
@@ -57,6 +57,7 @@ void pdcpp::Viewport::moveContentBy(int x, int y, bool locked)
         m_OffsetX += x;
         m_OffsetY += y;
     }
+
     redraw();
 }
 

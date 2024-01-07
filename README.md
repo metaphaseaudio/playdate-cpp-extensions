@@ -13,8 +13,9 @@ but a long-term goal of this library to include classes which would provide
 users a clearly structured game engine.
 
 ## How to use
-Start over at the core [`playdate-cpp` repo](https://github.com/nstbayless/playdate-cpp). Once you've got that all set
-up, add this project as another submodule, and follow these steps.
+Start over at the core [`playdate-cpp` repo](https://github.com/nstbayless/playdate-cpp).
+Once you've got that all set up, add this project as another submodule, and
+follow these steps:
 
 ### Build
 This library is also designed to integrate into your CMake project as a
@@ -37,9 +38,9 @@ It's possible we'll want to merge the two projects at some point, but for the
 time being, an effort is being made to isolate things what are useful for
 building large-scale projects vs. things what are required to run C++ at all.
 
-### Event handler
+### Initialization in the `eventHandler`
 In order to support objects which wrap the C API, or indeed any class that
-interacts with the C API, the library requires users to initialize a specific
+interacts with the C API, this library requires users to initialize a specific
 global static pointer to the API in their project's event handler. Likewise,
 best practice would dictate that this pointer is cleared during the teardown.
 
@@ -86,18 +87,19 @@ int eventHandler(PlaydateAPI* pd, PDSystemEvent event, uint32_t arg)
 #endif
 ```
 
-### Other times to use the pdcpp::GlobalPlaydateAPI
-There are some interfaces where providing a C++ API doesn't add much value.
-Generally these are either stand-alone functions, or stateless methods. For 
-these cases, calling the C API is still the best route:
+### You're now ready to start using the C++ API
+That is all that's required!
+
+The vast majority of the C API is accessible through the C++ API, please send a
+message or PR if you find an API you need is missing.
+
+That said, there are some interfaces where providing a C++ API doesn't add much
+value, (at least not yet,) and you'll need to use the `pdcpp::GlobalPlaydateAPI`
+yourself. Generally these are either stand-alone functions, or stateless
+methods. For these cases, calling the C API is still the best route:
 * logging/errors
-* drawing lines and shapes, colors, etc. (although `ScopedGraphicContext`, 
-  `Font`, and the various `Image` classes should handle the rest of your drawing
-  needs.)
-* access to the crank and accelerometer (buttons can be handled with a
-  `ButtonManager`.)
-* the generic "Display" APIs
 * the Time And Date APIs
+* sparse graphics functions (most should be moving to `pdcpp::Graphics`)
 * the "Miscellaneous" section of the C API
 
 While it is unlikely to disappear completely, it's probable that this list will

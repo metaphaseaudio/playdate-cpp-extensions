@@ -80,16 +80,38 @@ namespace pdcpp
     };
 
     class KeyRepeatTimer
-        : pdcpp::Timer
+        : public pdcpp::Timer
     {
     public:
+        /**
+         * Creates a KeyRepeatTimer. These timers take a function in the
+         * `keyPressed which will be hit once on key-press, once after the
+         * `initialDelayMs` time has elapsed, and then repeatedly at intervals
+         * specified by the `repeatDelayMs` time. Use this to allow users to do
+         * things like press-and-hold an arrow key to move a cursor across a
+         * keyboard.
+         *
+         * @param initialDelayMs the initial time in milliseconds to wait before
+         *     repeating the key-press action.
+         * @param repeatDelayMs the interval time to repeat the key-press action
+         *     after the initial delay has elapsed.
+         */
         explicit KeyRepeatTimer(int initialDelayMs=300, int repeatDelayMs=100);
 
-        void keyPressed(std::function<void()> action);
+        /**
+         * Start the key-press action and timer.
+         *
+         * @param action the action to execute
+         * @param resetTimer whether or not to reset the timer. This can be
+         *     used to changing the action without interrupting the repetition
+         *     such as a user changing directions on a D-pad to a diagonal.
+         */
+        void keyPressed(std::function<void()> action, bool resetTimer=true);
+
+        /**
+         * Stops and resets the timer to its 'ready' state.
+         */
         void keyReleased();
-
-        void tick() { pdcpp::Timer::tick(); }
-
 
     private:
         void timerCallback() override;

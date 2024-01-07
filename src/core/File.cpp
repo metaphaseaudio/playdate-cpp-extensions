@@ -90,9 +90,9 @@ bool pdcpp::FileHelpers::fileExists(const std::string& path)
     return pdcpp::GlobalPlaydateAPI::get()->file->stat(path.c_str(), &stat) == 0 && !stat.isdir;
 }
 
-int pdcpp::FileHelpers::mkdir(const std::string& path, bool make_parents)
+int pdcpp::FileHelpers::mkdir(const std::string& path)
 {
-    return 0;
+    return pdcpp::GlobalPlaydateAPI::get()->file->mkdir(path.c_str());
 }
 
 int pdcpp::FileHelpers::rename(const std::string& from, const std::string& to)

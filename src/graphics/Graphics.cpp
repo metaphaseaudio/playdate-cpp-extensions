@@ -13,45 +13,52 @@
 
 void pdcpp::Graphics::drawRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, int linePx, LCDColor color)
 {
-    auto rectBounds = bounds.reduced(radius);
+    auto cornerCenters = bounds.reduced(radius);
 
     // left/right
-    auto lBounds = rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(radius, 0));
+    auto lBounds = cornerCenters.withOrigin(cornerCenters.getTopLeft() - pdcpp::Point<int>(radius, 0));
     pdcpp::Graphics::drawLine(lBounds.getTopLeft(), lBounds.getBottomLeft(), linePx, color);
 
-    auto rBounds = rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(radius, 0));
+    auto rBounds = cornerCenters.withOrigin(cornerCenters.getTopLeft() + pdcpp::Point<int>(radius, 0));
     pdcpp::Graphics::drawLine(rBounds.getTopRight(), rBounds.getBottomRight(), linePx, color);
 
-    auto tBounds = rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(0, radius));
+    auto tBounds = cornerCenters.withOrigin(cornerCenters.getTopLeft() - pdcpp::Point<int>(0, radius));
     pdcpp::Graphics::drawLine(tBounds.getTopLeft(), tBounds.getTopRight(), linePx, color);
 
-    auto bBounds = rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(0, radius));
+    auto bBounds = cornerCenters.withOrigin(cornerCenters.getTopLeft() + pdcpp::Point<int>(0, radius));
     pdcpp::Graphics::drawLine(bBounds.getBottomLeft(), bBounds.getBottomRight(), linePx, color);
 
     auto ellipseBounds = pdcpp::Rectangle<int>(0, 0, radius + radius, radius + radius);
-    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getTopLeft()), linePx, 270, 0, color);
-    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getTopRight()), linePx, 0, 90, color);
-    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getBottomRight()), linePx, 90, 180, color);
-    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(rectBounds.getBottomLeft()), linePx, 180, 270, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(cornerCenters.getTopLeft()), linePx, 270, 0, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(cornerCenters.getTopRight()), linePx, 0, 90, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(cornerCenters.getBottomRight()), linePx, 90, 180, color);
+    pdcpp::Graphics::drawEllipse(ellipseBounds.withCenter(cornerCenters.getBottomLeft()), linePx, 180, 270, color);
 }
 
 void pdcpp::Graphics::fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color)
 {
-    auto rectBounds = bounds.reduced(radius);
+    const auto cornerCenters = bounds.reduced(radius);
+    const auto cornerBounds = pdcpp::Rectangle<int>(0, 0, radius + radius, radius + radius);
 
-    // left/right
-    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(radius, 0)), color);
-    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(radius, 0)), color);
+    const auto corner1 = cornerBounds.withCenter(cornerCenters.getTopLeft());
+    const auto corner2 = cornerBounds.withCenter(cornerCenters.getTopRight());
+    const auto corner3 = cornerBounds.withCenter(cornerCenters.getBottomRight());
+    const auto corner4 = cornerBounds.withCenter(cornerCenters.getBottomLeft());
 
-    // up/down
-    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() - pdcpp::Point<int>(0, radius)), color);
-    pdcpp::Graphics::fillRectangle(rectBounds.withOrigin(rectBounds.getTopLeft() + pdcpp::Point<int>(0, radius)), color);
+    const auto fill1 = pdcpp::Rectangle<int>(
+            corner1.getCenter() - pdcpp::Point<int>(0, radius), corner3.getCenter() + pdcpp::Point<int>(0, radius));
+    const auto fill2 = pdcpp::Rectangle<int>(
+            corner1.getCenter() - pdcpp::Point<int>(radius, 0), corner3.getCenter() + pdcpp::Point<int>(radius, 0));
 
-    auto ellipseBounds = pdcpp::Rectangle<int>(0, 0, radius + radius, radius + radius);
-    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getTopLeft()), 270, 0, color);
-    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getTopRight()), 0, 90, color);
-    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getBottomRight()), 90, 180, color);
-    pdcpp::Graphics::fillEllipse(ellipseBounds.withCenter(rectBounds.getBottomLeft()), 180, 270, color);
+    pdcpp::Graphics::fillRectangle(fill1 , color);
+    pdcpp::Graphics::fillRectangle(fill2 , color);
+
+    pdcpp::Graphics::fillEllipse(corner1, 270, 0, color);
+    pdcpp::Graphics::fillEllipse(corner2, 0, 90, color);
+    pdcpp::Graphics::fillEllipse(corner3, 90, 180, color);
+    pdcpp::Graphics::fillEllipse(corner4, 180, 270, color);
+
+
 }
 
 void pdcpp::Graphics::drawDashedLine
@@ -77,12 +84,12 @@ void pdcpp::Graphics::drawDashedLine
     }
 }
 
-pdcpp::Rectangle<float> pdcpp::Graphics::getScreenBounds()
+pdcpp::Rectangle<int> pdcpp::Graphics::getScreenBounds()
 {
     return {
         0, 0,
-        float(pdcpp::GlobalPlaydateAPI::get()->display->getWidth()),
-        float(pdcpp::GlobalPlaydateAPI::get()->display->getHeight())
+        pdcpp::GlobalPlaydateAPI::get()->display->getWidth(),
+        pdcpp::GlobalPlaydateAPI::get()->display->getHeight()
     };
 }
 
@@ -131,5 +138,20 @@ void pdcpp::Graphics::fillEllipse(const pdcpp::Rectangle<int>& rect, float start
 void pdcpp::Graphics::drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, int px, LCDColor color)
 {
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(a.x, a.y, b.x, b.y, px, color);
+}
+
+void pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode drawMode)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(drawMode);
+}
+
+void pdcpp::Graphics::setClipRect(const pdcpp::Rectangle<int>& clipRect)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->setClipRect(clipRect.x, clipRect.y, clipRect.width, clipRect.height);
+}
+
+void pdcpp::Graphics::clearClipRect()
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->clearClipRect();
 }
 

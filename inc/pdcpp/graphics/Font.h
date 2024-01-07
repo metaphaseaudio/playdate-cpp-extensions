@@ -86,8 +86,7 @@ namespace pdcpp
          * @param encoding the encoding type of the string. Default is ASCII
          * @returns the height of the resulting text block
          */
-        int drawWrappedText(const std::string& text, const pdcpp::Rectangle<float>& bounds, PDStringEncoding
-        encoding=PDStringEncoding::kASCIIEncoding) const;
+        [[nodiscard]] int drawWrappedText(const std::string& text, const Rectangle<float>& bounds, PDStringEncoding encoding=kASCIIEncoding) const;
 
     private:
         int m_Tracking, m_Leading;

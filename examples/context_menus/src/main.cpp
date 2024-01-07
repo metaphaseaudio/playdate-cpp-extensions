@@ -2,9 +2,9 @@
  *  This file is part of the Playdate CPP Extensions library, and covered under
  *  the license terms found in the LICENSE file at the root of the repository.
  *
- *  Copyright (c) 2023 - Metaphase
+ *  Copyright (c) 2024 - Metaphase
  *
- *  Created: 9/29/2023
+ *  Created: 1/06/2024
  *  Original author: MrBZapp
  */
 #include <memory>

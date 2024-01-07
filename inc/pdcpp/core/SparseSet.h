@@ -85,6 +85,5 @@ namespace pdcpp
 
         size_t size_ = 0;	//Current size (number of elements)
         size_t capacity_ = 0;	//Current capacity (maximum value + 1)
-        PDCPP_DECLARE_NON_COPYABLE(SparseSet);
     };
 }
