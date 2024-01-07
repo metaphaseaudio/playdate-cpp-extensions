@@ -75,13 +75,26 @@ $(function() {
 <div class="title">pdcpp::Timer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for pdcpp::Timer:</div>
+<div class="dyncontent">
+<div class="center"><img src="classpdcpp_1_1Timer__inherit__graph.png" border="0" usemap="#apdcpp_1_1Timer_inherit__map" alt="Inheritance graph"/></div>
+<map name="apdcpp_1_1Timer_inherit__map" id="apdcpp_1_1Timer_inherit__map">
+<area shape="rect" title=" " alt="" coords="41,5,147,32"/>
+<area shape="rect" href="classpdcpp_1_1KeyRepeatTimer.html" title=" " alt="" coords="5,80,183,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a635db4ca61746645b415bacc06bcf6f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#a635db4ca61746645b415bacc06bcf6f8">Timer</a> (unsigned int intervalMs)</td></tr>
-<tr class="separator:a635db4ca61746645b415bacc06bcf6f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5b4d4d3bd9a814dbc6f3f2dfe770219"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#aa5b4d4d3bd9a814dbc6f3f2dfe770219">Timer</a> (unsigned int intervalMs, bool startEnabled=true)</td></tr>
+<tr class="separator:aa5b4d4d3bd9a814dbc6f3f2dfe770219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbfdacc003b48a28c85f37bf90502c91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#afbfdacc003b48a28c85f37bf90502c91">setInterval</a> (unsigned int intervalMs, bool reset=false)</td></tr>
 <tr class="separator:afbfdacc003b48a28c85f37bf90502c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a853bf06d6eafedf59b3c05aeb3e0b2bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#a853bf06d6eafedf59b3c05aeb3e0b2bf">getInterval</a> () const</td></tr>
+<tr class="separator:a853bf06d6eafedf59b3c05aeb3e0b2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad937401e420b46b8ba7ba1ff063f8eaf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#ad937401e420b46b8ba7ba1ff063f8eaf">enable</a> (bool shouldEnable)</td></tr>
+<tr class="separator:ad937401e420b46b8ba7ba1ff063f8eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a269d041ec5be6f7942283ef1c35cf19f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Timer.html#a269d041ec5be6f7942283ef1c35cf19f">tick</a> ()</td></tr>
 <tr class="separator:a269d041ec5be6f7942283ef1c35cf19f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -91,8 +104,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a15491332ba9d7203cc276af065d37a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a635db4ca61746645b415bacc06bcf6f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635db4ca61746645b415bacc06bcf6f8">&#9670;&nbsp;</a></span>Timer()</h2>
+<a id="aa5b4d4d3bd9a814dbc6f3f2dfe770219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5b4d4d3bd9a814dbc6f3f2dfe770219">&#9670;&nbsp;</a></span>Timer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -104,8 +117,18 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">pdcpp::Timer::Timer </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>intervalMs</em></td><td>)</td>
+          <td class="paramname"><em>intervalMs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>startEnabled</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -118,6 +141,7 @@ Protected Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">intervalMs</td><td>the number of milliseconds to allow to elapse triggering the callback </td></tr>
+    <tr><td class="paramname">startEnabled</td><td>optionally defer the enablement of the timer </td></tr>
   </table>
   </dd>
 </dl>
@@ -125,6 +149,57 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad937401e420b46b8ba7ba1ff063f8eaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad937401e420b46b8ba7ba1ff063f8eaf">&#9670;&nbsp;</a></span>enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::Timer::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>shouldEnable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Turns the timer on or off. Will not reset the frame count if disabled in the middle of a countdown.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shouldEnable</td><td>enable/disable the timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a853bf06d6eafedf59b3c05aeb3e0b2bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a853bf06d6eafedf59b3c05aeb3e0b2bf">&#9670;&nbsp;</a></span>getInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pdcpp::Timer::getInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the millisecond interval between timer callbacks. </dd></dl>
+
+</div>
+</div>
 <a id="afbfdacc003b48a28c85f37bf90502c91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbfdacc003b48a28c85f37bf90502c91">&#9670;&nbsp;</a></span>setInterval()</h2>
 

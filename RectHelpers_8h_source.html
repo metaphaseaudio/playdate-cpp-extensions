@@ -72,18 +72,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;Point.h&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepdcpp.html">pdcpp</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classpdcpp_1_1RectHelpers.html">   16</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1RectHelpers.html">RectHelpers</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classpdcpp_1_1RectHelpers.html#a351b8bec06ca4e4968c0b97b6894a83e">   23</a></span>&#160;        <span class="keyword">static</span> PDRect <a class="code" href="classpdcpp_1_1RectHelpers.html#a351b8bec06ca4e4968c0b97b6894a83e">getOverlappingRect</a>(<span class="keyword">const</span> PDRect&amp; x, <span class="keyword">const</span> PDRect&amp; y);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    };</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="ttc" id="aclasspdcpp_1_1RectHelpers_html"><div class="ttname"><a href="classpdcpp_1_1RectHelpers.html">pdcpp::RectHelpers</a></div><div class="ttdef"><b>Definition:</b> RectHelpers.h:17</div></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classpdcpp_1_1RectHelpers.html">   19</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1RectHelpers.html">RectHelpers</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classpdcpp_1_1RectHelpers.html#a351b8bec06ca4e4968c0b97b6894a83e">   26</a></span>&#160;        <span class="keyword">static</span> PDRect <a class="code" href="classpdcpp_1_1RectHelpers.html#a351b8bec06ca4e4968c0b97b6894a83e">getOverlappingRect</a>(<span class="keyword">const</span> PDRect&amp; x, <span class="keyword">const</span> PDRect&amp; y);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1Point.html">pdcpp::Point&lt;float&gt;</a> getCenter(<span class="keyword">const</span> PDRect&amp; rect);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1Point.html">pdcpp::Point&lt;float&gt;</a> getBottomRight(<span class="keyword">const</span> PDRect&amp; rect);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    };</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="ttc" id="aclasspdcpp_1_1Point_html"><div class="ttname"><a href="classpdcpp_1_1Point.html">pdcpp::Point</a></div><div class="ttdef"><b>Definition:</b> Point.h:17</div></div>
+<div class="ttc" id="aclasspdcpp_1_1RectHelpers_html"><div class="ttname"><a href="classpdcpp_1_1RectHelpers.html">pdcpp::RectHelpers</a></div><div class="ttdef"><b>Definition:</b> RectHelpers.h:20</div></div>
 <div class="ttc" id="aclasspdcpp_1_1RectHelpers_html_a351b8bec06ca4e4968c0b97b6894a83e"><div class="ttname"><a href="classpdcpp_1_1RectHelpers.html#a351b8bec06ca4e4968c0b97b6894a83e">pdcpp::RectHelpers::getOverlappingRect</a></div><div class="ttdeci">static PDRect getOverlappingRect(const PDRect &amp;x, const PDRect &amp;y)</div></div>
 <div class="ttc" id="anamespacepdcpp_html"><div class="ttname"><a href="namespacepdcpp.html">pdcpp</a></div><div class="ttdef"><b>Definition:</b> Arpeggiator.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="5,107,115,133"/>
+<area shape="rect" id="node2" href="$classpdcpp_1_1ControlSignalContainer.html" title=" " alt="" coords="163,5,381,32"/>
+<area shape="rect" id="node4" href="$classpdcpp_1_1CustomSignal.html" title=" " alt="" coords="193,56,351,83"/>
+<area shape="rect" id="node6" href="$classpdcpp_1_1Envelope.html" title=" " alt="" coords="207,107,337,133"/>
+<area shape="rect" id="node7" href="$classpdcpp_1_1LFO.html" title=" " alt="" coords="225,157,319,184"/>
+<area shape="rect" id="node11" href="$classpdcpp_1_1SignalContainer.html" title=" " alt="" coords="186,208,358,235"/>
+<area shape="rect" id="node3" href="$classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="449,5,605,32"/>
+<area shape="rect" id="node5" href="$classpdcpp_1_1ModulationChannel.html" title=" " alt="" coords="429,56,624,83"/>
+<area shape="rect" id="node8" href="$classpdcpp_1_1Arpeggiator.html" title=" " alt="" coords="454,107,599,133"/>
+<area shape="rect" id="node9" href="$classpdcpp_1_1CustomLFO.html" title=" " alt="" coords="455,157,599,184"/>
+<area shape="rect" id="node10" href="$classpdcpp_1_1WaveformLFO.html" title=" " alt="" coords="446,208,607,235"/>
+</map>

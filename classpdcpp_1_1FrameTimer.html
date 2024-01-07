@@ -87,10 +87,14 @@ Inheritance diagram for pdcpp::FrameTimer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad57499c5d23d1cb0ee17772fe1cdef07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#ad57499c5d23d1cb0ee17772fe1cdef07">FrameTimer</a> (unsigned int nFrames)</td></tr>
-<tr class="separator:ad57499c5d23d1cb0ee17772fe1cdef07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772318354f6140e2fcb82005e27be6e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#a772318354f6140e2fcb82005e27be6e4">FrameTimer</a> (unsigned int nFrames, bool startEnabled=true)</td></tr>
+<tr class="separator:a772318354f6140e2fcb82005e27be6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5eb4d05b8ecdf97030b330a79b8d0b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#ae5eb4d05b8ecdf97030b330a79b8d0b3">setNFrames</a> (unsigned int nFrames, bool reset=false)</td></tr>
 <tr class="separator:ae5eb4d05b8ecdf97030b330a79b8d0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99fffb90276e309ced39a9c32b547d7d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#a99fffb90276e309ced39a9c32b547d7d">getNFrames</a> () const</td></tr>
+<tr class="separator:a99fffb90276e309ced39a9c32b547d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab50ca64f8126a61d5626a1851ce5886f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#ab50ca64f8126a61d5626a1851ce5886f">enable</a> (bool shouldEnable)</td></tr>
+<tr class="separator:ab50ca64f8126a61d5626a1851ce5886f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bc451761b501e0a1776531bc89382a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FrameTimer.html#a1bc451761b501e0a1776531bc89382a7">tick</a> ()</td></tr>
 <tr class="separator:a1bc451761b501e0a1776531bc89382a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -100,8 +104,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aa9710439639086d92f8aeeeed30a095d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad57499c5d23d1cb0ee17772fe1cdef07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad57499c5d23d1cb0ee17772fe1cdef07">&#9670;&nbsp;</a></span>FrameTimer()</h2>
+<a id="a772318354f6140e2fcb82005e27be6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a772318354f6140e2fcb82005e27be6e4">&#9670;&nbsp;</a></span>FrameTimer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -113,8 +117,18 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">pdcpp::FrameTimer::FrameTimer </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>nFrames</em></td><td>)</td>
+          <td class="paramname"><em>nFrames</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>startEnabled</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -127,6 +141,7 @@ Protected Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nFrames</td><td>the number of <code>tick</code> calls to wait before calling the <code>timerCallback</code> method. </td></tr>
+    <tr><td class="paramname">startEnabled</td><td>optionally defer the enablement of the timer </td></tr>
   </table>
   </dd>
 </dl>
@@ -134,6 +149,57 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab50ca64f8126a61d5626a1851ce5886f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab50ca64f8126a61d5626a1851ce5886f">&#9670;&nbsp;</a></span>enable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::FrameTimer::enable </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>shouldEnable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Turns the timer on or off. Will not reset the frame count if disabled in the middle of a countdown.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shouldEnable</td><td>enable/disable the timer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99fffb90276e309ced39a9c32b547d7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fffb90276e309ced39a9c32b547d7d">&#9670;&nbsp;</a></span>getNFrames()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pdcpp::FrameTimer::getNFrames </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the current number of frames in a cycle </dd></dl>
+
+</div>
+</div>
 <a id="ae5eb4d05b8ecdf97030b330a79b8d0b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5eb4d05b8ecdf97030b330a79b8d0b3">&#9670;&nbsp;</a></span>setNFrames()</h2>
 

@@ -79,14 +79,48 @@ $(function() {
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a42bece4320012433812ccf6087a9b16c"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a42bece4320012433812ccf6087a9b16c">listFilesInDirectory</a> (const std::string &amp;dirPath, bool showHidden=false)</td></tr>
 <tr class="separator:a42bece4320012433812ccf6087a9b16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd5943f46638f1c23e1197a1cf9255db"><td class="memItemLeft" align="right" valign="top"><a id="afd5943f46638f1c23e1197a1cf9255db"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>mkdir</b> (const std::string &amp;path, bool make_parents=false)</td></tr>
-<tr class="separator:afd5943f46638f1c23e1197a1cf9255db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0468166a1a4cb936cbf98b27856e8a36"><td class="memItemLeft" align="right" valign="top"><a id="a0468166a1a4cb936cbf98b27856e8a36"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>rename</b> (const std::string &amp;from, const std::string &amp;to)</td></tr>
+<tr class="memitem:a4c0b3b0a6113a0affc13fae57a302565"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a4c0b3b0a6113a0affc13fae57a302565">mkdir</a> (const std::string &amp;path)</td></tr>
+<tr class="separator:a4c0b3b0a6113a0affc13fae57a302565"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0468166a1a4cb936cbf98b27856e8a36"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a0468166a1a4cb936cbf98b27856e8a36">rename</a> (const std::string &amp;from, const std::string &amp;to)</td></tr>
 <tr class="separator:a0468166a1a4cb936cbf98b27856e8a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a210984e1c8b65eacceba4d46080e4237"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a210984e1c8b65eacceba4d46080e4237">fileExists</a> (const std::string &amp;path)</td></tr>
+<tr class="separator:a210984e1c8b65eacceba4d46080e4237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a210984e1c8b65eacceba4d46080e4237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a210984e1c8b65eacceba4d46080e4237">&#9670;&nbsp;</a></span>fileExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool pdcpp::FileHelpers::fileExists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Stats a path to indicate whether the file exists and is not a directory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the filepath to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the file exists, false if it does not. </dd></dl>
+
+</div>
+</div>
 <a id="a42bece4320012433812ccf6087a9b16c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42bece4320012433812ccf6087a9b16c">&#9670;&nbsp;</a></span>listFilesInDirectory()</h2>
 
@@ -129,6 +163,85 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>rename</b> (con
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a vector of strings for each path in this directory </dd></dl>
+
+</div>
+</div>
+<a id="a4c0b3b0a6113a0affc13fae57a302565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c0b3b0a6113a0affc13fae57a302565">&#9670;&nbsp;</a></span>mkdir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int pdcpp::FileHelpers::mkdir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Creates the given path in the `Data/&lt;gameid&gt; folder. Does not create intermediate folders</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the path to create </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a0468166a1a4cb936cbf98b27856e8a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0468166a1a4cb936cbf98b27856e8a36">&#9670;&nbsp;</a></span>rename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int pdcpp::FileHelpers::rename </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Renates a file from one name to another. Will overwrite the destination name without confirmation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">from</td><td>the file to rename </td></tr>
+    <tr><td class="paramname">to</td><td>the new name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on failure. </dd></dl>
 
 </div>
 </div>

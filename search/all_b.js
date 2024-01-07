@@ -1,8 +1,12 @@
 var searchData=
 [
-  ['next_120',['next',['../classpdcpp_1_1Random.html#ae619d13262130d28b8a61b978dd41155',1,'pdcpp::Random']]],
-  ['nextfloatinrange_121',['nextFloatInRange',['../classpdcpp_1_1Random.html#a860f32bac687b01d57f7e1d1a46f1669',1,'pdcpp::Random']]],
-  ['nextvalue_122',['nextValue',['../classpdcpp_1_1CustomLFO.html#ad3944b12222d24e3ea07c7e8b1f7a888',1,'pdcpp::CustomLFO']]],
-  ['noteoff_123',['noteOff',['../classpdcpp_1_1CustomSignal.html#a7194663d7ee7c6615329a84954c53dcd',1,'pdcpp::CustomSignal::noteOff()'],['../classpdcpp_1_1Synthesizer.html#a26ef242a58f5b4b20c3091fdce795171',1,'pdcpp::Synthesizer::noteOff()']]],
-  ['noteon_124',['noteOn',['../classpdcpp_1_1CustomSignal.html#ae9412bd9792601d771e9b7de83ee7fca',1,'pdcpp::CustomSignal::noteOn()'],['../classpdcpp_1_1Synthesizer.html#ae90e45c03b9c81942c637cd113ba1260',1,'pdcpp::Synthesizer::noteOn(MIDINote note, float vel, uint32_t when=0)'],['../classpdcpp_1_1Synthesizer.html#a78e8f7f5d65a9513a44e2f7ceff5aba3',1,'pdcpp::Synthesizer::noteOn(MIDINote note, float vel, float len, uint32_t when=0)']]]
+  ['markareaasdirty_176',['markAreaAsDirty',['../classpdcpp_1_1Sprite.html#abaad937e1e4264f40bf90ad0bfe504ac',1,'pdcpp::Sprite']]],
+  ['markdirty_177',['markDirty',['../classpdcpp_1_1Sprite.html#a939631e08a8ed6fc3668939be5ec4205',1,'pdcpp::Sprite']]],
+  ['mkdir_178',['mkdir',['../classpdcpp_1_1FileHelpers.html#a4c0b3b0a6113a0affc13fae57a302565',1,'pdcpp::FileHelpers']]],
+  ['modulationchannel_179',['ModulationChannel',['../classpdcpp_1_1ModulationChannel.html#aecfa96804247e30c2e52c64f037b8796',1,'pdcpp::ModulationChannel::ModulationChannel()'],['../classpdcpp_1_1ModulationChannel.html',1,'pdcpp::ModulationChannel']]],
+  ['moveby_180',['moveBy',['../classpdcpp_1_1Sprite.html#ad42b036cdeba0f0c8c6c8c189dd1c810',1,'pdcpp::Sprite']]],
+  ['movebywithcollisions_181',['moveByWithCollisions',['../classpdcpp_1_1Sprite.html#a1c010ac5820cfdca6c795bbecfaf9a9b',1,'pdcpp::Sprite']]],
+  ['movecontentby_182',['moveContentBy',['../classpdcpp_1_1Viewport.html#aa7847989a81255669e5b60fef44c8114',1,'pdcpp::Viewport']]],
+  ['moveto_183',['moveTo',['../classpdcpp_1_1Sprite.html#a0799e4dfc59e71415860492ff6148371',1,'pdcpp::Sprite']]],
+  ['movewithcollisions_184',['moveWithCollisions',['../classpdcpp_1_1Sprite.html#a3670c8c51feb8d8165848f07a9393564',1,'pdcpp::Sprite']]]
 ];

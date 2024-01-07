@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classpdcpp_1_1Point-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pdcpp::Point&lt; T &gt; Class Template Reference</div>  </div>
@@ -80,12 +81,48 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a36c0ac313bbfa7755a45d74597f7e7ef"><td class="memItemLeft" align="right" valign="top"><a id="a36c0ac313bbfa7755a45d74597f7e7ef"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Point</b> (T xIn, T yIn)</td></tr>
 <tr class="separator:a36c0ac313bbfa7755a45d74597f7e7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafa444c98ae6e9ea0cf0a159ca67ced4"><td class="memItemLeft" align="right" valign="top"><a id="aafa444c98ae6e9ea0cf0a159ca67ced4"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>getX</b> () const</td></tr>
-<tr class="separator:aafa444c98ae6e9ea0cf0a159ca67ced4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac50e960d4742759204f09b23f2d4906"><td class="memItemLeft" align="right" valign="top"><a id="aac50e960d4742759204f09b23f2d4906"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>getY</b> () const</td></tr>
-<tr class="separator:aac50e960d4742759204f09b23f2d4906"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5c2f4f1fad08b19d270199d955e9a8"><td class="memItemLeft" align="right" valign="top"><a id="acc5c2f4f1fad08b19d270199d955e9a8"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>distance</b> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:acc5c2f4f1fad08b19d270199d955e9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4794e707ac4f12e51f288c0dd58c80f6"><td class="memItemLeft" align="right" valign="top"><a id="a4794e707ac4f12e51f288c0dd58c80f6"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>rotated</b> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; &amp;center, float radians) const</td></tr>
+<tr class="separator:a4794e707ac4f12e51f288c0dd58c80f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42fb006439988de8adc8633b204d5793"><td class="memItemLeft" align="right" valign="top"><a id="a42fb006439988de8adc8633b204d5793"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>withX</b> (T newX) const</td></tr>
+<tr class="separator:a42fb006439988de8adc8633b204d5793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac738cc6753f6fd8ea25974fa4cb0c002"><td class="memItemLeft" align="right" valign="top"><a id="ac738cc6753f6fd8ea25974fa4cb0c002"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>withY</b> (T newY) const</td></tr>
+<tr class="separator:ac738cc6753f6fd8ea25974fa4cb0c002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83271f7925a4276f92a5a58976422360"><td class="memItemLeft" align="right" valign="top"><a id="a83271f7925a4276f92a5a58976422360"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>toFloat</b> () const</td></tr>
+<tr class="separator:a83271f7925a4276f92a5a58976422360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8095ae30fe5f5013eec1621add6a7f"><td class="memItemLeft" align="right" valign="top"><a id="a5b8095ae30fe5f5013eec1621add6a7f"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>toInt</b> () const</td></tr>
+<tr class="separator:a5b8095ae30fe5f5013eec1621add6a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f2140c100371389a516612ef5059416"><td class="memItemLeft" align="right" valign="top"><a id="a4f2140c100371389a516612ef5059416"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> (<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; other) const</td></tr>
+<tr class="separator:a4f2140c100371389a516612ef5059416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6714ec3502e54934195202c34b9ab37a"><td class="memItemLeft" align="right" valign="top"><a id="a6714ec3502e54934195202c34b9ab37a"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; other) const</td></tr>
+<tr class="separator:a6714ec3502e54934195202c34b9ab37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d2084241ff85038b370a82cb34b0941"><td class="memItemLeft" align="right" valign="top"><a id="a7d2084241ff85038b370a82cb34b0941"></a>
+<a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T value) const</td></tr>
+<tr class="separator:a7d2084241ff85038b370a82cb34b0941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f92b17197b5d1354d0eb20c9c79349"><td class="memItemLeft" align="right" valign="top"><a id="a05f92b17197b5d1354d0eb20c9c79349"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a05f92b17197b5d1354d0eb20c9c79349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a8c4b705a75241681297ceba7c855f1"><td class="memItemLeft" align="right" valign="top"><a id="a7a8c4b705a75241681297ceba7c855f1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a7a8c4b705a75241681297ceba7c855f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9f4f75328d7d2ff6b348f9e241d2fc53"><td class="memItemLeft" align="right" valign="top"><a id="a9f4f75328d7d2ff6b348f9e241d2fc53"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>x</b></td></tr>
+<tr class="separator:a9f4f75328d7d2ff6b348f9e241d2fc53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f7d3e5e8f949131c1874e7dd93f6f0"><td class="memItemLeft" align="right" valign="top"><a id="ad6f7d3e5e8f949131c1874e7dd93f6f0"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>y</b></td></tr>
+<tr class="separator:ad6f7d3e5e8f949131c1874e7dd93f6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>inc/pdcpp/graphics/<a class="el" href="Point_8h_source.html">Point.h</a></li>

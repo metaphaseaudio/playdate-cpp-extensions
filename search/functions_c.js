@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['play_434',['play',['../classpdcpp_1_1SamplePlayer.html#add614497092e8c8ea3cddab0419c29cf',1,'pdcpp::SamplePlayer::play()'],['../classpdcpp_1_1SoundSequence.html#ace9fc0d6bbaf152aa9707979e40b72c9',1,'pdcpp::SoundSequence::play()']]],
-  ['processblock_435',['processBlock',['../classpdcpp_1_1CustomSoundEffect.html#a159a06f652cbde607a5fd4a3133a0faf',1,'pdcpp::CustomSoundEffect']]]
+  ['next_608',['next',['../classpdcpp_1_1Random.html#ae619d13262130d28b8a61b978dd41155',1,'pdcpp::Random']]],
+  ['nextfloatinrange_609',['nextFloatInRange',['../classpdcpp_1_1Random.html#a860f32bac687b01d57f7e1d1a46f1669',1,'pdcpp::Random']]],
+  ['nextvalue_610',['nextValue',['../classpdcpp_1_1CustomLFO.html#ad3944b12222d24e3ea07c7e8b1f7a888',1,'pdcpp::CustomLFO']]],
+  ['noteoff_611',['noteOff',['../classpdcpp_1_1CustomSignal.html#a7194663d7ee7c6615329a84954c53dcd',1,'pdcpp::CustomSignal::noteOff()'],['../classpdcpp_1_1Synthesizer.html#a26ef242a58f5b4b20c3091fdce795171',1,'pdcpp::Synthesizer::noteOff()'],['../classpdcpp_1_1SynthesizerVoiceContainer.html#ade1e7498f5109dccd447a11bac7bb46c',1,'pdcpp::SynthesizerVoiceContainer::noteOff()']]],
+  ['noteon_612',['noteOn',['../classpdcpp_1_1CustomSignal.html#ae9412bd9792601d771e9b7de83ee7fca',1,'pdcpp::CustomSignal::noteOn()'],['../classpdcpp_1_1Synthesizer.html#a7bf48a7f4ebd13438617f76b546463aa',1,'pdcpp::Synthesizer::noteOn(MIDINote note, float vel, uint32_t when=0)'],['../classpdcpp_1_1Synthesizer.html#a7462203c70e310374c043eeb0b23b4b4',1,'pdcpp::Synthesizer::noteOn(MIDINote note, float vel, float len, uint32_t when=0)'],['../classpdcpp_1_1CustomSynthGenerator.html#a460f0d08f71ec0f5e885cf883125dc00',1,'pdcpp::CustomSynthGenerator::noteOn()']]]
 ];

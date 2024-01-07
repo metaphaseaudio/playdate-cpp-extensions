@@ -87,53 +87,57 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a63a14bcd4918ffd45ade332410748242">   29</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1LFO.html#a63a14bcd4918ffd45ade332410748242">LFO</a>(PDSynthLFO* lfoToOwn);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="comment">// Move constructor</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="classpdcpp_1_1LFO.html#a63a14bcd4918ffd45ade332410748242">LFO</a>(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp;&amp; other);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="classpdcpp_1_1LFO.html#a63a14bcd4918ffd45ade332410748242">LFO</a>(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp;&amp; other) noexcept;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="comment">// Move assignment constructor</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp; operator=(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp;&amp; other);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp; operator=(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>&amp;&amp; other) noexcept;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="comment">// Destructor. frees the owned pointer.</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        ~<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>();</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#aacc969c650b5f877fdc0f6df7b514897">   45</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#aacc969c650b5f877fdc0f6df7b514897">setRate</a>(<span class="keywordtype">float</span> rateHz);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a60713f064867b58f243c95cc37998e05">   53</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a60713f064867b58f243c95cc37998e05">setPhase</a>(<span class="keywordtype">float</span> phase);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a66e946cd4e357b8c51780d6c53ae44cb">   63</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a66e946cd4e357b8c51780d6c53ae44cb">setBias</a>(<span class="keywordtype">float</span> center);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a5ab02aacd8dd77349073b4cd48793019">   70</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a5ab02aacd8dd77349073b4cd48793019">setDepth</a>(<span class="keywordtype">float</span> depth);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#ab842e3d770894f351dec03fe161c0541">   80</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#ab842e3d770894f351dec03fe161c0541">setDelay</a>(<span class="keywordtype">float</span> holdoff, <span class="keywordtype">float</span> ramptime);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a3e06dfc3049cec503bb373647dba04f2">   88</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a3e06dfc3049cec503bb373647dba04f2">setRetrigger</a>(<span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a8eb2cbff12ef162d5b26dd1b195ee6d8">   90</a></span>&#160;        [[ nodiscard ]] operator ::PDSynthSignalValue*() <span class="keyword">const</span> <span class="keyword">override</span>;  <span class="comment">// NOLINT (*-explicit-constructor)</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        PDSynthLFO* p_LFO;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        PDCPP_DECLARE_NON_COPYABLE(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    };</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html">   98</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1WaveformLFO.html">WaveformLFO</a></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        : <span class="keyword">public</span> <a class="code" href="classpdcpp_1_1LFO.html">LFO</a></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">enum</span> Waveform {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            Square = LFOType::kLFOTypeSquare,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            SawtoothUp = LFOType::kLFOTypeSawtoothUp,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            SawtoothDown = LFOType::kLFOTypeSawtoothDown,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            Triangle = LFOType::kLFOTypeTriangle,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            Sine = LFOType::kLFOTypeSine,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            SampleAndHold = LFOType::kLFOTypeSampleAndHold,</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        };</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199">  116</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199">WaveformLFO</a>(Waveform lfoType);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html#a12749644d832ddec1802554024e93759">  123</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1WaveformLFO.html#a12749644d832ddec1802554024e93759">setType</a>(Waveform lfoType);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    };</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a2c09fdc37fee77ad57e4bd716e0302c4">   60</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a2c09fdc37fee77ad57e4bd716e0302c4">setStartPhase</a>(<span class="keywordtype">float</span> phase);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a66e946cd4e357b8c51780d6c53ae44cb">   72</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a66e946cd4e357b8c51780d6c53ae44cb">setBias</a>(<span class="keywordtype">float</span> center);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a5ab02aacd8dd77349073b4cd48793019">   79</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a5ab02aacd8dd77349073b4cd48793019">setDepth</a>(<span class="keywordtype">float</span> depth);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#ab842e3d770894f351dec03fe161c0541">   89</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#ab842e3d770894f351dec03fe161c0541">setDelay</a>(<span class="keywordtype">float</span> holdoff, <span class="keywordtype">float</span> ramptime);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a3e06dfc3049cec503bb373647dba04f2">   97</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1LFO.html#a3e06dfc3049cec503bb373647dba04f2">setRetrigger</a>(<span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classpdcpp_1_1LFO.html#a8eb2cbff12ef162d5b26dd1b195ee6d8">   99</a></span>&#160;        [[ nodiscard ]] operator ::PDSynthSignalValue*() <span class="keyword">const</span> <span class="keyword">override</span>;  <span class="comment">// NOLINT (*-explicit-constructor)</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        PDSynthLFO* p_LFO;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        PDCPP_DECLARE_NON_COPYABLE(<a class="code" href="classpdcpp_1_1LFO.html">LFO</a>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    };</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html">  107</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1WaveformLFO.html">WaveformLFO</a></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        : <span class="keyword">public</span> <a class="code" href="classpdcpp_1_1LFO.html">LFO</a></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">enum</span> Waveform {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            Square = LFOType::kLFOTypeSquare,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            SawtoothUp = LFOType::kLFOTypeSawtoothUp,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            SawtoothDown = LFOType::kLFOTypeSawtoothDown,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            Triangle = LFOType::kLFOTypeTriangle,</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            Sine = LFOType::kLFOTypeSine,</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            SampleAndHold = LFOType::kLFOTypeSampleAndHold,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        };</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199">  125</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199">WaveformLFO</a>(Waveform lfoType);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classpdcpp_1_1WaveformLFO.html#a12749644d832ddec1802554024e93759">  132</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1WaveformLFO.html#a12749644d832ddec1802554024e93759">setType</a>(Waveform lfoType);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    };</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html"><div class="ttname"><a href="classpdcpp_1_1LFO.html">pdcpp::LFO</a></div><div class="ttdef"><b>Definition:</b> LFO.h:21</div></div>
+<div class="ttc" id="aclasspdcpp_1_1LFO_html_a2c09fdc37fee77ad57e4bd716e0302c4"><div class="ttname"><a href="classpdcpp_1_1LFO.html#a2c09fdc37fee77ad57e4bd716e0302c4">pdcpp::LFO::setStartPhase</a></div><div class="ttdeci">void setStartPhase(float phase)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_a3e06dfc3049cec503bb373647dba04f2"><div class="ttname"><a href="classpdcpp_1_1LFO.html#a3e06dfc3049cec503bb373647dba04f2">pdcpp::LFO::setRetrigger</a></div><div class="ttdeci">void setRetrigger(bool enable)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_a5ab02aacd8dd77349073b4cd48793019"><div class="ttname"><a href="classpdcpp_1_1LFO.html#a5ab02aacd8dd77349073b4cd48793019">pdcpp::LFO::setDepth</a></div><div class="ttdeci">void setDepth(float depth)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_a60713f064867b58f243c95cc37998e05"><div class="ttname"><a href="classpdcpp_1_1LFO.html#a60713f064867b58f243c95cc37998e05">pdcpp::LFO::setPhase</a></div><div class="ttdeci">void setPhase(float phase)</div></div>
@@ -141,8 +145,8 @@ $(function() {
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_a66e946cd4e357b8c51780d6c53ae44cb"><div class="ttname"><a href="classpdcpp_1_1LFO.html#a66e946cd4e357b8c51780d6c53ae44cb">pdcpp::LFO::setBias</a></div><div class="ttdeci">void setBias(float center)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_aacc969c650b5f877fdc0f6df7b514897"><div class="ttname"><a href="classpdcpp_1_1LFO.html#aacc969c650b5f877fdc0f6df7b514897">pdcpp::LFO::setRate</a></div><div class="ttdeci">void setRate(float rateHz)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LFO_html_ab842e3d770894f351dec03fe161c0541"><div class="ttname"><a href="classpdcpp_1_1LFO.html#ab842e3d770894f351dec03fe161c0541">pdcpp::LFO::setDelay</a></div><div class="ttdeci">void setDelay(float holdoff, float ramptime)</div></div>
-<div class="ttc" id="aclasspdcpp_1_1Signal_html"><div class="ttname"><a href="classpdcpp_1_1Signal.html">pdcpp::Signal</a></div><div class="ttdef"><b>Definition:</b> Signal.h:23</div></div>
-<div class="ttc" id="aclasspdcpp_1_1WaveformLFO_html"><div class="ttname"><a href="classpdcpp_1_1WaveformLFO.html">pdcpp::WaveformLFO</a></div><div class="ttdef"><b>Definition:</b> LFO.h:100</div></div>
+<div class="ttc" id="aclasspdcpp_1_1Signal_html"><div class="ttname"><a href="classpdcpp_1_1Signal.html">pdcpp::Signal</a></div><div class="ttdef"><b>Definition:</b> Signal.h:24</div></div>
+<div class="ttc" id="aclasspdcpp_1_1WaveformLFO_html"><div class="ttname"><a href="classpdcpp_1_1WaveformLFO.html">pdcpp::WaveformLFO</a></div><div class="ttdef"><b>Definition:</b> LFO.h:109</div></div>
 <div class="ttc" id="aclasspdcpp_1_1WaveformLFO_html_a12749644d832ddec1802554024e93759"><div class="ttname"><a href="classpdcpp_1_1WaveformLFO.html#a12749644d832ddec1802554024e93759">pdcpp::WaveformLFO::setType</a></div><div class="ttdeci">void setType(Waveform lfoType)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1WaveformLFO_html_a9d5c553803e7258809c32f8a3b788199"><div class="ttname"><a href="classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199">pdcpp::WaveformLFO::WaveformLFO</a></div><div class="ttdeci">WaveformLFO(Waveform lfoType)</div></div>
 <div class="ttc" id="anamespacepdcpp_html"><div class="ttname"><a href="namespacepdcpp.html">pdcpp</a></div><div class="ttdef"><b>Definition:</b> Arpeggiator.h:17</div></div>

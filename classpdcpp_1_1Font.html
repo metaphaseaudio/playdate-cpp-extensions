@@ -97,8 +97,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 <tr class="separator:aebff5a41d02c8083aa389d7dcd78ad26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ded96ee8aaa686673c32247cecc68ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">drawText</a> (const std::string &amp;text, int x, int y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) const</td></tr>
 <tr class="separator:a9ded96ee8aaa686673c32247cecc68ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92b6a767a97ca92e31cf884227cce74a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a92b6a767a97ca92e31cf884227cce74a">drawWrappedText</a> (const std::string &amp;text, PDRect bounds, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding)</td></tr>
-<tr class="separator:a92b6a767a97ca92e31cf884227cce74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fcd3c1c00725a1606160d71c3db7f66"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a6fcd3c1c00725a1606160d71c3db7f66">wrapText</a> (const std::string &amp;text, int maxWidth, PDStringEncoding encoding=kASCIIEncoding) const</td></tr>
+<tr class="separator:a6fcd3c1c00725a1606160d71c3db7f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4baa81bc6bee2a1a3f2e1c96e25f96b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a4baa81bc6bee2a1a3f2e1c96e25f96b5">drawWrappedText</a> (const std::string &amp;text, const <a class="el" href="structpdcpp_1_1Rectangle.html">Rectangle</a>&lt; float &gt; &amp;bounds, PDStringEncoding encoding=kASCIIEncoding) const</td></tr>
+<tr class="separator:a4baa81bc6bee2a1a3f2e1c96e25f96b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aca87dbeab18122417dae8fe17b84f367"></a>
@@ -203,14 +205,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 
 </div>
 </div>
-<a id="a92b6a767a97ca92e31cf884227cce74a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92b6a767a97ca92e31cf884227cce74a">&#9670;&nbsp;</a></span>drawWrappedText()</h2>
+<a id="a4baa81bc6bee2a1a3f2e1c96e25f96b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4baa81bc6bee2a1a3f2e1c96e25f96b5">&#9670;&nbsp;</a></span>drawWrappedText()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void pdcpp::Font::drawWrappedText </td>
+          <td class="memname">int pdcpp::Font::drawWrappedText </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>text</em>, </td>
@@ -218,19 +220,19 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">PDRect&#160;</td>
+          <td class="paramtype">const <a class="el" href="structpdcpp_1_1Rectangle.html">Rectangle</a>&lt; float &gt; &amp;&#160;</td>
           <td class="paramname"><em>bounds</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">PDStringEncoding&#160;</td>
-          <td class="paramname"><em>encoding</em> = <code>PDStringEncoding::kASCIIEncoding</code>&#160;</td>
+          <td class="paramname"><em>encoding</em> = <code>kASCIIEncoding</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -238,12 +240,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">text</td><td>the text to draw with this font </td></tr>
-    <tr><td class="paramname">x</td><td>the x coordinate of the upper left corner of the text </td></tr>
-    <tr><td class="paramname">y</td><td>the y coordinate of the upper left corner of the text </td></tr>
+    <tr><td class="paramname">bounds</td><td>a rectangle which specifies the point at which the text should be drawn, and the width at which to limit each wrapped line </td></tr>
     <tr><td class="paramname">encoding</td><td>the encoding type of the string. Default is ASCII </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the height of the resulting text block </dd></dl>
 
 </div>
 </div>
@@ -299,6 +301,50 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the width of the string in pixels </dd></dl>
+
+</div>
+</div>
+<a id="a6fcd3c1c00725a1606160d71c3db7f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fcd3c1c00725a1606160d71c3db7f66">&#9670;&nbsp;</a></span>wrapText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; pdcpp::Font::wrapText </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PDStringEncoding&#160;</td>
+          <td class="paramname"><em>encoding</em> = <code>kASCIIEncoding</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Takes a piece of text as a string, and returns a vector of lines which fit the maximum width. Use this to pre-wrap text and calculate the required height of wrapped text block.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>The text to wrap </td></tr>
+    <tr><td class="paramname">maxWidth</td><td>the maximum width in pixels to which the words should be limited and wrapped. </td></tr>
+    <tr><td class="paramname">encoding</td><td>optional encoding of the string. default ASCII </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a vector of strings for each line of the wrapped text. </dd></dl>
 
 </div>
 </div>

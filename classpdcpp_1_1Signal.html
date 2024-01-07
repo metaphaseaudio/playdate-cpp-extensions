@@ -87,10 +87,11 @@ Inheritance diagram for pdcpp::Signal:</div>
 <area shape="rect" href="classpdcpp_1_1Envelope.html" title=" " alt="" coords="207,107,337,133"/>
 <area shape="rect" href="classpdcpp_1_1LFO.html" title=" " alt="" coords="225,157,319,184"/>
 <area shape="rect" href="classpdcpp_1_1SignalContainer.html" title=" " alt="" coords="186,208,358,235"/>
-<area shape="rect" href="classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="432,5,588,32"/>
-<area shape="rect" href="classpdcpp_1_1Arpeggiator.html" title=" " alt="" coords="437,107,583,133"/>
-<area shape="rect" href="classpdcpp_1_1CustomLFO.html" title=" " alt="" coords="438,157,582,184"/>
-<area shape="rect" href="classpdcpp_1_1WaveformLFO.html" title=" " alt="" coords="429,208,591,235"/>
+<area shape="rect" href="classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="449,5,605,32"/>
+<area shape="rect" href="classpdcpp_1_1ModulationChannel.html" title=" " alt="" coords="429,56,624,83"/>
+<area shape="rect" href="classpdcpp_1_1Arpeggiator.html" title=" " alt="" coords="454,107,599,133"/>
+<area shape="rect" href="classpdcpp_1_1CustomLFO.html" title=" " alt="" coords="455,157,599,184"/>
+<area shape="rect" href="classpdcpp_1_1WaveformLFO.html" title=" " alt="" coords="446,208,607,235"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -98,6 +99,10 @@ Inheritance diagram for pdcpp::Signal:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a73367900ed73bc9b3d5e025329d49708"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Signal.html#a73367900ed73bc9b3d5e025329d49708">getValue</a> () const</td></tr>
 <tr class="separator:a73367900ed73bc9b3d5e025329d49708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceb4426829140284b426dfaf9bad49ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Signal.html#aceb4426829140284b426dfaf9bad49ea">setBias</a> (float bias)</td></tr>
+<tr class="separator:aceb4426829140284b426dfaf9bad49ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ff457e662bb3df44a874ed7d6ffa919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Signal.html#a6ff457e662bb3df44a874ed7d6ffa919">setScale</a> (float scale)</td></tr>
+<tr class="separator:a6ff457e662bb3df44a874ed7d6ffa919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a164291bf2f2b04a532e12902135bf457"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Signal.html#a164291bf2f2b04a532e12902135bf457">operator::PDSynthSignalValue *</a> () const =0</td></tr>
 <tr class="separator:a164291bf2f2b04a532e12902135bf457"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -147,6 +152,56 @@ Public Member Functions</h2></td></tr>
 <p>Abstract. Implementations must provide an implicit conversion to a raw playdate ::PDSynthSignalValue* to allow for direct use with the playdate C API. </p>
 
 <p>Implemented in <a class="el" href="classpdcpp_1_1CustomSignal.html#a74669e12bd2db2ae2c28c87993ce08f7">pdcpp::CustomSignal</a>, <a class="el" href="classpdcpp_1_1SignalContainer.html#aa905bdf45910df3a7d040d0dd5c1fd62">pdcpp::SignalContainer</a>, <a class="el" href="classpdcpp_1_1LFO.html#a8eb2cbff12ef162d5b26dd1b195ee6d8">pdcpp::LFO</a>, <a class="el" href="classpdcpp_1_1Envelope.html#a888572f26e45a640c749d9b5dbcabf62">pdcpp::Envelope</a>, and <a class="el" href="classpdcpp_1_1ControlSignalContainer.html#a2e8252f7d927cd4ef705d8a98ca3c700">pdcpp::ControlSignalContainer</a>.</p>
+
+</div>
+</div>
+<a id="aceb4426829140284b426dfaf9bad49ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb4426829140284b426dfaf9bad49ea">&#9670;&nbsp;</a></span>setBias()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::Signal::setBias </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>bias</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Offsets the signal’s output by the given amount. This will come after the scaling factor</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bias</td><td>the value to add to the signal; </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6ff457e662bb3df44a874ed7d6ffa919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff457e662bb3df44a874ed7d6ffa919">&#9670;&nbsp;</a></span>setScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::Signal::setScale </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>scale</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Scales the signal’s output by the given factor. The scale is applied before the offset</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scale</td><td>the factor to apply </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

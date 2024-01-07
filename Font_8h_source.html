@@ -74,41 +74,47 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepdcpp.html">pdcpp</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html">   18</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1Font.html">Font</a></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">   31</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">Font</a>(<span class="keyword">const</span> std::string&amp; fontPath, <span class="keywordtype">int</span> tracking=0, <span class="keywordtype">int</span> leading=0);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a6a60b682892328d928c3a8fe5a7d59dc">   36</a></span>&#160;        [[ nodiscard ]] uint8_t <a class="code" href="classpdcpp_1_1Font.html#a6a60b682892328d928c3a8fe5a7d59dc">getFontHeight</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a64421d0da30561dab94531379e20a6ae">   47</a></span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> <a class="code" href="classpdcpp_1_1Font.html#a64421d0da30561dab94531379e20a6ae">getTextWidth</a>(<span class="keyword">const</span> std::string&amp; toMeasure, PDStringEncoding encoding=kASCIIEncoding) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> setTextTracking(<span class="keywordtype">int</span> px) {m_Tracking = px; };</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span> setTextLeading(<span class="keywordtype">int</span> px) { m_Leading = px; };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> getTextTracking()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Tracking; };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> getTextLeading()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Leading; }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">   62</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">drawText</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a92b6a767a97ca92e31cf884227cce74a">   73</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1Font.html#a92b6a767a97ca92e31cf884227cce74a">drawWrappedText</a>(<span class="keyword">const</span> std::string&amp; text, PDRect bounds, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordtype">int</span> m_Tracking, m_Leading;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        LCDFont* m_Font;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    };</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="ttc" id="aclasspdcpp_1_1Font_html"><div class="ttname"><a href="classpdcpp_1_1Font.html">pdcpp::Font</a></div><div class="ttdef"><b>Definition:</b> Font.h:19</div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;pdcpp/graphics/Rectangle.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepdcpp.html">pdcpp</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html">   20</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1Font.html">Font</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">   33</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">Font</a>(<span class="keyword">const</span> std::string&amp; fontPath, <span class="keywordtype">int</span> tracking=0, <span class="keywordtype">int</span> leading=0);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a6a60b682892328d928c3a8fe5a7d59dc">   38</a></span>&#160;        [[ nodiscard ]] uint8_t <a class="code" href="classpdcpp_1_1Font.html#a6a60b682892328d928c3a8fe5a7d59dc">getFontHeight</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a64421d0da30561dab94531379e20a6ae">   49</a></span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> <a class="code" href="classpdcpp_1_1Font.html#a64421d0da30561dab94531379e20a6ae">getTextWidth</a>(<span class="keyword">const</span> std::string&amp; toMeasure, PDStringEncoding encoding=kASCIIEncoding) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> setTextTracking(<span class="keywordtype">int</span> px) {m_Tracking = px; };</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> setTextLeading(<span class="keywordtype">int</span> px) { m_Leading = px; };</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> getTextTracking()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Tracking; };</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        [[ nodiscard ]] <span class="keywordtype">int</span> getTextLeading()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_Leading; }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">   64</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">drawText</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a6fcd3c1c00725a1606160d71c3db7f66">   77</a></span>&#160;        [[nodiscard]] std::vector&lt;std::string&gt; <a class="code" href="classpdcpp_1_1Font.html#a6fcd3c1c00725a1606160d71c3db7f66">wrapText</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keywordtype">int</span> maxWidth, PDStringEncoding encoding=kASCIIEncoding) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classpdcpp_1_1Font.html#a4baa81bc6bee2a1a3f2e1c96e25f96b5">   89</a></span>&#160;        [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classpdcpp_1_1Font.html#a4baa81bc6bee2a1a3f2e1c96e25f96b5">drawWrappedText</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <a class="code" href="structpdcpp_1_1Rectangle.html">Rectangle&lt;float&gt;</a>&amp; bounds, PDStringEncoding encoding=kASCIIEncoding) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">int</span> m_Tracking, m_Leading;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        LCDFont* m_Font;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    };</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
+<div class="ttc" id="aclasspdcpp_1_1Font_html"><div class="ttname"><a href="classpdcpp_1_1Font.html">pdcpp::Font</a></div><div class="ttdef"><b>Definition:</b> Font.h:21</div></div>
+<div class="ttc" id="aclasspdcpp_1_1Font_html_a4baa81bc6bee2a1a3f2e1c96e25f96b5"><div class="ttname"><a href="classpdcpp_1_1Font.html#a4baa81bc6bee2a1a3f2e1c96e25f96b5">pdcpp::Font::drawWrappedText</a></div><div class="ttdeci">int drawWrappedText(const std::string &amp;text, const Rectangle&lt; float &gt; &amp;bounds, PDStringEncoding encoding=kASCIIEncoding) const</div></div>
 <div class="ttc" id="aclasspdcpp_1_1Font_html_a64421d0da30561dab94531379e20a6ae"><div class="ttname"><a href="classpdcpp_1_1Font.html#a64421d0da30561dab94531379e20a6ae">pdcpp::Font::getTextWidth</a></div><div class="ttdeci">int getTextWidth(const std::string &amp;toMeasure, PDStringEncoding encoding=kASCIIEncoding) const</div></div>
 <div class="ttc" id="aclasspdcpp_1_1Font_html_a6a60b682892328d928c3a8fe5a7d59dc"><div class="ttname"><a href="classpdcpp_1_1Font.html#a6a60b682892328d928c3a8fe5a7d59dc">pdcpp::Font::getFontHeight</a></div><div class="ttdeci">uint8_t getFontHeight() const</div></div>
-<div class="ttc" id="aclasspdcpp_1_1Font_html_a92b6a767a97ca92e31cf884227cce74a"><div class="ttname"><a href="classpdcpp_1_1Font.html#a92b6a767a97ca92e31cf884227cce74a">pdcpp::Font::drawWrappedText</a></div><div class="ttdeci">void drawWrappedText(const std::string &amp;text, PDRect bounds, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding)</div></div>
+<div class="ttc" id="aclasspdcpp_1_1Font_html_a6fcd3c1c00725a1606160d71c3db7f66"><div class="ttname"><a href="classpdcpp_1_1Font.html#a6fcd3c1c00725a1606160d71c3db7f66">pdcpp::Font::wrapText</a></div><div class="ttdeci">std::vector&lt; std::string &gt; wrapText(const std::string &amp;text, int maxWidth, PDStringEncoding encoding=kASCIIEncoding) const</div></div>
 <div class="ttc" id="aclasspdcpp_1_1Font_html_a9ded96ee8aaa686673c32247cecc68ac"><div class="ttname"><a href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">pdcpp::Font::drawText</a></div><div class="ttdeci">void drawText(const std::string &amp;text, int x, int y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) const</div></div>
 <div class="ttc" id="aclasspdcpp_1_1Font_html_aca87dbeab18122417dae8fe17b84f367"><div class="ttname"><a href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">pdcpp::Font::Font</a></div><div class="ttdeci">Font(const std::string &amp;fontPath, int tracking=0, int leading=0)</div></div>
 <div class="ttc" id="anamespacepdcpp_html"><div class="ttname"><a href="namespacepdcpp.html">pdcpp</a></div><div class="ttdef"><b>Definition:</b> Arpeggiator.h:17</div></div>
+<div class="ttc" id="astructpdcpp_1_1Rectangle_html"><div class="ttname"><a href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle&lt; float &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -74,37 +74,62 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepdcpp.html">pdcpp</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html">   27</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1ButtonManager.html">ButtonManager</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager_1_1Listener.html">   37</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager_1_1Listener.html#ab8affb300e2beccf32af5d529473f4bf">   50</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html#ab8affb300e2beccf32af5d529473f4bf">buttonStateChanged</a>(<span class="keyword">const</span> PDButtons&amp; current, <span class="keyword">const</span> PDButtons&amp; pressed, <span class="keyword">const</span> PDButtons&amp; released) = 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#adeb2aca5c5720ecd99281a6c13e14d8a">   57</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#adeb2aca5c5720ecd99281a6c13e14d8a">checkStateAndNotify</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#a7becb4563386c1474ccdac75b6d045ad">   64</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#a7becb4563386c1474ccdac75b6d045ad">addListener</a>(<a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a>* toAdd);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#a84962368a177e7966b5e04cdd7293190">   73</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#a84962368a177e7966b5e04cdd7293190">removeListener</a>(<a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a>* toRemove);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::vector&lt;Listener*&gt; m_Listeners;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    };</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
-<div class="ttc" id="aclasspdcpp_1_1ButtonManager_1_1Listener_html"><div class="ttname"><a href="classpdcpp_1_1ButtonManager_1_1Listener.html">pdcpp::ButtonManager::Listener</a></div><div class="ttdef"><b>Definition:</b> ButtonManager.h:38</div></div>
-<div class="ttc" id="aclasspdcpp_1_1ButtonManager_1_1Listener_html_ab8affb300e2beccf32af5d529473f4bf"><div class="ttname"><a href="classpdcpp_1_1ButtonManager_1_1Listener.html#ab8affb300e2beccf32af5d529473f4bf">pdcpp::ButtonManager::Listener::buttonStateChanged</a></div><div class="ttdeci">virtual void buttonStateChanged(const PDButtons &amp;current, const PDButtons &amp;pressed, const PDButtons &amp;released)=0</div></div>
-<div class="ttc" id="aclasspdcpp_1_1ButtonManager_html"><div class="ttname"><a href="classpdcpp_1_1ButtonManager.html">pdcpp::ButtonManager</a></div><div class="ttdef"><b>Definition:</b> ButtonManager.h:28</div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;pd_api.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;Timer.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepdcpp.html">pdcpp</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html">   29</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1ButtonManager.html">ButtonManager</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager_1_1Listener.html">   39</a></span>&#160;        <span class="keyword">class </span><a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager_1_1Listener.html#a94c50bd8d087511137e704540edd6b22">   52</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html#a94c50bd8d087511137e704540edd6b22">buttonStateChanged</a>(<span class="keyword">const</span> PDButtons&amp; current, <span class="keyword">const</span> PDButtons&amp; pressed, <span class="keyword">const</span> PDButtons&amp; released) {};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        };</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#adeb2aca5c5720ecd99281a6c13e14d8a">   59</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#adeb2aca5c5720ecd99281a6c13e14d8a">checkStateAndNotify</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#a7becb4563386c1474ccdac75b6d045ad">   66</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#a7becb4563386c1474ccdac75b6d045ad">addListener</a>(<a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a>* toAdd);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classpdcpp_1_1ButtonManager.html#a84962368a177e7966b5e04cdd7293190">   75</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1ButtonManager.html#a84962368a177e7966b5e04cdd7293190">removeListener</a>(<a class="code" href="classpdcpp_1_1ButtonManager_1_1Listener.html">Listener</a>* toRemove);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::vector&lt;Listener*&gt; m_Listeners;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    };</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classpdcpp_1_1KeyRepeatTimer.html">   82</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1KeyRepeatTimer.html">KeyRepeatTimer</a></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        : <span class="keyword">public</span> <a class="code" href="classpdcpp_1_1Timer.html">pdcpp::Timer</a></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classpdcpp_1_1KeyRepeatTimer.html#a3a0fd4175943d4bf41d689cfc3ea61f1">   99</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1KeyRepeatTimer.html#a3a0fd4175943d4bf41d689cfc3ea61f1">KeyRepeatTimer</a>(<span class="keywordtype">int</span> initialDelayMs=300, <span class="keywordtype">int</span> repeatDelayMs=100);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="classpdcpp_1_1KeyRepeatTimer.html#a17235e7efddaf77eab57f535647993f3">  109</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1KeyRepeatTimer.html#a17235e7efddaf77eab57f535647993f3">keyPressed</a>(std::function&lt;<span class="keywordtype">void</span>()&gt; action, <span class="keywordtype">bool</span> resetTimer=<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classpdcpp_1_1KeyRepeatTimer.html#a54db78dbaaa88f3f2f848a33e89b3758">  114</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classpdcpp_1_1KeyRepeatTimer.html#a54db78dbaaa88f3f2f848a33e89b3758">keyReleased</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordtype">void</span> timerCallback() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        std::function&lt;void()&gt; m_OnKeyRepeat;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordtype">int</span> m_InitialDelay, m_RepeatDelay;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    };</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="ttc" id="aclasspdcpp_1_1ButtonManager_1_1Listener_html"><div class="ttname"><a href="classpdcpp_1_1ButtonManager_1_1Listener.html">pdcpp::ButtonManager::Listener</a></div><div class="ttdef"><b>Definition:</b> ButtonManager.h:40</div></div>
+<div class="ttc" id="aclasspdcpp_1_1ButtonManager_1_1Listener_html_a94c50bd8d087511137e704540edd6b22"><div class="ttname"><a href="classpdcpp_1_1ButtonManager_1_1Listener.html#a94c50bd8d087511137e704540edd6b22">pdcpp::ButtonManager::Listener::buttonStateChanged</a></div><div class="ttdeci">virtual void buttonStateChanged(const PDButtons &amp;current, const PDButtons &amp;pressed, const PDButtons &amp;released)</div><div class="ttdef"><b>Definition:</b> ButtonManager.h:52</div></div>
+<div class="ttc" id="aclasspdcpp_1_1ButtonManager_html"><div class="ttname"><a href="classpdcpp_1_1ButtonManager.html">pdcpp::ButtonManager</a></div><div class="ttdef"><b>Definition:</b> ButtonManager.h:30</div></div>
 <div class="ttc" id="aclasspdcpp_1_1ButtonManager_html_a7becb4563386c1474ccdac75b6d045ad"><div class="ttname"><a href="classpdcpp_1_1ButtonManager.html#a7becb4563386c1474ccdac75b6d045ad">pdcpp::ButtonManager::addListener</a></div><div class="ttdeci">void addListener(Listener *toAdd)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1ButtonManager_html_a84962368a177e7966b5e04cdd7293190"><div class="ttname"><a href="classpdcpp_1_1ButtonManager.html#a84962368a177e7966b5e04cdd7293190">pdcpp::ButtonManager::removeListener</a></div><div class="ttdeci">void removeListener(Listener *toRemove)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1ButtonManager_html_adeb2aca5c5720ecd99281a6c13e14d8a"><div class="ttname"><a href="classpdcpp_1_1ButtonManager.html#adeb2aca5c5720ecd99281a6c13e14d8a">pdcpp::ButtonManager::checkStateAndNotify</a></div><div class="ttdeci">void checkStateAndNotify()</div></div>
+<div class="ttc" id="aclasspdcpp_1_1KeyRepeatTimer_html"><div class="ttname"><a href="classpdcpp_1_1KeyRepeatTimer.html">pdcpp::KeyRepeatTimer</a></div><div class="ttdef"><b>Definition:</b> ButtonManager.h:84</div></div>
+<div class="ttc" id="aclasspdcpp_1_1KeyRepeatTimer_html_a17235e7efddaf77eab57f535647993f3"><div class="ttname"><a href="classpdcpp_1_1KeyRepeatTimer.html#a17235e7efddaf77eab57f535647993f3">pdcpp::KeyRepeatTimer::keyPressed</a></div><div class="ttdeci">void keyPressed(std::function&lt; void()&gt; action, bool resetTimer=true)</div></div>
+<div class="ttc" id="aclasspdcpp_1_1KeyRepeatTimer_html_a3a0fd4175943d4bf41d689cfc3ea61f1"><div class="ttname"><a href="classpdcpp_1_1KeyRepeatTimer.html#a3a0fd4175943d4bf41d689cfc3ea61f1">pdcpp::KeyRepeatTimer::KeyRepeatTimer</a></div><div class="ttdeci">KeyRepeatTimer(int initialDelayMs=300, int repeatDelayMs=100)</div></div>
+<div class="ttc" id="aclasspdcpp_1_1KeyRepeatTimer_html_a54db78dbaaa88f3f2f848a33e89b3758"><div class="ttname"><a href="classpdcpp_1_1KeyRepeatTimer.html#a54db78dbaaa88f3f2f848a33e89b3758">pdcpp::KeyRepeatTimer::keyReleased</a></div><div class="ttdeci">void keyReleased()</div></div>
+<div class="ttc" id="aclasspdcpp_1_1Timer_html"><div class="ttname"><a href="classpdcpp_1_1Timer.html">pdcpp::Timer</a></div><div class="ttdef"><b>Definition:</b> Timer.h:17</div></div>
 <div class="ttc" id="anamespacepdcpp_html"><div class="ttname"><a href="namespacepdcpp.html">pdcpp</a></div><div class="ttdef"><b>Definition:</b> Arpeggiator.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

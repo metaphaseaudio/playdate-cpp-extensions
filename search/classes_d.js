@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['tap_297',['Tap',['../classpdcpp_1_1Delay_1_1Tap.html',1,'pdcpp::Delay']]],
-  ['timer_298',['Timer',['../classpdcpp_1_1Timer.html',1,'pdcpp']]],
-  ['twopolefilter_299',['TwoPoleFilter',['../classpdcpp_1_1TwoPoleFilter.html',1,'pdcpp']]]
+  ['random_407',['Random',['../classpdcpp_1_1Random.html',1,'pdcpp']]],
+  ['rectangle_408',['Rectangle',['../structpdcpp_1_1Rectangle.html',1,'pdcpp']]],
+  ['rectangle_3c_20float_20_3e_409',['Rectangle&lt; float &gt;',['../structpdcpp_1_1Rectangle.html',1,'pdcpp']]],
+  ['recthelpers_410',['RectHelpers',['../classpdcpp_1_1RectHelpers.html',1,'pdcpp']]],
+  ['ringmodulator_411',['RingModulator',['../classpdcpp_1_1RingModulator.html',1,'pdcpp']]]
 ];

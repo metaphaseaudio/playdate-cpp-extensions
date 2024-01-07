@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['waveformlfo_244',['WaveformLFO',['../classpdcpp_1_1WaveformLFO.html',1,'pdcpp::WaveformLFO'],['../classpdcpp_1_1WaveformLFO.html#a9d5c553803e7258809c32f8a3b788199',1,'pdcpp::WaveformLFO::WaveformLFO()']]],
-  ['withrotationandscale_245',['withRotationAndScale',['../classpdcpp_1_1Image.html#a2bae48268989252fb4c7868ac40f4e65',1,'pdcpp::Image']]],
-  ['write_246',['write',['../classpdcpp_1_1FileHandle.html#a967b8e01dc0049bc8aa3cbf6c831e41d',1,'pdcpp::FileHandle']]]
+  ['update_351',['update',['../classpdcpp_1_1InputContextManager.html#a63de4b404a51d31136232dd3dc7a183c',1,'pdcpp::InputContextManager::update()'],['../classpdcpp_1_1AnimatedText.html#a70c3a5008724bedc3a7a3bf3824d54e7',1,'pdcpp::AnimatedText::update()'],['../classpdcpp_1_1Sprite.html#a80b62c0e3d2cb90abae4b65b1b2dcac6',1,'pdcpp::Sprite::update()']]],
+  ['updateandredrawallsprites_352',['updateAndRedrawAllSprites',['../classpdcpp_1_1Sprite.html#a490cc043d4525d44081b2fb96a064e27',1,'pdcpp::Sprite']]]
 ];

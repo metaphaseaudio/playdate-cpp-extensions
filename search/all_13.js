@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['_7echannel_247',['~Channel',['../classpdcpp_1_1Channel.html#acb7a766427556df46b510ec0d972479d',1,'pdcpp::Channel']]],
-  ['_7econtrolsignal_248',['~ControlSignal',['../classpdcpp_1_1ControlSignal.html#a490a0231fba8a11906649a8cde88d309',1,'pdcpp::ControlSignal']]],
-  ['_7esequencetrack_249',['~SequenceTrack',['../classpdcpp_1_1SequenceTrack.html#a665e841b5e7716879f80a09f795f6064',1,'pdcpp::SequenceTrack']]]
+  ['viewport_353',['Viewport',['../classpdcpp_1_1Viewport.html',1,'pdcpp::Viewport'],['../classpdcpp_1_1Viewport.html#acc5f45fb307f4e92eb0eb88b90c1b917',1,'pdcpp::Viewport::Viewport()'],['../classpdcpp_1_1Viewport.html#a36a6abcc138bd49cab0d3f35eb1dac9f',1,'pdcpp::Viewport::Viewport(Component *content)']]]
 ];

@@ -78,6 +78,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:adf7e1892229035c53c52a629f526ff47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#adf7e1892229035c53c52a629f526ff47">Image</a> (int width, int height, LCDColor bgColor=kColorClear)</td></tr>
+<tr class="separator:adf7e1892229035c53c52a629f526ff47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5c8ec64c8f2457a38d1a370773d8fd9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#ad5c8ec64c8f2457a38d1a370773d8fd9">Image</a> (const std::string &amp;imgPath)</td></tr>
 <tr class="separator:ad5c8ec64c8f2457a38d1a370773d8fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd913f4e50d97ab9d4e9310d7581cf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#a6fd913f4e50d97ab9d4e9310d7581cf5">Image</a> (const <a class="el" href="classpdcpp_1_1Image.html">Image</a> &amp;other)</td></tr>
@@ -115,10 +117,55 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aba39aef577e08d1edad83ab58aa5094f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpdcpp_1_1Image.html">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#aba39aef577e08d1edad83ab58aa5094f">copyFromPointer</a> (LCDBitmap *toCopy)</td></tr>
 <tr class="separator:aba39aef577e08d1edad83ab58aa5094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c2bf79791d57ca8d14388c9fae04643"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classpdcpp_1_1Image.html">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#a7c2bf79791d57ca8d14388c9fae04643">drawAsImage</a> (const PDRect &amp;bounds, const std::function&lt; void(const playdate_graphics *)&gt; &amp;drawFunc, LCDSolidColor fillColor=kColorClear)</td></tr>
+<tr class="separator:a7c2bf79791d57ca8d14388c9fae04643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adf7e1892229035c53c52a629f526ff47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf7e1892229035c53c52a629f526ff47">&#9670;&nbsp;</a></span>Image() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pdcpp::Image::Image </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LCDColor&#160;</td>
+          <td class="paramname"><em>bgColor</em> = <code>kColorClear</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Creates a new <a class="el" href="classpdcpp_1_1Image.html">Image</a> with a specific height and width, optionally filled with a color.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>the width of the image </td></tr>
+    <tr><td class="paramname">height</td><td>the height of the image </td></tr>
+    <tr><td class="paramname">bgColor</td><td>the fill color. default is clear. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad5c8ec64c8f2457a38d1a370773d8fd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5c8ec64c8f2457a38d1a370773d8fd9">&#9670;&nbsp;</a></span>Image() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c8ec64c8f2457a38d1a370773d8fd9">&#9670;&nbsp;</a></span>Image() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +198,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6fd913f4e50d97ab9d4e9310d7581cf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fd913f4e50d97ab9d4e9310d7581cf5">&#9670;&nbsp;</a></span>Image() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd913f4e50d97ab9d4e9310d7581cf5">&#9670;&nbsp;</a></span>Image() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,7 +327,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Draws the image at a given point with a rotation around a specific center point, and an optional alteration to the scale of the width, height, or both. Negative scales correspond with flips. Does not modify the image.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">location</td><td>the upper right corner of the image to draw </td></tr>
+    <tr><td class="paramname">location</td><td>the center of the image to draw </td></tr>
     <tr><td class="paramname">centerX</td><td>the ratio of the image's width at which to place the center point around which to rotate. Default is 0.5f, the center of the image's width. </td></tr>
     <tr><td class="paramname">centerY</td><td>the ratio of the image's height at which to place the center point around which to rotate. Default is 0.5f, the center of the image's height. </td></tr>
     <tr><td class="paramname">degrees</td><td>the rotation to apply to the image, positive for clockwise rotation, negative for counter-clockwise rotation. </td></tr>
@@ -368,6 +415,58 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a7c2bf79791d57ca8d14388c9fae04643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c2bf79791d57ca8d14388c9fae04643">&#9670;&nbsp;</a></span>drawAsImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classpdcpp_1_1Image.html">Image</a> pdcpp::Image::drawAsImage </td>
+          <td>(</td>
+          <td class="paramtype">const PDRect &amp;&#160;</td>
+          <td class="paramname"><em>bounds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(const playdate_graphics *)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>drawFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LCDSolidColor&#160;</td>
+          <td class="paramname"><em>fillColor</em> = <code>kColorClear</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Use the playdate graphics API to draw an image</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bounds</td><td>the bounds (ignoring the origin) of the image </td></tr>
+    <tr><td class="paramname">drawFunc</td><td>the function which will be used to draw the image </td></tr>
+    <tr><td class="paramname">fillColor</td><td>optional background color with which the image will be filled before drawing. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the drawn image </dd></dl>
 
 </div>
 </div>
