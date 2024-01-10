@@ -20,6 +20,13 @@ namespace pdcpp
     class Font
     {
     public:
+        enum Justification
+        {
+            Left,
+            Center,
+            Right
+        };
+
         /**
          * Loads a font from a given path, and provides access to basic drawing
          * functions.
@@ -74,7 +81,7 @@ namespace pdcpp
          * @param encoding optional encoding of the string. default ASCII
          * @return a vector of strings for each line of the wrapped text.
          */
-        [[nodiscard]] std::vector<std::string> wrapText(const std::string& text, int maxWidth, PDStringEncoding encoding=kASCIIEncoding) const;
+        [[nodiscard]] std::vector<std::string> wrapText(const std::string& text, int maxWidth) const;
 
         /**
          * Draws the given text within the given bounds, wrapping the text on
@@ -87,6 +94,8 @@ namespace pdcpp
          * @returns the height of the resulting text block
          */
         [[nodiscard]] int drawWrappedText(const std::string& text, const Rectangle<float>& bounds, PDStringEncoding encoding=kASCIIEncoding) const;
+
+        void drawWrappedText(const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding=kASCIIEncoding) const;
 
     private:
         int m_Tracking, m_Leading;

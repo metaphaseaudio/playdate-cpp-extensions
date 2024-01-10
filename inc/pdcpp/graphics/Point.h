@@ -45,13 +45,13 @@ namespace pdcpp
     template<typename T>
     Point<T> Point<T>::withX(T newX) const
     {
-        return Point<float>(newX, y);
+        return Point<T>(newX, y);
     }
 
     template<typename T>
     Point<T> Point<T>::withY(T newY) const
     {
-        return Point<float>(x, newY);
+        return Point<T>(x, newY);
     }
 
     template<typename T>

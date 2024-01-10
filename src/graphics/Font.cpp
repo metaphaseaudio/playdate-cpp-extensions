@@ -45,7 +45,7 @@ int pdcpp::Font::getTextWidth(const std::string& toMeasure,  PDStringEncoding en
     return pd->graphics->getTextWidth(m_Font, toMeasure.data(), toMeasure.size(), encoding, m_Tracking);
 }
 
-std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxWidth, PDStringEncoding encoding) const
+std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxWidth) const
 {
     // Tokenize the string
     std::vector<std::string> words;
@@ -58,6 +58,8 @@ std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxW
         words.emplace_back(text.substr(startPos, pos));
         startPos += pos + 1;
     }
+
+    if (startPos < text.size()) { words.emplace_back(text.substr(startPos, std::string::npos)); }
 
     // Make the lines
     std::vector<std::string> rv;
@@ -85,6 +87,7 @@ std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxW
         recomposed += word + ' ';
         currentLineWidth += wordWidth;
     }
+    if (!recomposed.empty()) { rv.emplace_back(recomposed);}
     return rv;
 }
 
@@ -94,4 +97,30 @@ int pdcpp::Font::drawWrappedText(const std::string& text, const pdcpp::Rectangle
     for (auto& line : wrapText(text, bounds.width))
         { drawText(line, bounds.x, bounds.y + (lineNum++ * getFontHeight()), encoding); }
     return lineNum * getFontHeight();
+}
+
+void pdcpp::Font::drawWrappedText
+(const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding) const
+{
+    int lineNum = 0;
+    for (auto& line : wrapText(text, bounds.toInt().width))
+    {
+        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight());
+        pdcpp::Point<float> point{0, 0};
+
+        switch (justification)
+        {
+            case Left:
+                point = bounds.getTopLeft();
+                break;
+            case Center:
+                point = bounds.getTopLeft() + pdcpp::Point<float>((bounds.width - lineBounds.width) / 2.0f, 0);
+                break;
+            case Right:
+                point = bounds.getTopLeft() + pdcpp::Point<float>(bounds.width - lineBounds.width, 0);
+                break;
+        }
+
+        drawText(line, point.x, point.y + (lineNum++ * getFontHeight()), encoding);
+    }
 }
