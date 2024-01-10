@@ -14,13 +14,13 @@
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
 #include "Point.h"
+#include "Rectangle.h"
 
 namespace pdcpp
 {
     class Image
     {
     public:
-
         /**
          * Creates a new Image with a specific height and width, optionally
          * filled with a color.
@@ -29,7 +29,7 @@ namespace pdcpp
          * @param height the height of the image
          * @param bgColor the fill color. default is clear.
          */
-        Image(int width, int height, LCDColor bgColor=kColorClear);
+        Image(int width=0, int height=0, LCDColor bgColor=kColorClear);
 
         /**
          * Loads an image from a given path and manages its memory. Any issues
@@ -39,6 +39,8 @@ namespace pdcpp
          * @param imgPath the path to load as an image
          */
         explicit Image(const std::string& imgPath);
+
+        Image(const pdcpp::Rectangle<int>& bounds, uint8_t* data, uint8_t* mask, int rowStride=-1);
 
         /**
          * Copy constructor. Will call the Playdate C API under the hood so be
@@ -140,6 +142,27 @@ namespace pdcpp
          *     image
          */
         [[ nodiscard ]] LCDBitmap* getMask() const;
+
+        /**
+         * @returns the bounds of the image with a 0, 0 origin point.
+         */
+        [[ nodiscard ]] pdcpp::Rectangle<int> getBounds() const;
+
+        /**
+         * Describes an image as a Rect of bounds, and an array of unsigned
+         * 8-bit ints, one for the mask, and one for the actual data.
+         */
+        struct RawBitmapData
+        {
+            pdcpp::Rectangle<int> bounds;
+            std::vector<uint8_t> mask;
+            std::vector<uint8_t> data;
+        };
+
+        /**
+         * @returns a structure to access the bitmap data of this image directly
+         */
+        [[ nodiscard ]] RawBitmapData getBitmapData();
 
         /**
          * Draws the image at a given point. Optionally flip the image around

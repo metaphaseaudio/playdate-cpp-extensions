@@ -9,6 +9,7 @@
  */
 
 #pragma once
+#include <cmath>
 
 namespace pdcpp
 {
@@ -25,13 +26,15 @@ namespace pdcpp
             return ::sqrtf(a2 + b2);
         }
 
-        [[ nodiscard ]] Point<float> rotated(const Point<T>& center, float radians) const;
+        [[ nodiscard ]] Point<T> rotated(const Point<T>& center, float radians) const;
 
         [[ nodiscard ]] Point<T> withX(T newX) const;
         [[ nodiscard ]] Point<T> withY(T newY) const;
 
         [[ nodiscard ]] Point<float> toFloat() const { return {float(x), float(y)}; }
         [[ nodiscard ]] Point<int> toInt() const { return {int(x), int(y)}; }
+
+        [[ nodiscard ]] Point<T> abs() const;
 
         [[ nodiscard ]] Point<T> operator- (Point<T> other) const { return {x - other.x, y - other.y}; }
         [[ nodiscard ]] Point<T> operator+ (Point<T> other) const { return {x + other.x, y + other.y}; }
@@ -43,19 +46,23 @@ namespace pdcpp
     };
 
     template<typename T>
+    Point<T> Point<T>::abs() const
+    { return Point<T>(T(std::fabs(x)), T(std::fabs(y))); }
+
+    template<typename T>
     Point<T> Point<T>::withX(T newX) const
     {
-        return Point<float>(newX, y);
+        return Point<T>(newX, y);
     }
 
     template<typename T>
     Point<T> Point<T>::withY(T newY) const
     {
-        return Point<float>(x, newY);
+        return Point<T>(x, newY);
     }
 
     template<typename T>
-    Point<float> Point<T>::rotated(const Point<T>& center, float radians) const
+    Point<T> Point<T>::rotated(const Point<T>& center, float radians) const
     {
         float c = ::cosf(radians);
         float s = ::sinf(radians);
@@ -64,4 +71,5 @@ namespace pdcpp
         const auto h = distance(center);
         return Point<T>(p.x * c - p.y * s, p.x * s + p.y * c) + center;
     }
+
 }

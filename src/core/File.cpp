@@ -12,14 +12,14 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 pdcpp::FileHandle::FileHandle(const std::string& path, FileOptions mode)
-    : m_Stat()
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
-    pd->file->stat(path.c_str(), &m_Stat);
     p_File = pd->file->open(path.c_str(), mode);
 
     if (p_File == nullptr)
-        { pdcpp::FileHandle::handleError("Failed to open file"); }
+        { pdcpp::FileHelpers::handleError("Failed to open file " + path); }
+
+    m_Stat = pdcpp::FileHelpers::stat(path);
 }
 
 pdcpp::FileHandle::FileHandle(pdcpp::FileHandle&& other) noexcept
@@ -47,7 +47,7 @@ int pdcpp::FileHandle::read(void* buffer, unsigned int len)
     auto bytesRead = pd->file->read(p_File, buffer, len);
 
     if (bytesRead < 0)
-        { pdcpp::FileHandle::handleError("Failed to read from file."); }
+        { pdcpp::FileHelpers::handleError("Failed to read from file."); }
 
     return bytesRead;
 }
@@ -62,7 +62,7 @@ int pdcpp::FileHandle::seek(int position, pdcpp::FileHandle::Whence whence)
 
 int pdcpp::FileHandle::tell() const { return pdcpp::GlobalPlaydateAPI::get()->file->tell(p_File); }
 
-void pdcpp::FileHandle::handleError(const std::string& msg)
+void pdcpp::FileHelpers::handleError(const std::string& msg)
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
     auto errStr = msg + " -- " + pd->file->geterr();
@@ -98,4 +98,22 @@ int pdcpp::FileHelpers::mkdir(const std::string& path)
 int pdcpp::FileHelpers::rename(const std::string& from, const std::string& to)
 {
     return 0;
+}
+
+FileStat pdcpp::FileHelpers::stat(const std::string& path)
+{
+    FileStat rv;
+
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    if (pd->file->stat(path.c_str(), &rv) < 0)
+        { pdcpp::FileHelpers::handleError("Failed to stat file: " + path); }
+
+    return rv;
+}
+
+std::string pdcpp::FileHelpers::parentDir(const std::string& fileOrDirname)
+{
+    int end = fileOrDirname.size();
+    if (fileOrDirname.ends_with('/')) { end--; }
+    return fileOrDirname.substr(0, fileOrDirname.substr(0, end).find_last_of('/'));
 }

@@ -40,11 +40,11 @@ void TextSprite::redraw(PDRect bounds, PDRect drawrect)
     m_Font.drawText(m_Text, bounds.x, bounds.y);
 }
 
-HelloWorldObject::HelloWorldObject()
+BinaryBuilderApp::BinaryBuilderApp()
     : m_Sprite("Hello World!", 1, 2)
 {}
 
-int HelloWorldObject::update()
+int BinaryBuilderApp::update()
 {
     pdcpp::Sprite::updateAndRedrawAllSprites();
     return 1;

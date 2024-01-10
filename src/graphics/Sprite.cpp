@@ -147,6 +147,7 @@ pdcpp::Rectangle<float> pdcpp::Sprite::getBounds() const
 {
     return pdcpp::Rectangle<float>(pdcpp::GlobalPlaydateAPI::get()->sprite->getBounds(p_Sprite));
 }
+
 void pdcpp::Sprite::setCollisionsEnabled(bool enabled) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollisionsEnabled(p_Sprite, enabled); }
 void pdcpp::Sprite::setCollideRect(const pdcpp::Rectangle<float>& bounds) { pdcpp::GlobalPlaydateAPI::get()->sprite->setCollideRect(p_Sprite, bounds); }
 pdcpp::Rectangle<float> pdcpp::Sprite::getCollideBounds() const

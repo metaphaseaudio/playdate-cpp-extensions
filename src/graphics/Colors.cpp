@@ -67,6 +67,34 @@ LCDPattern crossHatchAPattern = {
         0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
 };
 
+LCDPattern thickVerticalLinesAPattern = {
+        // Bitmap
+        0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000,
+        // Mask
+        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+};
+
+LCDPattern verticalLines25APattern = {
+        // Bitmap
+        0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100,
+        // Mask
+        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+};
+
+LCDPattern diagonalLinesRightWhiteOnBlackPattern = {
+        // Bitmap
+        0b10001000, 0b00010001, 0b00100010, 0b01000100, 0b10001000, 0b00010001, 0b00100010, 0b01000100,
+        // Mask
+        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+};
+
+LCDPattern diagonalLinesRightBlackOnWhitePattern = {
+        // Bitmap
+        0b01110111, 0b11101110, 0b11011101, 0b10111011, 0b01110111, 0b11101110, 0b11011101, 0b10111011,
+        // Mask
+        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+};
+
 
 LCDPattern steppedDitherPattern0 = {
         // Bitmap
@@ -131,6 +159,11 @@ LCDColor pdcpp::Colors::solid50GrayA = reinterpret_cast<LCDColor>(solid50GrayAPa
 LCDColor pdcpp::Colors::solid50GrayB = reinterpret_cast<LCDColor>(solid50GrayBPattern);
 
 LCDColor pdcpp::Colors::sparseCheckerA = reinterpret_cast<LCDColor>(sparseCheckerAPattern);
+
+LCDColor pdcpp::Colors::thickVerticalLinesA = reinterpret_cast<LCDColor>(thickVerticalLinesAPattern);
+LCDColor pdcpp::Colors::verticalLines25A = reinterpret_cast<LCDColor>(verticalLines25APattern);
+LCDColor pdcpp::Colors::diagonalLinesRightWhiteOnBlack = reinterpret_cast<LCDColor>(diagonalLinesRightWhiteOnBlackPattern);
+LCDColor pdcpp::Colors::diagonalLinesRightBlackOnWhite = reinterpret_cast<LCDColor>(diagonalLinesRightBlackOnWhitePattern);
 
 LCDColor pdcpp::Colors::steppedDither0 = reinterpret_cast<LCDColor>(steppedDitherPattern0);
 LCDColor pdcpp::Colors::steppedDither1 = reinterpret_cast<LCDColor>(steppedDitherPattern1);

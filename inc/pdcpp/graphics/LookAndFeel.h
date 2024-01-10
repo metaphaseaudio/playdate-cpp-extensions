@@ -11,7 +11,6 @@
 #include <map>
 #include <pd_api.h>
 #include <pdcpp/graphics/Rectangle.h>
-
 #include <pdcpp/graphics/Font.h>
 
 namespace pdcpp
@@ -23,15 +22,18 @@ namespace pdcpp
         LookAndFeel();
         virtual ~LookAndFeel() = default;
 
-        virtual void drawSlider(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, float min, float max, float value);
+        virtual void drawHorizontalSlider(const playdate_graphics* g, const class Slider* slider) const;
+        virtual void drawRotarySlider(const playdate_graphics* g, const class Slider* slider) const;
         void setDefaultFont(Font newFont);
         pdcpp::Font& getDefaultFont();
 
         static void setDefaultLookAndFeel(LookAndFeel* newLAF);
         static LookAndFeel* getDefaultLookAndFeel();
 
+        pdcpp::Font* getFont(const std::string& fontName);
     private:
         Font m_DefaultFont;
+        static std::map<std::string, Font> g_Fonts;
         static LookAndFeel* defaultLookAndFeel;
     };
 

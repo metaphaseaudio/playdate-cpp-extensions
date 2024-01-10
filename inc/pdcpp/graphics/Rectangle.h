@@ -10,6 +10,7 @@
 #pragma once
 #include <algorithm>
 #include <pd_api.h>
+#include <cassert>
 #include "Point.h"
 
 
@@ -18,9 +19,14 @@ namespace pdcpp
     template <typename T>
     struct Rectangle
     {
+        Rectangle() :x(0), y(0), width(0), height(0) {};
+
         Rectangle(T x, T y, T width, T height)
             : x(x), y(y), width(width), height(height)
-        {};
+        {
+            assert(width >= 0);
+            assert(height >= 0);
+        };
 
         explicit Rectangle(const PDRect& rect)
             : x(rect.x), y(rect.y), width(rect.width), height(rect.height)
@@ -48,8 +54,8 @@ namespace pdcpp
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
 
-        T getRight() { x + width; }
-        T getBottom() { y + height; }
+        T getRight() { return x + width; }
+        T getBottom() { return y + height; }
 
         template <typename T2>
         [[ nodiscard ]] Rectangle<T2> toType() const
@@ -85,13 +91,13 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::reduced(T amt) const
     {
-        return Rectangle<T>(x + amt, y + amt, width - amt * 2, height - amt * 2);
+        return Rectangle<T>(x + amt, y + amt, std::max<T>(0, width - amt * 2), std::max<T>(0, height - amt * 2));
     }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::expanded(T amt) const
     {
-        return Rectangle<T>(x - amt, y - amt, width + amt * 2, height + amt * 2);
+        return Rectangle<T>(x - amt, y - amt, std::max<T>(0, width + amt * 2), std::max<T>(0, height + amt * 2));
     }
 
     template<typename T>
@@ -136,6 +142,7 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::removeFromLeft(T amt)
     {
+        amt = std::min<T>(width, amt);
         Rectangle<T> rv = {x, y, amt, height};
         x += amt;
         width -= amt;
@@ -145,6 +152,7 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::removeFromRight(T amt)
     {
+        amt = std::min<T>(width, amt);
         Rectangle<T> rv = {x + width - amt, y, amt, height};
         width -= amt;
         return rv;
@@ -153,6 +161,7 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::removeFromTop(T amt)
     {
+        amt = std::min<T>(height, amt);
         Rectangle<T> rv = {x, y, width, amt};
         y += amt;
         height -= amt;
@@ -162,6 +171,7 @@ namespace pdcpp
     template<typename T>
     Rectangle<T> Rectangle<T>::removeFromBottom(T amt)
     {
+        amt = std::min<T>(height, amt);
         Rectangle<T> rv = {x, y + height - amt, width, amt};
         height -= amt;
         return rv;

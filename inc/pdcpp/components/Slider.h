@@ -28,6 +28,13 @@ namespace pdcpp
             virtual void sliderValueChanged(Slider* sliderThatChanged) = 0;
         };
 
+        enum SliderStyle
+        {
+            Horizontal,
+            Vertical,
+            Rotary
+        };
+
         /**
          * Creates a Slider component. Actual drawing of the slider is delegated
          * to the LookAndFeel.
@@ -38,7 +45,7 @@ namespace pdcpp
          * @param nSteps the granularity of the slider. default 20 steps from
          *     min to max.
          */
-        Slider(float min, float max, float startingValue, int nSteps=20);
+        Slider(float min, float max, float startingValue, int nSteps=20, SliderStyle style=Horizontal);
 
         ~Slider();
 
@@ -70,6 +77,8 @@ namespace pdcpp
          */
         void setMax(float maxValue);
 
+        void setStyle(SliderStyle style);
+
         /**
          * @returns the current minimum value of the slider
          */
@@ -80,6 +89,8 @@ namespace pdcpp
          * @returns the current maximum value of the slider
          */
         [[ nodiscard ]] float getMax() const;
+
+        [[ nodiscard ]] SliderStyle getStyle() const;
 
         /**
          * Increment the slider by one increment size
@@ -98,11 +109,15 @@ namespace pdcpp
         std::function<void(float)> onChange;
 
     protected:
+        void redrawCachedImage();
         void draw() override;
+        void resized(const Rectangle<float>& newBounds) override;
         void notifyListeners();
 
     private:
+        SliderStyle m_Style;
         float m_CurrentValue, m_Min, m_Max, m_IncrementSize;
         std::vector<Listener*> m_Listeners;
+        pdcpp::Image m_CachedImage;
     };
 }

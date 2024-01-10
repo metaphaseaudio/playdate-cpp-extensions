@@ -24,7 +24,7 @@ pdcppong::ScoreBoard::ScoreBoard()
     , m_Font("/System/Fonts/Roobert-10-Bold.pft")
 { setBounds({170, 0, 60, 240}); }
 
-void pdcppong::ScoreBoard::redraw(PDRect bounds, PDRect drawrect)
+void pdcppong::ScoreBoard::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
     pd->graphics->drawLine(200, 0, 200, 240, 4, reinterpret_cast<LCDColor>(transparent50Gray));

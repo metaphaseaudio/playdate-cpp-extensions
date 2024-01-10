@@ -11,14 +11,15 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 #include "BlockSprite.h"
 
-pdcppong::BlockSprite::BlockSprite(SpriteTag boundaryType, const PDRect& bounds)
+pdcppong::BlockSprite::BlockSprite(SpriteTag boundaryType, const pdcpp::Rectangle<float>& bounds)
     : Sprite(boundaryType)
 {
     setBounds(bounds);
     setCollideRect({0, 0, bounds.width, bounds.height});
 }
 
-void pdcppong::BlockSprite::redraw(PDRect bounds, PDRect drawrect)
+
+void pdcppong::BlockSprite::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     pdcpp::GlobalPlaydateAPI::get()->graphics->fillRect(bounds.x, bounds.y, bounds.width, bounds.height, kColorBlack);
 }
@@ -28,4 +29,5 @@ SpriteCollisionResponseType pdcppong::BlockSprite::handleCollision(pdcpp::Sprite
     if (other->getTag<SpriteTag>() == WALL) { return kCollisionTypeSlide; }
     return kCollisionTypeOverlap;
 }
+
 

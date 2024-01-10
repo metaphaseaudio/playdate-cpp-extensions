@@ -79,7 +79,7 @@ void pdcppong::Ball::update()
             const auto paddleCenter = other->getPosition();
             const auto ballCenter = getPosition();
 
-            const auto diffY = paddleCenter.getY() - ballCenter.getY();
+            const auto diffY = paddleCenter.y - ballCenter.y;
 
             const auto normalizedRatio = diffY / (paddleBounds.height / 2);
             const auto angle = max_bounce_angle * normalizedRatio;
@@ -102,7 +102,7 @@ void pdcppong::Ball::update()
             const auto paddleCenter = other->getPosition();
             const auto ballCenter = getPosition();
 
-            const auto diffY = paddleCenter.getY() - ballCenter.getY();
+            const auto diffY = paddleCenter.y - ballCenter.y;
 
             const auto normalizedRatio = diffY / (paddleBounds.height / 2);
             const auto angle = max_bounce_angle * normalizedRatio;
@@ -110,15 +110,15 @@ void pdcppong::Ball::update()
             m_YVelo = m_Speed * ::sinf(-angle);
             m_XVelo = m_Speed * ::cosf(-angle);
         }
-        else if (other->getTag<SpriteTag>() == SpriteTag::GOAL && other->getPosition().getX() > 200)
+        else if (other->getTag<SpriteTag>() == SpriteTag::GOAL && other->getPosition().x > 200)
             { r_Sounds.noteOn(Sounds::PLAYER_GOAL_NOTE, 1.0f); }
-        else if (other->getTag<SpriteTag>() == SpriteTag::GOAL && other->getPosition().getX() < 200)
+        else if (other->getTag<SpriteTag>() == SpriteTag::GOAL && other->getPosition().x < 200)
             { r_Sounds.noteOn(Sounds::COMPUTER_GOAL_NOTE, 1.0f); }
 
     }
 }
 
-void pdcppong::Ball::redraw(PDRect bounds, PDRect drawrect)
+void pdcppong::Ball::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     pdcpp::ScopedGraphicsContext context(bounds);
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawEllipse(0, 0, bounds.width, bounds.height, bounds.width / 2.0f, 0, 0, kColorBlack);

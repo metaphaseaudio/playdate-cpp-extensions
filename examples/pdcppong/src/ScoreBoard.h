@@ -20,7 +20,7 @@ namespace pdcppong
     public:
         ScoreBoard();
 
-        void redraw(PDRect bounds, PDRect drawrect) override;
+        void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
 
         void incrementPlayerScore();
         void incrementComputerScore();

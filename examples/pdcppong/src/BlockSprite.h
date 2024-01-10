@@ -18,8 +18,9 @@ namespace pdcppong
         : public pdcpp::Sprite
     {
     public:
-        BlockSprite(SpriteTag boundaryType, const PDRect& bounds);
-        void redraw(PDRect bounds, PDRect drawrect) override;
+        BlockSprite(SpriteTag boundaryType, const pdcpp::Rectangle<float>& bounds);
+
+        void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
 
         SpriteCollisionResponseType handleCollision(Sprite* other) override;
     };

@@ -9,6 +9,7 @@
  */
 
 #pragma once
+#include <functional>
 #include <pd_api.h>
 #include <functional>
 #include <string>
@@ -19,21 +20,11 @@ namespace pdcpp
 {
     namespace SystemMenu
     {
-        class BasicItem
+        class ItemBase
         {
         public:
-            /**
-             * Creates a new basic system menu item with a title. Inherit from
-             * this class and implement the callback to handle when user selects
-             * the item.
-             *
-             * @param title a string which will appear in the system menu
-             */
-            explicit BasicItem(const std::string& title);
-
             // Destructor. Removes the item from the system menu
-            ~BasicItem();
-
+            virtual ~ItemBase();
             /**
              * @returns the title of the menu item
              */
@@ -46,21 +37,35 @@ namespace pdcpp
              */
             void setTitle(const std::string& title);
 
-            /**
-             * Pure abstract. This callback will be hit when the user selects
-             * a BasicItem, or closes the system after changing the value of a
-             * Checkmark or Options item.
-             */
-            virtual void callback() = 0;
         protected:
-            // Private constructor so that the OptionsItem can defer initializing the internal memory
-            BasicItem();
-            PDMenuItem* p_Item;
+            // Only derived classes can call this
+            ItemBase() = default;
+            PDMenuItem* p_Item = nullptr;
+        };
+
+        class BasicItem
+            : public ItemBase
+        {
+        public:
+            /**
+             * Creates a new basic system menu item with a title. Inherit from
+             * this class and implement the callback to handle when user selects
+             * the item.
+             *
+             * @param title a string which will appear in the system menu
+             * @param callback a function which will be called when the user
+             *    selects the system menu item.
+             */
+            explicit BasicItem(const std::string& title, std::function<void()> callback);
+
+        private:
+            static void shim(void* usrData);
+            std::function<void()> callback;
         };
 
 
         class CheckmarkItem
-            : public pdcpp::SystemMenu::BasicItem
+            : public ItemBase
         {
         public:
             /**
@@ -69,8 +74,10 @@ namespace pdcpp
              *
              * @param title the value to appear in the system menu
              * @param isChecked the starting state of the item
+             * @param callback a function which will be called with the checked
+             *     status when the user interacts with the system menu item
              */
-            CheckmarkItem(const std::string& title, bool isChecked);
+            CheckmarkItem(const std::string& title, bool isChecked, std::function<void(bool)> callback);
 
             /**
              * Change the state of the checkmark in the menu item. Changing the
@@ -84,11 +91,15 @@ namespace pdcpp
              * @returns the current checkmark state
              */
             [[ nodiscard ]] bool isChecked() const;
+
+        private:
+            static void shim(void* usrData);
+            std::function<void(bool)> callback;
         };
 
 
         class OptionsItem
-            : pdcpp::SystemMenu::BasicItem
+            : public ItemBase
         {
         public:
             /**
@@ -99,9 +110,16 @@ namespace pdcpp
              *
              * @param title the title of the menu item
              * @param options a std::vector of std::strings to use as options
+             * @param callback a function which will be called with the string
+             *    value and index of the selected option when the user interacts
+             *    with the system menu item.
              * @param startingIndex which option to start with. defaults to 0
              */
-            OptionsItem(const std::string& title, std::vector<std::string> options, int startingIndex=0);
+            OptionsItem(
+                const std::string& title,
+                std::vector<std::string> options,
+                std::function<void(const std::string&, int)> callback,
+                int startingIndex=0);
 
             /**
              * Changes the item selected by this option
@@ -115,7 +133,6 @@ namespace pdcpp
              */
             [[ nodiscard ]] int getSelectedIndex() const;
 
-
             /**
              * @returns all the options available in this menu item as a vector
              *     of strings.
@@ -123,8 +140,10 @@ namespace pdcpp
             [[ nodiscard ]] const std::vector<std::string>& getOptions() const { return m_Options; }
 
         private:
+            static void shim(void* usrData);
             std::vector<std::string> m_Options;
             std::vector<const char*> m_CStrings;
+            std::function<void(const std::string&, int)> callback;
         };
     };
 }

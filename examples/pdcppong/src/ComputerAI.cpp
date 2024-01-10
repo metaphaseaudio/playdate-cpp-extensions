@@ -19,7 +19,7 @@ void pdcppong::ComputerAI::update()
 {
     auto ballPosition = r_Ball.getPosition();
     auto paddlePosition = r_Paddle.getPosition();
-    auto ballDiff = ballPosition.getY() - paddlePosition.getY();
+    auto ballDiff = ballPosition.y - paddlePosition.y;
     auto delta = std::max(-3.8f, std::min(3.8f, ballDiff));
     r_Paddle.moveByWithCollisions(0, delta);
 }

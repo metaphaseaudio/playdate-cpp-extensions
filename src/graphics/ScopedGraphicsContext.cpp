@@ -11,7 +11,6 @@
 #include <pdcpp/graphics/ScopedGraphicsContext.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
-
 pdcpp::ScopedGraphicsContext::ScopedGraphicsContext(const PDRect& bounds, LCDColor bgColor, bool drawOnExit)
     : m_Bounds(bounds)
     , m_DrawOnExit(drawOnExit)

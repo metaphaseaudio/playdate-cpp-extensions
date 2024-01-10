@@ -23,7 +23,8 @@ pdcppong::Game::Game()
     , m_ComputerGoal(SpriteTag::GOAL, {-10, 0, 10, 240})
     , m_Ball(m_Sounds, [&](const pdcpp::Sprite* x){ scoreAndReset(x); })
     , m_ComputerAI(m_Computer, m_Ball)
-    , m_Menu(m_Ball, m_ScoreBoard)
+    , m_BallSpeedSelection("Ball:", {"Slow", "Regular", "Fast", "Bonkers"}, [&](auto, int i){ m_Ball.setSpeed(float(i + 1) * 5.0f); })
+    , m_ResetGame("Reset Score", [&](){ m_ScoreBoard.reset(); })
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
     pd->display->setRefreshRate(20);

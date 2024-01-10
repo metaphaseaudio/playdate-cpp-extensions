@@ -87,8 +87,6 @@ namespace pdcpp
          */
         [[ nodiscard ]] const FileStat& getDetails() const;
 
-    private:
-        static void handleError(const std::string& msg) ;
         FileStat m_Stat{};
         SDFile* p_File;
 
@@ -136,6 +134,24 @@ namespace pdcpp
          * @return true if the file exists, false if it does not.
          */
         static bool fileExists(const std::string& path);
+
+        /**
+         * Run stat on a file without opening it
+         *
+         * @param path the path to stat
+         * @return a FileStat object describing the file
+         */
+        static FileStat stat(const std::string& path);
+
+        /**
+         * Checks what error was retured by the filesystem and prints it to the
+         * error stream along with an additional message
+         *
+         * @param msg the message to prepend to the error
+         */
+        static void handleError(const std::string& msg);
+
+        static std::string parentDir(const std::string& fileOrDirname);
     };
 
     template <std::size_t Size>

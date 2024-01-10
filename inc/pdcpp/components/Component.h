@@ -81,6 +81,12 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Component* getChildComponent(int index) const;
 
         /**
+         * @returns the current parent of the component. If the component has no
+         * parent, it will return a nullptr.
+         */
+        [[ nodiscard ]] pdcpp::Component* getParentComponent() const;
+
+        /**
          * @returns the number of immediate children of this Component.
          */
         [[ nodiscard ]] size_t childCount() const;
@@ -120,6 +126,12 @@ namespace pdcpp
          */
         [[ nodiscard ]] pdcpp::LookAndFeel* getLookAndFeel() const;
 
+        /**
+         * Called when the look and feel anywhere in the hierarchy changes.
+         * Override this to react to changes.
+         */
+        virtual void lookAndFeelChanged() {};
+
     protected:
         /**
          * Draw your component in this method. It will be called whenever
@@ -135,9 +147,11 @@ namespace pdcpp
          */
         virtual void resized(const pdcpp::Rectangle<float>& newBounds) {};
 
+
     private:
         pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};
         std::vector<Component*> m_Children;
+        Component* p_Parent = nullptr;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
     };

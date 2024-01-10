@@ -21,6 +21,11 @@ namespace pdcpp
         static LCDColor solid50GrayB;
         static LCDColor sparseCheckerA;
 
+        static LCDColor thickVerticalLinesA;
+        static LCDColor verticalLines25A;
+        static LCDColor diagonalLinesRightWhiteOnBlack;
+        static LCDColor diagonalLinesRightBlackOnWhite;
+
         static LCDColor steppedDither0;
         static LCDColor steppedDither1;
         static LCDColor steppedDither2;
@@ -30,5 +35,6 @@ namespace pdcpp
         static LCDColor steppedDither6;
 
         static LCDColor gradient[9];
+
     };
 }
