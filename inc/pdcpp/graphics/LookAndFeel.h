@@ -23,7 +23,8 @@ namespace pdcpp
         LookAndFeel();
         virtual ~LookAndFeel() = default;
 
-        virtual void drawSlider(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, float min, float max, float value);
+        virtual void drawHorizontalSlider(const playdate_graphics* g, const class Slider* slider) const;
+        virtual void drawRotarySlider(const playdate_graphics* g, const class Slider* slider) const;
         void setDefaultFont(Font newFont);
         pdcpp::Font& getDefaultFont();
 

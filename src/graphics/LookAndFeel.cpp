@@ -11,6 +11,8 @@
 #include <memory>
 #include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/graphics/Colors.h"
+#include "pdcpp/graphics/Graphics.h"
+#include "pdcpp/components/Slider.h"
 
 pdcpp::LookAndFeel* pdcpp::LookAndFeel::defaultLookAndFeel = nullptr;
 
@@ -39,11 +41,11 @@ pdcpp::Font& pdcpp::LookAndFeel::getDefaultFont()
 }
 
 
-void pdcpp::LookAndFeel::drawSlider(const playdate_graphics* g, const pdcpp::Rectangle<float>& bounds, float min, float max, float value)
+void pdcpp::LookAndFeel::drawHorizontalSlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
 {
-    const auto range = max - min;
-    const auto ratio = (value - min) / range;
-    auto localBounds = bounds;
+    const auto range = slider->getMax() - slider->getMin();
+    const auto ratio = (slider->getValue() - slider->getMin()) / range;
+    auto localBounds = slider->getBounds();
 
     const auto startMarker = localBounds.removeFromLeft(2);
     const auto endMarker = localBounds.removeFromRight(2);
@@ -55,14 +57,23 @@ void pdcpp::LookAndFeel::drawSlider(const playdate_graphics* g, const pdcpp::Rec
     g->fillRect(middleLine.x, middleLine.y, middleLine.width, middleLine.height, pdcpp::Colors::solid50GrayA);
 
     // draw the Slider
-    int sliderPosition = ratio * localBounds.width;
+    int sliderPosition = ratio * localBounds.width + localBounds.x;
     int polyPoints[10] = {
-        sliderPosition - 2, int(center.y),
+        sliderPosition - 3, int(center.y),
         sliderPosition, int(localBounds.y),
-        sliderPosition + 2, int(center.y),
+        sliderPosition + 3, int(center.y),
         sliderPosition, int(localBounds.y + localBounds.height),
-        sliderPosition - 2, int(center.y),
+        sliderPosition - 3, int(center.y),
     };
     g->fillPolygon(5, polyPoints, kColorBlack, kPolygonFillNonZero);
 }
 
+void pdcpp::LookAndFeel::drawRotarySlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
+{
+    auto bounds = slider->getBounds();
+    const auto range = slider->getMax() - slider->getMin();
+    const auto ratio = (slider->getValue() - slider->getMin()) / range;
+    pdcpp::Graphics::fillEllipse(bounds.toInt(), 0, 0, kColorBlack);
+    bounds = bounds.reduced(3);
+    pdcpp::Graphics::drawEllipse(bounds.toInt(), 3, -144, 288 * ratio - 143, kColorWhite);
+}

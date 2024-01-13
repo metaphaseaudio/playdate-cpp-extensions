@@ -62,6 +62,11 @@ namespace pdcpp
         void removeChildFromFocusContainer(pdcpp::Component* child);
 
         /**
+         * @return a pointer to the child component at index i from the focus
+         * container component
+         */
+        [[ nodiscard ]] pdcpp::Component* getFocusContainerChild(int i) const;
+        /**
          * Removes all children from the container.
          */
         void clearFocusView();

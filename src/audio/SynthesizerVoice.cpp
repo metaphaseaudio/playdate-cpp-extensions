@@ -116,21 +116,15 @@ void pdcpp::SynthesizerVoiceContainer::clearCustomGenerator()
     );
 }
 
-void pdcpp::SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
-{
-    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
-    pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when);
-}
-
-void pdcpp::SynthesizerVoiceContainer::noteOff(uint32_t when)
-{
-    if (when == 0) { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
-    pdcpp::GlobalPlaydateAPI::get()->sound->synth->noteOff(p_Synth, when);
-}
-
 pdcpp::SynthesizerVoiceContainer::SynthesizerVoiceContainer(PDSynth* synth)
     : p_Synth(synth)
 {}
+
+void pdcpp::SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
+    { pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when); }
+
+void pdcpp::SynthesizerVoiceContainer::noteOff(uint32_t when)
+    { pdcpp::GlobalPlaydateAPI::get()->sound->synth->noteOff(p_Synth, when); }
 
 void pdcpp::SynthesizerVoiceContainer::setTranspose(float halfSteps)
     { pdcpp::GlobalPlaydateAPI::get()->sound->synth->setTranspose(p_Synth, halfSteps); }

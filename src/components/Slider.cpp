@@ -15,11 +15,22 @@
 void pdcpp::Slider::draw()
 {
     auto laf = getLookAndFeel();
-    laf->drawSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, getBounds(), m_Min, m_Max, m_CurrentValue);
+    switch (m_Style)
+    {
+        case Horizontal:
+            laf->drawHorizontalSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
+            break;
+        case Vertical:
+            break;
+        case Rotary:
+            laf->drawRotarySlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
+            break;
+    }
 }
 
-pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps)
-    : m_CurrentValue(startingValue)
+pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps, SliderStyle style)
+    : m_Style(style)
+    , m_CurrentValue(startingValue)
     , m_Min(min)
     , m_Max(max)
     , m_IncrementSize((m_Max - m_Min) / float(nSteps))
@@ -33,11 +44,6 @@ void pdcpp::Slider::setValue(float newValue, bool notify)
     m_CurrentValue = newValue;
     if (notify)
         { notifyListeners(); }
-}
-
-float pdcpp::Slider::getValue() const
-{
-    return m_CurrentValue;
 }
 
 void pdcpp::Slider::setMin(float minValue)
@@ -56,15 +62,12 @@ void pdcpp::Slider::setMax(float maxValue)
     notifyListeners();
 }
 
-float pdcpp::Slider::getMin() const
-{
-    return m_Min;
-}
+void pdcpp::Slider::setStyle(pdcpp::Slider::SliderStyle style) { m_Style = style; }
 
-float pdcpp::Slider::getMax() const
-{
-    return m_Max;
-}
+float pdcpp::Slider::getValue() const { return m_CurrentValue; }
+float pdcpp::Slider::getMin() const { return m_Min; }
+float pdcpp::Slider::getMax() const { return m_Max; }
+pdcpp::Slider::SliderStyle pdcpp::Slider::getStyle() const { return m_Style; }
 
 void pdcpp::Slider::notifyListeners()
 {

@@ -22,14 +22,11 @@ namespace pdcpp
          * same properties as the Lua GridView object, allowing callers to
          * display different components in each cell of a grid, and navigate
          * around said grid.
-         *
-         * Note: this class is under development, and may not behave as expected
-         *
-         * @param cellWidth the starting width of every cell in the grid
-         * @param cellHeight the starting height of every cell in the grid
-         * @param m_Padding how much padding should be left around each cell
          */
-        GridView(float cellWidth, float cellHeight, float m_Padding=0);
+        GridView();
+
+        // Default virtual destructor
+        virtual ~GridView() = default;
 
         /**
          * Call this when the actual Components within cells have changed.
@@ -49,6 +46,21 @@ namespace pdcpp
          * Columns in the grid.
          */
         [[ nodiscard ]] virtual int getNumCols() const = 0;
+
+        /**
+         * Pure virtual. Sub-class this GridView, and provide a width for the
+         * row index in pixels. This can be a constant value or change per row.
+         * Return 0 to have each row fill the viewport of the Gridview.
+         */
+        [[ nodiscard ]] virtual int getRowHeight(int i) const = 0;
+
+        /**
+         * Pure virtual. Sub-class this GridView, and provide a width for the
+         * column index in pixels. This can be a constant value or change per
+         * column. Return 0 to have each column fill the viewport of the
+         * GridView
+         */
+        [[ nodiscard ]] virtual int getColWidth(int i) const = 0;
 
         /**
          * Sets the cell at a given row/column as being in user focus.
@@ -76,17 +88,9 @@ namespace pdcpp
          */
         void displayCell(int row, int column);
 
-        /**
-         * Change the width of all columns.
-         * @param width the new width to use
-         */
-        void setCellWidth(float width);
+        void scrollX(int px);
 
-        /**
-         * Change the height of all rows.
-         * @param height the new height to use
-         */
-        void setCellHeight(float height);
+        void scrollY(int px);
 
     protected:
         /**
@@ -111,10 +115,10 @@ namespace pdcpp
 
     private:
         int m_ColFocus{0}, m_RowFocus{0};
-        float m_CellWidth, m_CellHeight, m_Padding;
         pdcpp::Component m_Content;
         pdcpp::ComponentFocusView m_Container;
         std::vector<std::vector<Component*>> m_Cells;
+        int m_ScrollX, m_ScrollY;
     };
 
 }

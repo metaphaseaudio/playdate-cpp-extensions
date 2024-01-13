@@ -80,3 +80,5 @@ bool pdcpp::ComponentFocusView::isComponentVisible(size_t index) const
     const auto overlap = pdcpp::RectHelpers::getOverlappingRect(itemBounds, viewBounds);
     return overlap.width == itemBounds.width && overlap.height == itemBounds.height;
 }
+
+pdcpp::Component* pdcpp::ComponentFocusView::getFocusContainerChild(int i) const { return m_FocusContainer->getChildComponent(i); }
