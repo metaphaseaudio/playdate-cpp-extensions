@@ -74,6 +74,11 @@ void pdcpp::LookAndFeel::drawRotarySlider(const playdate_graphics* g, const pdcp
     const auto range = slider->getMax() - slider->getMin();
     const auto ratio = (slider->getValue() - slider->getMin()) / range;
     pdcpp::Graphics::fillEllipse(bounds.toInt(), 0, 0, kColorBlack);
-    bounds = bounds.reduced(3);
-    pdcpp::Graphics::drawEllipse(bounds.toInt(), 3, -144, 288 * ratio - 143, kColorWhite);
+
+    // Draw the indicator pip
+    auto pipBounds = pdcpp::Rectangle<int>(0,0, bounds.width * 0.2f, bounds.width * 0.2f);
+    const auto center = bounds.getCenter();
+    const auto pipPointAtHalf = pdcpp::Point<float>(center.x, center.y - bounds.reduced(4).height / 2.0f);
+    pipBounds = pipBounds.withCenter(pipPointAtHalf.rotated(center, pdcpp::degToRad(288 * ratio - 143)).toInt());
+    pdcpp::Graphics::fillEllipse(pipBounds, 0, 0, kColorWhite);
 }

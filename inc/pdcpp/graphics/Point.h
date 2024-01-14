@@ -25,7 +25,7 @@ namespace pdcpp
             return ::sqrtf(a2 + b2);
         }
 
-        [[ nodiscard ]] Point<float> rotated(const Point<T>& center, float radians) const;
+        [[ nodiscard ]] Point<T> rotated(const Point<T>& center, float radians) const;
 
         [[ nodiscard ]] Point<T> withX(T newX) const;
         [[ nodiscard ]] Point<T> withY(T newY) const;
@@ -55,7 +55,7 @@ namespace pdcpp
     }
 
     template<typename T>
-    Point<float> Point<T>::rotated(const Point<T>& center, float radians) const
+    Point<T> Point<T>::rotated(const Point<T>& center, float radians) const
     {
         float c = ::cosf(radians);
         float s = ::sinf(radians);
