@@ -9,6 +9,7 @@
  */
 
 #pragma once
+#include <cmath>
 
 namespace pdcpp
 {
@@ -33,6 +34,8 @@ namespace pdcpp
         [[ nodiscard ]] Point<float> toFloat() const { return {float(x), float(y)}; }
         [[ nodiscard ]] Point<int> toInt() const { return {int(x), int(y)}; }
 
+        [[ nodiscard ]] Point<T> abs() const;
+
         [[ nodiscard ]] Point<T> operator- (Point<T> other) const { return {x - other.x, y - other.y}; }
         [[ nodiscard ]] Point<T> operator+ (Point<T> other) const { return {x + other.x, y + other.y}; }
         [[ nodiscard ]] Point<T> operator* (T value) const { return {x * value, y * value}; }
@@ -41,6 +44,10 @@ namespace pdcpp
 
         T x, y;
     };
+
+    template<typename T>
+    Point<T> Point<T>::abs() const
+    { return Point<T>(T(std::fabs(x)), T(std::fabs(y))); }
 
     template<typename T>
     Point<T> Point<T>::withX(T newX) const
@@ -64,4 +71,5 @@ namespace pdcpp
         const auto h = distance(center);
         return Point<T>(p.x * c - p.y * s, p.x * s + p.y * c) + center;
     }
+
 }
