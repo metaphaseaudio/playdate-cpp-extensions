@@ -81,6 +81,12 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Component* getChildComponent(int index) const;
 
         /**
+         * @returns the current parent of the component. If the component has no
+         * parent, it will return a nullptr.
+         */
+        [[ nodiscard ]] pdcpp::Component* getParentComponent() const;
+
+        /**
          * @returns the number of immediate children of this Component.
          */
         [[ nodiscard ]] size_t childCount() const;
@@ -138,6 +144,7 @@ namespace pdcpp
     private:
         pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};
         std::vector<Component*> m_Children;
+        Component* p_Parent = nullptr;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
     };

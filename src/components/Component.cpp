@@ -33,27 +33,34 @@ void pdcpp::Component::addChildComponent(Component* child)
 {
     // Don't add yourself, that's a recipe for a stack overflow.
     assert(child != this);
+
+    // Don't add components to more than one parent
+    assert(child->p_Parent == nullptr);
+
     m_Children.emplace_back(child);
+    child->p_Parent = this;
 }
 
 void pdcpp::Component::removeChildComponent(Component* child)
 {
-    m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; }), m_Children.end());
+    auto itr = std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; });
+    (*itr)->p_Parent = nullptr;
+    m_Children.erase(itr, m_Children.end());
 }
 
-size_t pdcpp::Component::childCount() const
-{
-    return m_Children.size();
-}
+size_t pdcpp::Component::childCount() const { return m_Children.size(); }
 
-pdcpp::Component* pdcpp::Component::getChildComponent(int index) const
-{
-    return m_Children[index];
-}
+pdcpp::Component* pdcpp::Component::getChildComponent(int index) const { return m_Children[index]; }
 
 const std::vector<pdcpp::Component*>& pdcpp::Component::getChildren() const { return m_Children; }
 
-void pdcpp::Component::removeAllChildren() { m_Children.clear(); }
+pdcpp::Component* pdcpp::Component::getParentComponent() const { return p_Parent; }
+
+void pdcpp::Component::removeAllChildren()
+{
+    for (auto c : m_Children) { c->p_Parent = nullptr; }
+    m_Children.clear();
+}
 
 void pdcpp::Component::resizeToFitChildren()
 {
@@ -86,6 +93,10 @@ pdcpp::LookAndFeel* pdcpp::Component::getLookAndFeel() const
 {
     if (m_CustomLookAndFeel != nullptr)
         { return m_CustomLookAndFeel; }
+
+    if (p_Parent)
+        { return p_Parent->getLookAndFeel(); }
+
     return pdcpp::LookAndFeel::getDefaultLookAndFeel();
 }
 
