@@ -11,7 +11,6 @@
 #include <map>
 #include <pd_api.h>
 #include <pdcpp/graphics/Rectangle.h>
-
 #include <pdcpp/graphics/Font.h>
 
 namespace pdcpp
@@ -31,8 +30,10 @@ namespace pdcpp
         static void setDefaultLookAndFeel(LookAndFeel* newLAF);
         static LookAndFeel* getDefaultLookAndFeel();
 
+        pdcpp::Font* getFont(const std::string& fontName);
     private:
         Font m_DefaultFont;
+        static std::map<std::string, Font> g_Fonts;
         static LookAndFeel* defaultLookAndFeel;
     };
 

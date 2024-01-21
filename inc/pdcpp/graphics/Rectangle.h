@@ -48,8 +48,8 @@ namespace pdcpp
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
 
-        T getRight() { x + width; }
-        T getBottom() { y + height; }
+        T getRight() { return x + width; }
+        T getBottom() { return y + height; }
 
         template <typename T2>
         [[ nodiscard ]] Rectangle<T2> toType() const

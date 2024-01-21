@@ -126,6 +126,8 @@ namespace pdcpp
          */
         [[ nodiscard ]] pdcpp::LookAndFeel* getLookAndFeel() const;
 
+        virtual void lookAndFeelChanged() {};
+
     protected:
         /**
          * Draw your component in this method. It will be called whenever
@@ -140,6 +142,7 @@ namespace pdcpp
          * @param newBounds the new boundaries set for this Component.
          */
         virtual void resized(const pdcpp::Rectangle<float>& newBounds) {};
+
 
     private:
         pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};

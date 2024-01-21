@@ -15,6 +15,7 @@
 #include "pdcpp/components/Slider.h"
 
 pdcpp::LookAndFeel* pdcpp::LookAndFeel::defaultLookAndFeel = nullptr;
+std::map<std::string, pdcpp::Font> pdcpp::LookAndFeel::g_Fonts = {};
 
 pdcpp::LookAndFeel::LookAndFeel()
     : m_DefaultFont("/System/Fonts/Asheville-Sans-14-Bold.pft")
@@ -81,4 +82,13 @@ void pdcpp::LookAndFeel::drawRotarySlider(const playdate_graphics* g, const pdcp
     const auto pipPointAtHalf = pdcpp::Point<float>(center.x, center.y - bounds.reduced(4).height / 2.0f);
     pipBounds = pipBounds.withCenter(pipPointAtHalf.rotated(center, pdcpp::degToRad(288 * ratio - 143)).toInt());
     pdcpp::Graphics::fillEllipse(pipBounds, 0, 0, kColorWhite);
+}
+
+pdcpp::Font* pdcpp::LookAndFeel::getFont(const std::string& fontName)
+{
+    if (!g_Fonts.contains(fontName))
+    {
+        g_Fonts.emplace(std::piecewise_construct, std::forward_as_tuple(fontName), std::forward_as_tuple(fontName));
+    }
+    return &g_Fonts.at(fontName);
 }

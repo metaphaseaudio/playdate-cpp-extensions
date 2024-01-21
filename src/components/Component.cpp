@@ -39,6 +39,7 @@ void pdcpp::Component::addChildComponent(Component* child)
 
     m_Children.emplace_back(child);
     child->p_Parent = this;
+    lookAndFeelChanged();
 }
 
 void pdcpp::Component::removeChildComponent(Component* child)
@@ -46,6 +47,7 @@ void pdcpp::Component::removeChildComponent(Component* child)
     auto itr = std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; });
     (*itr)->p_Parent = nullptr;
     m_Children.erase(itr, m_Children.end());
+    lookAndFeelChanged();
 }
 
 size_t pdcpp::Component::childCount() const { return m_Children.size(); }
@@ -58,7 +60,12 @@ pdcpp::Component* pdcpp::Component::getParentComponent() const { return p_Parent
 
 void pdcpp::Component::removeAllChildren()
 {
-    for (auto c : m_Children) { c->p_Parent = nullptr; }
+    for (auto c : m_Children)
+    {
+        c->p_Parent = nullptr;
+        lookAndFeelChanged();
+    }
+
     m_Children.clear();
 }
 
@@ -105,4 +112,6 @@ void pdcpp::Component::setLookAndFeel(pdcpp::LookAndFeel* newLAF)
     m_CustomLookAndFeel = newLAF;
     for (auto& child : m_Children)
         { child->setLookAndFeel(newLAF); }
+
+    lookAndFeelChanged();
 }

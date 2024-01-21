@@ -11,6 +11,7 @@
 #include <vector>
 #include <pdcpp/graphics/Font.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include "pdcpp/graphics/Image.h"
 
 pdcpp::Font::Font(const std::string& fontPath, int tracking, int leading)
     : m_Tracking(tracking)
@@ -124,3 +125,14 @@ void pdcpp::Font::drawWrappedText
         drawText(line, point.x, point.y + (lineNum++ * getFontHeight()), encoding);
     }
 }
+
+pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    auto page = pd->graphics->getFontPage(m_Font, c);
+    LCDBitmap* glyphImgPtr;
+    int adv;
+    pd->graphics->getPageGlyph(page, c, &glyphImgPtr, &adv);
+    return pdcpp::Image::copyFromPointer(glyphImgPtr);
+}
+

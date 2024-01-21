@@ -123,3 +123,11 @@ pdcpp::Image pdcpp::Image::drawAsImage(const PDRect& bounds, const std::function
     drawFunc(pdcpp::GlobalPlaydateAPI::get()->graphics);
     return context.getCopyAsImage();
 }
+
+pdcpp::Rectangle<int> pdcpp::Image::getBounds() const
+{
+    int h, w, rb;
+    uint8_t* mask, *data;  // Do as I say, not as I do...
+    pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapData(p_Data, &w, &h, &rb, &mask, &data);
+    return {0, 0, w, h};
+}

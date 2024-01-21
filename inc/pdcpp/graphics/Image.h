@@ -14,13 +14,13 @@
 #include <pd_api.h>
 #include <pdcpp/core/util.h>
 #include "Point.h"
+#include "Rectangle.h"
 
 namespace pdcpp
 {
     class Image
     {
     public:
-
         /**
          * Creates a new Image with a specific height and width, optionally
          * filled with a color.
@@ -29,7 +29,7 @@ namespace pdcpp
          * @param height the height of the image
          * @param bgColor the fill color. default is clear.
          */
-        Image(int width, int height, LCDColor bgColor=kColorClear);
+        Image(int width=0, int height=0, LCDColor bgColor=kColorClear);
 
         /**
          * Loads an image from a given path and manages its memory. Any issues
@@ -140,6 +140,11 @@ namespace pdcpp
          *     image
          */
         [[ nodiscard ]] LCDBitmap* getMask() const;
+
+        /**
+         * @returns the bounds of the image with a 0, 0 origin point.
+         */
+        [[ nodiscard ]] pdcpp::Rectangle<int> getBounds() const;
 
         /**
          * Draws the image at a given point. Optionally flip the image around
