@@ -33,8 +33,8 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
     for (auto c : capitalCol) { if (isExcluded(c)) { continue; } m_UpperCase.push_back(c); }
     for (auto c : lowerCol)   { if (isExcluded(c)) { continue; } m_LowerCase.push_back(c); }
 
-    m_NumOffset = m_Numbers.size() / 2 + 1;
-    m_CharOffset = m_UpperCase.size() / 2 + 1;
+    m_NumOffset = 0;
+    m_CharOffset = 0;
     refreshColumns();
 }
 
@@ -115,18 +115,21 @@ void pdcpp::TextKeyboard::submitSelected()
 
 pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& chars)
 {
-    int fontHeight = p_Font->getFontHeight();
+    const int fontHeight = p_Font->getFontHeight();
     int largestGlyph = 0;
 
     for (auto c : chars)
         { largestGlyph = std::max(largestGlyph, p_Font->getTextWidth(std::string(1, c))); }
 
-    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, largestGlyph, (fontHeight + m_Padding) * chars.size()), [&](const playdate_graphics*)
+    const auto width = largestGlyph + m_Padding;
+    const auto height = (fontHeight + m_Padding) * chars.size();
+    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&](const
+    playdate_graphics*)
     {
         int offset = 0;
         for (char c : chars)
         {
-            p_Font->drawText(std::string(1, c), 0, offset);
+            p_Font->drawText(std::string(1, c), m_Padding / 2, offset);
             offset += fontHeight + m_Padding;
         }
     });
@@ -161,12 +164,15 @@ void pdcpp::TextKeyboard::draw()
         case 0:
             selectorBounds = selectorBounds.withCenter(numberBounds.getCenter());
             break;
+        // Upper-case
         case 1:
             selectorBounds = selectorBounds.withCenter(upperBounds.getCenter());
             break;
+        // Lower-case
         case 2:
             selectorBounds = selectorBounds.withCenter(lowerBounds.getCenter());
             break;
+        // Menu
         case 3:
             // TODO: actually have the controls visible
             selectorBounds = selectorBounds.withCenter(numberBounds.getCenter());
@@ -177,21 +183,21 @@ void pdcpp::TextKeyboard::draw()
 
     // Draw/tile the columns
     auto imgBounds = m_LowerImg.getBounds();
-    auto imgOffset = m_CharOffset * (m_Padding + fontHeight);
-    auto imgStartY = lowerBounds.getTopLeft().y - imgOffset;
+    auto imgOffset = (fontHeight + m_Padding) * m_CharOffset;
+    auto imgStartY = lowerBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
     while (imgStartY < imgBounds.getBottom())
     {
-        m_UpperImg.draw(pdcpp::Point<int>(upperBounds.x, imgStartY + halfPad));
-        m_LowerImg.draw(pdcpp::Point<int>(lowerBounds.x, imgStartY + halfPad));
+        m_UpperImg.draw(pdcpp::Point<int>(upperBounds.x, imgStartY + m_Padding));
+        m_LowerImg.draw(pdcpp::Point<int>(lowerBounds.x, imgStartY + m_Padding));
         imgStartY += imgBounds.height;
     }
 
     imgBounds = m_NumberImg.getBounds();
-    imgOffset = m_NumOffset * (m_Padding + fontHeight);
-    imgStartY = numberBounds.getTopLeft().y - imgOffset;
+    imgOffset = (fontHeight + m_Padding) * m_NumOffset;
+    imgStartY = numberBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
     while (imgStartY < imgBounds.getBottom())
     {
-        m_NumberImg.draw(pdcpp::Point<int>(numberBounds.x, imgStartY + halfPad));
+        m_NumberImg.draw(pdcpp::Point<int>(numberBounds.x, imgStartY + m_Padding));
         imgStartY += imgBounds.height;
     }
 

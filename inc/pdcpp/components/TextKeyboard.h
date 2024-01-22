@@ -15,7 +15,7 @@ namespace pdcpp
         , public InputContext
     {
     public:
-        explicit TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude={}, int padding=2);
+        explicit TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude={}, int padding=3);
 
         std::function<void(char)> characterSelected;
         std::function<void()> deleteCalled;
