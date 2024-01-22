@@ -40,6 +40,8 @@ namespace pdcpp
          */
         explicit Image(const std::string& imgPath);
 
+        Image(const pdcpp::Rectangle<int>& bounds, uint8_t* data, uint8_t* mask, int rowStride=-1);
+
         /**
          * Copy constructor. Will call the Playdate C API under the hood so be
          * very judicious with the use of this constructor. Prefer passing
@@ -145,6 +147,18 @@ namespace pdcpp
          * @returns the bounds of the image with a 0, 0 origin point.
          */
         [[ nodiscard ]] pdcpp::Rectangle<int> getBounds() const;
+
+        /**
+         *
+         */
+        struct RawBitmapData
+        {
+            pdcpp::Rectangle<int> bounds;
+            std::vector<uint8_t> mask;
+            std::vector<uint8_t> data;
+        };
+
+        [[ nodiscard ]] RawBitmapData getBitmapData();
 
         /**
          * Draws the image at a given point. Optionally flip the image around

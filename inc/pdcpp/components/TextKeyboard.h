@@ -18,8 +18,7 @@ namespace pdcpp
         explicit TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude={}, int padding=3);
 
         std::function<void(char)> characterSelected;
-        std::function<void()> deleteCalled;
-        std::function<void()> cancel, confirm;
+        std::function<void()> deleteCalled, cancelCalled, confirmCalled;
 
         static std::vector<char> kIllegalFilenameChars;
 
@@ -41,8 +40,8 @@ namespace pdcpp
         pdcpp::Image buildColumnImage(const std::vector<char>& chars);
 
         std::vector<char> m_LowerCase, m_UpperCase, m_Numbers;
-        pdcpp::Image m_LowerImg, m_UpperImg, m_NumberImg;
-        int m_Padding, m_SelectedColumn = 0, m_CharOffset = 0, m_NumOffset = 0;
+        pdcpp::Image m_LowerImg, m_UpperImg, m_NumberImg, m_AuxControls, m_Space, m_Ok, m_Del, m_Cancel;
+        int m_Padding, m_SelectedColumn = 0, m_CharOffset = 0, m_NumOffset = 0, m_MenuOffset = 1;
         float m_DegSinceClick = 0;
 
         pdcpp::KeyRepeatTimer m_KeyRepeat;

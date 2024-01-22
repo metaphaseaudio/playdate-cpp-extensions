@@ -131,3 +131,49 @@ pdcpp::Rectangle<int> pdcpp::Image::getBounds() const
     pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapData(p_Data, &w, &h, &rb, &mask, &data);
     return {0, 0, w, h};
 }
+
+pdcpp::Image::RawBitmapData pdcpp::Image::getBitmapData()
+{
+    RawBitmapData rv;
+
+    int rb;
+    uint8_t* mask, *data;
+    pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapData(p_Data, &rv.bounds.width, &rv.bounds.height, &rb, &mask, &data);
+
+    int imgBytes = rb * rv.bounds.height;
+    if (mask != nullptr) { rv.mask = std::vector<uint8_t>(mask, mask + imgBytes); }
+    if (data != nullptr) { rv.data = std::vector<uint8_t>(data, data + imgBytes); }
+
+    return rv;
+}
+
+pdcpp::Image::Image(const pdcpp::Rectangle<int>& bounds, uint8_t* data, uint8_t* mask, int rowStride)
+    : p_Data(pdcpp::GlobalPlaydateAPI::get()->graphics->newBitmap(bounds.width, bounds.height, kColorClear))
+{
+    int w, h, rb;
+    uint8_t* currentData;
+    uint8_t* currentMask;
+
+    pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapData(p_Data, &w, &h, &rb, &currentMask, &currentData);
+    int actualRb = rowStride <= 0 ? std::ceilf(w / 8.0f) : rowStride;
+    int rowPadding = rb - actualRb;
+
+    if (rowPadding == 0)
+        { std::memcpy(currentData, data, actualRb * h); }
+    else
+    {
+        for(auto r = 0; r < h; r++)
+            { std::memcpy(currentData + (r * rb), data + (r * actualRb), actualRb); }
+    }
+
+    if (currentMask != nullptr && mask != nullptr)
+    {
+        if (rowPadding == 0)
+            { std::memcpy(currentMask, mask, actualRb * h); }
+        else
+        {
+            for(auto r = 0; r < h; r++)
+                { std::memcpy(currentMask + (r * rb), mask + (r * actualRb), actualRb); }
+        }
+    }
+}

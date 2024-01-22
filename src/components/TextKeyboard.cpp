@@ -1,11 +1,17 @@
 //
 // Created by Matt on 1/18/2024.
 //
+#include <array>
 
 #include "pdcpp/components/TextKeyboard.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
-#include <array>
+
+#include "keyboard_assets/ImageDataClass_menu_cancel.h"
+#include "keyboard_assets/ImageDataClass_menu_del.h"
+#include "keyboard_assets/ImageDataClass_menu_ok.h"
+#include "keyboard_assets/ImageDataClass_menu_space.h"
+
 
 static std::array<char, 5> ints = {1, 2, 3, 4, 5};
 
@@ -26,12 +32,34 @@ std::vector<char> pdcpp::TextKeyboard::kIllegalFilenameChars = {'\"', ':', '\\',
 pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude, int padding)
     : p_Font(getLookAndFeel()->getFont(fontName))
     , m_Padding(padding)
+    , m_Space(
+        pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height),
+            ImgDataClass_menu_space::data,
+            ImgDataClass_menu_space::mask)
+    , m_Ok(
+        pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_ok::width, ImgDataClass_menu_ok::height),
+            ImgDataClass_menu_ok::data,
+            ImgDataClass_menu_ok::mask)
+    , m_Del(
+        pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_del::width, ImgDataClass_menu_del::height),
+            ImgDataClass_menu_del::data,
+            ImgDataClass_menu_del::mask)
+    , m_Cancel(
+        pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_cancel::width, ImgDataClass_menu_cancel::height),
+            ImgDataClass_menu_cancel::data,
+            ImgDataClass_menu_cancel::mask)
 {
     auto isExcluded([&](char c) { return std::find(toExclude.begin(), toExclude.end(), c) != toExclude.end(); });
 
     for (auto c : numbersCol) { if (isExcluded(c)) { continue; } m_Numbers.push_back(c); }
     for (auto c : capitalCol) { if (isExcluded(c)) { continue; } m_UpperCase.push_back(c); }
     for (auto c : lowerCol)   { if (isExcluded(c)) { continue; } m_LowerCase.push_back(c); }
+
+    // set up a few defaults, so we don't crash if the user forgets to set one of them.
+    characterSelected = [](char){};
+    deleteCalled = [](){};
+    cancelCalled = [](){};
+    confirmCalled = [](){};
 
     m_NumOffset = 0;
     m_CharOffset = 0;
@@ -40,9 +68,6 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
 
 void pdcpp::TextKeyboard::resized(const pdcpp::Rectangle<float>& newBounds)
 {
-    auto bounds = newBounds;
-    auto colBounds = bounds.removeFromLeft(bounds.width / 2.0f);
-    auto colWidth = colBounds.width / 3.0f;
 }
 
 void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released)
@@ -103,6 +128,7 @@ void pdcpp::TextKeyboard::changeSelected(int dir)
             break;
         default:
             // TODO do something
+            m_MenuOffset = pdcpp::limit(0, 3, m_MenuOffset + dir);
             break;
     }
     redraw();
@@ -110,7 +136,27 @@ void pdcpp::TextKeyboard::changeSelected(int dir)
 
 void pdcpp::TextKeyboard::submitSelected()
 {
+    char c;
+    switch (m_SelectedColumn)
+    {
+        // numbers
+        case 0:
+            c = m_Numbers[m_NumOffset];
+            break;
+            // Characters
+        case 1:
+            c = m_UpperCase[m_CharOffset];
+            break;
+        case 2:
+            c = m_LowerCase[m_CharOffset];
+            break;
+        case 3:
+            // TODO do something
+        default:
+            return;
+    }
 
+    characterSelected(c);
 }
 
 pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& chars)
@@ -138,18 +184,17 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 void pdcpp::TextKeyboard::draw()
 {
     pdcpp::ScopedGraphicsContext context(getBounds());
+    auto bounds = getBounds().toInt();
+
     pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
+    pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
+
     // Set up a few constants
     const auto fontHeight = p_Font->getFontHeight();
     const auto halfPad = m_Padding / 2;
 
-    auto bounds = getBounds().toInt();
-
-    // Set the background
-    pdcpp::Graphics::fillRectangle(bounds);
-
     // set up some boundaries
-    bounds.removeFromRight(25 + m_Padding);
+    const auto menuBounds = bounds.removeFromRight(50 + m_Padding);
     const auto lowerBounds = bounds.removeFromRight(m_LowerImg.getBounds().width);
     bounds.removeFromRight(m_Padding);
     const auto upperBounds = bounds.removeFromRight(m_UpperImg.getBounds().width);
@@ -202,15 +247,16 @@ void pdcpp::TextKeyboard::draw()
     }
 
 
-//    const auto upperOffset = halfPad + charStartOffset + m_CharOffset * (m_Padding + fontHeight);
-//    m_UpperImg.draw(upperBounds.getTopLeft() + pdcpp::Point<int>(0, upperOffset));
-//
-//    const auto numberOffset = halfPad + charStartOffset + m_NumOffset * (m_Padding + fontHeight);
-//    m_NumberImg.draw(numberBounds.getTopLeft() + pdcpp::Point<int>(0, numberOffset));
+    m_Space.draw(pdcpp::Point<int>(menuBounds.x, 100));
+    m_Ok.draw(pdcpp::Point<int>(menuBounds.x, 100));
+    m_Del.draw(pdcpp::Point<int>(menuBounds.x, 100));
+    m_Cancel.draw(pdcpp::Point<int>(menuBounds.x, 100));
+
 }
 
 void pdcpp::TextKeyboard::refreshColumns()
 {
+    // These are all the character columns
     m_NumberImg = buildColumnImage(m_Numbers);
     m_UpperImg = buildColumnImage(m_UpperCase);
     m_LowerImg = buildColumnImage(m_LowerCase);
