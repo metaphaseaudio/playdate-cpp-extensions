@@ -11,25 +11,25 @@
 namespace pdcpp
 {
     class TextKeyboard
-        : public Component
+        : public Sprite
         , public InputContext
     {
     public:
-        explicit TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude={}, int padding=3);
+        explicit TextKeyboard(const std::vector<char>& toExclude={});
 
         std::function<void(char)> characterSelected;
         std::function<void()> deleteCalled, cancelCalled, confirmCalled;
 
         static std::vector<char> kIllegalFilenameChars;
 
-        void tickKeyRepeatTimer() { m_KeyRepeat.tick(); }
-        void lookAndFeelChanged() override;
+        void redraw(const Rectangle<float>& bounds, const Rectangle<float>& drawrect) override;
+        void update() override;
+
     protected:
         void buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released) override;
         void crankStateChanged(float absolute, float delta) override;
         void changeSelected(int dir);
         void submitSelected();
-        void draw() override;
 
     private:
         void refreshColumns();

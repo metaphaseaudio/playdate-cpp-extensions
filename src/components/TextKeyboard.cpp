@@ -2,7 +2,6 @@
 // Created by Matt on 1/18/2024.
 //
 #include <array>
-#include <iostream>
 
 #include "pdcpp/components/TextKeyboard.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
@@ -12,7 +11,6 @@
 #include "keyboard_assets/ImageDataClass_menu_del.h"
 #include "keyboard_assets/ImageDataClass_menu_ok.h"
 #include "keyboard_assets/ImageDataClass_menu_space.h"
-
 
 static std::array<char, 5> ints = {1, 2, 3, 4, 5};
 
@@ -30,9 +28,9 @@ std::vector<char> pdcpp::TextKeyboard::kIllegalFilenameChars = {'\"', ':', '\\',
 
 
 ////////////////////////////////////////////////////////////////////////////////
-pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector<char>& toExclude, int padding)
-    : p_Font(getLookAndFeel()->getFont(fontName))
-    , m_Padding(padding)
+pdcpp::TextKeyboard::TextKeyboard(const std::vector<char>& toExclude)
+    : p_Font(pdcpp::LookAndFeel::getDefaultLookAndFeel()->getFont("Roobert-24-Keyboard-Medium"))
+    , m_Padding(3)
     , m_Space(
         pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height),
             ImgDataClass_menu_space::data,
@@ -50,6 +48,8 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
             ImgDataClass_menu_cancel::data,
             ImgDataClass_menu_cancel::mask)
 {
+    setBounds({210, 0, 190, 240});
+
     auto isExcluded([&](char c) { return std::find(toExclude.begin(), toExclude.end(), c) != toExclude.end(); });
 
     for (auto c : numbersCol) { if (isExcluded(c)) { continue; } m_Numbers.push_back(c); }
@@ -57,10 +57,10 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
     for (auto c : lowerCol)   { if (isExcluded(c)) { continue; } m_LowerCase.push_back(c); }
 
     // set up a few defaults, so we don't crash if the user forgets to set one of them.
-    characterSelected = [](char c){ std::cout << c << std::endl; };
-    deleteCalled = [](){ std::cout << "delete" << std::endl; };
-    cancelCalled = [](){ std::cout << "cancel" << std::endl; };
-    confirmCalled = [](){ std::cout << "confirm" << std::endl; };
+    characterSelected = [](char){};
+    deleteCalled = [](){};
+    cancelCalled = [](){};
+    confirmCalled = [](){};
 
     m_NumOffset = 0;
     m_CharOffset = 0;
@@ -69,16 +69,14 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
 
 void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released)
 {
-    if      (pressed & PDButtons::kButtonLeft)  { m_SelectedColumn = pdcpp::limit(0, 3, --m_SelectedColumn); }
-    else if (pressed & PDButtons::kButtonRight) { m_SelectedColumn = pdcpp::limit(0, 3, ++m_SelectedColumn); }
-    else if (pressed & PDButtons::kButtonUp)    { m_KeyRepeat.keyPressed([&](){ changeSelected(-1); }); }
-    else if (pressed & PDButtons::kButtonDown)  { m_KeyRepeat.keyPressed([&](){ changeSelected(1); }); }
+    if      (pressed & PDButtons::kButtonLeft)  { m_SelectedColumn = pdcpp::limit(0, 3, --m_SelectedColumn); markDirty(); }
+    else if (pressed & PDButtons::kButtonRight) { m_SelectedColumn = pdcpp::limit(0, 3, ++m_SelectedColumn); markDirty(); }
+    else if (pressed & PDButtons::kButtonUp)    { m_KeyRepeat.keyPressed([&](){ changeSelected(-1); }); markDirty(); }
+    else if (pressed & PDButtons::kButtonDown)  { m_KeyRepeat.keyPressed([&](){ changeSelected(1); }); markDirty(); }
     else if (pressed & PDButtons::kButtonA)     { submitSelected(); }
     else if (pressed & PDButtons::kButtonB)     { deleteCalled(); }
 
     if (released & PDButtons::kButtonUp || released & PDButtons::kButtonDown) { m_KeyRepeat.keyReleased(); }
-
-    redraw();
 }
 
 void pdcpp::TextKeyboard::crankStateChanged(float absolute, float delta)
@@ -128,7 +126,8 @@ void pdcpp::TextKeyboard::changeSelected(int dir)
             m_MenuOffset = pdcpp::limit(0, 3, m_MenuOffset + dir);
             break;
     }
-    redraw();
+
+    markDirty();
 }
 
 void pdcpp::TextKeyboard::submitSelected()
@@ -195,10 +194,10 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
     });
 }
 
-void pdcpp::TextKeyboard::draw()
+void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const pdcpp::Rectangle<float>&)
 {
     pdcpp::ScopedGraphicsContext context(getBounds());
-    auto bounds = getBounds().toInt();
+    auto bounds = getBounds().withOrigin({0, 0}).toInt();
 
     pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
     pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
@@ -208,6 +207,7 @@ void pdcpp::TextKeyboard::draw()
     const auto halfPad = m_Padding / 2;
 
     // set up some boundaries
+    bounds.removeFromRight(8);  // Right margin
     const auto menuBounds = bounds.removeFromRight(50 + m_Padding);
     bounds.removeFromRight(m_Padding);
     const auto lowerBounds = bounds.removeFromRight(m_LowerImg.getBounds().width);
@@ -289,8 +289,9 @@ void pdcpp::TextKeyboard::refreshColumns()
     m_LowerImg = buildColumnImage(m_LowerCase);
 }
 
-void pdcpp::TextKeyboard::lookAndFeelChanged()
+void pdcpp::TextKeyboard::update()
 {
-    refreshColumns();
+    m_KeyRepeat.tick();
 }
+
 
