@@ -29,7 +29,7 @@ std::vector<char> pdcpp::TextKeyboard::kIllegalFilenameChars = {'\"', ':', '\\',
 
 ////////////////////////////////////////////////////////////////////////////////
 pdcpp::TextKeyboard::TextKeyboard(const std::vector<char>& toExclude)
-    : p_Font(pdcpp::LookAndFeel::getDefaultLookAndFeel()->getFont("Roobert-24-Keyboard-Medium"))
+    : p_Font(pdcpp::LookAndFeel::getDefaultLookAndFeel()->getFont("/System/Fonts/Roobert-24-Medium.pft"))
     , m_Padding(3)
     , m_Space(
         pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height),
@@ -48,7 +48,7 @@ pdcpp::TextKeyboard::TextKeyboard(const std::vector<char>& toExclude)
             ImgDataClass_menu_cancel::data,
             ImgDataClass_menu_cancel::mask)
 {
-    setBounds({210, 0, 190, 240});
+    setBounds({212, 0, 188, 240});
 
     auto isExcluded([&](char c) { return std::find(toExclude.begin(), toExclude.end(), c) != toExclude.end(); });
 
@@ -180,7 +180,7 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
     for (auto c : chars)
         { largestGlyph = std::max(largestGlyph, p_Font->getTextWidth(std::string(1, c))); }
 
-    const auto width = largestGlyph + m_Padding;
+    const auto width = 36;
     const auto height = (fontHeight + m_Padding) * chars.size();
     return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&](const
     playdate_graphics*)
@@ -188,7 +188,8 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
         int offset = 0;
         for (char c : chars)
         {
-            p_Font->drawText(std::string(1, c), m_Padding / 2, offset);
+            //  m_Padding / 2, offset
+            p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height),pdcpp::Font::Justification::Center);
             offset += fontHeight + m_Padding;
         }
     });
