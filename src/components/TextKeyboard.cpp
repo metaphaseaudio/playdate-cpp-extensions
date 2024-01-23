@@ -2,6 +2,7 @@
 // Created by Matt on 1/18/2024.
 //
 #include <array>
+#include <iostream>
 
 #include "pdcpp/components/TextKeyboard.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
@@ -56,18 +57,14 @@ pdcpp::TextKeyboard::TextKeyboard(const std::string& fontName, const std::vector
     for (auto c : lowerCol)   { if (isExcluded(c)) { continue; } m_LowerCase.push_back(c); }
 
     // set up a few defaults, so we don't crash if the user forgets to set one of them.
-    characterSelected = [](char){};
-    deleteCalled = [](){};
-    cancelCalled = [](){};
-    confirmCalled = [](){};
+    characterSelected = [](char c){ std::cout << c << std::endl; };
+    deleteCalled = [](){ std::cout << "delete" << std::endl; };
+    cancelCalled = [](){ std::cout << "cancel" << std::endl; };
+    confirmCalled = [](){ std::cout << "confirm" << std::endl; };
 
     m_NumOffset = 0;
     m_CharOffset = 0;
     refreshColumns();
-}
-
-void pdcpp::TextKeyboard::resized(const pdcpp::Rectangle<float>& newBounds)
-{
 }
 
 void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released)
@@ -151,7 +148,24 @@ void pdcpp::TextKeyboard::submitSelected()
             c = m_LowerCase[m_CharOffset];
             break;
         case 3:
-            // TODO do something
+            switch (m_MenuOffset)
+            {
+                case 0:
+                    characterSelected(' ');
+                    break;
+                case 1:
+                    confirmCalled();
+                    break;
+                case 2:
+                    deleteCalled();
+                    break;
+                case 3:
+                    cancelCalled();
+                    break;
+                default:
+                    break;
+            }
+            return;
         default:
             return;
     }
@@ -195,6 +209,7 @@ void pdcpp::TextKeyboard::draw()
 
     // set up some boundaries
     const auto menuBounds = bounds.removeFromRight(50 + m_Padding);
+    bounds.removeFromRight(m_Padding);
     const auto lowerBounds = bounds.removeFromRight(m_LowerImg.getBounds().width);
     bounds.removeFromRight(m_Padding);
     const auto upperBounds = bounds.removeFromRight(m_UpperImg.getBounds().width);
@@ -219,8 +234,8 @@ void pdcpp::TextKeyboard::draw()
             break;
         // Menu
         case 3:
-            // TODO: actually have the controls visible
-            selectorBounds = selectorBounds.withCenter(numberBounds.getCenter());
+            selectorBounds.width = menuBounds.width + halfPad;
+            selectorBounds = selectorBounds.withCenter(menuBounds.getCenter());
             break;
     }
 
@@ -246,12 +261,24 @@ void pdcpp::TextKeyboard::draw()
         imgStartY += imgBounds.height;
     }
 
+    auto menuPadding =  fontHeight + m_Padding;
 
-    m_Space.draw(pdcpp::Point<int>(menuBounds.x, 100));
-    m_Ok.draw(pdcpp::Point<int>(menuBounds.x, 100));
-    m_Del.draw(pdcpp::Point<int>(menuBounds.x, 100));
-    m_Cancel.draw(pdcpp::Point<int>(menuBounds.x, 100));
+    auto spaceBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height);
+    auto okBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_ok::width, ImgDataClass_menu_ok::height);
+    auto delBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_del::width, ImgDataClass_menu_del::height);
+    auto cancelBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_cancel::width, ImgDataClass_menu_cancel::height);
 
+    const auto menuCenter = menuBounds.getCenter();
+
+    spaceBounds = spaceBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (0 - m_MenuOffset)));
+    okBounds = okBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (1 - m_MenuOffset)));
+    delBounds = delBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (2 - m_MenuOffset)));
+    cancelBounds = cancelBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (3 - m_MenuOffset)));
+
+    m_Space.draw(spaceBounds.getTopLeft());
+    m_Ok.draw(okBounds.getTopLeft());
+    m_Del.draw(delBounds.getTopLeft());
+    m_Cancel.draw(cancelBounds.getTopLeft());
 }
 
 void pdcpp::TextKeyboard::refreshColumns()

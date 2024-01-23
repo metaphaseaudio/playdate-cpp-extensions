@@ -27,12 +27,9 @@ namespace pdcpp
     protected:
         void buttonStateChanged(const PDButtons& current, const PDButtons& pressed, const PDButtons& released) override;
         void crankStateChanged(float absolute, float delta) override;
-        void resized(const Rectangle<float>& newBounds) override;
         void changeSelected(int dir);
         void submitSelected();
-
         void draw() override;
-
 
     private:
         void refreshColumns();
