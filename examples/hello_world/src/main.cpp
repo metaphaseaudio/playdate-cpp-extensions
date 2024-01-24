@@ -14,7 +14,7 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 #include "HelloWorld.h"
 
-std::unique_ptr<HelloWorldObject> game;
+std::unique_ptr<BinaryBuilderApp> game;
 
 
 static int update(void* userdata)
@@ -35,7 +35,7 @@ int eventHandler(PlaydateAPI* pd, PDSystemEvent event, uint32_t arg)
     if (event == kEventInit)
     {
         pdcpp::GlobalPlaydateAPI::initialize(pd);
-        game = std::make_unique<HelloWorldObject>();
+        game = std::make_unique<BinaryBuilderApp>();
         pd->system->setUpdateCallback(update, pd);
     }
 

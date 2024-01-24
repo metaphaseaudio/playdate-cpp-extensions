@@ -20,10 +20,10 @@ private:
     float m_DX, m_DY;
 };
 
-class HelloWorldObject
+class BinaryBuilderApp
 {
 public:
-    HelloWorldObject();
+    BinaryBuilderApp();
     int update();
 private:
     TextSprite m_Sprite;

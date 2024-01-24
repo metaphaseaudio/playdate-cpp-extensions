@@ -73,10 +73,16 @@ void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDB
     else if (pressed & PDButtons::kButtonRight) { m_SelectedColumn = pdcpp::limit(0, 3, ++m_SelectedColumn); markDirty(); }
     else if (pressed & PDButtons::kButtonUp)    { m_KeyRepeat.keyPressed([&](){ changeSelected(-1); }); markDirty(); }
     else if (pressed & PDButtons::kButtonDown)  { m_KeyRepeat.keyPressed([&](){ changeSelected(1); }); markDirty(); }
-    else if (pressed & PDButtons::kButtonA)     { submitSelected(); }
-    else if (pressed & PDButtons::kButtonB)     { deleteCalled(); }
+    else if (pressed & PDButtons::kButtonA)
+    {
+        if      (isCancel())  { cancelCalled(); }
+        else if (isConfirm()) { confirmCalled(); }
+        else                  { m_KeyRepeat.keyPressed([&](){ submitSelected(); }); }
+    }
+    else if (pressed & PDButtons::kButtonB)     { m_KeyRepeat.keyPressed([&](){ deleteCalled(); }); }
 
-    if (released & PDButtons::kButtonUp || released & PDButtons::kButtonDown) { m_KeyRepeat.keyReleased(); }
+    if (released & PDButtons::kButtonUp || released & PDButtons::kButtonDown || released & PDButtons::kButtonA || released & PDButtons::kButtonB)
+        { m_KeyRepeat.keyReleased(); }
 }
 
 void pdcpp::TextKeyboard::crankStateChanged(float absolute, float delta)
@@ -152,14 +158,8 @@ void pdcpp::TextKeyboard::submitSelected()
                 case 0:
                     characterSelected(' ');
                     break;
-                case 1:
-                    confirmCalled();
-                    break;
                 case 2:
                     deleteCalled();
-                    break;
-                case 3:
-                    cancelCalled();
                     break;
                 default:
                     break;
@@ -189,7 +189,7 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
         for (char c : chars)
         {
             //  m_Padding / 2, offset
-            p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height),pdcpp::Font::Justification::Center);
+            p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height), pdcpp::Font::Justification::Center);
             offset += fontHeight + m_Padding;
         }
     });
@@ -294,5 +294,11 @@ void pdcpp::TextKeyboard::update()
 {
     m_KeyRepeat.tick();
 }
+
+pdcpp::TextKeyboard::~TextKeyboard()
+    { m_KeyRepeat.keyReleased(); }
+
+bool pdcpp::TextKeyboard::isConfirm() const { return m_SelectedColumn == 3 && (m_MenuOffset == 1); }
+bool pdcpp::TextKeyboard::isCancel() const { return m_SelectedColumn == 3 && (m_MenuOffset == 3); }
 
 
