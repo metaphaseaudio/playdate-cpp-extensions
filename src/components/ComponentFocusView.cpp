@@ -82,3 +82,8 @@ bool pdcpp::ComponentFocusView::isComponentVisible(size_t index) const
 }
 
 pdcpp::Component* pdcpp::ComponentFocusView::getFocusContainerChild(int i) const { return m_FocusContainer->getChildComponent(i); }
+
+void pdcpp::ComponentFocusView::lookAndFeelChanged()
+{
+    m_FocusContainer->setLookAndFeel(getLookAndFeel());
+}

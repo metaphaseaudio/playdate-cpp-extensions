@@ -71,6 +71,8 @@ namespace pdcpp
          */
         void clearFocusView();
 
+        void lookAndFeelChanged() override;
+
     private:
         class FocusContainer;
         std::unique_ptr<pdcpp::Component> m_FocusContainer;
