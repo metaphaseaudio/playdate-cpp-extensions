@@ -21,7 +21,7 @@ namespace pdcppong
     public:
         LaunchReadyIndicator();
 
-        void redraw(PDRect bounds, PDRect drawrect) override;
+        void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
     private:
         pdcpp::Font m_Font;
     };

@@ -24,7 +24,7 @@ namespace pdcppong
         explicit Ball(Sounds& soundHandler, std::function<void(const pdcpp::Sprite*)> goalCallback);
         void launch(bool playerServe);
         void update() override;
-        void redraw(PDRect bounds, PDRect drawrect) override;
+        void redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect) override;
         SpriteCollisionResponseType handleCollision(Sprite* other) override;
 
         void setSpeed(float speed);

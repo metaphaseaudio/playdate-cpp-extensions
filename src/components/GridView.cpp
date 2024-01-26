@@ -52,6 +52,8 @@ void pdcpp::GridView::resized(const pdcpp::Rectangle<float>& newBounds)
 
 void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell)
 {
+    if (getNumRows() == 0 || getNumCols() == 0) { return; }
+
     m_RowFocus = pdcpp::limit(0, getNumRows() - 1, row);
     m_ColFocus = pdcpp::limit(0, getNumCols() - 1, column);
 

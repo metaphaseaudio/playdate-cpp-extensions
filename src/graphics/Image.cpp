@@ -9,6 +9,7 @@
  */
 
 #include <stdexcept>
+
 #include <pdcpp/graphics/Image.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
@@ -155,25 +156,25 @@ pdcpp::Image::Image(const pdcpp::Rectangle<int>& bounds, uint8_t* data, uint8_t*
     uint8_t* currentMask;
 
     pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapData(p_Data, &w, &h, &rb, &currentMask, &currentData);
-    int actualRb = rowStride <= 0 ? std::ceilf(w / 8.0f) : rowStride;
+    int actualRb = rowStride <= 0 ? ::ceilf(w / 8.0f) : rowStride;
     int rowPadding = rb - actualRb;
 
     if (rowPadding == 0)
-        { std::memcpy(currentData, data, actualRb * h); }
+        { ::memcpy(currentData, data, actualRb * h); }
     else
     {
         for(auto r = 0; r < h; r++)
-            { std::memcpy(currentData + (r * rb), data + (r * actualRb), actualRb); }
+            { ::memcpy(currentData + (r * rb), data + (r * actualRb), actualRb); }
     }
 
     if (currentMask != nullptr && mask != nullptr)
     {
         if (rowPadding == 0)
-            { std::memcpy(currentMask, mask, actualRb * h); }
+            { ::memcpy(currentMask, mask, actualRb * h); }
         else
         {
             for(auto r = 0; r < h; r++)
-                { std::memcpy(currentMask + (r * rb), mask + (r * actualRb), actualRb); }
+                { ::memcpy(currentMask + (r * rb), mask + (r * actualRb), actualRb); }
         }
     }
 }

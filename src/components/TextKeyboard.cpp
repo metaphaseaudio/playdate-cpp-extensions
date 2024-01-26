@@ -11,6 +11,7 @@
 #include "keyboard_assets/ImageDataClass_menu_del.h"
 #include "keyboard_assets/ImageDataClass_menu_ok.h"
 #include "keyboard_assets/ImageDataClass_menu_space.h"
+#include "pdcpp/core/GlobalPlaydateAPI.h"
 
 static std::array<char, 5> ints = {1, 2, 3, 4, 5};
 
@@ -30,7 +31,6 @@ std::vector<char> pdcpp::TextKeyboard::kIllegalFilenameChars = {'\"', ':', '\\',
 ////////////////////////////////////////////////////////////////////////////////
 pdcpp::TextKeyboard::TextKeyboard(const std::vector<char>& toExclude)
     : p_Font(pdcpp::LookAndFeel::getDefaultLookAndFeel()->getFont("/System/Fonts/Roobert-24-Medium.pft"))
-    , m_Padding(3)
     , m_Space(
         pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height),
             ImgDataClass_menu_space::data,
@@ -47,6 +47,7 @@ pdcpp::TextKeyboard::TextKeyboard(const std::vector<char>& toExclude)
         pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_cancel::width, ImgDataClass_menu_cancel::height),
             ImgDataClass_menu_cancel::data,
             ImgDataClass_menu_cancel::mask)
+    , m_Padding(3)
 {
     setBounds({212, 0, 188, 240});
 
@@ -197,89 +198,95 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 
 void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const pdcpp::Rectangle<float>&)
 {
-    pdcpp::ScopedGraphicsContext context(getBounds());
-    auto bounds = getBounds().withOrigin({0, 0}).toInt();
+    // TODO: figure out why this can't simply use a scoped graphics context...
+    auto img = pdcpp::Image::drawAsImage(inBounds, [&](const playdate_graphics* g) {
+        pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), kColorBlack);
 
-    pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
-    pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
+        auto bounds = inBounds.withOrigin({0, 0}).toInt();
 
-    // Set up a few constants
-    const auto fontHeight = p_Font->getFontHeight();
-    const auto halfPad = m_Padding / 2;
+        pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
+        pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
 
-    // set up some boundaries
-    bounds.removeFromRight(8);  // Right margin
-    const auto menuBounds = bounds.removeFromRight(50 + m_Padding);
-    bounds.removeFromRight(m_Padding);
-    const auto lowerBounds = bounds.removeFromRight(m_LowerImg.getBounds().width);
-    bounds.removeFromRight(m_Padding);
-    const auto upperBounds = bounds.removeFromRight(m_UpperImg.getBounds().width);
-    bounds.removeFromRight(m_Padding);
-    const auto numberBounds = bounds.removeFromRight(m_NumberImg.getBounds().width);
+        // Set up a few constants
+        const auto fontHeight = p_Font->getFontHeight();
+        const auto halfPad = m_Padding / 2;
 
-    // Draw the selector
-    pdcpp::Rectangle<int> selectorBounds = {0, 0, fontHeight + halfPad, fontHeight + halfPad};
-    switch (m_SelectedColumn)
-    {
-        // Numbers
-        case 0:
-            selectorBounds = selectorBounds.withCenter(numberBounds.getCenter());
-            break;
-        // Upper-case
-        case 1:
-            selectorBounds = selectorBounds.withCenter(upperBounds.getCenter());
-            break;
-        // Lower-case
-        case 2:
-            selectorBounds = selectorBounds.withCenter(lowerBounds.getCenter());
-            break;
-        // Menu
-        case 3:
-            selectorBounds.width = menuBounds.width + halfPad;
-            selectorBounds = selectorBounds.withCenter(menuBounds.getCenter());
-            break;
-    }
+        // set up some boundaries
+        bounds.removeFromRight(8);  // Right margin
+        const auto menuBounds = bounds.removeFromRight(50 + m_Padding);
+        bounds.removeFromRight(m_Padding);
+        const auto lowerBounds = bounds.removeFromRight(m_LowerImg.getBounds().width);
+        bounds.removeFromRight(m_Padding);
+        const auto upperBounds = bounds.removeFromRight(m_UpperImg.getBounds().width);
+        bounds.removeFromRight(m_Padding);
+        const auto numberBounds = bounds.removeFromRight(m_NumberImg.getBounds().width);
 
-    pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, kColorWhite);
+        // Draw the selector
+        pdcpp::Rectangle<int> selectorBounds = {0, 0, fontHeight + halfPad, fontHeight + halfPad};
+        switch (m_SelectedColumn)
+        {
+            // Numbers
+            case 0:
+                selectorBounds = selectorBounds.withCenter(numberBounds.getCenter());
+                break;
+                // Upper-case
+            case 1:
+                selectorBounds = selectorBounds.withCenter(upperBounds.getCenter());
+                break;
+                // Lower-case
+            case 2:
+                selectorBounds = selectorBounds.withCenter(lowerBounds.getCenter());
+                break;
+                // Menu
+            case 3:
+                selectorBounds.width = menuBounds.width + halfPad;
+                selectorBounds = selectorBounds.withCenter(menuBounds.getCenter());
+                break;
+        }
 
-    // Draw/tile the columns
-    auto imgBounds = m_LowerImg.getBounds();
-    auto imgOffset = (fontHeight + m_Padding) * m_CharOffset;
-    auto imgStartY = lowerBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
-    while (imgStartY < imgBounds.getBottom())
-    {
-        m_UpperImg.draw(pdcpp::Point<int>(upperBounds.x, imgStartY + m_Padding));
-        m_LowerImg.draw(pdcpp::Point<int>(lowerBounds.x, imgStartY + m_Padding));
-        imgStartY += imgBounds.height;
-    }
+        pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, kColorWhite);
 
-    imgBounds = m_NumberImg.getBounds();
-    imgOffset = (fontHeight + m_Padding) * m_NumOffset;
-    imgStartY = numberBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
-    while (imgStartY < imgBounds.getBottom())
-    {
-        m_NumberImg.draw(pdcpp::Point<int>(numberBounds.x, imgStartY + m_Padding));
-        imgStartY += imgBounds.height;
-    }
+        // Draw/tile the columns
+        auto imgBounds = m_LowerImg.getBounds();
+        auto imgOffset = (fontHeight + m_Padding) * m_CharOffset;
+        auto imgStartY = lowerBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
+        while (imgStartY < imgBounds.getBottom())
+        {
+            m_UpperImg.draw(pdcpp::Point<int>(upperBounds.x, imgStartY + m_Padding));
+            m_LowerImg.draw(pdcpp::Point<int>(lowerBounds.x, imgStartY + m_Padding));
+            imgStartY += imgBounds.height;
+        }
 
-    auto menuPadding =  fontHeight + m_Padding;
+        imgBounds = m_NumberImg.getBounds();
+        imgOffset = (fontHeight + m_Padding) * m_NumOffset;
+        imgStartY = numberBounds.getCenter().y - (fontHeight / 2 + imgOffset + imgBounds.height);
+        while (imgStartY < imgBounds.getBottom())
+        {
+            m_NumberImg.draw(pdcpp::Point<int>(numberBounds.x, imgStartY + m_Padding));
+            imgStartY += imgBounds.height;
+        }
 
-    auto spaceBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height);
-    auto okBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_ok::width, ImgDataClass_menu_ok::height);
-    auto delBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_del::width, ImgDataClass_menu_del::height);
-    auto cancelBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_cancel::width, ImgDataClass_menu_cancel::height);
+        auto menuPadding =  fontHeight + m_Padding;
 
-    const auto menuCenter = menuBounds.getCenter();
+        auto spaceBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_space::width, ImgDataClass_menu_space::height);
+        auto okBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_ok::width, ImgDataClass_menu_ok::height);
+        auto delBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_del::width, ImgDataClass_menu_del::height);
+        auto cancelBounds = pdcpp::Rectangle<int>(0, 0, ImgDataClass_menu_cancel::width, ImgDataClass_menu_cancel::height);
 
-    spaceBounds = spaceBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (0 - m_MenuOffset)));
-    okBounds = okBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (1 - m_MenuOffset)));
-    delBounds = delBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (2 - m_MenuOffset)));
-    cancelBounds = cancelBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (3 - m_MenuOffset)));
+        const auto menuCenter = menuBounds.getCenter();
 
-    m_Space.draw(spaceBounds.getTopLeft());
-    m_Ok.draw(okBounds.getTopLeft());
-    m_Del.draw(delBounds.getTopLeft());
-    m_Cancel.draw(cancelBounds.getTopLeft());
+        spaceBounds = spaceBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (0 - m_MenuOffset)));
+        okBounds = okBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (1 - m_MenuOffset)));
+        delBounds = delBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (2 - m_MenuOffset)));
+        cancelBounds = cancelBounds.withCenter(menuCenter.withY(menuCenter.y + menuPadding * (3 - m_MenuOffset)));
+
+        m_Space.draw(spaceBounds.getTopLeft());
+        m_Ok.draw(okBounds.getTopLeft());
+        m_Del.draw(delBounds.getTopLeft());
+        m_Cancel.draw(cancelBounds.getTopLeft());
+    });
+
+    img.draw(inBounds.getTopLeft().toInt());
 }
 
 void pdcpp::TextKeyboard::refreshColumns()

@@ -12,12 +12,14 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 
 pdcpp::FileHandle::FileHandle(const std::string& path, FileOptions mode)
-    : m_Stat(pdcpp::FileHelpers::stat(path))
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
     p_File = pd->file->open(path.c_str(), mode);
+
     if (p_File == nullptr)
-        { pdcpp::FileHelpers::handleError("Failed to open file"); }
+        { pdcpp::FileHelpers::handleError("Failed to open file " + path); }
+
+    m_Stat = pdcpp::FileHelpers::stat(path);
 }
 
 pdcpp::FileHandle::FileHandle(pdcpp::FileHandle&& other) noexcept
@@ -104,7 +106,7 @@ FileStat pdcpp::FileHelpers::stat(const std::string& path)
 
     auto pd = pdcpp::GlobalPlaydateAPI::get();
     if (pd->file->stat(path.c_str(), &rv) < 0)
-        { pdcpp::FileHelpers::handleError("Failed to stat file"); }
+        { pdcpp::FileHelpers::handleError("Failed to stat file: " + path); }
 
     return rv;
 }

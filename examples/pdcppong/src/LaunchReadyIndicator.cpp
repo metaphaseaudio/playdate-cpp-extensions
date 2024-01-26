@@ -19,11 +19,15 @@ pdcppong::LaunchReadyIndicator::LaunchReadyIndicator()
     moveTo(200, 140);
 }
 
-void pdcppong::LaunchReadyIndicator::redraw(PDRect bounds, PDRect drawrect)
+void pdcppong::LaunchReadyIndicator::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     auto context = pdcpp::ScopedGraphicsContext(bounds, kColorWhite);
-    auto pd = pdcpp::GlobalPlaydateAPI::get();
-    pd->graphics->setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
-    pd->graphics->drawEllipse(m_Font.getTextWidth("Press") + 1, 0, bounds.height, bounds.height, bounds.height / 2.0f, 0.0f, 0.0f, kColorBlack);
-    m_Font.drawText("Press A", 0, 0);
+    auto img = pdcpp::Image::drawAsImage(bounds, [this, bounds](const playdate_graphics*){
+        auto pd = pdcpp::GlobalPlaydateAPI::get();
+        pd->graphics->setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
+        pd->graphics->fillRect(0, 0, bounds.width, bounds.height, kColorWhite);
+        pd->graphics->drawEllipse(m_Font.getTextWidth("Press") + 1, 0, bounds.height, bounds.height, bounds.height / 2.0f, 0.0f, 0.0f, kColorBlack);
+        m_Font.drawText("Press A", 0, 0);
+    });
+    img.draw(bounds.getTopLeft().toInt());
 }
