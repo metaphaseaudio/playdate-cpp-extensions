@@ -44,11 +44,12 @@ pdcpp::FileList::FileList(const std::string& rootDir, bool showDirectories, bool
 {
     if (includeParentDir && showDirectories)
         { m_Items.push_back(std::make_unique<FileListItemComponent>(kParentDir)); }
+
     for (const auto& f : pdcpp::FileHelpers::listFilesInDirectory(rootDir, showHidden))
     {
         auto details = pdcpp::FileHelpers::stat(rootDir + f);
         if (!showDirectories && details.isdir) { continue; }
-        m_Items.push_back(std::make_unique<FileListItemComponent>(f, details));
+        m_Items.push_back(std::make_unique<FileListItemComponent>(f));
     }
 }
 
@@ -56,10 +57,7 @@ pdcpp::FileList::FileList(const std::string& rootDir, bool showDirectories, bool
 pdcpp::FileList::FileList(const std::vector<std::string>& explicitFiles)
 {
     for (const auto& f : explicitFiles)
-    {
-        auto details = pdcpp::FileHelpers::stat(f);
-        m_Items.push_back(std::make_unique<FileListItemComponent>(f, details.isdir));
-    }
+        { m_Items.push_back(std::make_unique<FileListItemComponent>(f)); }
 }
 
 
