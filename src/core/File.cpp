@@ -110,3 +110,10 @@ FileStat pdcpp::FileHelpers::stat(const std::string& path)
 
     return rv;
 }
+
+std::string pdcpp::FileHelpers::parentDir(const std::string& fileOrDirname)
+{
+    int end = fileOrDirname.size();
+    if (fileOrDirname.ends_with('/')) { end--; }
+    return fileOrDirname.substr(0, fileOrDirname.substr(0, end).find_last_of('/'));
+}

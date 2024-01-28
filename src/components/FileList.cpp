@@ -2,11 +2,13 @@
 // Created by Matt on 1/24/2024.
 //
 
-#include "pdcpp/components/FileList.h"
+#include "pdcpp/components/FileNavigator.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
 #include "pdcpp/core/File.h"
+
+std::string pdcpp::FileNavigator::kParentDir = "..";
 
 class FileListItemComponent
     : public pdcpp::Component
@@ -31,7 +33,7 @@ protected:
 
         if (m_IsDir)
         {
-            // Todo: draw an icon
+            // Todo: draw icons
         }
     }
 
@@ -40,35 +42,48 @@ private:
 };
 
 
-pdcpp::FileList::FileList(const std::string& dir, bool showDirectories, bool showHidden)
+pdcpp::FileNavigator::FileNavigator(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir)
 {
-    for (const auto& f : pdcpp::FileHelpers::listFilesInDirectory(dir, showHidden))
+    if (includeParentDir && showDirectories)
+        { m_Items.push_back(std::make_unique<FileListItemComponent>(kParentDir, true)); }
+    for (const auto& f : pdcpp::FileHelpers::listFilesInDirectory(rootDir, showHidden))
     {
-        auto details = pdcpp::FileHelpers::stat(f);
+        auto details = pdcpp::FileHelpers::stat(rootDir + f);
         if (!showDirectories && details.isdir) { continue; }
         m_Items.push_back(std::make_unique<FileListItemComponent>(f, details.isdir));
     }
 }
 
-int pdcpp::FileList::getNumRows() const { return m_Items.size(); }
-int pdcpp::FileList::getRowHeight(int i) const { return getLookAndFeel()->getDefaultFont().getFontHeight() + 2; }
-int pdcpp::FileList::getNumCols() const { return 1; }
-int pdcpp::FileList::getColWidth(int i) const { return 0; }
 
-pdcpp::Component* pdcpp::FileList::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
+pdcpp::FileNavigator::FileNavigator(const std::vector<std::string>& explicitFiles)
+{
+    for (const auto& f : explicitFiles)
+    {
+        auto details = pdcpp::FileHelpers::stat(f);
+        m_Items.push_back(std::make_unique<FileListItemComponent>(f, details.isdir));
+    }
+}
+
+
+int pdcpp::FileNavigator::getNumRows() const { return m_Items.size(); }
+int pdcpp::FileNavigator::getRowHeight(int i) const { return getLookAndFeel()->getDefaultFont().getFontHeight() + 2; }
+int pdcpp::FileNavigator::getNumCols() const { return 1; }
+int pdcpp::FileNavigator::getColWidth(int i) const { return 0; }
+
+pdcpp::Component* pdcpp::FileNavigator::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
 {
     auto* rv = m_Items[row].get();
     dynamic_cast<FileListItemComponent*>(rv)->isFocused = hasFocus;
     return rv;
 }
 
-std::string pdcpp::FileList::getSelectedFilename() const
+std::string pdcpp::FileNavigator::getSelectedFilename() const
 {
     if (m_Items.empty()) { return ""; }
     return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->filename;
 }
 
-size_t pdcpp::FileList::getNumFiles() const
+size_t pdcpp::FileNavigator::getNumFiles() const
 {
     return m_Items.size();
 }

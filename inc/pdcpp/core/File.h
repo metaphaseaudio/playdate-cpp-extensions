@@ -150,6 +150,8 @@ namespace pdcpp
          * @param msg the message to prepend to the error
          */
         static void handleError(const std::string& msg);
+
+        static std::string parentDir(const std::string& fileOrDirname);
     };
 
     template <std::size_t Size>

@@ -7,14 +7,17 @@
 
 namespace pdcpp
 {
-    class FileList
+    class FileNavigator
         : public pdcpp::GridView
     {
     public:
-        FileList(const std::string& dir, bool showDirectories, bool showHidden);
+        FileNavigator(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir);
+        explicit FileNavigator(const std::vector<std::string>& explicitFiles);
+
         [[ nodiscard ]] size_t getNumFiles() const;
         [[ nodiscard ]] std::string getSelectedFilename() const;
 
+        static std::string kParentDir;
     private:
         [[ nodiscard ]] int getNumRows() const override;
         [[ nodiscard ]] int getNumCols() const override;
@@ -25,5 +28,6 @@ namespace pdcpp
 
     private:
         std::vector<std::unique_ptr<pdcpp::Component>> m_Items;
+        std::string m_RootDir;
     };
 }
