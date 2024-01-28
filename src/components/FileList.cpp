@@ -2,21 +2,22 @@
 // Created by Matt on 1/24/2024.
 //
 
-#include "pdcpp/components/FileNavigator.h"
+#include "pdcpp/components/FileList.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
 #include "pdcpp/core/File.h"
+#include "pdcpp/core/GlobalPlaydateAPI.h"
 
-std::string pdcpp::FileNavigator::kParentDir = "..";
+
+std::string pdcpp::FileList::kParentDir = "../";
 
 class FileListItemComponent
     : public pdcpp::Component
 {
 public:
-    FileListItemComponent(std::string filename, bool isDir)
+    explicit FileListItemComponent(std::string filename)
         : filename(std::move(filename))
-        , m_IsDir(isDir)
     {};
 
     bool isFocused{false};
@@ -25,37 +26,34 @@ public:
 protected:
     void draw() override
     {
-        pdcpp::ScopedGraphicsContext context(getBounds());
-        pdcpp::Graphics::setDrawMode(isFocused ? kDrawModeInverted : kDrawModeCopy);
-        pdcpp::Graphics::fillRectangle(getLocalBounds().toInt(), isFocused ? pdcpp::Colors::diagonalLinesRightWhiteOnBlack : kColorWhite);
-        auto font = getLookAndFeel()->getDefaultFont();
-        font.drawText(filename, font.getFontHeight() + 1, 2);
-
-        if (m_IsDir)
+        auto bounds = getBounds();
+        auto img = pdcpp::Image::drawAsImage(bounds, [&](const playdate_graphics* g)
         {
-            // Todo: draw icons
-        }
-    }
+            pdcpp::Graphics::setDrawMode(isFocused ? kDrawModeInverted : kDrawModeCopy);
+            pdcpp::Graphics::fillRectangle(getLocalBounds().toInt(), isFocused ? pdcpp::Colors::diagonalLinesRightWhiteOnBlack : kColorWhite);
+            auto& font = getLookAndFeel()->getDefaultFont();
+            font.drawText(filename, font.getFontHeight() + 1, 2);
+        });
 
-private:
-    const bool m_IsDir;
+        img.draw(bounds.getTopLeft().toInt());
+    }
 };
 
 
-pdcpp::FileNavigator::FileNavigator(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir)
+pdcpp::FileList::FileList(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir)
 {
     if (includeParentDir && showDirectories)
-        { m_Items.push_back(std::make_unique<FileListItemComponent>(kParentDir, true)); }
+        { m_Items.push_back(std::make_unique<FileListItemComponent>(kParentDir)); }
     for (const auto& f : pdcpp::FileHelpers::listFilesInDirectory(rootDir, showHidden))
     {
         auto details = pdcpp::FileHelpers::stat(rootDir + f);
         if (!showDirectories && details.isdir) { continue; }
-        m_Items.push_back(std::make_unique<FileListItemComponent>(f, details.isdir));
+        m_Items.push_back(std::make_unique<FileListItemComponent>(f, details));
     }
 }
 
 
-pdcpp::FileNavigator::FileNavigator(const std::vector<std::string>& explicitFiles)
+pdcpp::FileList::FileList(const std::vector<std::string>& explicitFiles)
 {
     for (const auto& f : explicitFiles)
     {
@@ -65,25 +63,25 @@ pdcpp::FileNavigator::FileNavigator(const std::vector<std::string>& explicitFile
 }
 
 
-int pdcpp::FileNavigator::getNumRows() const { return m_Items.size(); }
-int pdcpp::FileNavigator::getRowHeight(int i) const { return getLookAndFeel()->getDefaultFont().getFontHeight() + 2; }
-int pdcpp::FileNavigator::getNumCols() const { return 1; }
-int pdcpp::FileNavigator::getColWidth(int i) const { return 0; }
+int pdcpp::FileList::getNumRows() const { return m_Items.size(); }
+int pdcpp::FileList::getRowHeight(int i) const { return getLookAndFeel()->getDefaultFont().getFontHeight() + 2; }
+int pdcpp::FileList::getNumCols() const { return 1; }
+int pdcpp::FileList::getColWidth(int i) const { return 0; }
 
-pdcpp::Component* pdcpp::FileNavigator::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
+pdcpp::Component* pdcpp::FileList::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
 {
     auto* rv = m_Items[row].get();
     dynamic_cast<FileListItemComponent*>(rv)->isFocused = hasFocus;
     return rv;
 }
 
-std::string pdcpp::FileNavigator::getSelectedFilename() const
+std::string pdcpp::FileList::getSelectedFilename() const
 {
     if (m_Items.empty()) { return ""; }
     return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->filename;
 }
 
-size_t pdcpp::FileNavigator::getNumFiles() const
+size_t pdcpp::FileList::getNumFiles() const
 {
     return m_Items.size();
 }

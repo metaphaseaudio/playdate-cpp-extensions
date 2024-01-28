@@ -39,15 +39,15 @@ void pdcpp::Component::addChildComponent(Component* child)
 
     m_Children.emplace_back(child);
     child->p_Parent = this;
-    lookAndFeelChanged();
+    child->lookAndFeelChanged();
 }
 
 void pdcpp::Component::removeChildComponent(Component* child)
 {
     auto itr = std::remove_if(m_Children.begin(), m_Children.end(), [child](auto x) { return x == child; });
     (*itr)->p_Parent = nullptr;
+    (*itr)->lookAndFeelChanged();
     m_Children.erase(itr, m_Children.end());
-    lookAndFeelChanged();
 }
 
 size_t pdcpp::Component::childCount() const { return m_Children.size(); }
@@ -63,7 +63,7 @@ void pdcpp::Component::removeAllChildren()
     for (auto c : m_Children)
     {
         c->p_Parent = nullptr;
-        lookAndFeelChanged();
+        c->lookAndFeelChanged();
     }
 
     m_Children.clear();

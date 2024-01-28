@@ -135,4 +135,3 @@ pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)
     pd->graphics->getPageGlyph(page, c, &glyphImgPtr, &adv);
     return pdcpp::Image::copyFromPointer(glyphImgPtr);
 }
-
