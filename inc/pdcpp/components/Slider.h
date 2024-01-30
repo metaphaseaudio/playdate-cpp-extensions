@@ -109,12 +109,17 @@ namespace pdcpp
         std::function<void(float)> onChange;
 
     protected:
+        void redrawCachedImage();
         void draw() override;
+
+        void resized(const Rectangle<float>& newBounds) override;
+
         void notifyListeners();
 
     private:
         SliderStyle m_Style;
         float m_CurrentValue, m_Min, m_Max, m_IncrementSize;
         std::vector<Listener*> m_Listeners;
+        pdcpp::Image m_CachedImage;
     };
 }

@@ -14,18 +14,7 @@
 
 void pdcpp::Slider::draw()
 {
-    auto laf = getLookAndFeel();
-    switch (m_Style)
-    {
-        case Horizontal:
-            laf->drawHorizontalSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
-            break;
-        case Vertical:
-            break;
-        case Rotary:
-            laf->drawRotarySlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
-            break;
-    }
+    m_CachedImage.draw(getBounds().getTopLeft().toInt());
 }
 
 pdcpp::Slider::Slider(float min, float max, float startingValue, int nSteps, SliderStyle style)
@@ -44,6 +33,7 @@ void pdcpp::Slider::setValue(float newValue, bool notify)
     m_CurrentValue = newValue;
     if (notify)
         { notifyListeners(); }
+    redrawCachedImage();
 }
 
 void pdcpp::Slider::setMin(float minValue)
@@ -52,6 +42,7 @@ void pdcpp::Slider::setMin(float minValue)
     m_Min = minValue;
     m_CurrentValue = pdcpp::limit(m_Min, m_Max, m_CurrentValue);
     notifyListeners();
+    redrawCachedImage();
 }
 
 void pdcpp::Slider::setMax(float maxValue)
@@ -60,9 +51,14 @@ void pdcpp::Slider::setMax(float maxValue)
     m_Max = maxValue;
     m_CurrentValue = pdcpp::limit(m_Min, m_Max, m_CurrentValue);
     notifyListeners();
+    redrawCachedImage();
 }
 
-void pdcpp::Slider::setStyle(pdcpp::Slider::SliderStyle style) { m_Style = style; }
+void pdcpp::Slider::setStyle(pdcpp::Slider::SliderStyle style)
+{
+    m_Style = style;
+    redrawCachedImage();
+}
 
 float pdcpp::Slider::getValue() const { return m_CurrentValue; }
 float pdcpp::Slider::getMin() const { return m_Min; }
@@ -74,4 +70,27 @@ void pdcpp::Slider::notifyListeners()
     onChange(m_CurrentValue);
     for (auto* listener : m_Listeners)
         { listener->sliderValueChanged(this); }
+}
+
+void pdcpp::Slider::redrawCachedImage()
+{
+    m_CachedImage = pdcpp::Image::drawAsImage(getBounds(), [&](const playdate_graphics* g){
+        auto laf = getLookAndFeel();
+        switch (m_Style)
+        {
+            case Horizontal:
+                laf->drawHorizontalSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
+                break;
+            case Vertical:
+                break;
+            case Rotary:
+                laf->drawRotarySlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
+                break;
+        }
+    });
+}
+
+void pdcpp::Slider::resized(const pdcpp::Rectangle<float>& newBounds)
+{
+    redrawCachedImage();
 }

@@ -46,7 +46,7 @@ void pdcpp::LookAndFeel::drawHorizontalSlider(const playdate_graphics* g, const 
 {
     const auto range = slider->getMax() - slider->getMin();
     const auto ratio = (slider->getValue() - slider->getMin()) / range;
-    auto localBounds = slider->getBounds();
+    auto localBounds = slider->getLocalBounds();
 
     const auto startMarker = localBounds.removeFromLeft(2);
     const auto endMarker = localBounds.removeFromRight(2);
@@ -71,7 +71,7 @@ void pdcpp::LookAndFeel::drawHorizontalSlider(const playdate_graphics* g, const 
 
 void pdcpp::LookAndFeel::drawRotarySlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
 {
-    auto bounds = slider->getBounds();
+    auto bounds = slider->getLocalBounds();
     const auto range = slider->getMax() - slider->getMin();
     const auto ratio = (slider->getValue() - slider->getMin()) / range;
     pdcpp::Graphics::fillEllipse(bounds.toInt(), 0, 0, kColorBlack);
