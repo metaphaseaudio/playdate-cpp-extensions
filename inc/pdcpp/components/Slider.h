@@ -111,9 +111,7 @@ namespace pdcpp
     protected:
         void redrawCachedImage();
         void draw() override;
-
         void resized(const Rectangle<float>& newBounds) override;
-
         void notifyListeners();
 
     private:

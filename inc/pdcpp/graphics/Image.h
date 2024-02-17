@@ -149,7 +149,8 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Rectangle<int> getBounds() const;
 
         /**
-         *
+         * Describes an image as a Rect of bounds, and an array of unsigned
+         * 8-bit ints, one for the mask, and one for the actual data.
          */
         struct RawBitmapData
         {
@@ -158,6 +159,9 @@ namespace pdcpp
             std::vector<uint8_t> data;
         };
 
+        /**
+         * @returns a structure to access the bitmap data of this image directly
+         */
         [[ nodiscard ]] RawBitmapData getBitmapData();
 
         /**

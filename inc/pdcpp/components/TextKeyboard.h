@@ -15,9 +15,21 @@ namespace pdcpp
         , public InputContext
     {
     public:
+        /**
+         * Replicates the functionality of the Playdate Lua API's Keyboard. This
+         * is an input context and a Sprite, so it can take control of the
+         * user's input, and draw itself. Create one, set the callbacks, and
+         * use this as the input context to set up Keyboard interaction.
+         *
+         * @param toExclude a list of characters which should not be available
+         *     in the keyboard
+         */
         explicit TextKeyboard(const std::vector<char>& toExclude={});
-        ~TextKeyboard();
 
+        // Destructor
+        ~TextKeyboard() override;
+
+        // Callbacks for each of the relevant actions of the keyboard
         std::function<void(char)> characterSelected;
         std::function<void()> deleteCalled, cancelCalled, confirmCalled;
 

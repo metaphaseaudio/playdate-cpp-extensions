@@ -11,10 +11,35 @@ namespace pdcpp
         : public pdcpp::GridView
     {
     public:
+        /**
+         * Displays a list of files (and optionally directories) within a given
+         * directory in a 1xN grid view. Use this to build file navigation and
+         * selection interfaces.
+         *
+         * @param rootDir The directory to list
+         * @param showDirectories indicate if the list should include any child
+         *     directories
+         * @param showHidden indicate if the list should include any hidden
+         *     files.
+         * @param includeParentDir indicate if the list should include '../' for
+         *     the parent directory.
+         */
         FileList(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir);
+
+        /**
+         * Build a list with explicit file paths
+         * @param explicitFiles the list of files to display
+         */
         explicit FileList(const std::vector<std::string>& explicitFiles);
 
+        /**
+         * @returns the number of files in the file list
+         */
         [[ nodiscard ]] size_t getNumFiles() const;
+
+        /**
+         * @returns the currently highlighted filename
+         */
         [[ nodiscard ]] std::string getSelectedFilename() const;
 
         static std::string kParentDir;

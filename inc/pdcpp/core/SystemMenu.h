@@ -53,6 +53,8 @@ namespace pdcpp
              * the item.
              *
              * @param title a string which will appear in the system menu
+             * @param callback a function which will be called when the user
+             *    selects the system menu item.
              */
             explicit BasicItem(const std::string& title, std::function<void()> callback);
 
@@ -72,6 +74,8 @@ namespace pdcpp
              *
              * @param title the value to appear in the system menu
              * @param isChecked the starting state of the item
+             * @param callback a function which will be called with the checked
+             *     status when the user interacts with the system menu item
              */
             CheckmarkItem(const std::string& title, bool isChecked, std::function<void(bool)> callback);
 
@@ -106,6 +110,9 @@ namespace pdcpp
              *
              * @param title the title of the menu item
              * @param options a std::vector of std::strings to use as options
+             * @param callback a function which will be called with the string
+             *    value and index of the selected option when the user interacts
+             *    with the system menu item.
              * @param startingIndex which option to start with. defaults to 0
              */
             OptionsItem(

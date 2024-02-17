@@ -88,8 +88,16 @@ namespace pdcpp
          */
         void displayCell(int row, int column);
 
+        /**
+         * Scroll the view by n pixels on the X axis
+         * @param px the number of pixels to scroll
+         */
         void scrollX(int px);
 
+        /**
+         * Scroll the view by n pixels on the Y axis
+         * @param px the number of pixels to scroll
+         */
         void scrollY(int px);
 
     protected:
@@ -118,7 +126,6 @@ namespace pdcpp
         pdcpp::Component m_Content;
         pdcpp::ComponentFocusView m_Container;
         std::vector<std::vector<Component*>> m_Cells;
-        int m_ScrollX, m_ScrollY;
     };
 
 }

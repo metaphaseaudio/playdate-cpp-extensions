@@ -108,6 +108,8 @@ namespace pdcpp
         void drawWrappedText(const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding=kASCIIEncoding) const;
 
         /**
+         * Get an individual character as an image.
+         *
          * Be careful with this one! It works, but only on fonts that have an
          * image table. Many do, but it's not a requirement, so it's going to
          * always be safer to draw the text into an image instead.

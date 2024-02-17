@@ -126,6 +126,10 @@ namespace pdcpp
          */
         [[ nodiscard ]] pdcpp::LookAndFeel* getLookAndFeel() const;
 
+        /**
+         * Called when the look and feel anywhere in the hierarchy changes.
+         * Override this to react to changes.
+         */
         virtual void lookAndFeelChanged() {};
 
     protected:

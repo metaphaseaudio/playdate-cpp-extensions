@@ -71,6 +71,7 @@ namespace pdcpp
          */
         void clearFocusView();
 
+        // Overrides base class, passes changes to the internal children
         void lookAndFeelChanged() override;
 
     private:
