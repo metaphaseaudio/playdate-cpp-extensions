@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classpdcpp_1_1Font-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -75,6 +76,14 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a443e5cd18c3ce2db6370d75899403318"><td class="memItemLeft" align="right" valign="top"><a id="a443e5cd18c3ce2db6370d75899403318"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Justification</b> { <b>Left</b>
+, <b>Center</b>
+, <b>Right</b>
+ }</td></tr>
+<tr class="separator:a443e5cd18c3ce2db6370d75899403318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aca87dbeab18122417dae8fe17b84f367"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#aca87dbeab18122417dae8fe17b84f367">Font</a> (const std::string &amp;fontPath, int tracking=0, int leading=0)</td></tr>
@@ -97,10 +106,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 <tr class="separator:aebff5a41d02c8083aa389d7dcd78ad26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ded96ee8aaa686673c32247cecc68ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a9ded96ee8aaa686673c32247cecc68ac">drawText</a> (const std::string &amp;text, int x, int y, PDStringEncoding encoding=PDStringEncoding::kASCIIEncoding) const</td></tr>
 <tr class="separator:a9ded96ee8aaa686673c32247cecc68ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fcd3c1c00725a1606160d71c3db7f66"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a6fcd3c1c00725a1606160d71c3db7f66">wrapText</a> (const std::string &amp;text, int maxWidth, PDStringEncoding encoding=kASCIIEncoding) const</td></tr>
-<tr class="separator:a6fcd3c1c00725a1606160d71c3db7f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a648e9b998e939ed184a32aee38f8713a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a648e9b998e939ed184a32aee38f8713a">wrapText</a> (const std::string &amp;text, int maxWidth) const</td></tr>
+<tr class="separator:a648e9b998e939ed184a32aee38f8713a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4baa81bc6bee2a1a3f2e1c96e25f96b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a4baa81bc6bee2a1a3f2e1c96e25f96b5">drawWrappedText</a> (const std::string &amp;text, const <a class="el" href="structpdcpp_1_1Rectangle.html">Rectangle</a>&lt; float &gt; &amp;bounds, PDStringEncoding encoding=kASCIIEncoding) const</td></tr>
 <tr class="separator:a4baa81bc6bee2a1a3f2e1c96e25f96b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adae0ac8e590d2376281354e91d973a62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#adae0ac8e590d2376281354e91d973a62">drawWrappedText</a> (const std::string &amp;text, <a class="el" href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle</a>&lt; float &gt; bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding=kASCIIEncoding) const</td></tr>
+<tr class="separator:adae0ac8e590d2376281354e91d973a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03e0faeeb474c53d92cfb2290d747479"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdcpp_1_1Image.html">pdcpp::Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Font.html#a03e0faeeb474c53d92cfb2290d747479">getGlyphImage</a> (uint32_t c)</td></tr>
+<tr class="separator:a03e0faeeb474c53d92cfb2290d747479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aca87dbeab18122417dae8fe17b84f367"></a>
@@ -206,7 +219,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 </div>
 </div>
 <a id="a4baa81bc6bee2a1a3f2e1c96e25f96b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4baa81bc6bee2a1a3f2e1c96e25f96b5">&#9670;&nbsp;</a></span>drawWrappedText()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4baa81bc6bee2a1a3f2e1c96e25f96b5">&#9670;&nbsp;</a></span>drawWrappedText() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,6 +262,56 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 
 </div>
 </div>
+<a id="adae0ac8e590d2376281354e91d973a62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adae0ac8e590d2376281354e91d973a62">&#9670;&nbsp;</a></span>drawWrappedText() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::Font::drawWrappedText </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle</a>&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>bounds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pdcpp::Font::Justification&#160;</td>
+          <td class="paramname"><em>justification</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">PDStringEncoding&#160;</td>
+          <td class="paramname"><em>encoding</em> = <code>kASCIIEncoding</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>overloaded version of <code>drawWrappedText</code> which allows the text to be justified within the bounds</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>the text to draw </td></tr>
+    <tr><td class="paramname">bounds</td><td>the bounds in which to draw the text </td></tr>
+    <tr><td class="paramname">justification</td><td>justification of the text, left/center/right </td></tr>
+    <tr><td class="paramname">encoding</td><td>optional encoding for the text. default is ASCII </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a6a60b682892328d928c3a8fe5a7d59dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a60b682892328d928c3a8fe5a7d59dc">&#9670;&nbsp;</a></span>getFontHeight()</h2>
 
@@ -264,6 +327,33 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the height of the given font in pixels. </dd></dl>
+
+</div>
+</div>
+<a id="a03e0faeeb474c53d92cfb2290d747479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e0faeeb474c53d92cfb2290d747479">&#9670;&nbsp;</a></span>getGlyphImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpdcpp_1_1Image.html">pdcpp::Image</a> pdcpp::Font::getGlyphImage </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get an individual character as an image.</p>
+<p>Be careful with this one! It works, but only on fonts that have an image table. Many do, but it's not a requirement, so it's going to always be safer to draw the text into an image instead.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>the character of which to retrieve the image </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the image of the character </dd></dl>
 
 </div>
 </div>
@@ -304,8 +394,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
 
 </div>
 </div>
-<a id="a6fcd3c1c00725a1606160d71c3db7f66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fcd3c1c00725a1606160d71c3db7f66">&#9670;&nbsp;</a></span>wrapText()</h2>
+<a id="a648e9b998e939ed184a32aee38f8713a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a648e9b998e939ed184a32aee38f8713a">&#9670;&nbsp;</a></span>wrapText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,13 +410,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getTextLeading</b> () 
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>maxWidth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PDStringEncoding&#160;</td>
-          <td class="paramname"><em>encoding</em> = <code>kASCIIEncoding</code>&#160;</td>
+          <td class="paramname"><em>maxWidth</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

@@ -1,4 +1,5 @@
 <map id="pdcpp::Sprite" name="pdcpp::Sprite">
-<area shape="rect" id="node1" title=" " alt="" coords="31,5,138,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="122,5,229,32"/>
 <area shape="rect" id="node2" href="$classpdcpp_1_1AnimatedText.html" title=" " alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node3" href="$classpdcpp_1_1TextKeyboard.html" title=" " alt="" coords="189,80,346,107"/>
 </map>

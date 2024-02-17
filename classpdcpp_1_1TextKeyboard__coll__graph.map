@@ -1,0 +1,7 @@
+<map id="pdcpp::TextKeyboard" name="pdcpp::TextKeyboard">
+<area shape="rect" id="node1" title=" " alt="" coords="57,169,215,196"/>
+<area shape="rect" id="node2" href="$classpdcpp_1_1Sprite.html" title=" " alt="" coords="5,95,112,121"/>
+<area shape="rect" id="node3" href="$classpdcpp_1_1InputContext.html" title=" " alt="" coords="137,95,290,121"/>
+<area shape="rect" id="node4" href="$classpdcpp_1_1ButtonManager_1_1Listener.html" title=" " alt="" coords="33,5,202,47"/>
+<area shape="rect" id="node5" href="$classpdcpp_1_1CrankManager_1_1Listener.html" title=" " alt="" coords="226,5,390,47"/>
+</map>

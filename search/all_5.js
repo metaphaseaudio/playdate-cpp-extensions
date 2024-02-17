@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['fileexists_71',['fileExists',['../classpdcpp_1_1FileHelpers.html#a210984e1c8b65eacceba4d46080e4237',1,'pdcpp::FileHelpers']]],
-  ['filehandle_72',['FileHandle',['../classpdcpp_1_1FileHandle.html#ad4bd7bb44c1f5c9878fedb779ddadf0f',1,'pdcpp::FileHandle::FileHandle()'],['../classpdcpp_1_1FileHandle.html',1,'pdcpp::FileHandle']]],
-  ['filehelpers_73',['FileHelpers',['../classpdcpp_1_1FileHelpers.html',1,'pdcpp']]],
+  ['fileexists_70',['fileExists',['../classpdcpp_1_1FileHelpers.html#a210984e1c8b65eacceba4d46080e4237',1,'pdcpp::FileHelpers']]],
+  ['filehandle_71',['FileHandle',['../classpdcpp_1_1FileHandle.html#ad4bd7bb44c1f5c9878fedb779ddadf0f',1,'pdcpp::FileHandle::FileHandle()'],['../classpdcpp_1_1FileHandle.html',1,'pdcpp::FileHandle']]],
+  ['filehelpers_72',['FileHelpers',['../classpdcpp_1_1FileHelpers.html',1,'pdcpp']]],
+  ['filelist_73',['FileList',['../classpdcpp_1_1FileList.html#a011f2832595ecfa68f71778b50886ebd',1,'pdcpp::FileList::FileList(const std::string &amp;rootDir, bool showDirectories, bool showHidden, bool includeParentDir)'],['../classpdcpp_1_1FileList.html#a09ec868751e4f77d75a51367783ec8db',1,'pdcpp::FileList::FileList(const std::vector&lt; std::string &gt; &amp;explicitFiles)'],['../classpdcpp_1_1FileList.html',1,'pdcpp::FileList']]],
   ['fill_74',['fill',['../classpdcpp_1_1Image.html#a5792ea4f0ed1adcbbdc90742004c68fc',1,'pdcpp::Image']]],
   ['fillellipse_75',['fillEllipse',['../classpdcpp_1_1Graphics.html#a545c7c436ea5bc76d99a84e5b9f02dd8',1,'pdcpp::Graphics']]],
   ['fillpolygon_76',['fillPolygon',['../classpdcpp_1_1Graphics.html#ae27524e547a8758f296092d8606fceab',1,'pdcpp::Graphics']]],

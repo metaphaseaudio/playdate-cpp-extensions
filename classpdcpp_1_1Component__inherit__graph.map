@@ -1,7 +1,8 @@
 <map id="pdcpp::Component" name="pdcpp::Component">
 <area shape="rect" id="node1" title=" " alt="" coords="139,5,283,32"/>
 <area shape="rect" id="node2" href="$classpdcpp_1_1GridView.html" title=" " alt="" coords="5,80,133,107"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1Slider.html" title=" " alt="" coords="157,80,264,107"/>
-<area shape="rect" id="node4" href="$classpdcpp_1_1Viewport.html" title=" " alt="" coords="289,80,415,107"/>
-<area shape="rect" id="node5" href="$classpdcpp_1_1ComponentFocusView.html" title=" " alt="" coords="245,155,459,181"/>
+<area shape="rect" id="node4" href="$classpdcpp_1_1Slider.html" title=" " alt="" coords="157,80,264,107"/>
+<area shape="rect" id="node5" href="$classpdcpp_1_1Viewport.html" title=" " alt="" coords="289,80,415,107"/>
+<area shape="rect" id="node3" href="$classpdcpp_1_1FileList.html" title=" " alt="" coords="12,155,127,181"/>
+<area shape="rect" id="node6" href="$classpdcpp_1_1ComponentFocusView.html" title=" " alt="" coords="245,155,459,181"/>
 </map>

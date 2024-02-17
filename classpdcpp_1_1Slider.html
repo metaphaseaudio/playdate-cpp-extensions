@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -101,10 +102,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider_1_1Listener.html">Listener</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aa9d84634ab3e2bd02d3deb27a936c076"><td class="memItemLeft" align="right" valign="top"><a id="aa9d84634ab3e2bd02d3deb27a936c076"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>SliderStyle</b> { <b>Horizontal</b>
+, <b>Vertical</b>
+, <b>Rotary</b>
+ }</td></tr>
+<tr class="separator:aa9d84634ab3e2bd02d3deb27a936c076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a20cd1b49cdfc85176255153f214b33c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a20cd1b49cdfc85176255153f214b33c0">Slider</a> (float min, float max, float startingValue, int nSteps=20)</td></tr>
-<tr class="separator:a20cd1b49cdfc85176255153f214b33c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9089f4baa00b7e567f2af7b19a0dcf63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a9089f4baa00b7e567f2af7b19a0dcf63">Slider</a> (float min, float max, float startingValue, int nSteps=20, SliderStyle style=Horizontal)</td></tr>
+<tr class="separator:a9089f4baa00b7e567f2af7b19a0dcf63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3616dea57888ccb3995fca678ea4cf74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a3616dea57888ccb3995fca678ea4cf74">setValue</a> (float newValue, bool notify=true)</td></tr>
 <tr class="separator:a3616dea57888ccb3995fca678ea4cf74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad394584827d28b60b6e36591ade70535"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#ad394584827d28b60b6e36591ade70535">getValue</a> () const</td></tr>
@@ -113,10 +122,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0d19d11a397bc74a3f1de249da0bf288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a3129d72d961f0ed800e9f1875550c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#ac9a3129d72d961f0ed800e9f1875550c">setMax</a> (float maxValue)</td></tr>
 <tr class="separator:ac9a3129d72d961f0ed800e9f1875550c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44041544aa566648815038326606289a"><td class="memItemLeft" align="right" valign="top"><a id="a44041544aa566648815038326606289a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setStyle</b> (SliderStyle style)</td></tr>
+<tr class="separator:a44041544aa566648815038326606289a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1009d5715964ca39087ec77823a54bfb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a1009d5715964ca39087ec77823a54bfb">getMin</a> () const</td></tr>
 <tr class="separator:a1009d5715964ca39087ec77823a54bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b9eebd6ca63ccf154b1cff3a091c4a0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a1b9eebd6ca63ccf154b1cff3a091c4a0">getMax</a> () const</td></tr>
 <tr class="separator:a1b9eebd6ca63ccf154b1cff3a091c4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9502b5ddb6dd28bd8cfd70d2e49334"><td class="memItemLeft" align="right" valign="top"><a id="acb9502b5ddb6dd28bd8cfd70d2e49334"></a>
+SliderStyle&#160;</td><td class="memItemRight" valign="bottom"><b>getStyle</b> () const</td></tr>
+<tr class="separator:acb9502b5ddb6dd28bd8cfd70d2e49334"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a642f97334c447d5f6abe72c522136f24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a642f97334c447d5f6abe72c522136f24">operator++</a> (int)</td></tr>
 <tr class="separator:a642f97334c447d5f6abe72c522136f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04a2d49e800da7f60310c703a2fc216d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a04a2d49e800da7f60310c703a2fc216d">operator--</a> (int)</td></tr>
@@ -138,6 +153,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5edf9c80f10667077a124f98d2171b86 inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb98097d0f33482eddd6487d4528fbac inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdcpp_1_1Component.html">pdcpp::Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#adb98097d0f33482eddd6487d4528fbac">getChildComponent</a> (int index) const</td></tr>
 <tr class="separator:adb98097d0f33482eddd6487d4528fbac inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbb9cdb2bc783bbb485c7b032357d1e5 inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdcpp_1_1Component.html">pdcpp::Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#acbb9cdb2bc783bbb485c7b032357d1e5">getParentComponent</a> () const</td></tr>
+<tr class="separator:acbb9cdb2bc783bbb485c7b032357d1e5 inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c3e664a3c430f6bab6bab43717d505d inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#a7c3e664a3c430f6bab6bab43717d505d">childCount</a> () const</td></tr>
 <tr class="separator:a7c3e664a3c430f6bab6bab43717d505d inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a315f633a8e86fde84833e129cc955b82 inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classpdcpp_1_1Component.html">Component</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#a315f633a8e86fde84833e129cc955b82">getChildren</a> () const</td></tr>
@@ -150,6 +167,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4f6e5c4ab54a4623f1e1e73acfd81d43 inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd33c414cf700c2e965dc5fabe0b1d3c inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdcpp_1_1LookAndFeel.html">pdcpp::LookAndFeel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#abd33c414cf700c2e965dc5fabe0b1d3c">getLookAndFeel</a> () const</td></tr>
 <tr class="separator:abd33c414cf700c2e965dc5fabe0b1d3c inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0b9f1e44d45b1b3471b2581721442b8 inherit pub_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#ac0b9f1e44d45b1b3471b2581721442b8">lookAndFeelChanged</a> ()</td></tr>
+<tr class="separator:ac0b9f1e44d45b1b3471b2581721442b8 inherit pub_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -158,18 +177,20 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:a0037ae90f48f05640f56f6d3f32bcc9a"><td class="memItemLeft" align="right" valign="top"><a id="a0037ae90f48f05640f56f6d3f32bcc9a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>redrawCachedImage</b> ()</td></tr>
+<tr class="separator:a0037ae90f48f05640f56f6d3f32bcc9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20761e9e1f096a21773cbe8ea8a8c8e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a20761e9e1f096a21773cbe8ea8a8c8e9">draw</a> () override</td></tr>
 <tr class="separator:a20761e9e1f096a21773cbe8ea8a8c8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a8c1a571ad0a21604cc9f3457bd81b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Slider.html#a7a8c1a571ad0a21604cc9f3457bd81b9">resized</a> (const <a class="el" href="structpdcpp_1_1Rectangle.html">Rectangle</a>&lt; float &gt; &amp;newBounds) override</td></tr>
+<tr class="separator:a7a8c1a571ad0a21604cc9f3457bd81b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff6e1c879a0998a29c4e2bfb4567fc91"><td class="memItemLeft" align="right" valign="top"><a id="aff6e1c879a0998a29c4e2bfb4567fc91"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyListeners</b> ()</td></tr>
 <tr class="separator:aff6e1c879a0998a29c4e2bfb4567fc91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classpdcpp_1_1Component"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classpdcpp_1_1Component')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classpdcpp_1_1Component.html">pdcpp::Component</a></td></tr>
-<tr class="memitem:aedea5a2b41c1e9238c2ed18f0723cd17 inherit pro_methods_classpdcpp_1_1Component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Component.html#aedea5a2b41c1e9238c2ed18f0723cd17">resized</a> (const <a class="el" href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle</a>&lt; float &gt; &amp;newBounds)</td></tr>
-<tr class="separator:aedea5a2b41c1e9238c2ed18f0723cd17 inherit pro_methods_classpdcpp_1_1Component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a20cd1b49cdfc85176255153f214b33c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20cd1b49cdfc85176255153f214b33c0">&#9670;&nbsp;</a></span>Slider()</h2>
+<a id="a9089f4baa00b7e567f2af7b19a0dcf63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9089f4baa00b7e567f2af7b19a0dcf63">&#9670;&nbsp;</a></span>Slider()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +217,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyListeners</b> (
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>nSteps</em> = <code>20</code>&#160;</td>
+          <td class="paramname"><em>nSteps</em> = <code>20</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SliderStyle&#160;</td>
+          <td class="paramname"><em>style</em> = <code>Horizontal</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -352,6 +379,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>notifyListeners</b> (
 </table>
 </div><div class="memdoc">
 <p>Decrement the slider by one increment size </p>
+
+</div>
+</div>
+<a id="a7a8c1a571ad0a21604cc9f3457bd81b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a8c1a571ad0a21604cc9f3457bd81b9">&#9670;&nbsp;</a></span>resized()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::Slider::resized </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structpdcpp_1_1Rectangle.html">Rectangle</a>&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>newBounds</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Will be called whenever a new set of boundaries has been set for this <a class="el" href="classpdcpp_1_1Component.html">Component</a> to allow inheritors to react to changes in the hierarchy.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newBounds</td><td>the new boundaries set for this <a class="el" href="classpdcpp_1_1Component.html">Component</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classpdcpp_1_1Component.html#aedea5a2b41c1e9238c2ed18f0723cd17">pdcpp::Component</a>.</p>
 
 </div>
 </div>

@@ -85,6 +85,13 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a0468166a1a4cb936cbf98b27856e8a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a210984e1c8b65eacceba4d46080e4237"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a210984e1c8b65eacceba4d46080e4237">fileExists</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:a210984e1c8b65eacceba4d46080e4237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a749a33a15b06e9086b683cc37ca130a6"><td class="memItemLeft" align="right" valign="top">static FileStat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#a749a33a15b06e9086b683cc37ca130a6">stat</a> (const std::string &amp;path)</td></tr>
+<tr class="separator:a749a33a15b06e9086b683cc37ca130a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade4cdec29c1b72efb7a4f630bb03f481"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1FileHelpers.html#ade4cdec29c1b72efb7a4f630bb03f481">handleError</a> (const std::string &amp;msg)</td></tr>
+<tr class="separator:ade4cdec29c1b72efb7a4f630bb03f481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e67b97e9e9803262983cfa7875717b1"><td class="memItemLeft" align="right" valign="top"><a id="a3e67b97e9e9803262983cfa7875717b1"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>parentDir</b> (const std::string &amp;fileOrDirname)</td></tr>
+<tr class="separator:a3e67b97e9e9803262983cfa7875717b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a210984e1c8b65eacceba4d46080e4237"></a>
@@ -118,6 +125,39 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the file exists, false if it does not. </dd></dl>
+
+</div>
+</div>
+<a id="ade4cdec29c1b72efb7a4f630bb03f481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4cdec29c1b72efb7a4f630bb03f481">&#9670;&nbsp;</a></span>handleError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void pdcpp::FileHelpers::handleError </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>msg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Checks what error was retured by the filesystem and prints it to the error stream along with an additional message</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>the message to prepend to the error </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -242,6 +282,40 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on failure. </dd></dl>
+
+</div>
+</div>
+<a id="a749a33a15b06e9086b683cc37ca130a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a749a33a15b06e9086b683cc37ca130a6">&#9670;&nbsp;</a></span>stat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static FileStat pdcpp::FileHelpers::stat </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Run stat on a file without opening it</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the path to stat </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a FileStat object describing the file </dd></dl>
 
 </div>
 </div>
