@@ -109,7 +109,10 @@ namespace pdcpp
              * @param startingIndex which option to start with. defaults to 0
              */
             OptionsItem(
-                const std::string& title, std::vector<std::string> options, std::function<void(const std::string&)> callback, int startingIndex=0);
+                const std::string& title,
+                std::vector<std::string> options,
+                std::function<void(const std::string&, int)> callback,
+                int startingIndex=0);
 
             /**
              * Changes the item selected by this option
@@ -133,7 +136,7 @@ namespace pdcpp
             static void shim(void* usrData);
             std::vector<std::string> m_Options;
             std::vector<const char*> m_CStrings;
-            std::function<void(const std::string&)> callback;
+            std::function<void(const std::string&, int)> callback;
         };
     };
 }

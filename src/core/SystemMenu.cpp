@@ -72,22 +72,21 @@ void pdcpp::SystemMenu::CheckmarkItem::shim(void* usrData)
 
 
 pdcpp::SystemMenu::OptionsItem::OptionsItem(
-        const std::string& title, std::vector<std::string> options, std::function<void(const std::string&)> callbackIn, int startingIndex)
+const std::string& title, std::vector<std::string> options, std::function<void(const std::string&, int)> callbackIn, int startingIndex)
     : m_Options(std::move(options))
     , callback(std::move(callbackIn))
 {
+    m_CStrings.reserve(m_Options.size());
+
+    for (auto& opt : m_Options)
+        { m_CStrings.emplace_back(opt.c_str()); }
+
     p_Item = pdcpp::GlobalPlaydateAPI::get()->system->addOptionsMenuItem(title.c_str(), m_CStrings.data(), int(m_CStrings.size()), shim, this);
     if (p_Item == nullptr)
     {
         auto err = "Failed to create menu item " + title;
         pdcpp::GlobalPlaydateAPI::get()->system->error(err.c_str());
     }
-
-    m_CStrings.reserve(m_Options.size());
-
-    for (auto& opt : m_Options)
-        { m_CStrings.emplace_back(opt.c_str()); }
-
 
     setSelectedIndex(startingIndex);
 }
@@ -105,5 +104,6 @@ int pdcpp::SystemMenu::OptionsItem::getSelectedIndex() const
 void pdcpp::SystemMenu::OptionsItem::shim(void* usrData)
 {
     auto thisPtr = reinterpret_cast<pdcpp::SystemMenu::OptionsItem*>(usrData);
-    thisPtr->callback(thisPtr->m_Options.at(thisPtr->getSelectedIndex()));
+    int i = thisPtr->getSelectedIndex();
+    thisPtr->callback(thisPtr->m_Options.at(i), i);
 }

@@ -21,7 +21,6 @@ pdcppong::LaunchReadyIndicator::LaunchReadyIndicator()
 
 void pdcppong::LaunchReadyIndicator::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
-    auto context = pdcpp::ScopedGraphicsContext(bounds, kColorWhite);
     auto img = pdcpp::Image::drawAsImage(bounds, [this, bounds](const playdate_graphics*){
         auto pd = pdcpp::GlobalPlaydateAPI::get();
         pd->graphics->setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);

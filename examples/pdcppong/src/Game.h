@@ -15,7 +15,7 @@
 #include "LaunchReadyIndicator.h"
 #include "ComputerAI.h"
 #include "Sounds.h"
-#include "SystemMenu.h"
+#include <pdcpp/core/SystemMenu.h>
 
 
 namespace pdcppong
@@ -36,6 +36,9 @@ namespace pdcppong
         ScoreBoard m_ScoreBoard;
         LaunchReadyIndicator m_LaunchReadyIndicator;
         ComputerAI m_ComputerAI;
-        SystemMenu m_Menu;
+
+        // System Menu
+        pdcpp::SystemMenu::OptionsItem m_BallSpeedSelection;
+        pdcpp::SystemMenu::BasicItem m_ResetGame;
     };
 }
