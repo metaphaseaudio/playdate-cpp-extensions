@@ -36,11 +36,8 @@ void pdcpp::LookAndFeel::setDefaultLookAndFeel(pdcpp::LookAndFeel* newLAF)
 
 void pdcpp::LookAndFeel::setDefaultFont(pdcpp::Font newFont) { m_DefaultFont = newFont; }
 
-pdcpp::Font& pdcpp::LookAndFeel::getDefaultFont()
-{
-    return m_DefaultFont;
-}
-
+pdcpp::Font& pdcpp::LookAndFeel::getDefaultFont() { return m_DefaultFont; }
+const pdcpp::Font& pdcpp::LookAndFeel::getDefaultFont() const { return m_DefaultFont; }
 
 void pdcpp::LookAndFeel::drawHorizontalSlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
 {
@@ -91,4 +88,16 @@ pdcpp::Font* pdcpp::LookAndFeel::getFont(const std::string& fontName)
         g_Fonts.emplace(std::piecewise_construct, std::forward_as_tuple(fontName), std::forward_as_tuple(fontName));
     }
     return &g_Fonts.at(fontName);
+}
+
+void pdcpp::LookAndFeel::drawNumericSlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
+{
+    auto bounds = slider->getLocalBounds();
+    pdcpp::Graphics::fillRectangle(bounds.toInt(), kColorWhite);
+    pdcpp::Graphics::drawRectangle(bounds.toInt(), kColorBlack);
+
+    auto font = getDefaultFont();
+    auto yOffset = (bounds.height - font.getFontHeight()) / 2.0f;
+    auto value = pdcpp::to_string_with_precision(slider->getValue(), 1);
+    font.drawWrappedText(value, bounds.withOrigin({0, yOffset}), pdcpp::Font::Justification::Right);
 }

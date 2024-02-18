@@ -67,26 +67,42 @@ std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxW
 
     int currentLineWidth = 0;
     std::string recomposed = "";
-    for (auto& word : words)
-    {
-        auto wordWidth = getTextWidth(word + ' ');
 
-        // If adding the word would make the line too long, put it on a new line
+    auto make_new_line = [&]()
+    {
+        recomposed += "\n";
+        rv.emplace_back(recomposed);
+        recomposed = "";
+        currentLineWidth = 0;
+    };
+
+    auto process_word = [&](const std::string& word, bool includeSpace)
+    {
+        auto wordWidth = getTextWidth(word + (includeSpace ? " " : ""));
+
         if (currentLineWidth + wordWidth > maxWidth)
         {
             // Avoid whitespace-only lines where sensible
-            if (currentLineWidth > 0)
-            {
-                recomposed += "\n";
-                rv.emplace_back(recomposed);
-                recomposed = "";
-                currentLineWidth = 0;
-            }
+            if (currentLineWidth > 0) { make_new_line(); }
 
             // TODO: Split words that are themselves too long.
         }
-        recomposed += word + ' ';
+        recomposed += word + (includeSpace ? " " : "");
         currentLineWidth += wordWidth;
+    };
+
+    for (auto& word : words)
+    {
+        startPos = 0;
+        while ((pos = word.substr(startPos, std::string::npos).find('\n')) != std::string::npos)
+        {
+            auto sub_word = word.substr(startPos, pos);
+            process_word(sub_word, false);
+            make_new_line();
+            startPos += pos + 1;
+        }
+
+        process_word(word.substr(startPos, std::string::npos), word != words.back());
     }
     if (!recomposed.empty()) { rv.emplace_back(recomposed);}
     return rv;
@@ -96,17 +112,17 @@ int pdcpp::Font::drawWrappedText(const std::string& text, const pdcpp::Rectangle
 {
     int lineNum = 0;
     for (auto& line : wrapText(text, bounds.width))
-        { drawText(line, bounds.x, bounds.y + (lineNum++ * getFontHeight()), encoding); }
-    return lineNum * getFontHeight();
+        { drawText(line, bounds.x, bounds.y + (lineNum++ * (getFontHeight() + getTextLeading())), encoding); }
+    return lineNum * (getFontHeight() + getTextLeading());
 }
 
-void pdcpp::Font::drawWrappedText
+int pdcpp::Font::drawWrappedText
 (const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding) const
 {
     int lineNum = 0;
     for (auto& line : wrapText(text, bounds.toInt().width))
     {
-        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight());
+        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight() + getTextLeading());
         pdcpp::Point<float> point{0, 0};
 
         switch (justification)
@@ -122,8 +138,10 @@ void pdcpp::Font::drawWrappedText
                 break;
         }
 
-        drawText(line, point.x, point.y + (lineNum++ * getFontHeight()), encoding);
+        drawText(line, point.x, point.y + (lineNum++ * (getFontHeight() + getTextLeading())), encoding);
     }
+
+    return lineNum * (getFontHeight() + getTextLeading());
 }
 
 pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)

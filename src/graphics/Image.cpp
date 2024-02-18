@@ -133,7 +133,7 @@ pdcpp::Rectangle<int> pdcpp::Image::getBounds() const
     return {0, 0, w, h};
 }
 
-pdcpp::Image::RawBitmapData pdcpp::Image::getBitmapData()
+pdcpp::Image::RawBitmapData pdcpp::Image::getBitmapData() const
 {
     RawBitmapData rv;
 

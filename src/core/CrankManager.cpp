@@ -33,3 +33,35 @@ void pdcpp::CrankManager::removeListener(pdcpp::CrankManager::Listener* toRemove
     if (toRemove == nullptr) { return; }
     m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove));
 }
+
+pdcpp::GraduatedCrankHandler::GraduatedCrankHandler(int granularity)
+    : m_ClickDegrees(360.0f / granularity)
+{}
+
+int pdcpp::GraduatedCrankHandler::operator()(float crankChangeDelta)
+{
+    auto clickCount = 0;
+
+    m_DegSinceClick += crankChangeDelta;
+    if (m_DegSinceClick > m_ClickDegrees)
+    {
+        while (m_DegSinceClick > m_ClickDegrees)
+        {
+            clickCount++;
+            m_DegSinceClick -= m_ClickDegrees;
+        }
+        m_DegSinceClick = 0;
+    }
+    else if (m_DegSinceClick < -m_ClickDegrees)
+    {
+        while (m_DegSinceClick < -m_ClickDegrees)
+        {
+            clickCount--;
+            m_DegSinceClick += m_ClickDegrees;
+        }
+        m_DegSinceClick = 0;
+    }
+
+    return clickCount;
+}
+

@@ -13,8 +13,6 @@
 #include "keyboard_assets/ImageDataClass_menu_space.h"
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 
-static std::array<char, 5> ints = {1, 2, 3, 4, 5};
-
 static std::array<char, 26> lowerCol = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
@@ -86,34 +84,7 @@ void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDB
         { m_KeyRepeat.keyReleased(); }
 }
 
-void pdcpp::TextKeyboard::crankStateChanged(float absolute, float delta)
-{
-    const auto clickDegrees = 360 / 15;
-
-    auto clickCount = 0;
-
-    m_DegSinceClick += delta;
-    if (m_DegSinceClick > clickDegrees)
-    {
-        while (m_DegSinceClick > clickDegrees)
-        {
-            clickCount++;
-            m_DegSinceClick -= clickDegrees;
-        }
-        m_DegSinceClick = 0;
-    }
-    else if (m_DegSinceClick < -clickDegrees)
-    {
-        while (m_DegSinceClick < -clickDegrees)
-        {
-            clickCount--;
-            m_DegSinceClick += clickDegrees;
-        }
-        m_DegSinceClick = 0;
-    }
-
-    changeSelected(clickCount);
-}
+void pdcpp::TextKeyboard::crankStateChanged(float, float delta)  {changeSelected(m_CrankClicker(delta)); }
 
 void pdcpp::TextKeyboard::changeSelected(int dir)
 {

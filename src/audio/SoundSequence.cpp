@@ -35,7 +35,7 @@ pdcpp::SoundSequence::~SoundSequence()
 
 bool pdcpp::SoundSequence::loadMidiFile(const std::string& filepath)
 {
-    auto err = pdcpp::GlobalPlaydateAPI::get()->sound->sequence->loadMidiFile(p_Sequence, filepath.c_str());
+    auto err = pdcpp::GlobalPlaydateAPI::get()->sound->sequence->loadMIDIFile(p_Sequence, filepath.c_str());
     if (err == 0)
     {
         auto msg = "Failed to load " + filepath + ". " + pdcpp::GlobalPlaydateAPI::get()->file->geterr();

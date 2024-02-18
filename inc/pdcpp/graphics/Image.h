@@ -162,7 +162,7 @@ namespace pdcpp
         /**
          * @returns a structure to access the bitmap data of this image directly
          */
-        [[ nodiscard ]] RawBitmapData getBitmapData();
+        [[ nodiscard ]] RawBitmapData getBitmapData() const;
 
         /**
          * Draws the image at a given point. Optionally flip the image around

@@ -9,6 +9,7 @@
  */
 #pragma once
 #include <algorithm>
+#include <sstream>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
 constexpr float kPI = 3.14159f;
@@ -76,4 +77,13 @@ namespace pdcpp
      * @return the wrapped index
      */
     [[maybe_unused]] static int wrapIndex(int index, int max) { return ((index % max) + max) % max; };
+
+    template <typename T>
+    std::string to_string_with_precision(const T a_value, const int n = 6)
+    {
+        std::ostringstream out;
+        out.precision(n);
+        out << std::fixed << a_value;
+        return std::move(out).str();
+    }
 }

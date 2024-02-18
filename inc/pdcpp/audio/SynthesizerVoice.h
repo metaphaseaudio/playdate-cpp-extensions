@@ -97,6 +97,10 @@ namespace pdcpp
         friend class SynthesizerVoiceShims;
         // Maybe don't use this? It's not, like, a destructor or anything.
         virtual void deallocateCalled() {};
+
+        // Maybe don't use this? It's not, like, a copy constructor or anything.
+        virtual void* copyCalled() { return (void*) this; };
+
         bool m_IsStereo;
         PDCPP_DECLARE_NON_COPYABLE_NON_MOVABLE(CustomSynthGenerator);
     };
@@ -279,6 +283,9 @@ namespace pdcpp
         [[nodiscard]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
 
         bool operator==(SynthesizerVoiceContainer* other) { return other->p_Synth == p_Synth; }
+
+        // Implements abstract class.
+        void finished() override {};
     protected:
         PDSynth* p_Synth;
     };
@@ -301,6 +308,7 @@ namespace pdcpp
 
         // Destructor
         ~SynthesizerVoice() override;
+
     private:
         PDCPP_DECLARE_NON_COPYABLE(SynthesizerVoice);
     };

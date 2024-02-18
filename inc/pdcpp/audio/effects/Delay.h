@@ -77,6 +77,8 @@ namespace pdcpp
 
             [[ nodiscard ]] operator ::SoundSource*() const override;  // NOLINT(*-explicit-constructor)
 
+            // Implements abstract method. Does nothing.
+            void finished() override {};
         protected:
             ::DelayLineTap* p_Tap;
             PDCPP_DECLARE_NON_COPYABLE(Tap);

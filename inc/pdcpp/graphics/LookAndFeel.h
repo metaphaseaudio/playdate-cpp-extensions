@@ -24,8 +24,10 @@ namespace pdcpp
 
         virtual void drawHorizontalSlider(const playdate_graphics* g, const class Slider* slider) const;
         virtual void drawRotarySlider(const playdate_graphics* g, const class Slider* slider) const;
+        virtual void drawNumericSlider(const playdate_graphics* g, const class Slider* slider) const;
         void setDefaultFont(Font newFont);
         pdcpp::Font& getDefaultFont();
+        const pdcpp::Font& getDefaultFont() const;
 
         static void setDefaultLookAndFeel(LookAndFeel* newLAF);
         static LookAndFeel* getDefaultLookAndFeel();

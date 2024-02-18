@@ -13,7 +13,11 @@
 
 pdcpp::Delay::Tap::Tap(::DelayLineTap* tap)
     : p_Tap(tap)
-{}
+{
+    // TODO: does this even make sense? How would a delay tap know when it's
+    //  "done"?
+    // enableFinishedCallback();
+}
 
 pdcpp::Delay::Tap::Tap(pdcpp::Delay::Tap&& other)
     : p_Tap(other.p_Tap)

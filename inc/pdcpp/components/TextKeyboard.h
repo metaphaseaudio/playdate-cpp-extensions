@@ -54,8 +54,8 @@ namespace pdcpp
         std::vector<char> m_LowerCase, m_UpperCase, m_Numbers;
         pdcpp::Image m_LowerImg, m_UpperImg, m_NumberImg, m_AuxControls, m_Space, m_Ok, m_Del, m_Cancel;
         int m_Padding, m_SelectedColumn = 0, m_CharOffset = 0, m_NumOffset = 0, m_MenuOffset = 1;
-        float m_DegSinceClick = 0;
 
+        pdcpp::GraduatedCrankHandler m_CrankClicker;
         pdcpp::KeyRepeatTimer m_KeyRepeat;
     };
 }
