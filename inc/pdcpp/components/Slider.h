@@ -32,7 +32,8 @@ namespace pdcpp
         {
             Horizontal,
             Vertical,
-            Rotary
+            Rotary,
+            Numeric
         };
 
         /**
