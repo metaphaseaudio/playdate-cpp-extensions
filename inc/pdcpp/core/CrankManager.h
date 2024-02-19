@@ -62,4 +62,31 @@ namespace pdcpp
     private:
         std::vector<Listener*> m_Listeners;
     };
+
+
+    class GraduatedCrankHandler
+    {
+    public:
+        /**
+         * Functor which holds some crank state and measures a delta and
+         * converts it into individual graduations for things like scrolling
+         * menu elements, etc.
+         *
+         * @param granularity how many steps should be in a full rotation of the
+         *     crank.
+         */
+        explicit GraduatedCrankHandler(int granularity=15);
+
+        /**
+         *
+         * @param crankChangeDelta how much the crank has moved since last
+         *        measure
+         * @returns the number of graduations moved.
+         */
+        int operator()(float crankChangeDelta);
+
+    public:
+        const float m_ClickDegrees;
+        float m_DegSinceClick = 0;
+    };
 }
