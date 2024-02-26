@@ -13,8 +13,6 @@
 #include "keyboard_assets/ImageDataClass_menu_space.h"
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 
-static std::array<char, 5> ints = {1, 2, 3, 4, 5};
-
 static std::array<char, 26> lowerCol = {
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 

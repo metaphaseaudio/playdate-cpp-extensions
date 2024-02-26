@@ -68,7 +68,6 @@ namespace pdcpp
         float s = ::sinf(radians);
         auto p = *this - center;
 
-        const auto h = distance(center);
         return Point<T>(p.x * c - p.y * s, p.x * s + p.y * c) + center;
     }
 

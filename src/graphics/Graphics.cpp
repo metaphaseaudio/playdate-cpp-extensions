@@ -68,14 +68,13 @@ void pdcpp::Graphics::drawDashedLine
     const auto delta = end - start;
 
     const float stepAlpha = 1.0f / distance;
-    auto i = startDashIndex;
 
-    for (float alpha = 0.0; alpha < 1.0;)
+    for (float alpha = 0.0; alpha < 1.0f;)
     {
         const auto lastAlpha = alpha;
-        const auto dash = dashes[i];
+        const auto dash = dashes[startDashIndex];
         alpha += std::min(1.0f, dash.length * stepAlpha);
-        i = ++i % dashes.size();
+        startDashIndex = ++startDashIndex % dashes.size();
 
         const auto a = start.toFloat() + (delta.toFloat() * lastAlpha);
         const auto b = start.toFloat() + (delta.toFloat() * alpha);
