@@ -67,26 +67,42 @@ std::vector<std::string> pdcpp::Font::wrapText(const std::string& text, int maxW
 
     int currentLineWidth = 0;
     std::string recomposed = "";
-    for (auto& word : words)
-    {
-        auto wordWidth = getTextWidth(word + ' ');
 
-        // If adding the word would make the line too long, put it on a new line
+    auto make_new_line = [&]()
+    {
+        recomposed += "\n";
+        rv.emplace_back(recomposed);
+        recomposed = "";
+        currentLineWidth = 0;
+    };
+
+    auto process_word = [&](const std::string& word, bool includeSpace)
+    {
+        auto wordWidth = getTextWidth(word + (includeSpace ? " " : ""));
+
         if (currentLineWidth + wordWidth > maxWidth)
         {
             // Avoid whitespace-only lines where sensible
-            if (currentLineWidth > 0)
-            {
-                recomposed += "\n";
-                rv.emplace_back(recomposed);
-                recomposed = "";
-                currentLineWidth = 0;
-            }
+            if (currentLineWidth > 0) { make_new_line(); }
 
             // TODO: Split words that are themselves too long.
         }
-        recomposed += word + ' ';
+        recomposed += word + (includeSpace ? " " : "");
         currentLineWidth += wordWidth;
+    };
+
+    for (auto& word : words)
+    {
+        startPos = 0;
+        while ((pos = word.substr(startPos, std::string::npos).find('\n')) != std::string::npos)
+        {
+            auto sub_word = word.substr(startPos, pos);
+            process_word(sub_word, false);
+            make_new_line();
+            startPos += pos + 1;
+        }
+
+        process_word(word.substr(startPos, std::string::npos), word != words.back());
     }
     if (!recomposed.empty()) { rv.emplace_back(recomposed);}
     return rv;
