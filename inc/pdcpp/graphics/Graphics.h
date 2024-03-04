@@ -133,6 +133,13 @@ namespace pdcpp
         static void drawPolygon(const std::vector<pdcpp::Point<float>>& points, int thickness, LCDColor color);
 
         /**
+         * Sets the end cap style used by line drawing functions.
+         *
+         * @param endCapStyle the style to use
+         */
+        static void setLineCapStyle(LCDLineCapStyle endCapStyle);
+
+        /**
          * C++ Alias for the C API so you can avoid having to import the
          * `GlobalPlaydateAPI` just to set the draw mode.
          *

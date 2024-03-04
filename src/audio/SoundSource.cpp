@@ -11,6 +11,12 @@
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 #include <algorithm>
 
+static void finishedCallback(SoundSource* c, void* userdata)
+{
+    if (userdata == nullptr) { return; }
+    auto thisPtr = reinterpret_cast<pdcpp::SoundSource*>(userdata);
+    thisPtr->finished();
+}
 
 bool pdcpp::SoundSource::isPlaying() const { return pdcpp::GlobalPlaydateAPI::get()->sound->source->isPlaying(*this); }
 void pdcpp::SoundSource::setVolume(float lvol, float rvol) { pdcpp::GlobalPlaydateAPI::get()->sound->source->setVolume(*this, lvol, rvol); }
@@ -21,4 +27,7 @@ std::pair<float, float> pdcpp::SoundSource::getVolume() const
     return {lvol, rvol};
 }
 
-void pdcpp::SoundSource::setFinishCallback(sndCallbackProc* func) { pdcpp::GlobalPlaydateAPI::get()->sound->source->setFinishCallback(*this, func); }
+void pdcpp::SoundSource::enableFinishedCallback()
+    { pdcpp::GlobalPlaydateAPI::get()->sound->source->setFinishCallback(*this, finishedCallback, this); }
+
+

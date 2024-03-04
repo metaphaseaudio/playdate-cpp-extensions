@@ -154,3 +154,8 @@ void pdcpp::Graphics::clearClipRect()
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearClipRect();
 }
 
+void pdcpp::Graphics::setLineCapStyle(LCDLineCapStyle endCapStyle)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->setLineCapStyle(endCapStyle);
+}
+

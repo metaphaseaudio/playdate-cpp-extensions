@@ -112,17 +112,17 @@ int pdcpp::Font::drawWrappedText(const std::string& text, const pdcpp::Rectangle
 {
     int lineNum = 0;
     for (auto& line : wrapText(text, bounds.width))
-        { drawText(line, bounds.x, bounds.y + (lineNum++ * getFontHeight()), encoding); }
-    return lineNum * getFontHeight();
+        { drawText(line, bounds.x, bounds.y + (lineNum++ * (getFontHeight() + getTextLeading())), encoding); }
+    return lineNum * (getFontHeight() + getTextLeading());
 }
 
-void pdcpp::Font::drawWrappedText
+int pdcpp::Font::drawWrappedText
 (const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding) const
 {
     int lineNum = 0;
     for (auto& line : wrapText(text, bounds.toInt().width))
     {
-        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight());
+        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight() + getTextLeading());
         pdcpp::Point<float> point{0, 0};
 
         switch (justification)
@@ -138,8 +138,10 @@ void pdcpp::Font::drawWrappedText
                 break;
         }
 
-        drawText(line, point.x, point.y + (lineNum++ * getFontHeight()), encoding);
+        drawText(line, point.x, point.y + (lineNum++ * (getFontHeight() + getTextLeading())), encoding);
     }
+
+    return lineNum * (getFontHeight() + getTextLeading());
 }
 
 pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)

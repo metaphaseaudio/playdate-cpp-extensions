@@ -50,6 +50,13 @@ namespace pdcpp
             auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
             thisPtr->deallocateCalled();
         }
+
+        static void* copy(void* obj)
+        {
+            if (obj == nullptr) { return nullptr; }
+            auto thisPtr = static_cast<pdcpp::CustomSynthGenerator*>(obj);
+            return thisPtr->copyCalled();
+        }
     };
 }
 
@@ -98,6 +105,7 @@ void pdcpp:: SynthesizerVoiceContainer::setCustomGenerator(pdcpp::CustomSynthGen
         SynthesizerVoiceShims::release,
         SynthesizerVoiceShims::setParameter,
         SynthesizerVoiceShims::dealloc,
+        SynthesizerVoiceShims::copy,
         &generator
     );
 }
@@ -112,13 +120,16 @@ void pdcpp::SynthesizerVoiceContainer::clearCustomGenerator()
             SynthesizerVoiceShims::release,
             SynthesizerVoiceShims::setParameter,
             SynthesizerVoiceShims::dealloc,
+            SynthesizerVoiceShims::copy,
             nullptr
     );
 }
 
 pdcpp::SynthesizerVoiceContainer::SynthesizerVoiceContainer(PDSynth* synth)
     : p_Synth(synth)
-{}
+{
+    enableFinishedCallback();
+}
 
 void pdcpp::SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
     { pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when); }

@@ -40,6 +40,14 @@ namespace pdcpp
         [[ nodiscard ]] bool isPlaying() const;
 
         /**
+         * Called when this sound source finishes playing. Note that, because
+         * this class is pure virtual, the callback must be set in the
+         * constructor of the inheriting classes. Do this by calling
+         * `enableFinishedCallback` in your constructors.
+         */
+        virtual void finished() = 0 ;
+
+        /**
          * To be implemented by all Custom and API sound sources. This bridges
          * the gap between the C API and C++.
          * @return the key structure pointer for the child object as a
@@ -47,13 +55,7 @@ namespace pdcpp
          */
         [[ nodiscard ]] virtual operator ::SoundSource*() const  = 0;  // NOLINT(*-explicit-constructor)
 
-        /**
-         * Set a callback to hit when this sound source finishes playing.
-         * TODO: Request that Panic add the ability to set user data with
-         *    SoundSources, so this callback so we can use C++-style contexts.
-         *
-         * @param func the callback function to set.
-         */
-        void setFinishCallback(sndCallbackProc* func);
+    protected:
+        void enableFinishedCallback();
     };
 }

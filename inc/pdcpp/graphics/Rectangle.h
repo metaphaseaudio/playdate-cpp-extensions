@@ -43,7 +43,7 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
         void setCenter(pdcpp::Point<T> center);
         
-        Rectangle<T> getOverlap(const Rectangle<T>& other) const;
+        [[ nodiscard ]] Rectangle<T> getOverlap(const Rectangle<T>& other) const;
         
         Rectangle<T> removeFromLeft(T amt);
         Rectangle<T> removeFromRight(T amt);
@@ -51,8 +51,12 @@ namespace pdcpp
         Rectangle<T> removeFromBottom(T amt);
         [[ nodiscard ]] Rectangle<T> reduced(T amt) const;
         [[ nodiscard ]] Rectangle<T> expanded(T amt) const;
+
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
+
+        [[ nodiscard ]] Rectangle<T> withWidth(T newWidth) const;
+        [[ nodiscard ]] Rectangle<T> withHeight(T newHeight) const;
 
         T getRight() { return x + width; }
         T getBottom() { return y + height; }
@@ -67,6 +71,18 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Rectangle<T> Rectangle<T>::withWidth(T newWidth) const
+    {
+        return Rectangle<T>(x, y, newWidth, height);
+    }
+
+    template<typename T>
+    Rectangle<T> Rectangle<T>::withHeight(T newHeight) const
+    {
+        return Rectangle<T>(x, y, width, newHeight);
+    }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::withCenter(const Point<T>& newCenter) const

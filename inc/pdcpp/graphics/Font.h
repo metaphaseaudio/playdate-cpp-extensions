@@ -35,8 +35,6 @@ namespace pdcpp
          * @param fontPath the path to the font to load
          * @param tracking optional tracking (pixels between letters) to use.
          *     default is 0.
-         * @param tracking optional leading (pixels between lines) to use.
-         *     default is 0.
          */
         explicit Font(const std::string& fontPath, int tracking=0, int leading=0);
 
@@ -105,7 +103,11 @@ namespace pdcpp
          * @param justification justification of the text, left/center/right
          * @param encoding optional encoding for the text. default is ASCII
          */
-        void drawWrappedText(const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding=kASCIIEncoding) const;
+        [[ nodiscard ]] int drawWrappedText(
+                const std::string& text,
+                pdcpp::Rectangle<float> bounds,
+                pdcpp::Font::Justification justification,
+                PDStringEncoding encoding=kASCIIEncoding) const;
 
         /**
          * Get an individual character as an image.
