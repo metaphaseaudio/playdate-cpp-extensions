@@ -146,6 +146,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearCustomGenerator<
 <tr class="memitem:addabe26919215061b9944a1e13171727"><td class="memItemLeft" align="right" valign="top"><a id="addabe26919215061b9944a1e13171727"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (<a class="el" href="classpdcpp_1_1SynthesizerVoiceContainer.html">SynthesizerVoiceContainer</a> *other)</td></tr>
 <tr class="separator:addabe26919215061b9944a1e13171727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d05865d29511ccec7a4ef506b0dc8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SynthesizerVoiceContainer.html#a77d05865d29511ccec7a4ef506b0dc8d">finished</a> () override</td></tr>
+<tr class="separator:a77d05865d29511ccec7a4ef506b0dc8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classpdcpp_1_1SoundSource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classpdcpp_1_1SoundSource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classpdcpp_1_1SoundSource.html">pdcpp::SoundSource</a></td></tr>
 <tr class="memitem:a03547af4a98fcade91f1372242182e5d inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a03547af4a98fcade91f1372242182e5d">setVolume</a> (float lvol, float rvol)</td></tr>
 <tr class="separator:a03547af4a98fcade91f1372242182e5d inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,14 +155,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (<a cl
 <tr class="separator:a8d76ca19df62032ab3424fb22abd9516 inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fe0d95d23615db90611a4a6a435fc16 inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a4fe0d95d23615db90611a4a6a435fc16">isPlaying</a> () const</td></tr>
 <tr class="separator:a4fe0d95d23615db90611a4a6a435fc16 inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9007866584ba7a69bc6975866cb4e531 inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a9007866584ba7a69bc6975866cb4e531">setFinishCallback</a> (sndCallbackProc *func)</td></tr>
-<tr class="separator:a9007866584ba7a69bc6975866cb4e531 inherit pub_methods_classpdcpp_1_1SoundSource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:aa898b73c261fb96a48509c3d2e51382c"><td class="memItemLeft" align="right" valign="top"><a id="aa898b73c261fb96a48509c3d2e51382c"></a>
 PDSynth *&#160;</td><td class="memItemRight" valign="bottom"><b>p_Synth</b></td></tr>
 <tr class="separator:aa898b73c261fb96a48509c3d2e51382c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classpdcpp_1_1SoundSource"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classpdcpp_1_1SoundSource')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classpdcpp_1_1SoundSource.html">pdcpp::SoundSource</a></td></tr>
+<tr class="memitem:a64a4229274310a3599606c7e14dba3b2 inherit pro_methods_classpdcpp_1_1SoundSource"><td class="memItemLeft" align="right" valign="top"><a id="a64a4229274310a3599606c7e14dba3b2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>enableFinishedCallback</b> ()</td></tr>
+<tr class="separator:a64a4229274310a3599606c7e14dba3b2 inherit pro_methods_classpdcpp_1_1SoundSource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a075b8cccf886dc335ac025e6128fd244"></a>
@@ -185,6 +192,34 @@ PDSynth *&#160;</td><td class="memItemRight" valign="bottom"><b>p_Synth</b></td>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a77d05865d29511ccec7a4ef506b0dc8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d05865d29511ccec7a4ef506b0dc8d">&#9670;&nbsp;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdcpp::SynthesizerVoiceContainer::finished </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Called when this sound source finishes playing. Note that, because this class is pure virtual, the callback must be set in the constructor of the inheriting classes. Do this by calling <code>enableFinishedCallback</code> in your constructors. </p>
+
+<p>Implements <a class="el" href="classpdcpp_1_1SoundSource.html#a18a5b7d7ae2b2b5b8370be846427d2a2">pdcpp::SoundSource</a>.</p>
 
 </div>
 </div>

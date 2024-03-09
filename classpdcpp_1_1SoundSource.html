@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classpdcpp_1_1SoundSource-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pdcpp::SoundSource Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -98,14 +99,48 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8d76ca19df62032ab3424fb22abd9516"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fe0d95d23615db90611a4a6a435fc16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a4fe0d95d23615db90611a4a6a435fc16">isPlaying</a> () const</td></tr>
 <tr class="separator:a4fe0d95d23615db90611a4a6a435fc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a5b7d7ae2b2b5b8370be846427d2a2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a18a5b7d7ae2b2b5b8370be846427d2a2">finished</a> ()=0</td></tr>
+<tr class="separator:a18a5b7d7ae2b2b5b8370be846427d2a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3876640a9747e05fb3b7f4108774f0a7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a3876640a9747e05fb3b7f4108774f0a7">operator::SoundSource *</a> () const =0</td></tr>
 <tr class="separator:a3876640a9747e05fb3b7f4108774f0a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9007866584ba7a69bc6975866cb4e531"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1SoundSource.html#a9007866584ba7a69bc6975866cb4e531">setFinishCallback</a> (sndCallbackProc *func)</td></tr>
-<tr class="separator:a9007866584ba7a69bc6975866cb4e531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a64a4229274310a3599606c7e14dba3b2"><td class="memItemLeft" align="right" valign="top"><a id="a64a4229274310a3599606c7e14dba3b2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>enableFinishedCallback</b> ()</td></tr>
+<tr class="separator:a64a4229274310a3599606c7e14dba3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base Class for FilePlayer, <a class="el" href="classpdcpp_1_1SamplePlayer.html">SamplePlayer</a>, PDSynth, DelayLineTap, and PDSynthInstrument. Not user-creatable. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a18a5b7d7ae2b2b5b8370be846427d2a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a5b7d7ae2b2b5b8370be846427d2a2">&#9670;&nbsp;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void pdcpp::SoundSource::finished </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Called when this sound source finishes playing. Note that, because this class is pure virtual, the callback must be set in the constructor of the inheriting classes. Do this by calling <code>enableFinishedCallback</code> in your constructors. </p>
+
+<p>Implemented in <a class="el" href="classpdcpp_1_1SynthesizerVoiceContainer.html#a77d05865d29511ccec7a4ef506b0dc8d">pdcpp::SynthesizerVoiceContainer</a>, and <a class="el" href="classpdcpp_1_1Delay_1_1Tap.html#a6719c87d6c81e09fb19a3646b4a8b848">pdcpp::Delay::Tap</a>.</p>
+
+</div>
+</div>
 <a id="a8d76ca19df62032ab3424fb22abd9516"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d76ca19df62032ab3424fb22abd9516">&#9670;&nbsp;</a></span>getVolume()</h2>
 
@@ -167,31 +202,6 @@ Public Member Functions</h2></td></tr>
 <p>To be implemented by all Custom and API sound sources. This bridges the gap between the C API and C++. </p><dl class="section return"><dt>Returns</dt><dd>the key structure pointer for the child object as a PD::SoundSource for use with internal APIs </dd></dl>
 
 <p>Implemented in <a class="el" href="classpdcpp_1_1SynthesizerVoiceContainer.html#a232c65e86057896f453b2545b3c92f60">pdcpp::SynthesizerVoiceContainer</a>, <a class="el" href="classpdcpp_1_1Synthesizer.html#aed97f7384ae4c9a247752dfabe485205">pdcpp::Synthesizer</a>, <a class="el" href="classpdcpp_1_1SamplePlayer.html#ab6b075edeff5fa16f96d1ebfd2a42895">pdcpp::SamplePlayer</a>, and <a class="el" href="classpdcpp_1_1Delay_1_1Tap.html#ae3aaa40cdd38a19131e7212abece456d">pdcpp::Delay::Tap</a>.</p>
-
-</div>
-</div>
-<a id="a9007866584ba7a69bc6975866cb4e531"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9007866584ba7a69bc6975866cb4e531">&#9670;&nbsp;</a></span>setFinishCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void pdcpp::SoundSource::setFinishCallback </td>
-          <td>(</td>
-          <td class="paramtype">sndCallbackProc *&#160;</td>
-          <td class="paramname"><em>func</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Set a callback to hit when this sound source finishes playing. TODO: Request that Panic add the ability to set user data with SoundSources, so this callback so we can use C++-style contexts.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">func</td><td>the callback function to set. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

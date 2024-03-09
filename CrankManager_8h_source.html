@@ -95,13 +95,29 @@ $(function() {
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::vector&lt;Listener*&gt; m_Listeners;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    };</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classpdcpp_1_1GraduatedCrankHandler.html">   67</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classpdcpp_1_1GraduatedCrankHandler.html">GraduatedCrankHandler</a></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classpdcpp_1_1GraduatedCrankHandler.html#a95a8b39c7e73a49fb32379150cb6edaf">   78</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classpdcpp_1_1GraduatedCrankHandler.html#a95a8b39c7e73a49fb32379150cb6edaf">GraduatedCrankHandler</a>(<span class="keywordtype">int</span> granularity=15);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classpdcpp_1_1GraduatedCrankHandler.html#aec776d883c0225f0d9e31ca988d513a7">   86</a></span>&#160;        <span class="keywordtype">int</span> <a class="code" href="classpdcpp_1_1GraduatedCrankHandler.html#aec776d883c0225f0d9e31ca988d513a7">operator()</a>(<span class="keywordtype">float</span> crankChangeDelta);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> m_ClickDegrees;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">float</span> m_DegSinceClick = 0;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    };</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_1_1Listener_html"><div class="ttname"><a href="classpdcpp_1_1CrankManager_1_1Listener.html">pdcpp::CrankManager::Listener</a></div><div class="ttdef"><b>Definition:</b> CrankManager.h:25</div></div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_1_1Listener_html_a824377673e3a182c6e9e9251553d3563"><div class="ttname"><a href="classpdcpp_1_1CrankManager_1_1Listener.html#a824377673e3a182c6e9e9251553d3563">pdcpp::CrankManager::Listener::crankStateChanged</a></div><div class="ttdeci">virtual void crankStateChanged(float absolute, float delta)</div><div class="ttdef"><b>Definition:</b> CrankManager.h:37</div></div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_html"><div class="ttname"><a href="classpdcpp_1_1CrankManager.html">pdcpp::CrankManager</a></div><div class="ttdef"><b>Definition:</b> CrankManager.h:16</div></div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_html_a55256f93d2a45c3d9cb006af47d17a75"><div class="ttname"><a href="classpdcpp_1_1CrankManager.html#a55256f93d2a45c3d9cb006af47d17a75">pdcpp::CrankManager::removeListener</a></div><div class="ttdeci">void removeListener(Listener *toRemove)</div></div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_html_acca900dc7cc40bbc35bb3a2ea9872de3"><div class="ttname"><a href="classpdcpp_1_1CrankManager.html#acca900dc7cc40bbc35bb3a2ea9872de3">pdcpp::CrankManager::checkStateAndNotify</a></div><div class="ttdeci">void checkStateAndNotify()</div></div>
 <div class="ttc" id="aclasspdcpp_1_1CrankManager_html_af1c4289971b25087c4ec351a7579916b"><div class="ttname"><a href="classpdcpp_1_1CrankManager.html#af1c4289971b25087c4ec351a7579916b">pdcpp::CrankManager::addListener</a></div><div class="ttdeci">void addListener(Listener *toAdd)</div></div>
+<div class="ttc" id="aclasspdcpp_1_1GraduatedCrankHandler_html"><div class="ttname"><a href="classpdcpp_1_1GraduatedCrankHandler.html">pdcpp::GraduatedCrankHandler</a></div><div class="ttdef"><b>Definition:</b> CrankManager.h:68</div></div>
+<div class="ttc" id="aclasspdcpp_1_1GraduatedCrankHandler_html_a95a8b39c7e73a49fb32379150cb6edaf"><div class="ttname"><a href="classpdcpp_1_1GraduatedCrankHandler.html#a95a8b39c7e73a49fb32379150cb6edaf">pdcpp::GraduatedCrankHandler::GraduatedCrankHandler</a></div><div class="ttdeci">GraduatedCrankHandler(int granularity=15)</div></div>
+<div class="ttc" id="aclasspdcpp_1_1GraduatedCrankHandler_html_aec776d883c0225f0d9e31ca988d513a7"><div class="ttname"><a href="classpdcpp_1_1GraduatedCrankHandler.html#aec776d883c0225f0d9e31ca988d513a7">pdcpp::GraduatedCrankHandler::operator()</a></div><div class="ttdeci">int operator()(float crankChangeDelta)</div></div>
 <div class="ttc" id="anamespacepdcpp_html"><div class="ttname"><a href="namespacepdcpp.html">pdcpp</a></div><div class="ttdef"><b>Definition:</b> Arpeggiator.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

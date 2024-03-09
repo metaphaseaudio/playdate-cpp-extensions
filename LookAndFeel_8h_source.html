@@ -89,20 +89,22 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> drawHorizontalSlider(<span class="keyword">const</span> playdate_graphics* g, <span class="keyword">const</span> <span class="keyword">class</span> <a class="code" href="classpdcpp_1_1Slider.html">Slider</a>* slider) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> drawRotarySlider(<span class="keyword">const</span> playdate_graphics* g, <span class="keyword">const</span> <span class="keyword">class</span> <a class="code" href="classpdcpp_1_1Slider.html">Slider</a>* slider) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordtype">void</span> setDefaultFont(<a class="code" href="classpdcpp_1_1Font.html">Font</a> newFont);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">pdcpp::Font</a>&amp; getDefaultFont();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> setDefaultLookAndFeel(<a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* newLAF);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* getDefaultLookAndFeel();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">pdcpp::Font</a>* getFont(<span class="keyword">const</span> std::string&amp; fontName);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">Font</a> m_DefaultFont;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">static</span> std::map&lt;std::string, Font&gt; g_Fonts;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* defaultLookAndFeel;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> drawNumericSlider(<span class="keyword">const</span> playdate_graphics* g, <span class="keyword">const</span> <span class="keyword">class</span> <a class="code" href="classpdcpp_1_1Slider.html">Slider</a>* slider) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> setDefaultFont(<a class="code" href="classpdcpp_1_1Font.html">Font</a> newFont);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">pdcpp::Font</a>&amp; getDefaultFont();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">const</span> <a class="code" href="classpdcpp_1_1Font.html">pdcpp::Font</a>&amp; getDefaultFont() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> setDefaultLookAndFeel(<a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* newLAF);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* getDefaultLookAndFeel();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">pdcpp::Font</a>* getFont(<span class="keyword">const</span> std::string&amp; fontName);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="classpdcpp_1_1Font.html">Font</a> m_DefaultFont;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">static</span> std::map&lt;std::string, Font&gt; g_Fonts;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">static</span> <a class="code" href="classpdcpp_1_1LookAndFeel.html">LookAndFeel</a>* defaultLookAndFeel;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    };</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="ttc" id="aclasspdcpp_1_1Font_html"><div class="ttname"><a href="classpdcpp_1_1Font.html">pdcpp::Font</a></div><div class="ttdef"><b>Definition:</b> Font.h:22</div></div>
 <div class="ttc" id="aclasspdcpp_1_1LookAndFeel_html"><div class="ttname"><a href="classpdcpp_1_1LookAndFeel.html">pdcpp::LookAndFeel</a></div><div class="ttdef"><b>Definition:</b> LookAndFeel.h:20</div></div>
 <div class="ttc" id="aclasspdcpp_1_1Slider_html"><div class="ttname"><a href="classpdcpp_1_1Slider.html">pdcpp::Slider</a></div><div class="ttdef"><b>Definition:</b> Slider.h:18</div></div>
