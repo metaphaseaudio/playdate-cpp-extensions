@@ -159,3 +159,8 @@ void pdcpp::Graphics::setLineCapStyle(LCDLineCapStyle endCapStyle)
     pdcpp::GlobalPlaydateAPI::get()->graphics->setLineCapStyle(endCapStyle);
 }
 
+void pdcpp::Graphics::fillTriangle(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, const pdcpp::Point<int>& c, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillTriangle(a.x, a.y, b.x, b.y, c.x, c.y, color);
+}
+
