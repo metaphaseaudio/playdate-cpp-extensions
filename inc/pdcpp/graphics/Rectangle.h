@@ -67,10 +67,18 @@ namespace pdcpp
         [[ nodiscard ]] Rectangle<int> toInt() const { return toType<int>(); };
         [[ nodiscard ]] Rectangle<float> toFloat() const { return toType<float>(); };
 
+        [[ nodiscard ]] bool testPoint(const pdcpp::Point<T>& point) const;
+
         [[ nodiscard ]] operator PDRect() const;  // NOLINT (*-explicit-constructor)
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    bool Rectangle<T>::testPoint(const Point<T>& point) const
+    {
+        return point.x > x && point.x < x + width && point.y > y && point.y < y + width;
+    }
 
     template<typename T>
     Rectangle<T> Rectangle<T>::withWidth(T newWidth) const
