@@ -139,9 +139,9 @@ void pdcpp::Graphics::drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<in
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(a.x, a.y, b.x, b.y, px, color);
 }
 
-void pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode drawMode)
+LCDBitmapDrawMode pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode drawMode)
 {
-    pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(drawMode);
+    return pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(drawMode);
 }
 
 void pdcpp::Graphics::setClipRect(const pdcpp::Rectangle<int>& clipRect)

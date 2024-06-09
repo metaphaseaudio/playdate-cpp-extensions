@@ -100,7 +100,6 @@ namespace pdcpp
         return Rectangle<T>(x + diff.x, y + diff.y, width, height);
     }
 
-
     template<typename T>
     void Rectangle<T>::setCenter(Point<T> center)
     {

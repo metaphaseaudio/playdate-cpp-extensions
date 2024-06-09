@@ -41,15 +41,17 @@ pdcpp::ImageTable& pdcpp::ImageTable::operator=(pdcpp::ImageTable&& other) noexc
 pdcpp::ImageTable::~ImageTable()
 {
     if (p_Table != nullptr)
-    {
-        auto pd = pdcpp::GlobalPlaydateAPI::get();
-        if (p_Table != nullptr)
-        { pd->graphics->freeBitmapTable(p_Table); }
-    }
+        { pdcpp::GlobalPlaydateAPI::get()->graphics->freeBitmapTable(p_Table); }
 }
 
 LCDBitmap* pdcpp::ImageTable::operator[](int index) const
 {
-    auto pd = pdcpp::GlobalPlaydateAPI::get();
-    return pd->graphics->getTableBitmap(p_Table, index);
+    return pdcpp::GlobalPlaydateAPI::get()->graphics->getTableBitmap(p_Table, index);
+}
+
+pdcpp::ImageTable::ImageTableInfo pdcpp::ImageTable::getInfo() const
+{
+    ImageTableInfo rv{0};
+    pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapTableInfo(p_Table, &rv.count, &rv.cellsWide);
+    return rv;
 }

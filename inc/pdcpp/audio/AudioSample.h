@@ -28,22 +28,26 @@ namespace pdcpp
         explicit AudioSample(const std::string& filepath);
 
         /**
-         * Creates an AudioSample from a pointer to a series of bytes. This will
-         * not own the bytes themselves, so the data must be free'd by the
-         * caller separately, and must not be free'd before this sample.
+         * Creates an AudioSample from a pointer to a series of bytes. This
+         * object can optionally own the data passed to it.
          *
-         * @param data the data as a series of bytes to use for this sample
+         * @param data the data as a series of bytes to use for this sample. The
+         *      data must not be free'd before this object.
          * @param format the format of the byte array
          * @param sampleRate the sample rate of the data
          * @param byteCount how many bytes are in the array
+         * @param shouldOwnData optionally take ownership of the data supplied.
+         *      if `true`, the provided data will be deleted at the end of this
+         *      object's lifetime. If `false`, the data must be free'd by the
+         *      caller separately. Default=false
          */
-        AudioSample(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount);
+        AudioSample(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount, bool shouldOwnData=false);
 
         // Move constructor
-        AudioSample(AudioSample&& other);
+        AudioSample(AudioSample&& other) noexcept;
 
         // Move-assignment constructor
-        AudioSample& operator=(AudioSample&& other);
+        AudioSample& operator=(AudioSample&& other) noexcept;
 
         // Destructor
         ~AudioSample();
@@ -104,5 +108,10 @@ namespace pdcpp
 
     public:
         ::AudioSample* p_Sample;
+
+        // This object is non-copyable, *particularly* when owning the provided
+        // data.
+        AudioSample(const AudioSample&) = delete;
+        AudioSample& operator= (AudioSample&) = delete;
     };
 }

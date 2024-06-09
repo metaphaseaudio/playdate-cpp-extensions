@@ -155,7 +155,7 @@ namespace pdcpp
          *
          * @param drawMode the new LCDBitmapDrawMode to use
          */
-        static void setDrawMode(LCDBitmapDrawMode drawMode);
+        static LCDBitmapDrawMode setDrawMode(LCDBitmapDrawMode drawMode);
 
         /**
          * Sets the area where drawing is permitted within the current graphics
