@@ -59,7 +59,7 @@ void pdcpp::SoundSequence::setLoops(int loopStart, int loopEnd, int loops)
     pdcpp::GlobalPlaydateAPI::get()->sound->sequence->setLoops(p_Sequence, loopStart, loopEnd, loops);
 }
 
-int pdcpp::SoundSequence::getTempo()
+float pdcpp::SoundSequence::getTempo()
 {
     return pdcpp::GlobalPlaydateAPI::get()->sound->sequence->getTempo(p_Sequence);
 }

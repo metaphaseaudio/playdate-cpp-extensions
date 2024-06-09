@@ -101,7 +101,7 @@ namespace pdcpp
         /**
          * @return the tempo of the sequence in "steps per second"
          */
-        int getTempo();
+        float getTempo();
 
         /**
          * Changes the tempo of the sequence

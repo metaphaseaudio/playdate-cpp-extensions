@@ -93,6 +93,16 @@ namespace pdcpp
          */
         static void fillRoundedRectangle(const pdcpp::Rectangle<int>& bounds, int radius, LCDColor color=kColorBlack);
 
+        /**
+         * Fills a triangle with a color
+         *
+         * @param a first point of the triangle
+         * @param b second point of the triangle
+         * @param c third point of the triangle
+         * @param color the color to fill
+         */
+        static void fillTriangle(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, const pdcpp::Point<int>& c, LCDColor color);
+
         struct Dash
         {
             float length;
@@ -145,7 +155,7 @@ namespace pdcpp
          *
          * @param drawMode the new LCDBitmapDrawMode to use
          */
-        static void setDrawMode(LCDBitmapDrawMode drawMode);
+        static LCDBitmapDrawMode setDrawMode(LCDBitmapDrawMode drawMode);
 
         /**
          * Sets the area where drawing is permitted within the current graphics

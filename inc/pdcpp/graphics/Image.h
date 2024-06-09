@@ -165,6 +165,18 @@ namespace pdcpp
         [[ nodiscard ]] RawBitmapData getBitmapData() const;
 
         /**
+         * Gets the color of the pixel at (x, y).
+         *
+         * @param x the x coordinate
+         * @param y the y coordinate
+         * @return If the coordinate is outside
+         *      the bounds of the bitmap, or if the bitmap has a mask and the pixel
+         *      is marked transparent, the function returns kColorClear. Otherwise
+         *      the return is kColorWhite or kColorBlack;
+         */
+        [[ nodiscard ]] LCDSolidColor getPixel(int x, int y) const;
+
+        /**
          * Draws the image at a given point. Optionally flip the image around
          * its center point. Does not modify the image
          *

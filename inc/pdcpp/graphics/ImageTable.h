@@ -21,9 +21,19 @@ namespace pdcpp
     class ImageTable
     {
     public:
+
+        struct ImageTableInfo
+        {
+            int count;
+            int cellsWide;
+        };
+
         explicit ImageTable(const std::string& imgPath);
         ImageTable(ImageTable&& other) noexcept;
         ImageTable& operator=(ImageTable&& other) noexcept;
+
+        [[ nodiscard ]] ImageTableInfo getInfo() const;
+
         ~ImageTable();
 
         [[ nodiscard ]] LCDBitmap* operator[](int index) const;

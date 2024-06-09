@@ -178,3 +178,8 @@ pdcpp::Image::Image(const pdcpp::Rectangle<int>& bounds, uint8_t* data, uint8_t*
         }
     }
 }
+
+LCDSolidColor pdcpp::Image::getPixel(int x, int y) const
+{
+    return pdcpp::GlobalPlaydateAPI::get()->graphics->getBitmapPixel(p_Data, x, y);
+}

@@ -20,15 +20,15 @@ pdcpp::AudioSample::AudioSample(const std::string& filepath)
     }
 }
 
-pdcpp::AudioSample::AudioSample(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount)
-    : p_Sample(pdcpp::GlobalPlaydateAPI::get()->sound->sample->newSampleFromData(data, format, sampleRate, byteCount))
+pdcpp::AudioSample::AudioSample(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount, bool shouldOwnData)
+    : p_Sample(pdcpp::GlobalPlaydateAPI::get()->sound->sample->newSampleFromData(data, format, sampleRate, byteCount, shouldOwnData))
 {}
 
-pdcpp::AudioSample::AudioSample(AudioSample&& other)
+pdcpp::AudioSample::AudioSample(AudioSample&& other) noexcept
     : p_Sample(other.p_Sample)
 { other.p_Sample = nullptr; }
 
-pdcpp::AudioSample& pdcpp::AudioSample::operator=(AudioSample&& other)
+pdcpp::AudioSample& pdcpp::AudioSample::operator=(AudioSample&& other) noexcept
 {
     p_Sample = other.p_Sample;
     other.p_Sample = nullptr;

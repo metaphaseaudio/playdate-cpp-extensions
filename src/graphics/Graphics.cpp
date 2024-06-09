@@ -139,9 +139,9 @@ void pdcpp::Graphics::drawLine(const pdcpp::Point<int>& a, const pdcpp::Point<in
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawLine(a.x, a.y, b.x, b.y, px, color);
 }
 
-void pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode drawMode)
+LCDBitmapDrawMode pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode drawMode)
 {
-    pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(drawMode);
+    return pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(drawMode);
 }
 
 void pdcpp::Graphics::setClipRect(const pdcpp::Rectangle<int>& clipRect)
@@ -159,3 +159,7 @@ void pdcpp::Graphics::setLineCapStyle(LCDLineCapStyle endCapStyle)
     pdcpp::GlobalPlaydateAPI::get()->graphics->setLineCapStyle(endCapStyle);
 }
 
+void pdcpp::Graphics::fillTriangle(const pdcpp::Point<int>& a, const pdcpp::Point<int>& b, const pdcpp::Point<int>& c, LCDColor color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillTriangle(a.x, a.y, b.x, b.y, c.x, c.y, color);
+}
