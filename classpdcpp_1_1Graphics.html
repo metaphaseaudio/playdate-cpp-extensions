@@ -99,6 +99,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a2787785f282d5b6992f9733bbd144558"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62b64374f5cf3db8622f33be099cfa73"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a62b64374f5cf3db8622f33be099cfa73">fillRoundedRectangle</a> (const <a class="el" href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle</a>&lt; int &gt; &amp;bounds, int radius, LCDColor color=kColorBlack)</td></tr>
 <tr class="separator:a62b64374f5cf3db8622f33be099cfa73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1b2c2f937bba7ca468e1c700beb147"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a9b1b2c2f937bba7ca468e1c700beb147">fillTriangle</a> (const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;a, const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;b, const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;c, LCDColor color)</td></tr>
+<tr class="separator:a9b1b2c2f937bba7ca468e1c700beb147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cf7cb01ab9b3cc92c787667763186cc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a4cf7cb01ab9b3cc92c787667763186cc">drawDashedLine</a> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; int &gt; &amp;start, const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; int &gt; &amp;end, const std::vector&lt; <a class="el" href="structpdcpp_1_1Graphics_1_1Dash.html">Dash</a> &gt; &amp;dashes, int weightPx, int startDashIndex=0)</td></tr>
 <tr class="separator:a4cf7cb01ab9b3cc92c787667763186cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae27524e547a8758f296092d8606fceab"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#ae27524e547a8758f296092d8606fceab">fillPolygon</a> (const std::vector&lt; <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; float &gt;&gt; &amp;points, LCDColor color, LCDPolygonFillRule fillRule)</td></tr>
@@ -107,8 +109,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:aa8e75460878435a9d93ee0e34f91af43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af513c15690ec53a82ed178aeec081229"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#af513c15690ec53a82ed178aeec081229">setLineCapStyle</a> (LCDLineCapStyle endCapStyle)</td></tr>
 <tr class="separator:af513c15690ec53a82ed178aeec081229"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99072cc596136d5ed3538f5acd7fa368"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a99072cc596136d5ed3538f5acd7fa368">setDrawMode</a> (LCDBitmapDrawMode drawMode)</td></tr>
-<tr class="separator:a99072cc596136d5ed3538f5acd7fa368"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d196710deea9f282af0abc59798ca1"><td class="memItemLeft" align="right" valign="top">static LCDBitmapDrawMode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a71d196710deea9f282af0abc59798ca1">setDrawMode</a> (LCDBitmapDrawMode drawMode)</td></tr>
+<tr class="separator:a71d196710deea9f282af0abc59798ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39da6929c538c4ec2d60ef1f817b1107"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#a39da6929c538c4ec2d60ef1f817b1107">setClipRect</a> (const <a class="el" href="structpdcpp_1_1Rectangle.html">pdcpp::Rectangle</a>&lt; int &gt; &amp;clipRect)</td></tr>
 <tr class="separator:a39da6929c538c4ec2d60ef1f817b1107"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac60d374f3d28ec46fd5df4583f14926d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Graphics.html#ac60d374f3d28ec46fd5df4583f14926d">clearClipRect</a> ()</td></tr>
@@ -686,6 +688,64 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9b1b2c2f937bba7ca468e1c700beb147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b1b2c2f937bba7ca468e1c700beb147">&#9670;&nbsp;</a></span>fillTriangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void pdcpp::Graphics::fillTriangle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classpdcpp_1_1Point.html">pdcpp::Point</a>&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LCDColor&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Fills a triangle with a color</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>first point of the triangle </td></tr>
+    <tr><td class="paramname">b</td><td>second point of the triangle </td></tr>
+    <tr><td class="paramname">c</td><td>third point of the triangle </td></tr>
+    <tr><td class="paramname">color</td><td>the color to fill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab5d395823b17fe96cdf284e215fc6522"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5d395823b17fe96cdf284e215fc6522">&#9670;&nbsp;</a></span>getScreenBounds()</h2>
 
@@ -745,8 +805,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a99072cc596136d5ed3538f5acd7fa368"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99072cc596136d5ed3538f5acd7fa368">&#9670;&nbsp;</a></span>setDrawMode()</h2>
+<a id="a71d196710deea9f282af0abc59798ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71d196710deea9f282af0abc59798ca1">&#9670;&nbsp;</a></span>setDrawMode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -755,7 +815,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void pdcpp::Graphics::setDrawMode </td>
+          <td class="memname">static LCDBitmapDrawMode pdcpp::Graphics::setDrawMode </td>
           <td>(</td>
           <td class="paramtype">LCDBitmapDrawMode&#160;</td>
           <td class="paramname"><em>drawMode</em></td><td>)</td>

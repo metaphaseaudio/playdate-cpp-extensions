@@ -117,6 +117,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a81b0dc55334ba0f809aa5e67988e88a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac972f0b59407f4f99023217d973a9f16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpdcpp_1_1Image_1_1RawBitmapData.html">RawBitmapData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#ac972f0b59407f4f99023217d973a9f16">getBitmapData</a> () const</td></tr>
 <tr class="separator:ac972f0b59407f4f99023217d973a9f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9391ecfd9b926b06c349f6b42c9558e"><td class="memItemLeft" align="right" valign="top">LCDSolidColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#ae9391ecfd9b926b06c349f6b42c9558e">getPixel</a> (int x, int y) const</td></tr>
+<tr class="separator:ae9391ecfd9b926b06c349f6b42c9558e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04c64fc00c343772edccbb30e32f0931"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#a04c64fc00c343772edccbb30e32f0931">draw</a> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; int &gt; &amp;location, LCDBitmapFlip flip=kBitmapUnflipped) const</td></tr>
 <tr class="separator:a04c64fc00c343772edccbb30e32f0931"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b5398a80b1e02266e2d9bba3decd105"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1Image.html#a3b5398a80b1e02266e2d9bba3decd105">draw</a> (const <a class="el" href="classpdcpp_1_1Point.html">Point</a>&lt; int &gt; &amp;location, float xScale, float yScale) const</td></tr>
@@ -559,6 +561,43 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the current mask for the image in the form of a raw LCDBitmap pointer. May return a null pointer if no mask is set.</p>
 <dl class="section return"><dt>Returns</dt><dd>a raw LCDBitmap pointer of the mask currently set on this image </dd></dl>
+
+</div>
+</div>
+<a id="ae9391ecfd9b926b06c349f6b42c9558e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9391ecfd9b926b06c349f6b42c9558e">&#9670;&nbsp;</a></span>getPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LCDSolidColor pdcpp::Image::getPixel </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the color of the pixel at (x, y).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>the x coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>the y coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If the coordinate is outside the bounds of the bitmap, or if the bitmap has a mask and the pixel is marked transparent, the function returns kColorClear. Otherwise the return is kColorWhite or kColorBlack; </dd></dl>
 
 </div>
 </div>

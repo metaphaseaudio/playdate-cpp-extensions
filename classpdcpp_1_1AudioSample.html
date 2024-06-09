@@ -88,14 +88,14 @@ Collaboration diagram for pdcpp::AudioSample:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b5e4f758bd72c0a7866f67e9cf6f1c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#a4b5e4f758bd72c0a7866f67e9cf6f1c2">AudioSample</a> (const std::string &amp;filepath)</td></tr>
 <tr class="separator:a4b5e4f758bd72c0a7866f67e9cf6f1c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93a342ab9c8a6d7ea10190d981ebbca2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#a93a342ab9c8a6d7ea10190d981ebbca2">AudioSample</a> (uint8_t *data, SoundFormat format, uint32_t sampleRate, int byteCount)</td></tr>
-<tr class="separator:a93a342ab9c8a6d7ea10190d981ebbca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a1fb295e5aa4515c489eccc8f00c43b"><td class="memItemLeft" align="right" valign="top"><a id="a9a1fb295e5aa4515c489eccc8f00c43b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>AudioSample</b> (<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a9a1fb295e5aa4515c489eccc8f00c43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a4a68a2953dcae9c37f6be189ba8d12"><td class="memItemLeft" align="right" valign="top"><a id="a3a4a68a2953dcae9c37f6be189ba8d12"></a>
-<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a3a4a68a2953dcae9c37f6be189ba8d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b31e3d20814a2bac6f56d2e4a23d64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#a81b31e3d20814a2bac6f56d2e4a23d64">AudioSample</a> (uint8_t *data, SoundFormat format, uint32_t sampleRate, int byteCount, bool shouldOwnData=false)</td></tr>
+<tr class="separator:a81b31e3d20814a2bac6f56d2e4a23d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad81dc5b058515bfd0b4ea69567f3b997"><td class="memItemLeft" align="right" valign="top"><a id="ad81dc5b058515bfd0b4ea69567f3b997"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AudioSample</b> (<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:ad81dc5b058515bfd0b4ea69567f3b997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a132b32e985bb42c939ec78b137cf1145"><td class="memItemLeft" align="right" valign="top"><a id="a132b32e985bb42c939ec78b137cf1145"></a>
+<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a132b32e985bb42c939ec78b137cf1145"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8a707e2c1e38c6abe5b24c14ca86b70"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#af8a707e2c1e38c6abe5b24c14ca86b70">getBytes</a> () const</td></tr>
 <tr class="separator:af8a707e2c1e38c6abe5b24c14ca86b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb0c6ed836e40c2efd7550537f088353"><td class="memItemLeft" align="right" valign="top">SoundFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#afb0c6ed836e40c2efd7550537f088353">getFormat</a> () const</td></tr>
@@ -112,6 +112,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa781b5fd4b8293d950e8c091c935d532"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdbbc0f908faa489c9d6e197b9377b6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdcpp_1_1AudioSample.html#abdbbc0f908faa489c9d6e197b9377b6d">operator::AudioSample *</a> () const</td></tr>
 <tr class="separator:abdbbc0f908faa489c9d6e197b9377b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:added8a2f2f27ea2211b69c2f3e5f97cc"><td class="memItemLeft" align="right" valign="top"><a id="added8a2f2f27ea2211b69c2f3e5f97cc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AudioSample</b> (const <a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;)=delete</td></tr>
+<tr class="separator:added8a2f2f27ea2211b69c2f3e5f97cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69273d89a5c78bb93209f4481ad47c54"><td class="memItemLeft" align="right" valign="top"><a id="a69273d89a5c78bb93209f4481ad47c54"></a>
+<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> &amp;)=delete</td></tr>
+<tr class="separator:a69273d89a5c78bb93209f4481ad47c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -153,8 +159,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a93a342ab9c8a6d7ea10190d981ebbca2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93a342ab9c8a6d7ea10190d981ebbca2">&#9670;&nbsp;</a></span>AudioSample() <span class="overload">[2/2]</span></h2>
+<a id="a81b31e3d20814a2bac6f56d2e4a23d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b31e3d20814a2bac6f56d2e4a23d64">&#9670;&nbsp;</a></span>AudioSample() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +187,13 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>byteCount</em>&#160;</td>
+          <td class="paramname"><em>byteCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>shouldOwnData</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -190,13 +202,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Creates an <a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> from a pointer to a series of bytes. This will not own the bytes themselves, so the data must be free'd by the caller separately, and must not be free'd before this sample.</p>
+<p>Creates an <a class="el" href="classpdcpp_1_1AudioSample.html">AudioSample</a> from a pointer to a series of bytes. This object can optionally own the data passed to it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>the data as a series of bytes to use for this sample </td></tr>
+    <tr><td class="paramname">data</td><td>the data as a series of bytes to use for this sample. The data must not be free'd before this object. </td></tr>
     <tr><td class="paramname">format</td><td>the format of the byte array </td></tr>
     <tr><td class="paramname">sampleRate</td><td>the sample rate of the data </td></tr>
     <tr><td class="paramname">byteCount</td><td>how many bytes are in the array </td></tr>
+    <tr><td class="paramname">shouldOwnData</td><td>optionally take ownership of the data supplied. if <code>true</code>, the provided data will be deleted at the end of this object's lifetime. If <code>false</code>, the data must be free'd by the caller separately. Default=false </td></tr>
   </table>
   </dd>
 </dl>
