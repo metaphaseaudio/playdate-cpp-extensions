@@ -12,6 +12,7 @@
 #include <pdcpp/graphics/Colors.h>
 #include <pdcpp/graphics/ScopedGraphicsContext.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include <pdcpp/components/RingMenu.h>
 
 const std::string kLorumIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore "
                                 "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
@@ -135,6 +136,11 @@ int App::update()
         pdcpp::ScopedGraphicsContext context(screenBounds);
         pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(kDrawModeNXOR);
         pdcpp::Graphics::fillRectangle(screenBounds, kColorWhite);
+
+        pdcpp::Rectangle<int> ringBounds = {0, 0, screenBounds.height, screenBounds.height};
+        ringBounds = ringBounds.withCenter(screenBounds.getCenter());
+        pdcpp::RingMenu::drawSplitCircle(ringBounds, 30, 3, 0, 0);
+
         std::string msg = "Press  A  to enter crank-able context.";
         const auto font = pdcpp::LookAndFeel::getDefaultLookAndFeel()->getDefaultFont();
         const auto screenCenter = screenBounds.getCenter();
