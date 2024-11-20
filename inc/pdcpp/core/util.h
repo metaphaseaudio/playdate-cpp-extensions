@@ -86,4 +86,29 @@ namespace pdcpp
         out << std::fixed << a_value;
         return std::move(out).str();
     }
+
+
+    /**
+     * Template class that allows std::visit to take a group of lambda functions
+     *
+     * To use:
+     * ```
+     * std::variant<int, float, std::string> myVariant;
+     *
+     * std::visit(
+     *     Overload
+     *     {
+     *         [](int val) { ... },
+     *         [](std::string& val) { ... },
+     *         [](float val) { ... },
+     *     },
+     *     myVariant);
+     * ```
+     */
+    template<typename... Ts>
+    struct Overload : Ts... {
+        using Ts::operator()...;
+    };
+    template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
+
 }

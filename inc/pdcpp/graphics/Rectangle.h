@@ -54,6 +54,7 @@ namespace pdcpp
 
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
+        [[ nodiscard ]] Rectangle<T> withEdgeInEllipse(const pdcpp::Rectangle<T>& ellipse, float angle);
 
         [[ nodiscard ]] Rectangle<T> withWidth(T newWidth) const;
         [[ nodiscard ]] Rectangle<T> withHeight(T newHeight) const;
@@ -199,4 +200,22 @@ namespace pdcpp
         height -= amt;
         return rv;
     }
+
+    template<typename T>
+    Rectangle<T> Rectangle<T>::withEdgeInEllipse(const pdcpp::Rectangle<T>& ellipse, float angle)
+    {
+        auto a = ellipse.width / 2;
+        auto b = ellipse.height / 2;
+        auto radius = (a * b) / std::sqrt(std::pow(b * std::cos(angle), 2) + std::pow(a * std::sin(angle), 2));
+
+        auto m = std::floor(2.0f * angle / kPI);
+        auto theta = std::pow(-1, m) * (angle - std::floor((m + 1) / 2.0f) * kPI);
+        b = width * std::cos(theta) + height * std::sin(theta);
+        auto d = std::pow(b, 2) + 4 * std::pow(radius, 2) - std::pow(width, 2) - std::pow(height, 2);
+
+        d = (std::sqrt(d) - b) / 2.0f;
+        auto newCenter = pdcpp::Point<T>(d * std::cos(angle), d * std::sin(angle));
+        newCenter = ellipse.getCenter() + newCenter;
+        return withCenter(newCenter);
+    };
 }

@@ -116,13 +116,28 @@ int pdcpp::Font::drawWrappedText(const std::string& text, const pdcpp::Rectangle
     return lineNum * (getFontHeight() + getTextLeading());
 }
 
-int pdcpp::Font::drawWrappedText
-(const std::string& text, pdcpp::Rectangle<float> bounds, pdcpp::Font::Justification justification, PDStringEncoding encoding) const
+pdcpp::Rectangle<float> pdcpp::Font::drawWrappedText(
+    const std::string& text, pdcpp::Rectangle<float> bounds,
+    pdcpp::Font::Justification justification,
+    pdcpp::Font::VerticalJustification verticalJustification,
+    PDStringEncoding encoding) const
 {
     int lineNum = 0;
-    for (auto& line : wrapText(text, bounds.toInt().width))
+    int minX = bounds.getRight();
+    int maxWidth = 0;
+    auto wrappedLines = wrapText(text, bounds.toInt().width);
+
+    auto vertOffset = 0;
+    const auto textBlockHeight = (getFontHeight() + getTextLeading()) * wrappedLines.size();
+
+    if (verticalJustification == Middle)
+        { vertOffset = (bounds.height - textBlockHeight) / 2; }
+    else if (verticalJustification == Bottom)
+        { vertOffset = bounds.height - textBlockHeight; }
+
+    for (auto& line : wrappedLines)
     {
-        const auto lineBounds = pdcpp::Rectangle<float>(0, 0, getTextWidth(line, encoding), getFontHeight() + getTextLeading());
+        const auto lineBounds = getTextArea(line, encoding);
         pdcpp::Point<float> point{0, 0};
 
         switch (justification)
@@ -138,10 +153,12 @@ int pdcpp::Font::drawWrappedText
                 break;
         }
 
-        drawText(line, point.x, point.y + (lineNum++ * (getFontHeight() + getTextLeading())), encoding);
+        maxWidth = std::max<float>(lineBounds.width, maxWidth);
+        minX = std::min<float>(point.x, minX);
+        drawText(line, point.x, point.y + (lineNum++ * (getFontHeight() + getTextLeading())) + vertOffset, encoding);
     }
 
-    return lineNum * (getFontHeight() + getTextLeading());
+    return {float(minX), vertOffset + bounds.y, float(maxWidth), float(textBlockHeight)};
 }
 
 pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)
@@ -152,4 +169,13 @@ pdcpp::Image pdcpp::Font::getGlyphImage(uint32_t c)
     int adv;
     pd->graphics->getPageGlyph(page, c, &glyphImgPtr, &adv);
     return pdcpp::Image::copyFromPointer(glyphImgPtr);
+}
+
+pdcpp::Rectangle<int> pdcpp::Font::getTextArea(const std::string& toMeasure, PDStringEncoding encoding) const
+{
+    int lines = 0;
+    std::stringstream from(toMeasure);
+    std::string to;
+    while (std::getline(from, to)) { lines++; }
+    return {0, 0, getTextWidth(toMeasure), getFontHeight() * lines};
 }

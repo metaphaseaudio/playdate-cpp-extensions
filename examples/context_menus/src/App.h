@@ -21,6 +21,7 @@
 #include <pdcpp/graphics/Font.h>
 #include <pdcpp/components/Viewport.h>
 #include <pdcpp/core/InputContext.h>
+#include "pdcpp/components/RingMenu.h"
 
 
 /**
@@ -107,4 +108,5 @@ protected:
 private:
     CrankContext m_Menu;
     pdcpp::InputContextManager m_ContextManager;
+    pdcpp::RingMenuComponent m_RingMenu;
 };

@@ -17,8 +17,19 @@ namespace pdcpp
     class Point
     {
     public:
+        /**
+         * Represents a point in two-dimensional space for a given type
+         * @param xIn: the x value of the point
+         * @param yIn: the y value of the point
+         */
         Point(T xIn, T yIn) : x(xIn), y(yIn) {}
 
+        /**
+         * calculates the absolute distance between this point and another.
+         *
+         * @param other: the other point from which distance will be measured
+         * @return the absolute distance between this point and the `other`.
+         */
         [[ nodiscard ]] float distance(const Point<T>& other) const
         {
             auto a2 = ::powf(::abs(other.x - x), 2);
@@ -26,6 +37,13 @@ namespace pdcpp
             return ::sqrtf(a2 + b2);
         }
 
+        /**
+         * Rotates a point around a center.
+         *
+         * @param center: the center point of rotation
+         * @param radians: how many radians (clockwise) this point will rotate
+         * @return A new point, rotated.
+         */
         [[ nodiscard ]] Point<T> rotated(const Point<T>& center, float radians) const;
 
         [[ nodiscard ]] Point<T> withX(T newX) const;

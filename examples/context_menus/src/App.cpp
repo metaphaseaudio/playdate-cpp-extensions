@@ -122,8 +122,11 @@ void CrankContext::contextExited() { setVisible(false); }
 App::App()
     : m_ContextManager(this)
     , m_Menu(kLorumIpsum)
+    , m_RingMenu({"Edit\nObject", "Tools", "Synth", "World"}, -45)
 {
-    m_Menu.setBounds(pdcpp::Graphics::getScreenBounds().reduced(20).toFloat());
+    auto screenBounds = pdcpp::Graphics::getScreenBounds();
+    m_Menu.setBounds(screenBounds.reduced(20).toFloat());
+    m_RingMenu.setBounds(pdcpp::Rectangle<int>(0, 0, screenBounds.height, screenBounds.height).withCenter(screenBounds.getCenter()).toFloat());
 }
 
 int App::update()
@@ -137,10 +140,6 @@ int App::update()
         pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(kDrawModeNXOR);
         pdcpp::Graphics::fillRectangle(screenBounds, kColorWhite);
 
-        pdcpp::Rectangle<int> ringBounds = {0, 0, screenBounds.height, screenBounds.height};
-        ringBounds = ringBounds.withCenter(screenBounds.getCenter());
-        pdcpp::RingMenu::drawSplitCircle(ringBounds, 30, 3, 0, 0);
-
         std::string msg = "Press  A  to enter crank-able context.";
         const auto font = pdcpp::LookAndFeel::getDefaultLookAndFeel()->getDefaultFont();
         const auto screenCenter = screenBounds.getCenter();
@@ -148,6 +147,7 @@ int App::update()
         auto circleBounds = pdcpp::Rectangle<int>(point.x + font.getTextWidth("Press "), point.y - 1, 20, 20);
         pdcpp::Graphics::fillEllipse(circleBounds, 0, 0);
         font.drawText(msg, point.x, point.y);
+        m_RingMenu.redraw();
     }
     return 1;
 }
