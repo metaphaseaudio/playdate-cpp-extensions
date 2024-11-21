@@ -12,12 +12,17 @@ namespace pdcpp
         : public pdcpp::Component
     {
     public:
+        using Icon = std::variant<std::string, pdcpp::Component*>;
+
         explicit RingMenuComponent(
-            std::vector<std::variant<std::string, pdcpp::Component*>> icons,
+            std::vector<Icon> icons,
             float rotationDegrees = 0.0f
         );
 
         static void drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees);
+
+        void setSelected(int i);
+        [[ nodiscard ]] int getSelected() const { return m_Selected; }
 
     protected:
         void resized(const Rectangle<float>& newBounds) override;

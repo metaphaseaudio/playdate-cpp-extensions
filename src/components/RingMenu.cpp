@@ -107,3 +107,9 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
         }
     });
 }
+
+void pdcpp::RingMenuComponent::setSelected(int i)
+{
+    m_Selected = i;
+    updatePreRenderedImage();
+}
