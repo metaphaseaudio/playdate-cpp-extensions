@@ -14,25 +14,28 @@ namespace pdcpp
     public:
         using Icon = std::variant<std::string, pdcpp::Component*>;
 
-        explicit RingMenuComponent(
-            std::vector<Icon> icons,
-            float rotationDegrees = 0.0f
-        );
+        struct MenuItem
+        {
+            pdcpp::RingMenuComponent::Icon icon;
+            std::function<void()> action;
+        };
+
+        explicit RingMenuComponent(std::vector<MenuItem> menu, float rotationDegrees = 0.0f);
 
         static void drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees);
 
         void setSelected(int i);
         [[ nodiscard ]] int getSelected() const { return m_Selected; }
+        void executeSelectedAction() const;
 
     protected:
         void resized(const Rectangle<float>& newBounds) override;
-
         void draw() override;
 
     private:
         void updatePreRenderedImage();
 
-        std::vector<std::variant<std::string, pdcpp::Component*>> m_Icons;
+        std::vector<MenuItem> m_Menu;
         pdcpp::Image m_PreRenderedImage;
         float m_Rotation;
         int m_Selected;

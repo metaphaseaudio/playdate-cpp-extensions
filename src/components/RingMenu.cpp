@@ -45,8 +45,8 @@ void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& boun
     }
 }
 
-pdcpp::RingMenuComponent::RingMenuComponent(std::vector<std::variant<std::string, pdcpp::Component*>> icons, float rotationDegrees)
-    : m_Icons(std::move(icons))
+pdcpp::RingMenuComponent::RingMenuComponent(std::vector<MenuItem> menu, float rotationDegrees)
+    : m_Menu(std::move(menu))
     , m_Rotation(rotationDegrees)
     , m_Selected(-1)
 {}
@@ -70,19 +70,19 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
 
     m_PreRenderedImage = pdcpp::Image::drawAsImage(bounds, [&](auto*)
     {
-        drawSplitCircle(bounds.toInt(), thickness, m_Icons.size(), m_Selected, m_Rotation);
+        drawSplitCircle(bounds.toInt(), thickness, m_Menu.size(), m_Selected, m_Rotation);
 
-        auto stepAngle = 360.0f / float(m_Icons.size());
+        auto stepAngle = 360.0f / float(m_Menu.size());
         auto currentAngle = m_Rotation + (stepAngle / 2); // added half-rotation to synchronize the labels to their segments
 
-        for (auto& icon : m_Icons)
+        for (auto& item : m_Menu)
         {
             auto iconBounds = std::visit(
                 Overload
                 {
                     [&](std::string& str) { return getLookAndFeel()->getDefaultFont().getTextArea(str).toFloat(); },
                     [&](Component* component) { return component->getBounds(); }
-                }, icon
+                }, item.icon
             );
 
             iconBounds = iconBounds.withEdgeInEllipse(bounds.reduced(thickness + gap),  pdcpp::degToRad(currentAngle - 90));
@@ -100,7 +100,7 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
                         component->setBounds(iconBounds);
                         component->redraw();
                     }
-                }, icon
+                }, item.icon
             );
 
             currentAngle += stepAngle;
@@ -112,4 +112,10 @@ void pdcpp::RingMenuComponent::setSelected(int i)
 {
     m_Selected = i;
     updatePreRenderedImage();
+}
+
+void pdcpp::RingMenuComponent::executeSelectedAction() const
+{
+    if (m_Selected < 0 || m_Selected >= m_Menu.size()) { return; }
+    m_Menu[m_Selected].action();
 }
