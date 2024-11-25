@@ -12,6 +12,7 @@
 #include <pd_api.h>
 #include <cassert>
 #include "Point.h"
+#include "pdcpp/core/util.h"
 
 
 namespace pdcpp

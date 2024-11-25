@@ -7,6 +7,8 @@
 #include "Component.h"
 #include "GridView.h"
 #include "pdcpp/core/InputContext.h"
+#include "pdcpp/graphics/Font.h"
+
 
 namespace pdcpp
 {

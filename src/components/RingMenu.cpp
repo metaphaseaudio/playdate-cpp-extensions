@@ -5,6 +5,7 @@
 #include "pdcpp/components/RingMenu.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/components/Component.h"
 #include <iostream>
 

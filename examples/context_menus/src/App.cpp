@@ -12,7 +12,7 @@
 #include <pdcpp/graphics/Colors.h>
 #include <pdcpp/graphics/ScopedGraphicsContext.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
-#include <pdcpp/components/RingMenu.h>
+#include <pdcpp/graphics/LookAndFeel.h>
 
 const std::string kLorumIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore "
                                 "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
@@ -32,7 +32,6 @@ void TextBlock::draw()
     bounds.height = targetHeight;
     setBounds(bounds);
 }
-
 
 void ExitButton::draw()
 {
@@ -122,11 +121,9 @@ void CrankContext::contextExited() { setVisible(false); }
 App::App()
     : m_ContextManager(this)
     , m_Menu(kLorumIpsum)
-    , m_RingMenu({"Edit\nObject", "Tools", "Synth", "World"}, -45)
 {
     auto screenBounds = pdcpp::Graphics::getScreenBounds();
     m_Menu.setBounds(screenBounds.reduced(20).toFloat());
-    m_RingMenu.setBounds(pdcpp::Rectangle<int>(0, 0, screenBounds.height, screenBounds.height).withCenter(screenBounds.getCenter()).toFloat());
 }
 
 int App::update()
@@ -147,7 +144,6 @@ int App::update()
         auto circleBounds = pdcpp::Rectangle<int>(point.x + font.getTextWidth("Press "), point.y - 1, 20, 20);
         pdcpp::Graphics::fillEllipse(circleBounds, 0, 0);
         font.drawText(msg, point.x, point.y);
-        m_RingMenu.redraw();
     }
     return 1;
 }

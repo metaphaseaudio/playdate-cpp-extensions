@@ -12,6 +12,7 @@
 #include "pdcpp/components/Slider.h"
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 #include "pdcpp/graphics/Graphics.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 
 void pdcpp::Slider::draw()
 {

@@ -108,5 +108,4 @@ protected:
 private:
     CrankContext m_Menu;
     pdcpp::InputContextManager m_ContextManager;
-    pdcpp::RingMenuComponent m_RingMenu;
 };

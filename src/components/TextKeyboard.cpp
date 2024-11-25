@@ -6,6 +6,7 @@
 #include "pdcpp/components/TextKeyboard.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 
 #include "keyboard_assets/ImageDataClass_menu_cancel.h"
 #include "keyboard_assets/ImageDataClass_menu_del.h"

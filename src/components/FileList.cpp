@@ -6,6 +6,7 @@
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/core/File.h"
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 

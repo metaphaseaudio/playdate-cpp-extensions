@@ -19,7 +19,11 @@ std::map<std::string, pdcpp::Font> pdcpp::LookAndFeel::g_Fonts = {};
 
 pdcpp::LookAndFeel::LookAndFeel()
     : m_DefaultFont("/System/Fonts/Asheville-Sans-14-Bold.pft")
-{}
+{
+    setColor(TextComponent::ColorIds::textColorId, pdcpp::Colors::solid50GrayA);
+    setColor(TextComponent::ColorIds::backgroundColorId, kColorClear);
+    setColor(TextComponent::ColorIds::outlineColorId, kColorClear);
+}
 
 pdcpp::LookAndFeel* pdcpp::LookAndFeel::getDefaultLookAndFeel()
 {
@@ -99,5 +103,47 @@ void pdcpp::LookAndFeel::drawNumericSlider(const playdate_graphics* g, const pdc
     auto font = getDefaultFont();
     auto yOffset = (bounds.height - font.getFontHeight()) / 2.0f;
     auto value = pdcpp::to_string_with_precision(slider->getValue(), 1);
-    font.drawWrappedText(value, bounds.withOrigin({0, yOffset}), pdcpp::Font::Justification::Right);
+    std::ignore = font.drawWrappedText(value, bounds.withOrigin({0, yOffset}), pdcpp::Font::Justification::Right);
 }
+
+LCDColor pdcpp::LookAndFeel::findColor(int colorID) const
+    { return m_Colors.contains(colorID) ? m_Colors.at(colorID) : kColorBlack; }
+
+
+void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
+{
+    auto localBounds = text.getLocalBounds().toInt();
+
+    auto textImg = pdcpp::Image::drawAsImage(localBounds, [&](auto){
+        pdcpp::Graphics::fillRectangle(text.getBorder().subtractFrom(localBounds), findColor
+        (TextComponent::ColorIds::textColorId));
+    });
+
+    auto textMask = pdcpp::Image::drawAsImage(localBounds, [&](const playdate_graphics* g)
+    {
+        pdcpp::Graphics::setDrawMode(kDrawModeFillWhite);
+        auto& font = getDefaultFont();
+        auto textBounds = text.getBorder().subtractFrom(localBounds);
+        std::ignore = font.drawWrappedText(
+            text.getText(), textBounds.toFloat(),
+            text.getJustification(), text.getVerticalJustification(),
+            text.getEncoding()
+        );
+    });
+
+    textImg.setMask(textMask);
+
+    auto borderBounds = text.getBounds().toInt();
+    auto textBounds = text.getBorder().subtractFrom(borderBounds);
+
+    pdcpp::Graphics::fillRectangle(borderBounds, findColor(TextComponent::ColorIds::outlineColorId));
+    pdcpp::Graphics::fillRectangle(textBounds, findColor(TextComponent::ColorIds::backgroundColorId));
+
+    textImg.draw(borderBounds.getTopLeft().toInt());
+}
+
+void pdcpp::LookAndFeel::setColor(int colorID, LCDColor value)
+    { m_Colors[colorID] = value; }
+
+void pdcpp::LookAndFeel::resetColor(int colorID)
+    { m_Colors.erase(colorID); }

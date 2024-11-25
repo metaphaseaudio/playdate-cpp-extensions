@@ -10,13 +10,15 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <pd_api.h>
 #include "pdcpp/core/util.h"
-#include "pdcpp/graphics/LookAndFeel.h"
 #include "pdcpp/graphics/Rectangle.h"
 
 namespace pdcpp
 {
+    class LookAndFeel; // Forward declaration of LookAndFeel
+
     class Component
     {
     public:
@@ -117,7 +119,7 @@ namespace pdcpp
          * @param newLAF a pointer to the new LookAndFeel object for this
          *     Component will use.
          */
-        void setLookAndFeel(LookAndFeel* newLAF);
+        void setLookAndFeel(pdcpp::LookAndFeel* newLAF);
 
         /**
          * @returns a pointer to the current LookAndFeel. Will return the
@@ -131,6 +133,43 @@ namespace pdcpp
          * Override this to react to changes.
          */
         virtual void lookAndFeelChanged() {};
+
+        //==============================================================================
+        /**
+         * Looks for a color that has been registered with the given colour ID
+         * number.
+         *
+         * If a colour has been set for this ID number using setColour(), then
+         * it is returned. If none has been set, the method will try calling
+         * the component's LookAndFeel class's findColor() method. If none has
+         * been registered with the look-and-feel either, it will return black.
+         *
+         * @see setColor, isColorSpecified, colorChanged, LookAndFeel::findColor, LookAndFeel::setColour
+        */
+        LCDColor findColor (int colourID, bool inheritFromParent = false) const;
+
+        /**
+         * Registers a color to use for something specific to the derived
+         * component. Typically, the derived component will declare a handful
+         * of relevant "color IDs." Using those IDs, components of identical
+         * types can be shaded differently.
+         *
+         * @see findColor, isColorSpecified, colorChanged, LookAndFeel::findColor, LookAndFeel::setColor
+         */
+        void setColor(int colorID, LCDColor color);
+
+        /**
+         * If a color has been set with setColor(), this will remove it.
+         * This allows you to make a colour revert to its default state.
+         */
+        void resetColorToDefault (int colorID);
+
+
+        /**
+         * Returns true if the specified colour ID has been explicitly set for
+         * this  component using the setColor() method.
+        */
+        bool isColorSpecified (int colorID) const;
 
     protected:
         /**
@@ -147,10 +186,16 @@ namespace pdcpp
          */
         virtual void resized(const pdcpp::Rectangle<float>& newBounds) {};
 
-
+        /**
+         * Will be called whenever a color is changed via the `setColor` method.
+         *
+         * @see setColor, findColor, setLookAndFeel, sendLookAndFeelChanged
+         */
+        virtual void colorChanged() {};
     private:
         pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};
         std::vector<Component*> m_Children;
+        std::map<int, LCDColor> m_Colors;
         Component* p_Parent = nullptr;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);

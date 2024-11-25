@@ -4,7 +4,9 @@
 
 #pragma once
 #include <variant>
+#include <functional>
 #include <pdcpp/components/Component.h>
+#include <pdcpp/graphics/Image.h>
 
 namespace pdcpp
 {
