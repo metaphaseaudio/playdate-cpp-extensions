@@ -226,7 +226,7 @@ namespace pdcpp
          * @return the drawn image
          */
         static Image drawAsImage
-            (const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor=kColorClear);
+            (const PDRect& bounds, const std::function<void()>& drawFunc, LCDSolidColor fillColor=kColorClear);
 
         /**
          * Provides access to the underlying LCDBitmap for use with the C API.
