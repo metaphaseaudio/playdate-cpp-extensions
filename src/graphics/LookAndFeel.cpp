@@ -20,7 +20,7 @@ std::map<std::string, pdcpp::Font> pdcpp::LookAndFeel::g_Fonts = {};
 pdcpp::LookAndFeel::LookAndFeel()
     : m_DefaultFont("/System/Fonts/Asheville-Sans-14-Bold.pft")
 {
-    setColor(TextComponent::ColorIds::textColorId, pdcpp::Colors::solid50GrayA);
+    setColor(TextComponent::ColorIds::textColorId, kColorBlack);
     setColor(TextComponent::ColorIds::backgroundColorId, kColorClear);
     setColor(TextComponent::ColorIds::outlineColorId, kColorClear);
 }
@@ -136,8 +136,8 @@ void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
     auto borderBounds = text.getBounds().toInt();
     auto textBounds = text.getBorder().subtractFrom(borderBounds);
 
-    pdcpp::Graphics::fillRectangle(borderBounds, findColor(TextComponent::ColorIds::outlineColorId));
-    pdcpp::Graphics::fillRectangle(textBounds, findColor(TextComponent::ColorIds::backgroundColorId));
+    pdcpp::Graphics::fillRectangle(borderBounds, text.findColor(TextComponent::ColorIds::outlineColorId));
+    pdcpp::Graphics::fillRectangle(textBounds, text.findColor(TextComponent::ColorIds::backgroundColorId));
 
     textImg.draw(borderBounds.getTopLeft().toInt());
 }
