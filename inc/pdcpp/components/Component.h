@@ -14,6 +14,8 @@
 #include <pd_api.h>
 #include "pdcpp/core/util.h"
 #include "pdcpp/graphics/Rectangle.h"
+#include "pdcpp/graphics/Image.h"
+
 
 namespace pdcpp
 {
@@ -197,6 +199,7 @@ namespace pdcpp
         std::vector<Component*> m_Children;
         std::map<int, LCDColor> m_Colors;
         Component* p_Parent = nullptr;
+        pdcpp::Image m_CachedImage;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
     };

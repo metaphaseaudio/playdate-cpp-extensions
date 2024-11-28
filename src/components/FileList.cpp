@@ -12,31 +12,56 @@
 
 
 std::string pdcpp::FileList::kParentDir = "../";
+//
+//class FileListItemComponent
+//    : public pdcpp::Component
+//{
+//public:
+//    explicit FileListItemComponent(std::string filename)
+//        : filename(std::move(filename))
+//    {};
+//
+//    bool isFocused{false};
+//    const std::string filename;
+//
+//protected:
+//    void draw() override
+//    {
+//        auto bounds = getBounds();
+//        auto img = pdcpp::Image::drawAsImage(bounds, [&](const playdate_graphics* g)
+//        {
+//            pdcpp::Graphics::setDrawMode(isFocused ? kDrawModeInverted : kDrawModeCopy);
+//            pdcpp::Graphics::fillRectangle(getLocalBounds().toInt(), isFocused ? pdcpp::Colors::diagonalLinesRightWhiteOnBlack : kColorWhite);
+//            auto& font = getLookAndFeel()->getDefaultFont();
+//            font.drawText(filename, font.getFontHeight() + 1, 2);
+//        });
+//
+//        img.draw(bounds.getTopLeft().toInt());
+//    }
+//};
+
 
 class FileListItemComponent
-    : public pdcpp::Component
+    : public pdcpp::TextComponent
 {
 public:
     explicit FileListItemComponent(std::string filename)
-        : filename(std::move(filename))
+        : TextComponent(std::move(filename))
     {};
 
-    bool isFocused{false};
-    const std::string filename;
+//    bool isFocused{false};
+    void setFocus(bool isFocused)
+    {
+        setColor(
+                pdcpp::TextComponent::backgroundColorId,
+                isFocused ? pdcpp::Colors::diagonalLinesRightWhiteOnBlack : kColorClear
+        );
+    }
 
 protected:
     void draw() override
     {
-        auto bounds = getBounds();
-        auto img = pdcpp::Image::drawAsImage(bounds, [&](const playdate_graphics* g)
-        {
-            pdcpp::Graphics::setDrawMode(isFocused ? kDrawModeInverted : kDrawModeCopy);
-            pdcpp::Graphics::fillRectangle(getLocalBounds().toInt(), isFocused ? pdcpp::Colors::diagonalLinesRightWhiteOnBlack : kColorWhite);
-            auto& font = getLookAndFeel()->getDefaultFont();
-            font.drawText(filename, font.getFontHeight() + 1, 2);
-        });
-
-        img.draw(bounds.getTopLeft().toInt());
+        pdcpp::TextComponent::draw();
     }
 };
 
@@ -70,14 +95,16 @@ int pdcpp::FileList::getColWidth(int i) const { return 0; }
 pdcpp::Component* pdcpp::FileList::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
 {
     auto* rv = m_Items[row].get();
-    dynamic_cast<FileListItemComponent*>(rv)->isFocused = hasFocus;
+    dynamic_cast<FileListItemComponent*>(rv)->setFocus(hasFocus);
+//    dynamic_cast<FileListItemComponent*>(rv)->isFocused = hasFocus;
     return rv;
 }
 
 std::string pdcpp::FileList::getSelectedFilename() const
 {
     if (m_Items.empty()) { return ""; }
-    return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->filename;
+//    return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->filename;
+    return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->getText();
 }
 
 size_t pdcpp::FileList::getNumFiles() const
