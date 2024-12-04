@@ -171,7 +171,7 @@ namespace pdcpp
          * Returns true if the specified colour ID has been explicitly set for
          * this  component using the setColor() method.
         */
-        bool isColorSpecified (int colorID) const;
+        [[ nodiscard ]] bool isColorSpecified (int colorID) const;
 
     protected:
         /**
@@ -199,7 +199,6 @@ namespace pdcpp
         std::vector<Component*> m_Children;
         std::map<int, LCDColor> m_Colors;
         Component* p_Parent = nullptr;
-        pdcpp::Image m_CachedImage;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
     };

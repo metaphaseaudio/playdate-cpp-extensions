@@ -24,11 +24,9 @@ pdcpp::Rectangle<float> pdcpp::Component::getBounds() const { return m_Bounds; }
 
 void pdcpp::Component::redraw()
 {
-    m_CachedImage = std::move(pdcpp::Image::drawAsImage(m_Bounds, [&](){
-        draw();
-        for (auto* child : m_Children)
-            { child->redraw(); }
-    }));
+    draw();
+    for (auto* child : m_Children)
+        { child->redraw(); }
 }
 
 void pdcpp::Component::addChildComponent(Component* child)

@@ -77,7 +77,7 @@ void pdcpp::Slider::notifyListeners()
 void pdcpp::Slider::redrawCachedImage()
 {
     auto bounds = getBounds();
-    m_CachedImage = pdcpp::Image::drawAsImage(bounds, [&](const playdate_graphics* g){
+    m_CachedImage = pdcpp::Image::drawAsImage(bounds, [&](){
         auto laf = getLookAndFeel();
         switch (m_Style)
         {

@@ -114,12 +114,12 @@ void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
 {
     auto localBounds = text.getLocalBounds().toInt();
 
-    auto textImg = pdcpp::Image::drawAsImage(localBounds, [&](auto){
+    auto textImg = pdcpp::Image::drawAsImage(localBounds, [&](){
         pdcpp::Graphics::fillRectangle(text.getBorder().subtractFrom(localBounds), findColor
         (TextComponent::ColorIds::textColorId));
     });
 
-    auto textMask = pdcpp::Image::drawAsImage(localBounds, [&](const playdate_graphics* g)
+    auto textMask = pdcpp::Image::drawAsImage(localBounds, [&]()
     {
         pdcpp::Graphics::setDrawMode(kDrawModeFillWhite);
         auto& font = getDefaultFont();

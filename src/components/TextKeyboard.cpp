@@ -155,14 +155,14 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 
     const auto width = 36;
     const auto height = (fontHeight + m_Padding) * chars.size();
-    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&](const
-    playdate_graphics*)
+    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&]()
     {
         int offset = 0;
         for (char c : chars)
         {
             //  m_Padding / 2, offset
-            p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height), pdcpp::Font::Justification::Center);
+            std::ignore = p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height),
+                    pdcpp::Font::Justification::Center);
             offset += fontHeight + m_Padding;
         }
     });
@@ -171,7 +171,8 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const pdcpp::Rectangle<float>&)
 {
     // TODO: figure out why this can't simply use a scoped graphics context...
-    auto img = pdcpp::Image::drawAsImage(inBounds, [&](const playdate_graphics* g) {
+    auto img = pdcpp::Image::drawAsImage(inBounds, [&]()
+    {
         pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), kColorBlack);
 
         auto bounds = inBounds.withOrigin({0, 0}).toInt();

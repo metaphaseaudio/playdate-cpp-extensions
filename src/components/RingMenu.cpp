@@ -69,7 +69,7 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
     auto gap = 10;
     auto bounds = getLocalBounds();
 
-    m_PreRenderedImage = pdcpp::Image::drawAsImage(bounds, [&](auto*)
+    m_PreRenderedImage = pdcpp::Image::drawAsImage(bounds, [&]()
     {
         drawSplitCircle(bounds.toInt(), thickness, m_Menu.size(), m_Selected, m_Rotation);
 
