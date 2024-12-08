@@ -124,6 +124,11 @@ void pdcpp::Graphics::fillRectangle(const pdcpp::Rectangle<int>& rect, LCDColor 
     pdcpp::GlobalPlaydateAPI::get()->graphics->fillRect(rect.x, rect.y, rect.width, rect.height, color);
 }
 
+void pdcpp::Graphics::fillRectangle(const pdcpp::Rectangle<int>& rect, const pdcpp::Color& color)
+{
+    pdcpp::GlobalPlaydateAPI::get()->graphics->fillRect(rect.x, rect.y, rect.width, rect.height, color);
+}
+
 void pdcpp::Graphics::drawEllipse(const pdcpp::Rectangle<int>& rect, int lineThickness, float startAngle, float endAngle, LCDColor color)
 {
     pdcpp::GlobalPlaydateAPI::get()->graphics->drawEllipse(rect.x, rect.y, rect.width, rect.height, lineThickness, startAngle, endAngle, color);

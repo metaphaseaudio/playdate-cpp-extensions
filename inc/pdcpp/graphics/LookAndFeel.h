@@ -30,9 +30,9 @@ namespace pdcpp
 
         void drawTextComponent(const TextComponent& text) override;
 
-        void setColor(int colorID, LCDColor value);
+        void setColor(int colorID, pdcpp::Color value);
         void resetColor(int colorID);
-        [[ nodiscard ]] LCDColor findColor(int colorID) const;
+        [[ nodiscard ]]  pdcpp::Color findColor(int colorID) const;
 
         void setDefaultFont(Font newFont);
         pdcpp::Font& getDefaultFont();
@@ -42,9 +42,10 @@ namespace pdcpp
         static LookAndFeel* getDefaultLookAndFeel();
 
         pdcpp::Font* getFont(const std::string& fontName);
+
     private:
         Font m_DefaultFont;
-        std::map<int, LCDColor> m_Colors;
+        std::map<int, pdcpp::Color> m_Colors;
 
         // "Globals"
         static std::map<std::string, Font> g_Fonts;

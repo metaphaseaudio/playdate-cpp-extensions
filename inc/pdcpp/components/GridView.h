@@ -127,5 +127,4 @@ namespace pdcpp
         pdcpp::ComponentFocusView m_Container;
         std::vector<std::vector<Component*>> m_Cells;
     };
-
 }

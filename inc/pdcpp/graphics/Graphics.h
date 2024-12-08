@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "Rectangle.h"
+#include <pdcpp/graphics/Color.h>
 
 namespace pdcpp
 {
@@ -73,6 +74,8 @@ namespace pdcpp
          * @param color optional color to fill. default is black.
          */
         static void fillRectangle(const pdcpp::Rectangle<int>& rect, LCDColor color=kColorBlack);
+
+        static void fillRectangle(const pdcpp::Rectangle<int>& rect, const pdcpp::Color& color);
 
         /**
          * Draws a rectangle where each of the corners is rounded over.

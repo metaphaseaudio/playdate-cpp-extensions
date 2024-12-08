@@ -10,171 +10,135 @@
 
 #include "pdcpp/graphics/Colors.h"
 
-LCDPattern transparent50GrayAPattern = {
-        // Bitmap
-        0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
-        // Mask
-        0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010,
-};
-
-LCDPattern transparent50GrayBPattern = {
-        // Bitmap
-        0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010,
-        // Mask
-        0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
-};
-
-LCDPattern solid50GrayAPattern = {
-        // Bitmap
-        0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
-
-LCDPattern solid50GrayBPattern = {
+pdcpp::Color pdcpp::Colors::black({
     // Bitmap
-    0b01010101,
-    0b10101010,
-    0b01010101,
-    0b10101010,
-    0b01010101,
-    0b10101010,
-    0b01010101,
-    0b10101010,
+    0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
     // Mask
     0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+});
 
-LCDPattern sparseCheckerAPattern = {
-        // Bitmap
-        0b11111111,
-        0b11101110,
-        0b11111111,
-        0b10111011,
-        0b11111111,
-        0b11101110,
-        0b11111111,
-        0b10111011,
+pdcpp::Color pdcpp::Colors::white({
+    // Bitmap
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::clear({
+    // Bitmap
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+    // Mask
+    0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
+});
 
-LCDPattern crossHatchAPattern = {
-        // Bitmap
-        0b11101110, 0b10111011, 0b11011101, 0b01110111, 0b11101110, 0b10111011, 0b11011101, 0b01110111,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::transparent50GrayA({
+    // Bitmap
+    0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
+    // Mask
+    0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010,
+});
 
-LCDPattern thickVerticalLinesAPattern = {
-        // Bitmap
-        0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::transparent50GrayB({
+    // Bitmap
+    0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010,
+    // Mask
+    0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
+});
 
-LCDPattern verticalLines25APattern = {
-        // Bitmap
-        0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::solid50GrayA({
+    // Bitmap
+    0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101, 0b10101010, 0b01010101,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern diagonalLinesRightWhiteOnBlackPattern = {
-        // Bitmap
-        0b10001000, 0b00010001, 0b00100010, 0b01000100, 0b10001000, 0b00010001, 0b00100010, 0b01000100,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::solid50GrayB = solid50GrayA.inverted();
 
-LCDPattern diagonalLinesRightBlackOnWhitePattern = {
-        // Bitmap
-        0b01110111, 0b11101110, 0b11011101, 0b10111011, 0b01110111, 0b11101110, 0b11011101, 0b10111011,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::sparseCheckerA({
+    // Bitmap
+    0b11111111, 0b11101110, 0b11111111, 0b10111011, 0b11111111, 0b11101110, 0b11111111, 0b10111011,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
+pdcpp::Color pdcpp::Colors::thickVerticalLinesA({
+    // Bitmap
+    0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000, 0b11110000,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern0 = {
-        // Bitmap
-        0b10000000, 0b00010000, 0b00000010, 0b01000000, 0b00001000, 0b00000001, 0b00100000, 0b00000100,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::verticalLines25A({
+    // Bitmap
+    0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern1 = {
-        // Bitmap
-        0b11000000,
-        0b00011000,
-        0b00000011,
-        0b01100000,
-        0b00001100,
-        0b10000001,
-        0b00110000,
-        0b00000110,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::diagonalLinesRightWhiteOnBlack({
+    // Bitmap
+    0b10001000, 0b00010001, 0b00100010, 0b01000100, 0b10001000, 0b00010001, 0b00100010, 0b01000100,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern2 = {
-        // Bitmap
-        0b11000001, 0b00111000, 0b00000111, 0b11100000, 0b00011100, 0b10000011, 0b01110000, 0b00001110,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::diagonalLinesRightBlackOnWhite({
+    // Bitmap
+    0b01110111, 0b11101110, 0b11011101, 0b10111011, 0b01110111, 0b11101110, 0b11011101, 0b10111011,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern3 = {
-        // Bitmap
-        0b11100001, 0b00111100, 0b10000111, 0b11110000, 0b00011110, 0b11000011, 0b01111000, 0b00001111,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::steppedDither0({
+    // Bitmap
+    0b10000000, 0b00010000, 0b00000010, 0b01000000, 0b00001000, 0b00000001, 0b00100000, 0b00000100,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern4 = {
-        // Bitmap
-        0b11100011, 0b01111100, 0b10001111, 0b11110001, 0b00111110, 0b11000111, 0b11111000, 0b00011111,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::steppedDither1({
+    // Bitmap
+    0b11000000, 0b00011000, 0b00000011, 0b01100000, 0b00001100, 0b10000001, 0b00110000, 0b00000110,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern5 = {
-        // Bitmap
-        0b11110011, 0b01111110, 0b11001111, 0b11111001, 0b00111111, 0b11100111, 0b11111100, 0b10011111,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::steppedDither2({
+    // Bitmap
+    0b11000001, 0b00111000, 0b00000111, 0b11100000, 0b00011100, 0b10000011, 0b01110000, 0b00001110,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDPattern steppedDitherPattern6 = {
-        // Bitmap
-        0b11110111, 0b11111110, 0b11011111, 0b11111011, 0b01111111, 0b11101111, 0b11111101, 0b10111111,
-        // Mask
-        0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
-};
+pdcpp::Color pdcpp::Colors::steppedDither3({
+    // Bitmap
+    0b11100001, 0b00111100, 0b10000111, 0b11110000, 0b00011110, 0b11000011, 0b01111000, 0b00001111,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDColor pdcpp::Colors::transparent50GrayA = reinterpret_cast<LCDColor>(transparent50GrayAPattern);
-LCDColor pdcpp::Colors::transparent50GrayB = reinterpret_cast<LCDColor>(transparent50GrayBPattern);
+pdcpp::Color pdcpp::Colors::steppedDither4({
+    // Bitmap
+    0b11100011, 0b01111100, 0b10001111, 0b11110001, 0b00111110, 0b11000111, 0b11111000, 0b00011111,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDColor pdcpp::Colors::solid50GrayA = reinterpret_cast<LCDColor>(solid50GrayAPattern);
-LCDColor pdcpp::Colors::solid50GrayB = reinterpret_cast<LCDColor>(solid50GrayBPattern);
+pdcpp::Color pdcpp::Colors::steppedDither5({
+    // Bitmap
+    0b11110011, 0b01111110, 0b11001111, 0b11111001, 0b00111111, 0b11100111, 0b11111100, 0b10011111,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDColor pdcpp::Colors::sparseCheckerA = reinterpret_cast<LCDColor>(sparseCheckerAPattern);
+pdcpp::Color pdcpp::Colors::steppedDither6({
+    // Bitmap
+    0b11110111, 0b11111110, 0b11011111, 0b11111011, 0b01111111, 0b11101111, 0b11111101, 0b10111111,
+    // Mask
+    0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111,
+});
 
-LCDColor pdcpp::Colors::thickVerticalLinesA = reinterpret_cast<LCDColor>(thickVerticalLinesAPattern);
-LCDColor pdcpp::Colors::verticalLines25A = reinterpret_cast<LCDColor>(verticalLines25APattern);
-LCDColor pdcpp::Colors::diagonalLinesRightWhiteOnBlack = reinterpret_cast<LCDColor>(diagonalLinesRightWhiteOnBlackPattern);
-LCDColor pdcpp::Colors::diagonalLinesRightBlackOnWhite = reinterpret_cast<LCDColor>(diagonalLinesRightBlackOnWhitePattern);
-
-LCDColor pdcpp::Colors::steppedDither0 = reinterpret_cast<LCDColor>(steppedDitherPattern0);
-LCDColor pdcpp::Colors::steppedDither1 = reinterpret_cast<LCDColor>(steppedDitherPattern1);
-LCDColor pdcpp::Colors::steppedDither2 = reinterpret_cast<LCDColor>(steppedDitherPattern2);
-LCDColor pdcpp::Colors::steppedDither3 = reinterpret_cast<LCDColor>(steppedDitherPattern3);
-LCDColor pdcpp::Colors::steppedDither4 = reinterpret_cast<LCDColor>(steppedDitherPattern4);
-LCDColor pdcpp::Colors::steppedDither5 = reinterpret_cast<LCDColor>(steppedDitherPattern5);
-LCDColor pdcpp::Colors::steppedDither6 = reinterpret_cast<LCDColor>(steppedDitherPattern6);
-
-
-LCDColor pdcpp::Colors::gradient[9] = {
+pdcpp::Color pdcpp::Colors::gradient[9] = {
     kColorBlack,
     steppedDither0,
     steppedDither1,

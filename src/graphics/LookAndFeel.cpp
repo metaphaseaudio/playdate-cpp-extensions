@@ -106,8 +106,8 @@ void pdcpp::LookAndFeel::drawNumericSlider(const playdate_graphics* g, const pdc
     std::ignore = font.drawWrappedText(value, bounds.withOrigin({0, yOffset}), pdcpp::Font::Justification::Right);
 }
 
-LCDColor pdcpp::LookAndFeel::findColor(int colorID) const
-    { return m_Colors.contains(colorID) ? m_Colors.at(colorID) : kColorBlack; }
+pdcpp::Color pdcpp::LookAndFeel::findColor(int colorID) const
+    { return m_Colors.contains(colorID) ? m_Colors.at(colorID) : pdcpp::Colors::black; }
 
 
 void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
@@ -115,8 +115,8 @@ void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
     auto localBounds = text.getLocalBounds().toInt();
 
     auto textImg = pdcpp::Image::drawAsImage(localBounds, [&](){
-        pdcpp::Graphics::fillRectangle(text.getBorder().subtractFrom(localBounds), findColor
-        (TextComponent::ColorIds::textColorId));
+        auto textColor = text.findColor(TextComponent::ColorIds::textColorId);
+        pdcpp::Graphics::fillRectangle(text.getBorder().subtractFrom(localBounds), textColor);
     });
 
     auto textMask = pdcpp::Image::drawAsImage(localBounds, [&]()
@@ -142,7 +142,7 @@ void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
     textImg.draw(borderBounds.getTopLeft().toInt());
 }
 
-void pdcpp::LookAndFeel::setColor(int colorID, LCDColor value)
+void pdcpp::LookAndFeel::setColor(int colorID, pdcpp::Color value)
     { m_Colors[colorID] = value; }
 
 void pdcpp::LookAndFeel::resetColor(int colorID)

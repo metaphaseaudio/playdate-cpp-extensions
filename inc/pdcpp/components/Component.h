@@ -15,6 +15,7 @@
 #include "pdcpp/core/util.h"
 #include "pdcpp/graphics/Rectangle.h"
 #include "pdcpp/graphics/Image.h"
+#include "pdcpp/graphics/Color.h"
 
 
 namespace pdcpp
@@ -148,7 +149,7 @@ namespace pdcpp
          *
          * @see setColor, isColorSpecified, colorChanged, LookAndFeel::findColor, LookAndFeel::setColour
         */
-        LCDColor findColor (int colourID, bool inheritFromParent = false) const;
+        [[ nodiscard ]] pdcpp::Color findColor (int colourID, bool inheritFromParent = false) const;
 
         /**
          * Registers a color to use for something specific to the derived
@@ -158,7 +159,7 @@ namespace pdcpp
          *
          * @see findColor, isColorSpecified, colorChanged, LookAndFeel::findColor, LookAndFeel::setColor
          */
-        void setColor(int colorID, LCDColor color);
+        void setColor(int colorID, pdcpp::Color color);
 
         /**
          * If a color has been set with setColor(), this will remove it.
@@ -197,7 +198,7 @@ namespace pdcpp
     private:
         pdcpp::Rectangle<float> m_Bounds = {0, 0, 0, 0};
         std::vector<Component*> m_Children;
-        std::map<int, LCDColor> m_Colors;
+        std::map<int, pdcpp::Color> m_Colors;
         Component* p_Parent = nullptr;
         pdcpp::LookAndFeel* m_CustomLookAndFeel = nullptr;
         PDCPP_DECLARE_NON_COPYABLE(Component);
