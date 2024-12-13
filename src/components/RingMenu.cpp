@@ -46,10 +46,12 @@ void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& boun
     }
 }
 
-pdcpp::RingMenuComponent::RingMenuComponent(std::vector<MenuItem> menu, float rotationDegrees)
+pdcpp::RingMenuComponent::RingMenuComponent(
+    std::vector<MenuItem> menu, std::function<void()> nonAction, float rotationDegrees)
     : m_Menu(std::move(menu))
     , m_Rotation(rotationDegrees)
     , m_Selected(-1)
+    , m_AbortAction(std::move(nonAction))
 {}
 
 void pdcpp::RingMenuComponent::resized(const pdcpp::Rectangle<float>& newBounds)
@@ -94,7 +96,7 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
                     [&](std::string& str)
                     {
                         auto font = getLookAndFeel()->getDefaultFont();
-                        font.drawWrappedText(str, iconBounds, Font::Justification::Center);
+                        std::ignore = font.drawWrappedText(str, iconBounds, Font::Justification::Center);
                     },
                     [&](Component* component)
                     {
@@ -117,6 +119,10 @@ void pdcpp::RingMenuComponent::setSelected(int i)
 
 void pdcpp::RingMenuComponent::executeSelectedAction() const
 {
-    if (m_Selected < 0 || m_Selected >= m_Menu.size()) { return; }
+    if (m_Selected < 0 || m_Selected >= m_Menu.size())
+    {
+        m_AbortAction();
+        return;
+    }
     m_Menu[m_Selected].action();
 }

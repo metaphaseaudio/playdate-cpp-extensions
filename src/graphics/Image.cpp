@@ -46,6 +46,13 @@ pdcpp::Image::Image(pdcpp::Image&& other) noexcept
 
 pdcpp::Image& pdcpp::Image::operator=(pdcpp::Image&& other) noexcept
 {
+    if (p_Data != nullptr)
+    {
+        // Free any residual data
+        auto pd = pdcpp::GlobalPlaydateAPI::get();
+        pd->graphics->freeBitmap(p_Data);
+    }
+
     p_Data = other.p_Data;
     other.p_Data = nullptr;
     return *this;

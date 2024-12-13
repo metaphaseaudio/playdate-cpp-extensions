@@ -70,16 +70,17 @@ void pdcpp::InputContextManager::popContext()
 {
     if (m_ContextStack.size() <= 1) { return; }
 
-    pdcpp::ButtonManager::removeListener(m_ContextStack.back());
-    pdcpp::CrankManager::removeListener(m_ContextStack.back());
-
-    m_ContextStack.back()->p_CurrentManager = nullptr;
-    m_ContextStack.back()->contextExited();
+    InputContext* lastContext = m_ContextStack.back();
     m_ContextStack.pop_back();
 
+    pdcpp::ButtonManager::removeListener(lastContext);
+    pdcpp::CrankManager::removeListener(lastContext);
+    lastContext->p_CurrentManager = nullptr;
     pdcpp::ButtonManager::addListener(m_ContextStack.back());
     pdcpp::CrankManager::addListener(m_ContextStack.back());
 
+
+    lastContext->contextExited();
     m_ContextStack.back()->contextEntered();
 }
 

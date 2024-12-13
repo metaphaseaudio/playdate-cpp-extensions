@@ -22,7 +22,8 @@ namespace pdcpp
             std::function<void()> action;
         };
 
-        explicit RingMenuComponent(std::vector<MenuItem> menu, float rotationDegrees = 0.0f);
+        explicit RingMenuComponent(
+                std::vector<MenuItem> menu, std::function<void()> nonAction=[](){}, float rotationDegrees = 0.0f);
 
         static void drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees);
 
@@ -39,6 +40,7 @@ namespace pdcpp
 
         std::vector<MenuItem> m_Menu;
         pdcpp::Image m_PreRenderedImage;
+        std::function<void()> m_AbortAction;
         float m_Rotation;
         int m_Selected;
     };
