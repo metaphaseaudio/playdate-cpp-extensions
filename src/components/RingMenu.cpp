@@ -9,7 +9,6 @@
 #include "pdcpp/components/Component.h"
 #include <iostream>
 
-
 void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees)
 {
     // TODO: figure out how to draw this as an ellipse
@@ -48,37 +47,26 @@ void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& boun
 
 pdcpp::RingMenuComponent::RingMenuComponent(
     std::vector<MenuItem> menu, std::function<void()> nonAction, float rotationDegrees)
-    : m_Menu(std::move(menu))
+    : MenuComponentBase(std::move(menu), std::move(nonAction))
     , m_Rotation(rotationDegrees)
-    , m_Selected(-1)
-    , m_AbortAction(std::move(nonAction))
 {}
 
-void pdcpp::RingMenuComponent::resized(const pdcpp::Rectangle<float>& newBounds)
-{
-    updatePreRenderedImage();
-}
-
-void pdcpp::RingMenuComponent::draw()
-{
-    m_PreRenderedImage.draw(getBounds().getTopLeft().toInt());
-}
-
-void pdcpp::RingMenuComponent::updatePreRenderedImage()
+pdcpp::Image pdcpp::RingMenuComponent::buildPreRenderedImage()
 {
     //TODO: do a look and feel thing!
     auto thickness = 25;
     auto gap = 10;
     auto bounds = getLocalBounds();
+    auto menu = getMenuItems();
 
-    m_PreRenderedImage = pdcpp::Image::drawAsImage(bounds, [&]()
+    return pdcpp::Image::drawAsImage(bounds, [&]()
     {
-        drawSplitCircle(bounds.toInt(), thickness, m_Menu.size(), m_Selected, m_Rotation);
+        drawSplitCircle(bounds.toInt(), thickness, menu.size(), getSelectedIndex(), m_Rotation);
 
-        auto stepAngle = 360.0f / float(m_Menu.size());
+        auto stepAngle = 360.0f / float(menu.size());
         auto currentAngle = m_Rotation + (stepAngle / 2); // added half-rotation to synchronize the labels to their segments
 
-        for (auto& item : m_Menu)
+        for (auto& item : menu)
         {
             auto iconBounds = std::visit(
                 Overload
@@ -109,20 +97,4 @@ void pdcpp::RingMenuComponent::updatePreRenderedImage()
             currentAngle += stepAngle;
         }
     });
-}
-
-void pdcpp::RingMenuComponent::setSelected(int i)
-{
-    m_Selected = i;
-    updatePreRenderedImage();
-}
-
-void pdcpp::RingMenuComponent::executeSelectedAction() const
-{
-    if (m_Selected < 0 || m_Selected >= m_Menu.size())
-    {
-        m_AbortAction();
-        return;
-    }
-    m_Menu[m_Selected].action();
 }

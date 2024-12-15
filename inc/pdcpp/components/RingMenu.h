@@ -3,45 +3,21 @@
 //
 
 #pragma once
-#include <variant>
-#include <functional>
-#include <pdcpp/components/Component.h>
-#include <pdcpp/graphics/Image.h>
+#include "MenuComponentBase.h"
 
 namespace pdcpp
 {
     class RingMenuComponent
-        : public pdcpp::Component
+        : public MenuComponentBase
     {
     public:
-        using Icon = std::variant<std::string, pdcpp::Component*>;
-
-        struct MenuItem
-        {
-            pdcpp::RingMenuComponent::Icon icon;
-            std::function<void()> action;
-        };
-
         explicit RingMenuComponent(
                 std::vector<MenuItem> menu, std::function<void()> nonAction=[](){}, float rotationDegrees = 0.0f);
 
         static void drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees);
 
-        void setSelected(int i);
-        [[ nodiscard ]] int getSelected() const { return m_Selected; }
-        void executeSelectedAction() const;
-
-    protected:
-        void resized(const Rectangle<float>& newBounds) override;
-        void draw() override;
-
     private:
-        void updatePreRenderedImage();
-
-        std::vector<MenuItem> m_Menu;
-        pdcpp::Image m_PreRenderedImage;
-        std::function<void()> m_AbortAction;
+        Image buildPreRenderedImage() override;
         float m_Rotation;
-        int m_Selected;
     };
 }
