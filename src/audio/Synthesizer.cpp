@@ -15,11 +15,11 @@ pdcpp::Synthesizer::Synthesizer()
     : p_Instrument(pdcpp::GlobalPlaydateAPI::get()->sound->instrument->newInstrument())
 {}
 
-pdcpp::Synthesizer::Synthesizer(pdcpp::Synthesizer&& other)
+pdcpp::Synthesizer::Synthesizer(pdcpp::Synthesizer&& other) noexcept
     : p_Instrument(other.p_Instrument)
 { other.p_Instrument = nullptr; }
 
-pdcpp::Synthesizer& pdcpp::Synthesizer::operator=(pdcpp::Synthesizer&& other)
+pdcpp::Synthesizer& pdcpp::Synthesizer::operator=(pdcpp::Synthesizer&& other) noexcept
 {
     p_Instrument = other.p_Instrument;
     other.p_Instrument = nullptr;
@@ -47,11 +47,12 @@ pdcpp::SynthesizerVoiceContainer pdcpp::Synthesizer::noteOn(MIDINote note, float
 
 void pdcpp::Synthesizer::noteOff(MIDINote note, uint32_t when)
 {
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
     // This is a bug. if `when` is 0, it should turn off *right now* but it
     // doesn't, so we'll fake it for the caller.
     if (when == 0)
-        { when = pdcpp::GlobalPlaydateAPI::get()->sound->getCurrentTime(); }
-    pdcpp::GlobalPlaydateAPI::get()->sound->instrument->noteOff(p_Instrument, note, when);
+        { when = pd->sound->getCurrentTime(); }
+    pd->sound->instrument->noteOff(p_Instrument, note, when);
 }
 
 void pdcpp::Synthesizer::allNotesOff(uint32_t when)

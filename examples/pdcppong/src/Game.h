@@ -29,7 +29,6 @@ namespace pdcppong
         void scoreAndReset(const pdcpp::Sprite*);
         bool m_NewRound;
         float m_PlayerLane, m_ComputerLane;
-        pdcpp::Synthesizer m_Synth;
         BlockSprite m_Player, m_Computer, m_UpperBounds, m_LowerBounds, m_PlayerGoal, m_ComputerGoal;
         Sounds m_Sounds;
         Ball m_Ball;

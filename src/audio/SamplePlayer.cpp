@@ -15,11 +15,11 @@ pdcpp::SamplePlayer::SamplePlayer()
     : p_SamplePlayer(pdcpp::GlobalPlaydateAPI::get()->sound->sampleplayer->newPlayer())
 {}
 
-pdcpp::SamplePlayer::SamplePlayer(SamplePlayer&& other)
-        : p_SamplePlayer(other.p_SamplePlayer)
+pdcpp::SamplePlayer::SamplePlayer(SamplePlayer&& other) noexcept
+    : p_SamplePlayer(other.p_SamplePlayer)
 { other.p_SamplePlayer = nullptr; }
 
-pdcpp::SamplePlayer& pdcpp::SamplePlayer::operator=(SamplePlayer&& other)
+pdcpp::SamplePlayer& pdcpp::SamplePlayer::operator=(SamplePlayer&& other) noexcept
 {
     p_SamplePlayer = other.p_SamplePlayer;
     other.p_SamplePlayer = nullptr;
@@ -60,3 +60,5 @@ float pdcpp::SamplePlayer::getLength()
     { return pdcpp::GlobalPlaydateAPI::get()->sound->sampleplayer->getLength(p_SamplePlayer); }
 
 pdcpp::SamplePlayer::operator ::SoundSource*() const { return reinterpret_cast<::SoundSource*>(p_SamplePlayer); }
+
+void pdcpp::SamplePlayer::finished(){}

@@ -276,8 +276,7 @@ namespace pdcpp
         /**
          * implicit conversion to a ::PDSynth* for use with the C API
          */
-        [[nodiscard]] operator ::PDSynth*() const
-        { return p_Synth; } // NOLINT(*-explicit-constructor)
+        [[nodiscard]] operator ::PDSynth*() const { return p_Synth; } // NOLINT(*-explicit-constructor)
 
         // Implements base class
         [[nodiscard]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)

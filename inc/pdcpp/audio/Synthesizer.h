@@ -30,10 +30,10 @@ namespace pdcpp
         Synthesizer();
 
         // Move constructor
-        Synthesizer(Synthesizer&& other);
+        Synthesizer(Synthesizer&& other) noexcept;
 
         // Move-assignment constructor
-        Synthesizer& operator=(Synthesizer&& other);
+        Synthesizer& operator=(Synthesizer&& other) noexcept;
 
         // Destructor. Frees internal C API pointer.
         ~Synthesizer();

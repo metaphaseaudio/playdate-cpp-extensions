@@ -3,6 +3,7 @@
 //
 
 #include <pdcpp/graphics/Color.h>
+#include <cstring>
 
 
 

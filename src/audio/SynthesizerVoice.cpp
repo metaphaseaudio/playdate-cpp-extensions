@@ -127,9 +127,7 @@ void pdcpp::SynthesizerVoiceContainer::clearCustomGenerator()
 
 pdcpp::SynthesizerVoiceContainer::SynthesizerVoiceContainer(PDSynth* synth)
     : p_Synth(synth)
-{
-    enableFinishedCallback();
-}
+{}
 
 void pdcpp::SynthesizerVoiceContainer::playMIDINote(MIDINote note, float vel, float len, uint32_t when)
     { pdcpp::GlobalPlaydateAPI::get()->sound->synth->playMIDINote(p_Synth, note, vel, len, when); }
@@ -155,7 +153,9 @@ int pdcpp::SynthesizerVoiceContainer::getParameterCount() const { return pdcpp::
 
 pdcpp::SynthesizerVoice::SynthesizerVoice()
     : SynthesizerVoiceContainer(pdcpp::GlobalPlaydateAPI::get()->sound->synth->newSynth())
-{}
+{
+    enableFinishedCallback();
+}
 
 pdcpp::SynthesizerVoice::SynthesizerVoice(pdcpp::SynthesizerVoice&& other) noexcept
     : SynthesizerVoiceContainer(other.p_Synth)

@@ -173,12 +173,12 @@ void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const 
     // TODO: figure out why this can't simply use a scoped graphics context...
     auto img = pdcpp::Image::drawAsImage(inBounds, [&]()
     {
-        pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), kColorBlack);
+        pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), pdcpp::Colors::black);
 
         auto bounds = inBounds.withOrigin({0, 0}).toInt();
 
         pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
-        pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
+        pdcpp::Graphics::fillRectangle(bounds, pdcpp::Colors::black);
 
         // Set up a few constants
         const auto fontHeight = p_Font->getFontHeight();
@@ -217,7 +217,7 @@ void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const 
                 break;
         }
 
-        pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, kColorWhite);
+        pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, pdcpp::Colors::white);
 
         // Draw/tile the columns
         auto imgBounds = m_LowerImg.getBounds();

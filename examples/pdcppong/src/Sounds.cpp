@@ -54,3 +54,8 @@ bool pdcppong::Sounds::isGoalSoundPlaying() const
 {
     return m_ComputerGoal.isPlaying() || m_PlayerGoal.isPlaying();
 }
+
+void pdcppong::Sounds::finished()
+{
+
+}

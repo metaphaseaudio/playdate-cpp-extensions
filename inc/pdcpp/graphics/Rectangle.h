@@ -210,7 +210,7 @@ namespace pdcpp
         auto radius = (a * b) / std::sqrt(std::pow(b * std::cos(angle), 2) + std::pow(a * std::sin(angle), 2));
 
         auto m = std::floor(2.0f * angle / kPI);
-        auto theta = std::pow(-1, m) * (angle - std::floor((m + 1) / 2.0f) * kPI);
+        auto theta = std::pow(-1, m) * T(angle - std::floor((m + 1) / 2.0f) * kPI);
         b = width * std::cos(theta) + height * std::sin(theta);
         auto d = std::pow(b, 2) + 4 * std::pow(radius, 2) - std::pow(width, 2) - std::pow(height, 2);
 

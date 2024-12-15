@@ -139,7 +139,7 @@ pdcpp::Color pdcpp::Colors::steppedDither6({
 });
 
 pdcpp::Color pdcpp::Colors::gradient[9] = {
-    kColorBlack,
+    black,
     steppedDither0,
     steppedDither1,
     steppedDither2,
@@ -147,5 +147,5 @@ pdcpp::Color pdcpp::Colors::gradient[9] = {
     steppedDither4,
     steppedDither5,
     steppedDither6,
-    kColorWhite
+    white
 };
