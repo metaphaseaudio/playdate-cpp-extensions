@@ -43,7 +43,6 @@ pdcpp::FileList::FileList(const std::string& rootDir, bool showDirectories, bool
     }
 }
 
-
 pdcpp::FileList::FileList(const std::vector<std::string>& explicitFiles)
 {
     for (const auto& f : explicitFiles)

@@ -50,12 +50,12 @@ void pdcpp::GridView::resized(const pdcpp::Rectangle<float>& newBounds)
     refreshContent();
 }
 
-void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell)
+void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell, bool limit)
 {
     if (getNumRows() == 0 || getNumCols() == 0) { return; }
 
-    m_RowFocus = pdcpp::limit(0, getNumRows() - 1, row);
-    m_ColFocus = pdcpp::limit(0, getNumCols() - 1, column);
+    m_RowFocus = limit ? pdcpp::limit(0, getNumRows() - 1, row) : row;
+    m_ColFocus = limit ? pdcpp::limit(0, getNumCols() - 1, column) : column;
 
     // Refresh here to let the component update based on the new focus
     refreshContent();
@@ -66,6 +66,8 @@ void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell)
 
 void pdcpp::GridView::displayCell(int row, int column)
 {
+    row = pdcpp::limit(0, getNumRows() - 1, row);
+    column = pdcpp::limit(0, getNumCols() - 1, column);
     m_Container.bringComponentIntoView(row * getNumCols() + column);
 }
 

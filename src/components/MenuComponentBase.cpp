@@ -3,27 +3,18 @@
 //
 
 #include "pdcpp/components/MenuComponentBase.h"
+#include "pdcpp/core/util.h"
 
 pdcpp::MenuComponentBase::MenuComponentBase(std::vector<MenuItem> menu, std::function<void()> nonAction)
-        : m_Menu(std::move(menu))
-        , m_AbortAction(std::move(nonAction))
-        , m_Selected(-1)
+    : m_Menu(std::move(menu))
+    , m_AbortAction(std::move(nonAction))
+    , m_Selected(-1)
 {}
-
-void pdcpp::MenuComponentBase::resized(const pdcpp::Rectangle<float>& newBounds)
-{
-    m_PreRenderedImage = buildPreRenderedImage();
-}
-
-void pdcpp::MenuComponentBase::draw()
-{
-    m_PreRenderedImage.draw(getBounds().getTopLeft().toInt());
-}
 
 void pdcpp::MenuComponentBase::setSelectedIndex(int i)
 {
     m_Selected = i;
-    m_PreRenderedImage = buildPreRenderedImage();
+    selectedChanged();
 }
 
 void pdcpp::MenuComponentBase::executeSelectedAction() const
@@ -35,3 +26,15 @@ void pdcpp::MenuComponentBase::executeSelectedAction() const
     }
     m_Menu[m_Selected].action();
 }
+
+pdcpp::Rectangle<float> pdcpp::MenuComponentBase::MenuItem::getBounds(pdcpp::Font& font) const
+{
+    return std::visit(
+        Overload
+        {
+            [&](const std::string& str) { return font.getTextArea(str).toFloat(); },
+            [](Component* component) { return component->getBounds(); }
+        }, icon
+    );
+}
+

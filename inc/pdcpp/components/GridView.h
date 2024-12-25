@@ -71,8 +71,13 @@ namespace pdcpp
          * @param column the column of the cell for focus
          * @param shouldShowCell whether or not to move the Viewport to show the
          *     cell. On by default.
+         * @param limit if limit is off, you can "deselect" by focusing on an
+         *     element outside the range of the grid. The window will still
+         *     scroll to the most relevant edge of the grid, but `isFocused`
+         *     will be false for all elements when `refreshComponentForCell` is
+         *     called. defaults to enabled.
          */
-        void setCellFocus(int row, int column, bool shouldShowCell=true);
+        void setCellFocus(int row, int column, bool shouldShowCell=true, bool limit=true);
 
         /**
          * @returns the row and column numbers currently focused as a Point.

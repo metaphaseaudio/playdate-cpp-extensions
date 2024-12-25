@@ -2,12 +2,10 @@
 // Created by Matt on 11/17/2024.
 //
 
-#include "pdcpp/components/RingMenu.h"
+#include "pdcpp/components/RingMenuComponent.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
 #include "pdcpp/graphics/LookAndFeel.h"
-#include "pdcpp/components/Component.h"
-#include <iostream>
 
 void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& bounds, int thickness, int nSplits, int select, float rotationDegrees)
 {
@@ -51,6 +49,11 @@ pdcpp::RingMenuComponent::RingMenuComponent(
     , m_Rotation(rotationDegrees)
 {}
 
+void pdcpp::RingMenuComponent::resized(const pdcpp::Rectangle<float>& newBounds)
+    { m_PreRenderedImage = buildPreRenderedImage(); }
+
+void pdcpp::RingMenuComponent::draw() { m_PreRenderedImage.draw(getBounds().getTopLeft().toInt()); }
+
 pdcpp::Image pdcpp::RingMenuComponent::buildPreRenderedImage()
 {
     //TODO: do a look and feel thing!
@@ -68,14 +71,7 @@ pdcpp::Image pdcpp::RingMenuComponent::buildPreRenderedImage()
 
         for (auto& item : menu)
         {
-            auto iconBounds = std::visit(
-                Overload
-                {
-                    [&](std::string& str) { return getLookAndFeel()->getDefaultFont().getTextArea(str).toFloat(); },
-                    [&](Component* component) { return component->getBounds(); }
-                }, item.icon
-            );
-
+            auto iconBounds = item.getBounds(getLookAndFeel()->getDefaultFont());
             iconBounds = iconBounds.withEdgeInEllipse(bounds.reduced(thickness + gap),  pdcpp::degToRad(currentAngle - 90));
 
             std::visit(
@@ -97,4 +93,9 @@ pdcpp::Image pdcpp::RingMenuComponent::buildPreRenderedImage()
             currentAngle += stepAngle;
         }
     });
+}
+
+void pdcpp::RingMenuComponent::selectedChanged()
+{
+    m_PreRenderedImage = buildPreRenderedImage();
 }
