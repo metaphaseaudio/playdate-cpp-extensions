@@ -65,3 +65,8 @@ int pdcpp::GraduatedCrankHandler::operator()(float crankChangeDelta)
     return clickCount;
 }
 
+void pdcpp::GraduatedCrankHandler::reset()
+{
+    m_DegSinceClick = 0;
+}
+

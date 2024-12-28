@@ -86,3 +86,8 @@ void pdcpp::GridView::scrollY(int px)
     m_Container.moveContentBy(0, px, true);
 }
 
+pdcpp::Rectangle<int> pdcpp::GridView::getFullContentBounds() const
+{
+    return m_Content.getBounds().toInt();
+}
+

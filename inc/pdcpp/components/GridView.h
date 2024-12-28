@@ -63,6 +63,11 @@ namespace pdcpp
         [[ nodiscard ]] virtual int getColWidth(int i) const = 0;
 
         /**
+         * @returns the total bounds of every cell in the grid
+         */
+        Rectangle<int> getFullContentBounds() const;
+
+        /**
          * Sets the cell at a given row/column as being in user focus.
          * Optionally, if the cell is not currently in the Viewport, move that
          * cell into the viewport.

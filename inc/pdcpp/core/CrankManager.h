@@ -78,12 +78,18 @@ namespace pdcpp
         explicit GraduatedCrankHandler(int granularity=15);
 
         /**
+         * Update the handler with a change
          *
          * @param crankChangeDelta how much the crank has moved since last
          *        measure
          * @returns the number of graduations moved.
          */
         int operator()(float crankChangeDelta);
+
+        /**
+         * Resets any updates the crank handler may have received;
+         */
+        void reset();
 
     public:
         const float m_ClickDegrees;
