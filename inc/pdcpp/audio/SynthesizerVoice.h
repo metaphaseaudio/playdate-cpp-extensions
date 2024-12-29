@@ -259,10 +259,16 @@ namespace pdcpp
         /**
          * stops the currently playing note.
          *
-         * @param when an optional time at which to stop the note. 0 to stop
-         *     immediately. Default 0.
+         * @param when an optional time at which to stop the note, transitioning
+         *     to the release portion of the envelope. Default 0, or "now".
          */
         void noteOff(uint32_t when=0);
+
+        /**
+         * Stops the currently playing note immediately without allowing it to
+         * release
+         */
+        void stop();
 
         /**
          * Sets the transposition of the voice. Virtual because Synth voices

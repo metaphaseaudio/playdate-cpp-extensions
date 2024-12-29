@@ -151,6 +151,9 @@ void pdcpp::SynthesizerVoiceContainer::clearParameterModulator(int paramNumber)
 
 int pdcpp::SynthesizerVoiceContainer::getParameterCount() const { return pdcpp::GlobalPlaydateAPI::get()->sound->synth->getParameterCount(p_Synth); }
 
+void pdcpp::SynthesizerVoiceContainer::stop()
+    { pdcpp::GlobalPlaydateAPI::get()->sound->synth->stop(p_Synth); }
+
 pdcpp::SynthesizerVoice::SynthesizerVoice()
     : SynthesizerVoiceContainer(pdcpp::GlobalPlaydateAPI::get()->sound->synth->newSynth())
 {
@@ -172,6 +175,7 @@ pdcpp::SynthesizerVoice::~SynthesizerVoice()
 {
     if (p_Synth != nullptr)
     {
+        stop();
         for (int i = getParameterCount(); --i >= 0;)
             { clearParameterModulator(i); }
         pdcpp::GlobalPlaydateAPI::get()->sound->synth->freeSynth(p_Synth);
