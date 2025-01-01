@@ -135,5 +135,4 @@ namespace pdcpp
     private:
         std::deque<InputContext*> m_ContextStack;
     };
-
 }

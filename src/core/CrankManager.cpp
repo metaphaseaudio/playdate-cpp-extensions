@@ -10,6 +10,7 @@
 
 #include <pdcpp/core/GlobalPlaydateAPI.h>
 #include <pdcpp/core/CrankManager.h>
+#include <cassert>
 
 void pdcpp::CrankManager::checkStateAndNotify()
 {
@@ -31,6 +32,13 @@ void pdcpp::CrankManager::addListener(pdcpp::CrankManager::Listener* toAdd)
 void pdcpp::CrankManager::removeListener(pdcpp::CrankManager::Listener* toRemove)
 {
     if (toRemove == nullptr) { return; }
+    auto found = std::find(m_Listeners.begin(), m_Listeners.end(), toRemove);
+    if (found == m_Listeners.end())
+    {
+        // Tried to remove a listener not owned by this manager!
+        assert(false);
+        return;
+    }
     m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove));
 }
 

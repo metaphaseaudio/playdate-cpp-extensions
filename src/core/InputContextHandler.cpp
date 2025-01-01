@@ -10,7 +10,7 @@
 
 #include <pdcpp/core/InputContext.h>
 #include <cassert>
-
+#include <iostream>
 
 void pdcpp::InputContext::popContext()
 {
@@ -20,11 +20,7 @@ void pdcpp::InputContext::popContext()
 
 void pdcpp::InputContext::pushChildContext(pdcpp::InputContext* context)
 {
-    if (p_CurrentManager == nullptr)
-    {
-        assert(false);
-        return;
-    }
+    if (p_CurrentManager == nullptr){ return; }
     p_CurrentManager->pushContext(context);
 }
 
@@ -64,6 +60,8 @@ void pdcpp::InputContextManager::pushContext(InputContext* newContext)
     pdcpp::CrankManager::addListener(m_ContextStack.back());
 
     newContext->contextEntered();
+
+    std::cout << std::to_string(m_ContextStack.size()) << std::endl;
 }
 
 void pdcpp::InputContextManager::popContext(int index)
@@ -82,16 +80,20 @@ void pdcpp::InputContextManager::popContext(int index)
     // Otherwise we're popping the top of the stack, context is changing, so
     // people need to be notified.
     InputContext* lastContext = m_ContextStack.back();
-    m_ContextStack.pop_back();
-
     pdcpp::ButtonManager::removeListener(lastContext);
     pdcpp::CrankManager::removeListener(lastContext);
     lastContext->p_CurrentManager = nullptr;
-    pdcpp::ButtonManager::addListener(m_ContextStack.back());
-    pdcpp::CrankManager::addListener(m_ContextStack.back());
+
+    m_ContextStack.pop_back();
+
+    InputContext* nextContext = m_ContextStack.back();
+    pdcpp::ButtonManager::addListener(nextContext);
+    pdcpp::CrankManager::addListener(nextContext);
 
     lastContext->contextExited();
-    m_ContextStack.back()->contextEntered();
+    nextContext->contextEntered();
+
+    std::cout << std::to_string(m_ContextStack.size()) << std::endl;
 }
 
 void pdcpp::InputContextManager::resetToBaseContext()
