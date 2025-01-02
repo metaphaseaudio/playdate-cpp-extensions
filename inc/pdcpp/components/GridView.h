@@ -65,7 +65,7 @@ namespace pdcpp
         /**
          * @returns the total bounds of every cell in the grid
          */
-        Rectangle<int> getFullContentBounds() const;
+        [[ nodiscard ]] Rectangle<int> getFullContentBounds() const;
 
         /**
          * Sets the cell at a given row/column as being in user focus.

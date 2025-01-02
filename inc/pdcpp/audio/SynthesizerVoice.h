@@ -23,6 +23,7 @@ namespace pdcpp
     {
     public:
         static constexpr int kFloatScalar = 0x7fffff;
+        static constexpr uint32_t k1HzAccum = 97391; // 1Hz at 44100.
 
         /**
          * Create a custom generator for a synthesizer voice. Inherit from this,
@@ -301,7 +302,8 @@ namespace pdcpp
     {
     public:
         /**
-         * Creates a new SynthesizerVoiceContainer. Does not own the pointer
+         * Creates a new SynthesizerVoice. This class does own the underlying
+         * memory.
          */
         SynthesizerVoice();
 

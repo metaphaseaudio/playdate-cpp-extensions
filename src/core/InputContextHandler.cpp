@@ -9,8 +9,6 @@
  */
 
 #include <pdcpp/core/InputContext.h>
-#include <cassert>
-#include <iostream>
 
 void pdcpp::InputContext::popContext()
 {
@@ -60,8 +58,6 @@ void pdcpp::InputContextManager::pushContext(InputContext* newContext)
     pdcpp::CrankManager::addListener(m_ContextStack.back());
 
     newContext->contextEntered();
-
-    std::cout << std::to_string(m_ContextStack.size()) << std::endl;
 }
 
 void pdcpp::InputContextManager::popContext(int index)
@@ -92,8 +88,6 @@ void pdcpp::InputContextManager::popContext(int index)
 
     lastContext->contextExited();
     nextContext->contextEntered();
-
-    std::cout << std::to_string(m_ContextStack.size()) << std::endl;
 }
 
 void pdcpp::InputContextManager::resetToBaseContext()
