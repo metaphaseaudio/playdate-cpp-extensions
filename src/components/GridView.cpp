@@ -29,11 +29,13 @@ void pdcpp::GridView::refreshContent()
         for (int colI = 0; colI < getNumCols(); colI++)
         {
             const auto width = getColWidth(colI) == 0 ? bounds.width : getColWidth(colI);
-            auto* comp = refreshComponentForCell(rowI, colI, m_RowFocus == rowI && m_ColFocus == colI, m_Cells.at(rowI).at(colI));
+            auto comp = refreshComponentForCell(rowI, colI, m_RowFocus == rowI && m_ColFocus == colI, m_Cells.at
+            (rowI).at(colI).get());
 
             // You must return a component, even if you want it to be blank!
             assert(comp != nullptr);
-            m_Cells.at(rowI).at(colI) = comp;
+            if (m_Cells.at(rowI).at(colI).get() != comp)
+                { m_Cells.at(rowI).at(colI).reset(comp); }
 
             comp->setBounds(pdcpp::Rectangle<float>(horizontalOffset, verticalOffset, width, height));
             m_Container.addChildToFocusContainer(comp);

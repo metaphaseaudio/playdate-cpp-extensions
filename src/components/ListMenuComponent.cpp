@@ -70,12 +70,7 @@ pdcpp::ListMenuComponent::ListMenuComponent
 (std::vector<MenuItem> menu, std::function<void()> nonAction, bool horizontal)
     : MenuComponentBase(std::move(menu), std::move(nonAction))
     , m_Horiz(horizontal)
-{
-    for (auto& item : getMenuItems())
-        { m_Items.push_back(std::make_unique<IconComponent>(item.icon)); }
-
-    setCellFocus(-1, -1, false, false);
-}
+{ setCellFocus(-1, -1, false, false); }
 
 int pdcpp::ListMenuComponent::getNumRows() const { return m_Horiz ? 1 : getMenuItems().size(); }
 
@@ -83,7 +78,6 @@ int pdcpp::ListMenuComponent::getNumCols() const { return m_Horiz ? getMenuItems
 
 int pdcpp::ListMenuComponent::getRowHeight(int i) const
 {
-
     if (!m_Horiz)
         { return getMenuItems()[i].getBounds(getLookAndFeel()->getDefaultFont()).height; }
 
@@ -117,9 +111,12 @@ int pdcpp::ListMenuComponent::getColWidth(int i) const
 pdcpp::Component* pdcpp::ListMenuComponent::refreshComponentForCell
 (int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
 {
-    auto* rv = m_Items[m_Horiz ? column : row].get();
-    dynamic_cast<IconComponent*>(rv)->setFocus(hasFocus);
-    return rv;;
+    std::unique_ptr<IconComponent> icon(dynamic_cast<IconComponent*>(toUpdate));
+    if (icon == nullptr)
+        { icon = std::make_unique<IconComponent>(getMenuItems()[m_Horiz ? column : row].icon); }
+
+    icon->setFocus(hasFocus);
+    return icon.release();
 }
 
 void pdcpp::ListMenuComponent::selectedChanged()

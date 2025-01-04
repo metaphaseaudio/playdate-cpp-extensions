@@ -52,7 +52,8 @@ namespace pdcpp
         Component* refreshComponentForCell(int row, int column, bool hasFocus, Component* toUpdate) override;
 
     private:
-        std::vector<std::unique_ptr<pdcpp::Component>> m_Items;
+        std::vector<std::string> m_Items;
+//        std::vector<std::unique_ptr<pdcpp::Component>> m_Items;
         std::string m_RootDir;
     };
 }

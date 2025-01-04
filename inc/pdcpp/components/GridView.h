@@ -114,7 +114,7 @@ namespace pdcpp
         /**
          * Override this to provide content for each of the GridView's cells.
          * It will be called during `refreshContent`. Note that the GridView
-         * will not take ownership of the Component, so the user must manage
+         * will take ownership of the Component, so the user must not manage
          * its lifecycle.
          *
          * @param row the row of the cell to return
@@ -122,11 +122,12 @@ namespace pdcpp
          * @param hasFocus indicate whether this cell has focus
          * @param toUpdate the current Component in the cell, if any. Use this
          *     to either update the current component, or return a new one.
+         *     The GridView will own this component.
          * @return the component which will be displayed in the specified cell.
          *     if no updates are needed, you can return the exact same pointer
          *     as `toUpdate`.
          */
-        virtual Component* refreshComponentForCell(int row, int column, bool hasFocus, Component* toUpdate) = 0;
+        virtual Component* refreshComponentForCell (int row, int column, bool hasFocus, Component* toUpdate) = 0;
 
         // Overrides base class method
         void resized(const Rectangle<float>& newBounds) override;
@@ -135,6 +136,6 @@ namespace pdcpp
         int m_ColFocus{0}, m_RowFocus{0};
         pdcpp::Component m_Content;
         pdcpp::ComponentFocusView m_Container;
-        std::vector<std::vector<Component*>> m_Cells;
+        std::vector<std::vector<std::unique_ptr<Component>>> m_Cells;
     };
 }

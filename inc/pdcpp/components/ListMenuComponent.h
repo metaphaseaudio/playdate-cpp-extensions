@@ -26,7 +26,7 @@ namespace pdcpp
 
     protected:
         Component* refreshComponentForCell(int row, int column, bool hasFocus, Component* toUpdate) override;
-        std::vector<std::unique_ptr<pdcpp::Component>> m_Items;
+//        std::vector<std::unique_ptr<pdcpp::Component>> m_Items;
 
         void selectedChanged() override;
     };

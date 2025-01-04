@@ -33,22 +33,22 @@ public:
 pdcpp::FileList::FileList(const std::string& rootDir, bool showDirectories, bool showHidden, bool includeParentDir)
 {
     if (includeParentDir && showDirectories)
-        { m_Items.push_back(std::make_unique<FileListItemComponent>(kParentDir)); }
+        { m_Items.push_back(kParentDir); }
 
     for (const auto& f : pdcpp::FileHelpers::listFilesInDirectory(rootDir, showHidden))
     {
         auto details = pdcpp::FileHelpers::stat(rootDir + f);
         if (!showDirectories && details.isdir) { continue; }
-        m_Items.push_back(std::make_unique<FileListItemComponent>(f));
+
+        m_Items.push_back(f);
     }
 }
 
 pdcpp::FileList::FileList(const std::vector<std::string>& explicitFiles)
 {
     for (const auto& f : explicitFiles)
-        { m_Items.push_back(std::make_unique<FileListItemComponent>(f)); }
+        { m_Items.push_back(f); }
 }
-
 
 int pdcpp::FileList::getNumRows() const { return m_Items.size(); }
 int pdcpp::FileList::getRowHeight(int i) const { return getLookAndFeel()->getDefaultFont().getFontHeight() + 2; }
@@ -57,15 +57,18 @@ int pdcpp::FileList::getColWidth(int i) const { return 0; }
 
 pdcpp::Component* pdcpp::FileList::refreshComponentForCell(int row, int column, bool hasFocus, pdcpp::Component* toUpdate)
 {
-    auto* rv = m_Items[row].get();
-    dynamic_cast<FileListItemComponent*>(rv)->setFocus(hasFocus);
-    return rv;
+    std::unique_ptr<FileListItemComponent> item(dynamic_cast<FileListItemComponent*>(toUpdate));
+    if (item == nullptr)
+        { item = std::make_unique<FileListItemComponent>(m_Items[row]); }
+
+    item->setFocus(hasFocus);
+    return item.release();
 }
 
 std::string pdcpp::FileList::getSelectedFilename() const
 {
     if (m_Items.empty()) { return ""; }
-    return dynamic_cast<FileListItemComponent*>(m_Items[getCellFocus().y].get())->getText();
+    return m_Items[getCellFocus().y];
 }
 
 size_t pdcpp::FileList::getNumFiles() const

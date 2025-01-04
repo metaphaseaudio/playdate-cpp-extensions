@@ -39,7 +39,7 @@ namespace pdcpp
         virtual void selectedChanged() = 0;
 
     private:
-        std::vector <MenuItem> m_Menu;
+        std::vector<MenuItem> m_Menu;
         std::function<void()> m_AbortAction;
         int m_Selected;
     };
