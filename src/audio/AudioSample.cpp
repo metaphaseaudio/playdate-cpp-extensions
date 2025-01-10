@@ -27,11 +27,13 @@ pdcpp::AudioSample::AudioSample(uint8_t* data, SoundFormat format, uint32_t samp
 
 pdcpp::AudioSample::AudioSample(AudioSample&& other) noexcept
     : p_Sample(other.p_Sample)
+    , m_Name(other.m_Name)
 { other.p_Sample = nullptr; }
 
 pdcpp::AudioSample& pdcpp::AudioSample::operator=(AudioSample&& other) noexcept
 {
     p_Sample = other.p_Sample;
+    m_Name = other.m_Name;
     other.p_Sample = nullptr;
     return *this;
 }
