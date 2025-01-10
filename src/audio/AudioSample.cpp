@@ -12,6 +12,7 @@
 
 pdcpp::AudioSample::AudioSample(const std::string& filepath)
     : p_Sample(pdcpp::GlobalPlaydateAPI::get()->sound->sample->load(filepath.c_str()))
+    , m_Name(filepath)
 {
     if (p_Sample == nullptr)
     {
