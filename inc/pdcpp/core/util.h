@@ -9,6 +9,7 @@
  */
 #pragma once
 #include <algorithm>
+#include <optional>
 #include <sstream>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
@@ -111,4 +112,10 @@ namespace pdcpp
     };
     template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
 
+
+    template<typename T, typename X>
+    bool isInstance(X* x)
+    {
+        return dynamic_cast<const T*>(x) != nullptr;
+    }
 }
