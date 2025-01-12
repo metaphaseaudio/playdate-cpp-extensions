@@ -119,8 +119,10 @@ std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadWavFile(const std::str
     if (!(header.bitsPerSample == 8 || header.bitsPerSample == 16)) { return std::nullopt; }
     if (header.numChannels > 2) { return std::nullopt; }
 
-    std::vector<uint8_t> data(header.dataSize);
-    handle.read(data.data(), header.dataSize);
+    auto toRead = header.dataSize * (header.bitsPerSample / 8);
+    std::vector<uint8_t> data(toRead);
+
+    handle.read(data.data(), toRead);
 
     SoundFormat fmt;
 
@@ -134,7 +136,7 @@ std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadWavFile(const std::str
             break;
     }
 
-    return AudioSample(data.data(), fmt, header.sampleRate, header.dataSize, true);
+    return AudioSample(data.data(), fmt, header.sampleRate, header.dataSize, false);
 }
 
 std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadSampleFromFile(const std::string& filename)
