@@ -10,6 +10,8 @@
 
 #pragma once
 #include <string>
+#include <utility>
+#include <optional>
 #include <pd_api.h>
 
 
@@ -18,6 +20,8 @@ namespace pdcpp
     class AudioSample
     {
     public:
+        static std::optional<AudioSample> loadSampleFromFile(const std::string& filename);
+        static std::optional<AudioSample> loadWavFile(const std::string& filename);
         /**
          * Creates an AudioSample by loading the data from a file at the given
          * path (will automatically account for most PCM *.wav format headers.)
@@ -83,8 +87,6 @@ namespace pdcpp
          */
         [[ nodiscard ]] float getLengthInSeconds() const;
 
-        [[ nodiscard ]] std::string getFilename() const { return m_Name; };
-
         /**
          * Direct shim method to the C API to retrieve information about this
          * sample. Prefer this method over the individual property getters when
@@ -108,13 +110,12 @@ namespace pdcpp
          */
         [[ nodiscard ]] operator ::AudioSample* () const { return p_Sample; } // NOLINT (*-explicit-constructor)
 
-    public:
-        ::AudioSample* p_Sample;
-        std::string m_Name;
-
         // This object is non-copyable, *particularly* when owning the provided
         // data.
         AudioSample(const AudioSample&) = delete;
         AudioSample& operator= (AudioSample&) = delete;
+
+    private:
+        ::AudioSample* p_Sample;
     };
 }

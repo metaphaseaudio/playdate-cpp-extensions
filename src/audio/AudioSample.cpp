@@ -9,10 +9,11 @@
  */
 #include <pdcpp/audio/AudioSample.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include "pdcpp/core/File.h"
+
 
 pdcpp::AudioSample::AudioSample(const std::string& filepath)
     : p_Sample(pdcpp::GlobalPlaydateAPI::get()->sound->sample->load(filepath.c_str()))
-    , m_Name(filepath)
 {
     if (p_Sample == nullptr)
     {
@@ -27,13 +28,11 @@ pdcpp::AudioSample::AudioSample(uint8_t* data, SoundFormat format, uint32_t samp
 
 pdcpp::AudioSample::AudioSample(AudioSample&& other) noexcept
     : p_Sample(other.p_Sample)
-    , m_Name(other.m_Name)
 { other.p_Sample = nullptr; }
 
 pdcpp::AudioSample& pdcpp::AudioSample::operator=(AudioSample&& other) noexcept
 {
     p_Sample = other.p_Sample;
-    m_Name = other.m_Name;
     other.p_Sample = nullptr;
     return *this;
 }
@@ -86,3 +85,66 @@ uint32_t pdcpp::AudioSample::getLengthInSamples() const
 
 float pdcpp::AudioSample::getLengthInSeconds() const
     { return pdcpp::GlobalPlaydateAPI::get()->sound->sample->getLength(p_Sample); }
+
+std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadWavFile(const std::string& filename)
+{
+    struct WAVHeader {
+        char riff[4]; // Should be "RIFF"
+        uint32_t chunkSize;
+        char wave[4]; // Should be "WAVE"
+        char fmt[4]; // Should be "fmt"
+        uint32_t fmtChunkSize;
+        uint16_t audioFormat; // 1 for PCM
+        uint16_t numChannels;
+        uint32_t sampleRate;
+        uint32_t byteRate;
+        uint16_t blockAlign;
+        uint16_t bitsPerSample;
+        char data[4]; // Should be "data"
+        uint32_t dataSize;
+    };
+    WAVHeader header{};
+    auto handle = pdcpp::FileHandle(filename, FileOptions::kFileReadData);
+    handle.read(&header, sizeof(WAVHeader));
+
+    const auto riff = std::string(header.riff, header.riff + 4);
+    const auto wave = std::string(header.wave, header.wave + 4);
+    const auto fmtStr = std::string(header.fmt, header.fmt + 3);
+    const auto dataStr = std::string(header.data, header.data + 4);
+    if (riff != "RIFF") { return std::nullopt; }
+    if (wave != "WAVE") { return std::nullopt; }
+    if (fmtStr != "fmt") { return std::nullopt; }
+    if (dataStr != "data") { return std::nullopt; }
+    if (header.audioFormat != 1) { return std::nullopt; } // Must be PCM format
+    if (!(header.bitsPerSample == 8 || header.bitsPerSample == 16)) { return std::nullopt; }
+    if (header.numChannels > 2) { return std::nullopt; }
+
+    std::vector<uint8_t> data(header.dataSize);
+    handle.read(data.data(), header.dataSize);
+
+    SoundFormat fmt;
+
+    switch(header.bitsPerSample)
+    {
+        case 8:
+            fmt = header.numChannels == 1 ? SoundFormat::kSound8bitMono : SoundFormat::kSound8bitStereo;
+            break;
+        case 16:
+            fmt = header.numChannels == 1 ? SoundFormat::kSound16bitMono : SoundFormat::kSound16bitStereo;
+            break;
+    }
+
+    return AudioSample(data.data(), fmt, header.sampleRate, header.dataSize, true);
+}
+
+std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadSampleFromFile(const std::string& filename)
+{
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    std::optional<pdcpp::AudioSample> rv = std::nullopt;
+    const std::string failMsg = "WARN: failed to open " + filename;
+    if (filename.ends_with(".pda")) { rv = pdcpp::AudioSample(filename); }
+    else if (filename.ends_with(".wav")) { rv =  pdcpp::AudioSample::loadWavFile(filename); }
+    else { pd->system->logToConsole(failMsg.c_str()); }
+    if (!rv) { pd->system->logToConsole(failMsg.c_str()); }
+    return rv;
+}
