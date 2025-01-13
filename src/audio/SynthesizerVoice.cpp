@@ -178,6 +178,7 @@ pdcpp::SynthesizerVoice::~SynthesizerVoice()
         stop();
         for (int i = getParameterCount(); --i >= 0;)
             { clearParameterModulator(i); }
+        clearCustomGenerator();
         pdcpp::GlobalPlaydateAPI::get()->sound->synth->freeSynth(p_Synth);
     }
 }

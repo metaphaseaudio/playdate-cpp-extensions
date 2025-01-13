@@ -43,6 +43,12 @@ pdcpp::AudioSample::~AudioSample()
         { pdcpp::GlobalPlaydateAPI::get()->sound->sample->freeSample(p_Sample); }
 }
 
+void pdcpp::AudioSample::setData(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount, bool shouldFreeData)
+{
+    p_Sample = pdcpp::GlobalPlaydateAPI::get()->sound->sample->newSampleFromData(data, format, sampleRate, byteCount, shouldFreeData);
+}
+
+
 void pdcpp::AudioSample::getInfo(uint8_t** data, SoundFormat* format, uint32_t* sampleRate, uint32_t* byteCount) const
     { pdcpp::GlobalPlaydateAPI::get()->sound->sample->getData(p_Sample, data, format, sampleRate, byteCount); }
 
@@ -86,7 +92,7 @@ uint32_t pdcpp::AudioSample::getLengthInSamples() const
 float pdcpp::AudioSample::getLengthInSeconds() const
     { return pdcpp::GlobalPlaydateAPI::get()->sound->sample->getLength(p_Sample); }
 
-std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadWavFile(const std::string& filename)
+std::optional<std::unique_ptr<pdcpp::AudioSample>> pdcpp::AudioSample::loadWavFile(const std::string& filename)
 {
     struct WAVHeader {
         char riff[4]; // Should be "RIFF"
@@ -136,17 +142,23 @@ std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadWavFile(const std::str
             break;
     }
 
-    return AudioSample(data.data(), fmt, header.sampleRate, header.dataSize, false);
+    auto rv = std::make_unique<AudioSampleWithData>(data, fmt, header.sampleRate);
+    return rv;
 }
 
-std::optional<pdcpp::AudioSample> pdcpp::AudioSample::loadSampleFromFile(const std::string& filename)
+std::optional<std::unique_ptr<pdcpp::AudioSample>> pdcpp::AudioSample::loadSampleFromFile(const std::string& filename)
 {
     auto pd = pdcpp::GlobalPlaydateAPI::get();
-    std::optional<pdcpp::AudioSample> rv = std::nullopt;
+    std::optional<std::unique_ptr<pdcpp::AudioSample>> rv = std::nullopt;
     const std::string failMsg = "WARN: failed to open " + filename;
-    if (filename.ends_with(".pda")) { rv = pdcpp::AudioSample(filename); }
+    if (filename.ends_with(".pda")) { rv = std::make_unique<AudioSample>(filename); }
     else if (filename.ends_with(".wav")) { rv =  pdcpp::AudioSample::loadWavFile(filename); }
     else { pd->system->logToConsole(failMsg.c_str()); }
     if (!rv) { pd->system->logToConsole(failMsg.c_str()); }
     return rv;
 }
+
+
+pdcpp::AudioSampleWithData::AudioSampleWithData(std::vector<uint8_t> data, SoundFormat format, uint32_t sampleRate)
+    : m_Data(std::move(data))
+{ setData(m_Data.data(), format, sampleRate, m_Data.size(), false); }
