@@ -22,4 +22,10 @@ pdcpp::TextComponent::TextComponent(
 void pdcpp::TextComponent::draw()
 {
     getLookAndFeel()->drawTextComponent(*this);
-};
+}
+
+pdcpp::Font& pdcpp::TextComponent::getFont() const
+{
+    if (p_FontOverride != nullptr ) { return *p_FontOverride; }
+    return getLookAndFeel()->getDefaultFont();
+}

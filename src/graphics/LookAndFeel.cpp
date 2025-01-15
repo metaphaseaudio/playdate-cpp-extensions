@@ -122,7 +122,7 @@ void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
     auto textMask = pdcpp::Image::drawAsImage(localBounds, [&]()
     {
         pdcpp::Graphics::setDrawMode(kDrawModeFillWhite);
-        auto& font = getDefaultFont();
+        auto& font = text.getFont();
         auto textBounds = text.getBorder().subtractFrom(localBounds);
         std::ignore = font.drawWrappedText(
             text.getText(), textBounds.toFloat(),

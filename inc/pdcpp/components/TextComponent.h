@@ -46,11 +46,15 @@ namespace pdcpp
         [[ nodiscard ]] PDStringEncoding getEncoding() const noexcept { return m_Encoding; }
         [[ nodiscard ]] Border<int> getBorder() const noexcept { return m_Border; }
 
+        void setFont(pdcpp::Font* fontOverride) { p_FontOverride = fontOverride; }
+        [[ nodiscard ]] pdcpp::Font& getFont() const;
+
     protected:
         void draw() override;
 
         std::string m_Text;
         PDStringEncoding m_Encoding;
+        pdcpp::Font* p_FontOverride{nullptr};
         pdcpp::Font::Justification m_Justification;
         pdcpp::Font::VerticalJustification m_VerticalJustification;
         pdcpp::Border<int> m_Border;
