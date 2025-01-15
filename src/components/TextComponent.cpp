@@ -7,10 +7,10 @@
 
 
 pdcpp::TextComponent::TextComponent(
-        std::string text,
-        pdcpp::Font::Justification justification,
-        pdcpp::Font::VerticalJustification verticalJustification,
-        PDStringEncoding encoding
+    std::string text,
+    pdcpp::Font::Justification justification,
+    pdcpp::Font::VerticalJustification verticalJustification,
+    PDStringEncoding encoding
 )
     : m_Text(std::move(text))
     , m_Border{1, 1, 5, 5}
