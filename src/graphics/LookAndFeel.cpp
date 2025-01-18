@@ -113,7 +113,7 @@ pdcpp::Color pdcpp::LookAndFeel::findColor(int colorID) const
 void pdcpp::LookAndFeel::drawTextComponent(const pdcpp::TextComponent& text)
 {
     auto localBounds = text.getLocalBounds().toInt();
-    
+
     // Don't try to draw 0-size rectangles
     if (localBounds.width == 0 || localBounds.height == 0) { return; }
 

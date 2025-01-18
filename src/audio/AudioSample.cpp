@@ -125,10 +125,9 @@ std::optional<std::unique_ptr<pdcpp::AudioSample>> pdcpp::AudioSample::loadWavFi
     if (!(header.bitsPerSample == 8 || header.bitsPerSample == 16)) { return std::nullopt; }
     if (header.numChannels > 2) { return std::nullopt; }
 
-    auto toRead = header.dataSize * (header.bitsPerSample / 8);
-    std::vector<uint8_t> data(toRead);
+    std::vector<uint8_t> data(header.dataSize, 0);
 
-    handle.read(data.data(), toRead);
+    handle.read(data.data(), header.dataSize);
 
     SoundFormat fmt;
 
