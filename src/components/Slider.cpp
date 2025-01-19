@@ -85,6 +85,7 @@ void pdcpp::Slider::redrawCachedImage()
                 laf->drawHorizontalSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
                 break;
             case Vertical:
+                laf->drawVerticalSlider(this);
                 break;
             case Rotary:
                 laf->drawRotarySlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);

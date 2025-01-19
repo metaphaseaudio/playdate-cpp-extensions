@@ -22,3 +22,8 @@ void pdcpp::Microphone::stopRecording()
 {
     m_IsRecording = false;
 }
+
+pdcpp::Microphone::~Microphone()
+{
+    pdcpp::GlobalPlaydateAPI::get()->sound->setMicCallback(nullptr, nullptr, MicSource::kMicInputAutodetect);
+}

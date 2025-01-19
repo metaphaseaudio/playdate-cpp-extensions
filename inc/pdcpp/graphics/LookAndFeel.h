@@ -25,6 +25,7 @@ namespace pdcpp
         ~LookAndFeel() override = default;
 
         virtual void drawHorizontalSlider(const playdate_graphics* g, const class Slider* slider) const;
+        virtual void drawVerticalSlider(const class Slider* slider) const;
         virtual void drawRotarySlider(const playdate_graphics* g, const class Slider* slider) const;
         virtual void drawNumericSlider(const playdate_graphics* g, const class Slider* slider) const;
 

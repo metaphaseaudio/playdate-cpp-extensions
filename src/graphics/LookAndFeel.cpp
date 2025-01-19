@@ -70,6 +70,34 @@ void pdcpp::LookAndFeel::drawHorizontalSlider(const playdate_graphics* g, const 
     g->fillPolygon(5, polyPoints, pdcpp::Colors::black, kPolygonFillNonZero);
 }
 
+void pdcpp::LookAndFeel::drawVerticalSlider(const pdcpp::Slider* slider) const
+{
+    const auto range = slider->getMax() - slider->getMin();
+    const auto ratio = (slider->getValue() - slider->getMin()) / range;
+    auto localBounds = slider->getLocalBounds();
+
+    const auto startMarker = localBounds.removeFromTop(2);
+    const auto endMarker = localBounds.removeFromBottom(2);
+    const auto center = localBounds.getCenter();
+    const auto middleLine = pdcpp::Rectangle<float>(center.x - 1, localBounds.y - 1, 2, localBounds.height);
+
+    pdcpp::Graphics::fillRectangle(startMarker.toInt(),  pdcpp::Colors::black);
+    pdcpp::Graphics::fillRectangle(endMarker.toInt(), pdcpp::Colors::black);
+    pdcpp::Graphics::fillRectangle(middleLine.toInt(),  pdcpp::Colors::solid50GrayA);
+
+    // draw the Slider
+    float sliderPosition = ratio * localBounds.height + localBounds.y;
+    std::vector<pdcpp::Point<float>> polyPoints = {
+            Point<float>(center.x, sliderPosition - 3),
+            Point<float>(localBounds.x, sliderPosition),
+            Point<float>(center.x, sliderPosition + 3),
+            Point<float>(localBounds.x + localBounds.width, sliderPosition),
+            Point<float>(center.x, sliderPosition - 3),
+    };
+    pdcpp::Graphics::fillPolygon(polyPoints, pdcpp::Colors::black, kPolygonFillNonZero);
+}
+
+
 void pdcpp::LookAndFeel::drawRotarySlider(const playdate_graphics* g, const pdcpp::Slider* slider) const
 {
     auto bounds = slider->getLocalBounds();
@@ -150,3 +178,4 @@ void pdcpp::LookAndFeel::setColor(int colorID, pdcpp::Color value)
 
 void pdcpp::LookAndFeel::resetColor(int colorID)
     { m_Colors.erase(colorID); }
+

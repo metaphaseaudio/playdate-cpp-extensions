@@ -12,11 +12,12 @@ namespace pdcpp
     {
     public:
         virtual void dataReceived(int16_t* data, int len) = 0;
+        virtual ~Microphone();
 
         void startRecording(MicSource micSource);
         void stopRecording();
 
-        [[ nodiscard ]] const bool isRecording() { return m_IsRecording; }
+        [[ nodiscard ]] bool isRecording() { return m_IsRecording; }
     private:
         bool m_IsRecording{false};
     };
