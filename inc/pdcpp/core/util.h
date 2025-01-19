@@ -118,4 +118,6 @@ namespace pdcpp
     {
         return dynamic_cast<const T*>(x) != nullptr;
     }
+
+    static double gainToDB(double gain) { return 20 * std::log10(gain); }
 }
