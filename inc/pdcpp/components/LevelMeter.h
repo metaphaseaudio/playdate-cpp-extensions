@@ -17,6 +17,7 @@ namespace pdcpp
 
     protected:
         void draw() override;
-        float m_RefreshRate, m_LowerBound, m_LowerBoundDecibel, m_Sum{0}, m_LenOfSum{0}, m_CurrentRMS{0};
+        float m_RefreshRate, m_LowerBound, m_LowerBoundDecibel, m_Sum{0},
+            m_LenOfSum{0}, m_CurrentRMS{0}, m_CurrentPeak{0}, m_RunningPeak{0};
     };
 }

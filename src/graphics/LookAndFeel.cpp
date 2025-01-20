@@ -86,7 +86,7 @@ void pdcpp::LookAndFeel::drawVerticalSlider(const pdcpp::Slider* slider) const
     pdcpp::Graphics::fillRectangle(middleLine.toInt(),  pdcpp::Colors::solid50GrayA);
 
     // draw the Slider
-    float sliderPosition = ratio * localBounds.height + localBounds.y;
+    float sliderPosition = localBounds.height - (ratio * localBounds.height) + localBounds.y;
     std::vector<pdcpp::Point<float>> polyPoints = {
             Point<float>(center.x, sliderPosition - 3),
             Point<float>(localBounds.x, sliderPosition),

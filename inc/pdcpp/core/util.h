@@ -120,4 +120,5 @@ namespace pdcpp
     }
 
     static double gainToDB(double gain) { return 20 * std::log10(gain); }
+    static double dbToGain(double db) { return std::pow(10.0, db / 20.0); }
 }
