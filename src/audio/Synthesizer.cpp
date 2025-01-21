@@ -72,3 +72,5 @@ int pdcpp::Synthesizer::getActiveVoiceCount() const
 
 pdcpp::Synthesizer::operator ::PDSynthInstrument*() const { return p_Instrument; }
 pdcpp::Synthesizer::operator ::SoundSource*() const{ return reinterpret_cast<::SoundSource*>(p_Instrument); }
+
+void pdcpp::Synthesizer::finished() {}
