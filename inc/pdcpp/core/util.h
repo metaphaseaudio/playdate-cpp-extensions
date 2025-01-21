@@ -112,12 +112,36 @@ namespace pdcpp
     };
     template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
 
-
     template<typename T, typename X>
     bool isInstance(X* x)
     {
         return dynamic_cast<const T*>(x) != nullptr;
     }
+
+    /**
+     * stride function for use with std::views::filter to enable stride_view-ish
+     * behaviours in C++20.
+     *
+     * usage:
+     *      view | std::views::filter(stride(2)); // takes every other element
+     */
+    static constexpr auto stride =  [](int n)
+    {
+        return [s=-1, n](auto const&) mutable { s = (s + 1) % n; return !s; };
+    };
+
+    /**
+     * Allows specification of std::ranges::range in function arguments.
+     *
+     * usage:
+     *      void specialized(RangeOf<int> ints) { ... }; // Function only accepts ranges of integers
+     *
+     * @tparam R
+     * @tparam V
+     */
+    template <typename R, typename V>
+    concept RangeOf = std::ranges::range<R> && std::convertible_to<std::ranges::range_value_t<R>, V>;
+
 
     static double gainToDB(double gain) { return 20 * std::log10(gain); }
     static double dbToGain(double db) { return std::pow(10.0, db / 20.0); }

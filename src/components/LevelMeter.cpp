@@ -1,6 +1,7 @@
 //
 // Created by Matt on 1/18/2025.
 //
+#include <cmath>
 #include "pdcpp/components/LevelMeter.h"
 #include "pdcpp/graphics/Graphics.h"
 #include "pdcpp/graphics/Colors.h"
@@ -32,7 +33,7 @@ void pdcpp::LevelMeter::update(const int16_t* data, int len)
     m_LenOfSum += len;
     if (m_LenOfSum >= kAudioHardwareSampleRate / m_RefreshRate)
     {
-        float rms = std::sqrtf(m_Sum / m_LenOfSum);
+        float rms = sqrtf(m_Sum / m_LenOfSum);
         m_CurrentPeak = pdcpp::gainToDB(m_RunningPeak);
         m_RunningPeak = 0;
         m_CurrentRMS = rms > m_LowerBound ? pdcpp::gainToDB(rms) : m_LowerBoundDecibel;
