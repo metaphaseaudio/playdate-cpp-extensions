@@ -22,8 +22,7 @@ namespace pdcpp
     class AudioSample
     {
     public:
-        static std::optional<std::unique_ptr<AudioSample>> loadSampleFromFile(const std::string& filename);
-        static std::optional<std::unique_ptr<AudioSample>> loadWavFile(const std::string& filename);
+        static std::optional<std::unique_ptr<pdcpp::AudioSample>> loadSampleFromFile(const std::string& filename);
 
         /**
          * Creates an AudioSample by loading the data from a file at the given
