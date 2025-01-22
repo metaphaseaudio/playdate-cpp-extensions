@@ -75,8 +75,8 @@ void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDB
     else if (pressed & PDButtons::kButtonDown)  { m_KeyRepeat.keyPressed([&](){ changeSelected(1); }); markDirty(); }
     else if (pressed & PDButtons::kButtonA)
     {
-        if      (isCancel())  { cancelCalled(); }
-        else if (isConfirm()) { confirmCalled(); }
+        if      (isCancel())  { cancelCalled(); popContext(); }
+        else if (isConfirm()) { confirmCalled(); popContext(); }
         else                  { m_KeyRepeat.keyPressed([&](){ submitSelected(); }); }
     }
     else if (pressed & PDButtons::kButtonB)     { m_KeyRepeat.keyPressed([&](){ deleteCalled(); }); }
