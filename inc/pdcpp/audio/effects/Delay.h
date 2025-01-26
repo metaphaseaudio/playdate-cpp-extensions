@@ -38,10 +38,10 @@ namespace pdcpp
             explicit Tap(::DelayLineTap* tap);
 
             // Move constructor
-            Tap(Tap&& other);
+            Tap(Tap&& other) noexcept;
 
             // Move-assignment constructor
-            Tap& operator=(Tap&& other);
+            Tap& operator=(Tap&& other) noexcept;
 
             // Destructor. Removes and frees the tap.
             ~Tap();
@@ -88,7 +88,10 @@ namespace pdcpp
          * Creates a Delay Line. This is an SoundEffect which can also route
          * data to other channels via various taps.
          *
-         * @param length the maximum length of the delay line in samples
+         * @param length the maximum length of the delay line in samples. Note:
+         *     this must be greater-than or equal the internal buffer size of
+         *     the playdate, 256 samples, else things will start sounding bad,
+         *     and/or crashing.
          * @param stereo whether or not this line is stereo or mono.
          */
         Delay(int length, bool stereo);
