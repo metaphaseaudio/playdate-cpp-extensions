@@ -145,4 +145,15 @@ namespace pdcpp
 
     static double gainToDB(double gain) { return 20 * std::log10(gain); }
     static double dbToGain(double db) { return std::pow(10.0, db / 20.0); }
+
+    template <typename T>
+    std::tuple<int, T> make_integral_and_fractional(T value)
+    {
+        auto i = static_cast<int>(value);
+        auto f = value - i;
+        return {i, f};
+    }
+
+    template <typename T>
+    static inline T linear_interpolate(T a, T b, float weight) { return a + (a - b) * weight; }
 }
