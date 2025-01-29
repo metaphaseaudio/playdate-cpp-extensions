@@ -155,5 +155,5 @@ namespace pdcpp
     }
 
     template <typename T>
-    static inline T linear_interpolate(T a, T b, float weight) { return a + (a - b) * weight; }
+    static inline T linear_interpolate(T a, T b, float weight) { return (a * (1 - weight)) + (b * weight); }
 }
