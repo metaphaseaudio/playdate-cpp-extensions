@@ -178,4 +178,3 @@ void pdcpp::LookAndFeel::setColor(int colorID, pdcpp::Color value)
 
 void pdcpp::LookAndFeel::resetColor(int colorID)
     { m_Colors.erase(colorID); }
-

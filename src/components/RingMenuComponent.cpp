@@ -14,7 +14,7 @@ void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& boun
 
     auto center = bounds.getCenter();
     auto innerBounds = bounds.reduced(thickness);
-    pdcpp::Graphics::fillEllipse(innerBounds, 0, 0, kColorWhite);
+    pdcpp::Graphics::fillEllipse(innerBounds, 0, 0, pdcpp::Colors::white);
 
     const auto outerPoint = bounds.getCenter().withY(bounds.y);
     const auto innerPoint = innerBounds.getCenter().withY(innerBounds.y);
@@ -28,7 +28,7 @@ void pdcpp::RingMenuComponent::drawSplitCircle(const pdcpp::Rectangle<int>& boun
         auto endAngle = startAngle + (stepAngle - halfGap * 2.0f);
 
         // Fill
-        pdcpp::Graphics::drawEllipse(bounds, thickness, startAngle, endAngle, select == i ? pdcpp::Colors::steppedDither5 : kColorWhite);
+        pdcpp::Graphics::drawEllipse(bounds, thickness, startAngle, endAngle, select == i ?pdcpp::Colors::steppedDither5 : pdcpp::Colors::white);
 
         pdcpp::Graphics::drawEllipse(bounds, 2, startAngle, endAngle);
         pdcpp::Graphics::drawEllipse(innerBounds, 2, startAngle, endAngle);
