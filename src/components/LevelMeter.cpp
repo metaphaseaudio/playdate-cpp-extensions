@@ -47,4 +47,3 @@ pdcpp::LevelMeter::LevelMeter(int refreshRate, float lowerBound)
     , m_LowerBound(lowerBound)
     , m_LowerBoundDecibel(pdcpp::gainToDB(m_LowerBound))
 {}
-
