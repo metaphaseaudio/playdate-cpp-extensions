@@ -42,8 +42,18 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Point<T> getBottomLeft() const;
         [[ nodiscard ]] pdcpp::Point<T> getBottomRight() const;
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
+
+        [[ nodiscard ]]  pdcpp::Point<T> getTopCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getBottomCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getLeftCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getRightCenter() const;
+
         void setCenter(pdcpp::Point<T> center);
-        
+        void alignRight(T position);
+        void alignLeft(T position);
+        void alignTop(T position);
+        void alignBottom(T position);
+
         [[ nodiscard ]] Rectangle<T> getOverlap(const Rectangle<T>& other) const;
         
         Rectangle<T> removeFromLeft(T amt);
@@ -55,6 +65,7 @@ namespace pdcpp
 
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
+
         [[ nodiscard ]] Rectangle<T> withEdgeInEllipse(const pdcpp::Rectangle<T>& ellipse, float angle);
 
         [[ nodiscard ]] Rectangle<T> withWidth(T newWidth) const;
@@ -75,6 +86,58 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Point<T> Rectangle<T>::getRightCenter() const
+    {
+        const auto center = getCenter();
+        return { x + width, center.y };
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignRight(T position)
+    {
+        x += position - (x + width);
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignLeft(T position)
+    {
+        x += position - x;
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignTop(T position)
+    {
+        y += position - y;
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignBottom(T position)
+    {
+        y += position - (y + height);
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getLeftCenter() const
+    {
+        const auto center = getCenter();
+        return { x, center.y };
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getBottomCenter() const
+    {
+        const auto center = getCenter();
+        return  { center.x, y + height };
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getTopCenter() const
+    {
+        const auto center = getCenter();
+        return { center.x, y };
+    }
 
     template<typename T>
     bool Rectangle<T>::testPoint(const Point<T>& point) const

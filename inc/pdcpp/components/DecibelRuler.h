@@ -12,18 +12,27 @@ namespace pdcpp
     {
     public:
         explicit DecibelRuler(int divisions=6, bool horizontal=false, bool invertMarkings=false);
-        void draw() override;
         void resized(const pdcpp::Rectangle<float>& newBounds) override;
 
     private:
-        struct Indicator
+        class Indicator
+            : public pdcpp::Component
         {
-            std::string text;
-            int position;
+        public:
+            explicit Indicator(bool horizontal, bool invertMarkings);
+            void setText(std::string text) { m_Text = std::move(text); };
+
+        private:
+            void draw() override;
+            void resized(const Rectangle<float>& newBounds) override;
+
+            std::string m_Text;
+            pdcpp::Rectangle<int> m_TextArea;
+            pdcpp::Point<int> m_IndicatorStart, m_IndicatorEnd;
+            const bool m_Horizontal, m_InvertMarkings;
         };
 
-        const int m_Divisions;
-        const bool m_Horizontal, m_InvertMarkings;
-        std::vector<Indicator> m_Indexes;
+        bool m_Horizontal;
+        std::vector<std::unique_ptr<Indicator>> m_Indexes;
     };
 }
