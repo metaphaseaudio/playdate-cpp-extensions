@@ -61,8 +61,9 @@ namespace pdcpp
          * Removes a source from this channel
          *
          * @param source the pdcpp::SoundSource to remove
+         * @returns whether or not the source was found/removed
          */
-        void removeSource(const pdcpp::SoundSource& source);
+        bool removeSource(const pdcpp::SoundSource& source);
 
         /**
          * Adds an effect to this channel
