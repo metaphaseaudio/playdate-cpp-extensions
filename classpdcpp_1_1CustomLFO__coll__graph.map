@@ -1,5 +1,7 @@
 <map id="pdcpp::CustomLFO" name="pdcpp::CustomLFO">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,149,181"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1LFO.html" title=" " alt="" coords="30,80,125,107"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="23,5,132,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,149,177"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1LFO.html" title=" " alt="" coords="30,79,125,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,118,80,152,75,152,75,118"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="23,5,132,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,44,80,79,75,79,75,44"/>
 </map>

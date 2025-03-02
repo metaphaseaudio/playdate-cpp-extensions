@@ -1,4 +1,5 @@
 <map id="pdcpp::LFO" name="pdcpp::LFO">
-<area shape="rect" id="node1" title=" " alt="" coords="13,80,107,107"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="13,79,107,104"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="5,5,115,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,44,63,79,57,79,57,44"/>
 </map>

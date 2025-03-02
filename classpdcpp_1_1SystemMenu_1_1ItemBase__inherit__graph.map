@@ -1,6 +1,9 @@
 <map id="pdcpp::SystemMenu::ItemBase" name="pdcpp::SystemMenu::ItemBase">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,168,112"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1SystemMenu_1_1BasicItem.html" title=" " alt="" coords="216,5,379,47"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1SystemMenu_1_1CheckmarkItem.html" title=" " alt="" coords="216,71,379,112"/>
-<area shape="rect" id="node4" href="$classpdcpp_1_1SystemMenu_1_1OptionsItem.html" title=" " alt="" coords="216,136,379,177"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,69,168,109"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1SystemMenu_1_1BasicItem.html" title=" " alt="" coords="216,5,379,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,63,230,43,232,48,167,68"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1SystemMenu_1_1CheckmarkItem.html" title=" " alt="" coords="216,69,379,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,87,216,87,216,92,182,92"/>
+<area shape="rect" id="Node000004" href="$classpdcpp_1_1SystemMenu_1_1OptionsItem.html" title=" " alt="" coords="216,133,379,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,111,232,131,230,136,166,116"/>
 </map>

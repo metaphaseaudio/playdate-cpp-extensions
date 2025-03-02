@@ -1,10 +1,17 @@
 <map id="pdcpp::SoundEffect" name="pdcpp::SoundEffect">
-<area shape="rect" id="node1" title=" " alt="" coords="5,157,152,184"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1BitCrushAndUndersample.html" title=" " alt="" coords="200,5,436,32"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1CustomSoundEffect.html" title=" " alt="" coords="220,56,416,83"/>
-<area shape="rect" id="node4" href="$classpdcpp_1_1Delay.html" title=" " alt="" coords="265,107,371,133"/>
-<area shape="rect" id="node5" href="$classpdcpp_1_1OnePoleFilter.html" title=" " alt="" coords="240,157,396,184"/>
-<area shape="rect" id="node6" href="$classpdcpp_1_1Overdrive.html" title=" " alt="" coords="251,208,385,235"/>
-<area shape="rect" id="node7" href="$classpdcpp_1_1RingModulator.html" title=" " alt="" coords="236,259,400,285"/>
-<area shape="rect" id="node8" href="$classpdcpp_1_1TwoPoleFilter.html" title=" " alt="" coords="241,309,395,336"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,153,152,179"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1BitCrushAndUndersample.html" title=" " alt="" coords="200,5,436,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,140,137,89,166,62,199,40,226,28,228,33,201,44,169,66,141,92,98,144"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1CustomSoundEffect.html" title=" " alt="" coords="220,55,416,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,143,148,115,199,89,235,78,237,83,201,94,151,119,109,147"/>
+<area shape="rect" id="Node000004" href="$classpdcpp_1_1Delay.html" title=" " alt="" coords="265,104,371,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,148,199,138,264,125,265,130,201,143,154,153"/>
+<area shape="rect" id="Node000005" href="$classpdcpp_1_1OnePoleFilter.html" title=" " alt="" coords="240,153,396,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="166,163,240,163,240,169,166,169"/>
+<area shape="rect" id="Node000006" href="$classpdcpp_1_1Overdrive.html" title=" " alt="" coords="251,203,385,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="155,179,256,200,255,205,154,184"/>
+<area shape="rect" id="Node000007" href="$classpdcpp_1_1RingModulator.html" title=" " alt="" coords="236,252,400,277"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="110,185,152,212,201,237,241,249,239,254,199,242,149,217,107,189"/>
+<area shape="rect" id="Node000008" href="$classpdcpp_1_1TwoPoleFilter.html" title=" " alt="" coords="241,301,395,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="99,188,141,239,170,265,201,286,241,302,239,307,199,291,166,269,138,243,95,192"/>
 </map>

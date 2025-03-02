@@ -1,3 +1,28 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpdcpp_1_1FileHelpers.html" title=" " alt="" coords="5,5,148,32"/>
+<area shape="rect" id="Node000000" href="$classpdcpp_1_1Component.html" title=" " alt="" coords="39,179,183,204"/>
+<area shape="rect" id="Node000001" href="$classpdcpp_1_1DecibelRuler.html" title=" " alt="" coords="311,104,463,129"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="161,171,265,139,318,127,320,132,266,145,163,177"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1GridView.html" title=" " alt="" coords="323,153,451,179"/>
+<area shape="poly" id="edge6_Node000000_Node000002" title=" " alt="" coords="197,181,322,169,323,174,197,186"/>
+<area shape="rect" id="Node000007" href="$classpdcpp_1_1LevelMeter.html" title=" " alt="" coords="315,203,458,228"/>
+<area shape="poly" id="edge9_Node000000_Node000007" title=" " alt="" coords="197,196,315,207,315,212,197,201"/>
+<area shape="rect" id="Node000006" href="$classpdcpp_1_1RingMenuComponent.html" title=" " alt="" coords="282,351,491,376"/>
+<area shape="poly" id="edge10_Node000000_Node000006" title=" " alt="" coords="132,213,187,276,225,310,267,337,294,348,292,353,264,342,221,314,183,280,128,217"/>
+<area shape="rect" id="Node000008" href="$classpdcpp_1_1Slider.html" title=" " alt="" coords="333,252,440,277"/>
+<area shape="poly" id="edge11_Node000000_Node000008" title=" " alt="" coords="162,206,266,238,334,253,332,258,265,243,160,211"/>
+<area shape="rect" id="Node000009" href="$classpdcpp_1_1TextComponent.html" title=" " alt="" coords="301,301,472,327"/>
+<area shape="poly" id="edge12_Node000000_Node000009" title=" " alt="" coords="140,211,196,250,231,271,266,288,302,299,300,304,264,292,228,275,194,255,137,215"/>
+<area shape="rect" id="Node000010" href="$classpdcpp_1_1Viewport.html" title=" " alt="" coords="323,5,450,31"/>
+<area shape="poly" id="edge13_Node000000_Node000010" title=" " alt="" coords="128,166,183,102,221,68,264,40,293,28,323,21,324,26,294,33,267,44,225,72,187,106,132,169"/>
+<area shape="rect" id="Node000012" href="$classpdcpp_1_1WaveformViewComponent.html" title=" " alt="" coords="265,55,508,80"/>
+<area shape="poly" id="edge15_Node000000_Node000012" title=" " alt="" coords="137,168,193,127,228,106,264,89,299,78,301,83,266,94,230,111,196,132,140,172"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1FileList.html" title=" " alt="" coords="605,153,720,179"/>
+<area shape="poly" id="edge7_Node000002_Node000003" title=" " alt="" coords="464,163,605,163,605,169,464,169"/>
+<area shape="rect" id="Node000004" href="$classpdcpp_1_1ListMenuComponent.html" title=" " alt="" coords="561,301,764,327"/>
+<area shape="poly" id="edge8_Node000002_Node000004" title=" " alt="" coords="465,174,509,189,554,215,594,245,651,299,648,303,591,250,551,219,507,194,463,179"/>
+<area shape="rect" id="Node000011" href="$classpdcpp_1_1ComponentFocusView.html" title=" " alt="" coords="556,5,769,31"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="464,15,556,15,556,21,464,21"/>
+<area shape="rect" id="Node000005" href="$classpdcpp_1_1MenuComponentBase.html" title=" " alt="" coords="5,376,217,401"/>
+<area shape="poly" id="edge16_Node000005_Node000004" title=" " alt="" coords="231,400,295,403,365,403,437,398,507,386,546,374,583,358,641,324,644,329,585,362,548,379,509,391,438,403,365,408,295,408,231,405"/>
+<area shape="poly" id="edge17_Node000005_Node000006" title=" " alt="" coords="231,375,281,370,282,376,231,380"/>
 </map>

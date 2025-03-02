@@ -1,0 +1,9 @@
+<map id="pdcpp::TextComponent" name="pdcpp::TextComponent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="137,93,308,119"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1Component.html" title=" " alt="" coords="5,5,149,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,35,204,91,202,95,107,40"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1Font.html" title=" " alt="" coords="174,5,271,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,45,225,93,220,93,220,45"/>
+<area shape="rect" id="Node000004" href="$structpdcpp_1_1Border.html" title=" " alt="" coords="295,5,454,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="361,44,334,71,307,86,279,96,277,91,304,81,330,67,358,40"/>
+</map>

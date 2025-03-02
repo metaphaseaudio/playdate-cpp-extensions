@@ -1,13 +1,23 @@
 <map id="pdcpp::Signal" name="pdcpp::Signal">
-<area shape="rect" id="node1" title=" " alt="" coords="5,107,115,133"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1ControlSignalContainer.html" title=" " alt="" coords="163,5,381,32"/>
-<area shape="rect" id="node4" href="$classpdcpp_1_1CustomSignal.html" title=" " alt="" coords="193,56,351,83"/>
-<area shape="rect" id="node6" href="$classpdcpp_1_1Envelope.html" title=" " alt="" coords="207,107,337,133"/>
-<area shape="rect" id="node7" href="$classpdcpp_1_1LFO.html" title=" " alt="" coords="225,157,319,184"/>
-<area shape="rect" id="node11" href="$classpdcpp_1_1SignalContainer.html" title=" " alt="" coords="186,208,358,235"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="449,5,605,32"/>
-<area shape="rect" id="node5" href="$classpdcpp_1_1ModulationChannel.html" title=" " alt="" coords="429,56,624,83"/>
-<area shape="rect" id="node8" href="$classpdcpp_1_1Arpeggiator.html" title=" " alt="" coords="454,107,599,133"/>
-<area shape="rect" id="node9" href="$classpdcpp_1_1CustomLFO.html" title=" " alt="" coords="455,157,599,184"/>
-<area shape="rect" id="node10" href="$classpdcpp_1_1WaveformLFO.html" title=" " alt="" coords="446,208,607,235"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,104,115,129"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1ControlSignalContainer.html" title=" " alt="" coords="163,5,381,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,92,119,65,162,40,194,28,195,33,164,44,122,69,87,96"/>
+<area shape="rect" id="Node000004" href="$classpdcpp_1_1CustomSignal.html" title=" " alt="" coords="193,55,351,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="124,98,162,89,212,77,213,83,163,94,125,103"/>
+<area shape="rect" id="Node000006" href="$classpdcpp_1_1Envelope.html" title=" " alt="" coords="207,104,337,129"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="128,114,207,114,207,119,128,119"/>
+<area shape="rect" id="Node000007" href="$classpdcpp_1_1LFO.html" title=" " alt="" coords="225,153,319,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="129,130,163,138,225,153,224,158,162,143,128,135"/>
+<area shape="rect" id="Node000011" href="$classpdcpp_1_1SignalContainer.html" title=" " alt="" coords="186,203,358,228"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="87,136,122,163,164,188,199,200,198,205,162,192,119,168,84,141"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="449,5,605,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="395,15,449,15,449,21,395,21"/>
+<area shape="rect" id="Node000005" href="$classpdcpp_1_1ModulationChannel.html" title=" " alt="" coords="429,55,624,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="365,65,429,65,429,70,365,70"/>
+<area shape="rect" id="Node000008" href="$classpdcpp_1_1Arpeggiator.html" title=" " alt="" coords="454,104,599,129"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="333,152,460,127,461,132,334,157"/>
+<area shape="rect" id="Node000009" href="$classpdcpp_1_1CustomLFO.html" title=" " alt="" coords="455,153,599,179"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="333,163,455,163,455,169,333,169"/>
+<area shape="rect" id="Node000010" href="$classpdcpp_1_1WaveformLFO.html" title=" " alt="" coords="446,203,607,228"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="334,175,461,200,460,205,333,180"/>
 </map>

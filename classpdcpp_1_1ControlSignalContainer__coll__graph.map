@@ -1,5 +1,8 @@
 <map id="pdcpp::ControlSignalContainer" name="pdcpp::ControlSignalContainer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,81,224,108"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="37,171,193,197"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="60,5,169,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,224,105"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1ControlSignal.html" title=" " alt="" coords="37,168,193,193"/>
+<area shape="poly" id="edge3_Node000003_Node000001" title=" " alt="" coords="115,119,115,129,116,168,111,168,109,129,110,119"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1Signal.html" title=" " alt="" coords="60,5,169,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,45,117,80,112,80,112,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,154,112,106,117,106,117,154"/>
 </map>

@@ -1,8 +1,13 @@
 <map id="pdcpp::SoundSource" name="pdcpp::SoundSource">
-<area shape="rect" id="node1" title=" " alt="" coords="5,81,159,108"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1Delay_1_1Tap.html" title=" " alt="" coords="260,5,396,32"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1SamplePlayer.html" title=" " alt="" coords="249,56,407,83"/>
-<area shape="rect" id="node4" href="$classpdcpp_1_1Synthesizer.html" title=" " alt="" coords="255,107,401,133"/>
-<area shape="rect" id="node5" href="$classpdcpp_1_1SynthesizerVoiceContainer.html" title=" " alt="" coords="207,157,449,184"/>
-<area shape="rect" id="node6" href="$classpdcpp_1_1SynthesizerVoice.html" title=" " alt="" coords="497,157,677,184"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,159,105"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1Delay_1_1Tap.html" title=" " alt="" coords="260,5,396,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,72,206,39,259,26,260,32,207,45,124,77"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1SamplePlayer.html" title=" " alt="" coords="249,55,407,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,81,248,73,249,78,173,86"/>
+<area shape="rect" id="Node000004" href="$classpdcpp_1_1Synthesizer.html" title=" " alt="" coords="255,104,401,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,99,255,107,255,112,172,104"/>
+<area shape="rect" id="Node000005" href="$classpdcpp_1_1SynthesizerVoiceContainer.html" title=" " alt="" coords="207,153,449,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="126,108,207,138,258,151,256,156,206,143,124,113"/>
+<area shape="rect" id="Node000006" href="$classpdcpp_1_1SynthesizerVoice.html" title=" " alt="" coords="497,153,677,179"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="463,163,497,163,497,169,463,169"/>
 </map>

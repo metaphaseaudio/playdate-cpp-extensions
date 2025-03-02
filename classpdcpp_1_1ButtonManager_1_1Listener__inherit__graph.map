@@ -1,5 +1,7 @@
 <map id="pdcpp::ButtonManager::Listener" name="pdcpp::ButtonManager::Listener">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node2" href="$classpdcpp_1_1InputContext.html" title=" " alt="" coords="13,95,167,121"/>
-<area shape="rect" id="node3" href="$classpdcpp_1_1TextKeyboard.html" title=" " alt="" coords="11,169,169,196"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,175,45"/>
+<area shape="rect" id="Node000002" href="$classpdcpp_1_1InputContext.html" title=" " alt="" coords="13,93,167,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,59,93,93,87,93,87,59"/>
+<area shape="rect" id="Node000003" href="$classpdcpp_1_1TextKeyboard.html" title=" " alt="" coords="11,167,169,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,132,93,167,87,167,87,132"/>
 </map>
