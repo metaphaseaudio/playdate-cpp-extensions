@@ -28,6 +28,13 @@ namespace pdcpp
             Right
         };
 
+        enum VerticalJustification
+        {
+            Top,
+            Middle,
+            Bottom
+        };
+
         /**
          * Loads a font from a given path, and provides access to basic drawing
          * functions.
@@ -46,13 +53,21 @@ namespace pdcpp
         /**
          * Measures how many pixels in width a given string would occupy if
          * drawn with this font. Use with `getFontHeight` to help determine the
-         * full area of a string
+         * full area of a string, or `getFontArea`
          *
          * @param toMeasure the string to measure
          * @param encoding the encoding of the string. default is ASCII.
          * @return the width of the string in pixels
          */
         [[ nodiscard ]] int getTextWidth(const std::string& toMeasure, PDStringEncoding encoding=kASCIIEncoding) const;
+
+        /**
+         * Returns the area required to render a string in this font
+         * @param toMeasure the string to measure
+         * @param encoding optional encoding of the string (ascii by default)
+         * @return a rectangle which would bound the text
+         */
+         [[ nodiscard ]] pdcpp::Rectangle<int> getTextArea(const std::string& toMeasure, PDStringEncoding encoding=kASCIIEncoding) const;
 
         void setTextTracking(int px) {m_Tracking = px; };
         void setTextLeading(int px) { m_Leading = px; };
@@ -101,12 +116,17 @@ namespace pdcpp
          * @param text the text to draw
          * @param bounds the bounds in which to draw the text
          * @param justification justification of the text, left/center/right
+         * @param verticalJustification vertical position of the text,
+         *      top/middle/bottom. default is top.
          * @param encoding optional encoding for the text. default is ASCII
+         *
+         * @return the actual bounds of the text
          */
-        [[ nodiscard ]] int drawWrappedText(
+        [[ nodiscard ]] pdcpp::Rectangle<float> drawWrappedText(
                 const std::string& text,
                 pdcpp::Rectangle<float> bounds,
                 pdcpp::Font::Justification justification,
+                pdcpp::Font::VerticalJustification verticalJustification=Top,
                 PDStringEncoding encoding=kASCIIEncoding) const;
 
         /**

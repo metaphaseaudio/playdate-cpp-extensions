@@ -9,6 +9,7 @@
  */
 #pragma once
 #include <algorithm>
+#include <optional>
 #include <sstream>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
@@ -86,4 +87,73 @@ namespace pdcpp
         out << std::fixed << a_value;
         return std::move(out).str();
     }
+
+
+    /**
+     * Template class that allows std::visit to take a group of lambda functions
+     *
+     * To use:
+     * ```
+     * std::variant<int, float, std::string> myVariant;
+     *
+     * std::visit(
+     *     Overload
+     *     {
+     *         [](int val) { ... },
+     *         [](std::string& val) { ... },
+     *         [](float val) { ... },
+     *     },
+     *     myVariant);
+     * ```
+     */
+    template<typename... Ts>
+    struct Overload : Ts... {
+        using Ts::operator()...;
+    };
+    template<class... Ts> Overload(Ts...) -> Overload<Ts...>;
+
+    template<typename T, typename X>
+    bool isInstance(X* x)
+    {
+        return dynamic_cast<const T*>(x) != nullptr;
+    }
+
+    /**
+     * stride function for use with std::views::filter to enable stride_view-ish
+     * behaviours in C++20.
+     *
+     * usage:
+     *      view | std::views::filter(stride(2)); // takes every other element
+     */
+    static constexpr auto stride =  [](int n)
+    {
+        return [s=-1, n](auto const&) mutable { s = (s + 1) % n; return !s; };
+    };
+
+    /**
+     * Allows specification of std::ranges::range in function arguments.
+     *
+     * usage:
+     *      void specialized(RangeOf<int> ints) { ... }; // Function only accepts ranges of integers
+     *
+     * @tparam R
+     * @tparam V
+     */
+    template <typename R, typename V>
+    concept RangeOf = std::ranges::range<R> && std::convertible_to<std::ranges::range_value_t<R>, V>;
+
+
+    static double gainToDB(double gain) { return 20 * std::log10(gain); }
+    static double dbToGain(double db) { return std::pow(10.0, db / 20.0); }
+
+    template <typename T>
+    std::tuple<int, T> make_integral_and_fractional(T value)
+    {
+        auto i = static_cast<int>(value);
+        auto f = value - i;
+        return {i, f};
+    }
+
+    template <typename T>
+    static inline T linear_interpolate(T a, T b, float weight) { return (a * (1 - weight)) + (b * weight); }
 }

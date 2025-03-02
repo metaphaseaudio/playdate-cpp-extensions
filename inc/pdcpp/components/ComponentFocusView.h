@@ -66,6 +66,7 @@ namespace pdcpp
          * container component
          */
         [[ nodiscard ]] pdcpp::Component* getFocusContainerChild(int i) const;
+
         /**
          * Removes all children from the container.
          */

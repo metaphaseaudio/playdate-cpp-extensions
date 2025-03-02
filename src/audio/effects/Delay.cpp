@@ -19,11 +19,11 @@ pdcpp::Delay::Tap::Tap(::DelayLineTap* tap)
     // enableFinishedCallback();
 }
 
-pdcpp::Delay::Tap::Tap(pdcpp::Delay::Tap&& other)
+pdcpp::Delay::Tap::Tap(pdcpp::Delay::Tap&& other) noexcept
     : p_Tap(other.p_Tap)
 { other.p_Tap = nullptr; }
 
-pdcpp::Delay::Tap& pdcpp::Delay::Tap::operator=(pdcpp::Delay::Tap&& other)
+pdcpp::Delay::Tap& pdcpp::Delay::Tap::operator=(pdcpp::Delay::Tap&& other) noexcept
 {
     p_Tap = other.p_Tap;
     other.p_Tap = nullptr;

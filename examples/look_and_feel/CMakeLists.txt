@@ -1,0 +1,5 @@
+project(PlaydateCPPExtensionsLookAndFeelExample)
+add_playdate_application(pdcpp_example_look_and_feel)
+file(GLOB_RECURSE PDCPP_EXAMPLE_LOOK_AND_FEEL_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*)
+target_sources(pdcpp_example_look_and_feel PUBLIC ${PDCPP_EXAMPLE_LOOK_AND_FEEL_SRC})
+target_link_libraries(pdcpp_example_look_and_feel PUBLIC pdcpp)

@@ -30,10 +30,10 @@ namespace pdcpp
         Synthesizer();
 
         // Move constructor
-        Synthesizer(Synthesizer&& other);
+        Synthesizer(Synthesizer&& other) noexcept;
 
         // Move-assignment constructor
-        Synthesizer& operator=(Synthesizer&& other);
+        Synthesizer& operator=(Synthesizer&& other) noexcept;
 
         // Destructor. Frees internal C API pointer.
         ~Synthesizer();
@@ -120,6 +120,10 @@ namespace pdcpp
 
         [[ nodiscard ]] operator ::PDSynthInstrument*() const;  // NOLINT(*-explicit-constructor)
         [[ nodiscard ]] operator ::SoundSource*() const override;  // NOLINT(*-explicit-constructor)
+
+        // Implements base class so this class can be used without specialization.
+        void finished() override;
+
     private:
         PDSynthInstrument* p_Instrument;
         PDCPP_DECLARE_NON_COPYABLE(Synthesizer);

@@ -63,6 +63,11 @@ namespace pdcpp
         [[ nodiscard ]] virtual int getColWidth(int i) const = 0;
 
         /**
+         * @returns the total bounds of every cell in the grid
+         */
+        [[ nodiscard ]] Rectangle<int> getFullContentBounds() const;
+
+        /**
          * Sets the cell at a given row/column as being in user focus.
          * Optionally, if the cell is not currently in the Viewport, move that
          * cell into the viewport.
@@ -71,8 +76,13 @@ namespace pdcpp
          * @param column the column of the cell for focus
          * @param shouldShowCell whether or not to move the Viewport to show the
          *     cell. On by default.
+         * @param limit if limit is off, you can "deselect" by focusing on an
+         *     element outside the range of the grid. The window will still
+         *     scroll to the most relevant edge of the grid, but `isFocused`
+         *     will be false for all elements when `refreshComponentForCell` is
+         *     called. defaults to enabled.
          */
-        void setCellFocus(int row, int column, bool shouldShowCell=true);
+        void setCellFocus(int row, int column, bool shouldShowCell=true, bool limit=true);
 
         /**
          * @returns the row and column numbers currently focused as a Point.
@@ -104,7 +114,7 @@ namespace pdcpp
         /**
          * Override this to provide content for each of the GridView's cells.
          * It will be called during `refreshContent`. Note that the GridView
-         * will not take ownership of the Component, so the user must manage
+         * will take ownership of the Component, so the user must not manage
          * its lifecycle.
          *
          * @param row the row of the cell to return
@@ -112,11 +122,12 @@ namespace pdcpp
          * @param hasFocus indicate whether this cell has focus
          * @param toUpdate the current Component in the cell, if any. Use this
          *     to either update the current component, or return a new one.
+         *     The GridView will own this component.
          * @return the component which will be displayed in the specified cell.
          *     if no updates are needed, you can return the exact same pointer
          *     as `toUpdate`.
          */
-        virtual Component* refreshComponentForCell(int row, int column, bool hasFocus, Component* toUpdate) = 0;
+        virtual Component* refreshComponentForCell (int row, int column, bool hasFocus, Component* toUpdate) = 0;
 
         // Overrides base class method
         void resized(const Rectangle<float>& newBounds) override;
@@ -125,7 +136,6 @@ namespace pdcpp
         int m_ColFocus{0}, m_RowFocus{0};
         pdcpp::Component m_Content;
         pdcpp::ComponentFocusView m_Container;
-        std::vector<std::vector<Component*>> m_Cells;
+        std::vector<std::vector<std::unique_ptr<Component>>> m_Cells;
     };
-
 }

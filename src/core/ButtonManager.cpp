@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <pdcpp/core/ButtonManager.h>
+#include <cassert>
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 
 
@@ -34,7 +35,13 @@ void pdcpp::ButtonManager::addListener(pdcpp::ButtonManager::Listener* toAdd)
 void pdcpp::ButtonManager::removeListener(pdcpp::ButtonManager::Listener* toRemove)
 {
     if (toRemove == nullptr) { return; }
-    m_Listeners.erase(std::find(m_Listeners.begin(), m_Listeners.end(), toRemove));
+    auto found = std::find(m_Listeners.begin(), m_Listeners.end(), toRemove);
+    if (found == m_Listeners.end())
+    {
+        // Tried to remove a listener not owned by this manager!
+        return;
+    }
+    m_Listeners.erase(found);
 }
 
 pdcpp::KeyRepeatTimer::KeyRepeatTimer(int initialDelayMs, int repeatDelayMs)

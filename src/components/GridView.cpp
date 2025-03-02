@@ -29,11 +29,13 @@ void pdcpp::GridView::refreshContent()
         for (int colI = 0; colI < getNumCols(); colI++)
         {
             const auto width = getColWidth(colI) == 0 ? bounds.width : getColWidth(colI);
-            auto* comp = refreshComponentForCell(rowI, colI, m_RowFocus == rowI && m_ColFocus == colI, m_Cells.at(rowI).at(colI));
+            auto comp = refreshComponentForCell(rowI, colI, m_RowFocus == rowI && m_ColFocus == colI, m_Cells.at
+            (rowI).at(colI).get());
 
             // You must return a component, even if you want it to be blank!
             assert(comp != nullptr);
-            m_Cells.at(rowI).at(colI) = comp;
+            if (m_Cells.at(rowI).at(colI).get() != comp)
+                { m_Cells.at(rowI).at(colI).reset(comp); }
 
             comp->setBounds(pdcpp::Rectangle<float>(horizontalOffset, verticalOffset, width, height));
             m_Container.addChildToFocusContainer(comp);
@@ -50,12 +52,12 @@ void pdcpp::GridView::resized(const pdcpp::Rectangle<float>& newBounds)
     refreshContent();
 }
 
-void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell)
+void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell, bool limit)
 {
     if (getNumRows() == 0 || getNumCols() == 0) { return; }
 
-    m_RowFocus = pdcpp::limit(0, getNumRows() - 1, row);
-    m_ColFocus = pdcpp::limit(0, getNumCols() - 1, column);
+    m_RowFocus = limit ? pdcpp::limit(0, getNumRows() - 1, row) : row;
+    m_ColFocus = limit ? pdcpp::limit(0, getNumCols() - 1, column) : column;
 
     // Refresh here to let the component update based on the new focus
     refreshContent();
@@ -66,6 +68,8 @@ void pdcpp::GridView::setCellFocus(int row, int column, bool shouldShowCell)
 
 void pdcpp::GridView::displayCell(int row, int column)
 {
+    row = pdcpp::limit(0, getNumRows() - 1, row);
+    column = pdcpp::limit(0, getNumCols() - 1, column);
     m_Container.bringComponentIntoView(row * getNumCols() + column);
 }
 
@@ -82,5 +86,10 @@ void pdcpp::GridView::scrollX(int px)
 void pdcpp::GridView::scrollY(int px)
 {
     m_Container.moveContentBy(0, px, true);
+}
+
+pdcpp::Rectangle<int> pdcpp::GridView::getFullContentBounds() const
+{
+    return m_Content.getBounds().toInt();
 }
 

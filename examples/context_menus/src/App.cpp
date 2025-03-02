@@ -12,6 +12,7 @@
 #include <pdcpp/graphics/Colors.h>
 #include <pdcpp/graphics/ScopedGraphicsContext.h>
 #include <pdcpp/core/GlobalPlaydateAPI.h>
+#include <pdcpp/graphics/LookAndFeel.h>
 
 const std::string kLorumIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore "
                                 "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
@@ -31,7 +32,6 @@ void TextBlock::draw()
     bounds.height = targetHeight;
     setBounds(bounds);
 }
-
 
 void ExitButton::draw()
 {
@@ -122,7 +122,8 @@ App::App()
     : m_ContextManager(this)
     , m_Menu(kLorumIpsum)
 {
-    m_Menu.setBounds(pdcpp::Graphics::getScreenBounds().reduced(20).toFloat());
+    auto screenBounds = pdcpp::Graphics::getScreenBounds();
+    m_Menu.setBounds(screenBounds.reduced(20).toFloat());
 }
 
 int App::update()
@@ -135,6 +136,7 @@ int App::update()
         pdcpp::ScopedGraphicsContext context(screenBounds);
         pdcpp::GlobalPlaydateAPI::get()->graphics->setDrawMode(kDrawModeNXOR);
         pdcpp::Graphics::fillRectangle(screenBounds, kColorWhite);
+
         std::string msg = "Press  A  to enter crank-able context.";
         const auto font = pdcpp::LookAndFeel::getDefaultLookAndFeel()->getDefaultFont();
         const auto screenCenter = screenBounds.getCenter();

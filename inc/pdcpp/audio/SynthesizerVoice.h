@@ -23,6 +23,7 @@ namespace pdcpp
     {
     public:
         static constexpr int kFloatScalar = 0x7fffff;
+        static constexpr uint32_t k1HzAccum = 97391; // 1Hz at 44100.
 
         /**
          * Create a custom generator for a synthesizer voice. Inherit from this,
@@ -259,10 +260,16 @@ namespace pdcpp
         /**
          * stops the currently playing note.
          *
-         * @param when an optional time at which to stop the note. 0 to stop
-         *     immediately. Default 0.
+         * @param when an optional time at which to stop the note, transitioning
+         *     to the release portion of the envelope. Default 0, or "now".
          */
         void noteOff(uint32_t when=0);
+
+        /**
+         * Stops the currently playing note immediately without allowing it to
+         * release
+         */
+        void stop();
 
         /**
          * Sets the transposition of the voice. Virtual because Synth voices
@@ -276,8 +283,7 @@ namespace pdcpp
         /**
          * implicit conversion to a ::PDSynth* for use with the C API
          */
-        [[nodiscard]] operator ::PDSynth*() const
-        { return p_Synth; } // NOLINT(*-explicit-constructor)
+        [[nodiscard]] operator ::PDSynth*() const { return p_Synth; } // NOLINT(*-explicit-constructor)
 
         // Implements base class
         [[nodiscard]] operator ::SoundSource*() const override;  // NOLINT (*-explicit-constructor)
@@ -296,7 +302,8 @@ namespace pdcpp
     {
     public:
         /**
-         * Creates a new SynthesizerVoiceContainer. Does not own the pointer
+         * Creates a new SynthesizerVoice. This class does own the underlying
+         * memory.
          */
         SynthesizerVoice();
 

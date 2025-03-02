@@ -34,7 +34,7 @@ void pdcpp::Viewport::draw()
 {
     if (p_Content == nullptr) { return; }
 
-    auto img = pdcpp::Image::drawAsImage(p_Content->getBounds(), [&](const playdate_graphics* g) {
+    auto img = pdcpp::Image::drawAsImage(p_Content->getBounds(), [&]() {
         p_Content->redraw();
     });
 

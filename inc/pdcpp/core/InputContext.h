@@ -108,12 +108,18 @@ namespace pdcpp
         void pushContext(InputContext* newContext);
 
         /**
-         * Pops the top-most context off the stack, unless it's the base
-         * context, passing context input to the next context in the stack. The
-         * popped context will be notified of the exit, and the new context will
-         * be notified of entry.
+         * Pops a context from the stack, unless it's the base context.
+         *
+         * When popping the topmost, active context, control will be passed to
+         * the next context in the stack. The popped context will be notified of
+         * the exit, and the new context will be notified of entry.
+         *
+         * When popping an internal context, no notifications will be sent as
+         * no control has been passed.
+         *
+         * By default, this will pop the topmost context.
          */
-        void popContext();
+        void popContext(int index=0);
 
         /**
          * Pops *all* contexts off the stack, down to the base context,
@@ -129,5 +135,4 @@ namespace pdcpp
     private:
         std::deque<InputContext*> m_ContextStack;
     };
-
 }

@@ -12,6 +12,7 @@
 #include "pdcpp/components/Slider.h"
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 #include "pdcpp/graphics/Graphics.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 
 void pdcpp::Slider::draw()
 {
@@ -76,7 +77,7 @@ void pdcpp::Slider::notifyListeners()
 void pdcpp::Slider::redrawCachedImage()
 {
     auto bounds = getBounds();
-    m_CachedImage = pdcpp::Image::drawAsImage(bounds, [&](const playdate_graphics* g){
+    m_CachedImage = pdcpp::Image::drawAsImage(bounds, [&](){
         auto laf = getLookAndFeel();
         switch (m_Style)
         {
@@ -84,6 +85,7 @@ void pdcpp::Slider::redrawCachedImage()
                 laf->drawHorizontalSlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);
                 break;
             case Vertical:
+                laf->drawVerticalSlider(this);
                 break;
             case Rotary:
                 laf->drawRotarySlider(pdcpp::GlobalPlaydateAPI::get()->graphics, this);

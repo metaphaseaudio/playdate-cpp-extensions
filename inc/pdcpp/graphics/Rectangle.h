@@ -12,6 +12,7 @@
 #include <pd_api.h>
 #include <cassert>
 #include "Point.h"
+#include "pdcpp/core/util.h"
 
 
 namespace pdcpp
@@ -41,8 +42,18 @@ namespace pdcpp
         [[ nodiscard ]] pdcpp::Point<T> getBottomLeft() const;
         [[ nodiscard ]] pdcpp::Point<T> getBottomRight() const;
         [[ nodiscard ]] pdcpp::Point<T> getCenter() const;
+
+        [[ nodiscard ]]  pdcpp::Point<T> getTopCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getBottomCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getLeftCenter() const;
+        [[ nodiscard ]]  pdcpp::Point<T> getRightCenter() const;
+
         void setCenter(pdcpp::Point<T> center);
-        
+        void alignRight(T position);
+        void alignLeft(T position);
+        void alignTop(T position);
+        void alignBottom(T position);
+
         [[ nodiscard ]] Rectangle<T> getOverlap(const Rectangle<T>& other) const;
         
         Rectangle<T> removeFromLeft(T amt);
@@ -54,6 +65,8 @@ namespace pdcpp
 
         [[ nodiscard ]] Rectangle<T> withOrigin(const pdcpp::Point<T>& newOrigin) const;
         [[ nodiscard ]] Rectangle<T> withCenter(const pdcpp::Point<T>& newCenter) const;
+
+        [[ nodiscard ]] Rectangle<T> withEdgeInEllipse(const pdcpp::Rectangle<T>& ellipse, float angle);
 
         [[ nodiscard ]] Rectangle<T> withWidth(T newWidth) const;
         [[ nodiscard ]] Rectangle<T> withHeight(T newHeight) const;
@@ -73,6 +86,58 @@ namespace pdcpp
 
         T x = 0, y = 0, width = 0, height = 0;
     };
+
+    template<typename T>
+    Point<T> Rectangle<T>::getRightCenter() const
+    {
+        const auto center = getCenter();
+        return { x + width, center.y };
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignRight(T position)
+    {
+        x += position - (x + width);
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignLeft(T position)
+    {
+        x += position - x;
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignTop(T position)
+    {
+        y += position - y;
+    }
+
+    template<typename T>
+    void Rectangle<T>::alignBottom(T position)
+    {
+        y += position - (y + height);
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getLeftCenter() const
+    {
+        const auto center = getCenter();
+        return { x, center.y };
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getBottomCenter() const
+    {
+        const auto center = getCenter();
+        return  { center.x, y + height };
+    }
+
+    template<typename T>
+    Point<T> Rectangle<T>::getTopCenter() const
+    {
+        const auto center = getCenter();
+        return { center.x, y };
+    }
 
     template<typename T>
     bool Rectangle<T>::testPoint(const Point<T>& point) const
@@ -199,4 +264,22 @@ namespace pdcpp
         height -= amt;
         return rv;
     }
+
+    template<typename T>
+    Rectangle<T> Rectangle<T>::withEdgeInEllipse(const pdcpp::Rectangle<T>& ellipse, float angle)
+    {
+        auto a = ellipse.width / 2;
+        auto b = ellipse.height / 2;
+        auto radius = (a * b) / std::sqrt(std::pow(b * std::cos(angle), 2) + std::pow(a * std::sin(angle), 2));
+
+        auto m = std::floor(2.0f * angle / kPI);
+        auto theta = std::pow(-1, m) * T(angle - std::floor((m + 1) / 2.0f) * kPI);
+        b = width * std::cos(theta) + height * std::sin(theta);
+        auto d = std::pow(b, 2) + 4 * std::pow(radius, 2) - std::pow(width, 2) - std::pow(height, 2);
+
+        d = (std::sqrt(d) - b) / 2.0f;
+        auto newCenter = pdcpp::Point<T>(d * std::cos(angle), d * std::sin(angle));
+        newCenter = ellipse.getCenter() + newCenter;
+        return withCenter(newCenter);
+    };
 }

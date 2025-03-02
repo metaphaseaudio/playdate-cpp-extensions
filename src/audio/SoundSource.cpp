@@ -18,8 +18,12 @@ static void finishedCallback(SoundSource* c, void* userdata)
     thisPtr->finished();
 }
 
-bool pdcpp::SoundSource::isPlaying() const { return pdcpp::GlobalPlaydateAPI::get()->sound->source->isPlaying(*this); }
-void pdcpp::SoundSource::setVolume(float lvol, float rvol) { pdcpp::GlobalPlaydateAPI::get()->sound->source->setVolume(*this, lvol, rvol); }
+bool pdcpp::SoundSource::isPlaying() const
+    { return pdcpp::GlobalPlaydateAPI::get()->sound->source->isPlaying(*this); }
+
+void pdcpp::SoundSource::setVolume(float lvol, float rvol)
+    { pdcpp::GlobalPlaydateAPI::get()->sound->source->setVolume(*this, lvol, rvol); }
+
 std::pair<float, float> pdcpp::SoundSource::getVolume() const
 {
     float lvol, rvol;

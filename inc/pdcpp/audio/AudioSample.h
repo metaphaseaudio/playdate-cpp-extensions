@@ -10,6 +10,10 @@
 
 #pragma once
 #include <string>
+#include <utility>
+#include <optional>
+#include <vector>
+#include <memory>
 #include <pd_api.h>
 
 
@@ -18,6 +22,8 @@ namespace pdcpp
     class AudioSample
     {
     public:
+        static std::optional<std::unique_ptr<pdcpp::AudioSample>> loadSampleFromFile(const std::string& filename);
+
         /**
          * Creates an AudioSample by loading the data from a file at the given
          * path (will automatically account for most PCM *.wav format headers.)
@@ -50,7 +56,7 @@ namespace pdcpp
         AudioSample& operator=(AudioSample&& other) noexcept;
 
         // Destructor
-        ~AudioSample();
+        virtual ~AudioSample();
 
         /**
          * @returns a pointer to the underlying data in bytes of this
@@ -106,12 +112,26 @@ namespace pdcpp
          */
         [[ nodiscard ]] operator ::AudioSample* () const { return p_Sample; } // NOLINT (*-explicit-constructor)
 
-    public:
-        ::AudioSample* p_Sample;
-
         // This object is non-copyable, *particularly* when owning the provided
         // data.
         AudioSample(const AudioSample&) = delete;
         AudioSample& operator= (AudioSample&) = delete;
+
+        void setData(uint8_t* data, SoundFormat format, uint32_t sampleRate, int byteCount, bool shouldFreeData);
+
+    protected:
+        AudioSample(): p_Sample(nullptr) {};
+
+    private:
+        ::AudioSample* p_Sample;
+    };
+
+    class AudioSampleWithData
+        : public AudioSample
+    {
+    public:
+        AudioSampleWithData(std::vector<uint8_t> data, SoundFormat format, uint32_t sampleRate);
+    private:
+        std::vector<uint8_t> m_Data;
     };
 }

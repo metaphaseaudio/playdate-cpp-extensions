@@ -29,7 +29,7 @@ namespace pdcpp
          * @param height the height of the image
          * @param bgColor the fill color. default is clear.
          */
-        Image(int width=0, int height=0, LCDColor bgColor=kColorClear);
+        explicit Image(int width=0, int height=0, LCDColor bgColor=kColorClear);
 
         /**
          * Loads an image from a given path and manages its memory. Any issues
@@ -226,7 +226,7 @@ namespace pdcpp
          * @return the drawn image
          */
         static Image drawAsImage
-            (const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor=kColorClear);
+            (const PDRect& bounds, const std::function<void()>& drawFunc, LCDSolidColor fillColor=kColorClear);
 
         /**
          * Provides access to the underlying LCDBitmap for use with the C API.

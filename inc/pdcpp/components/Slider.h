@@ -10,6 +10,7 @@
 #pragma once
 #include <functional>
 #include "Component.h"
+#include <pdcpp/graphics/Image.h>
 
 namespace pdcpp
 {

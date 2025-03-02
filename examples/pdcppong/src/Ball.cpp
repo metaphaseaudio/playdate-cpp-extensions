@@ -13,6 +13,7 @@
 #include "pdcpp/core/GlobalPlaydateAPI.h"
 #include "SpriteTags.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
+#include "pdcpp/graphics/Colors.h"
 
 
 #define PI 3.121459f
@@ -121,7 +122,7 @@ void pdcppong::Ball::update()
 void pdcppong::Ball::redraw(const pdcpp::Rectangle<float>& bounds, const pdcpp::Rectangle<float>& drawrect)
 {
     pdcpp::ScopedGraphicsContext context(bounds);
-    pdcpp::GlobalPlaydateAPI::get()->graphics->drawEllipse(0, 0, bounds.width, bounds.height, bounds.width / 2.0f, 0, 0, kColorBlack);
+    pdcpp::GlobalPlaydateAPI::get()->graphics->drawEllipse(0, 0, bounds.width, bounds.height, bounds.width / 2.0f, 0, 0, pdcpp::Colors::black);
 }
 
 SpriteCollisionResponseType pdcppong::Ball::handleCollision(pdcpp::Sprite* other)

@@ -46,6 +46,13 @@ pdcpp::Image::Image(pdcpp::Image&& other) noexcept
 
 pdcpp::Image& pdcpp::Image::operator=(pdcpp::Image&& other) noexcept
 {
+    if (p_Data != nullptr)
+    {
+        // Free any residual data
+        auto pd = pdcpp::GlobalPlaydateAPI::get();
+        pd->graphics->freeBitmap(p_Data);
+    }
+
     p_Data = other.p_Data;
     other.p_Data = nullptr;
     return *this;
@@ -118,11 +125,15 @@ void pdcpp::Image::fill(LCDColor color)
     pdcpp::GlobalPlaydateAPI::get()->graphics->clearBitmap(p_Data, color);
 }
 
-pdcpp::Image pdcpp::Image::drawAsImage(const PDRect& bounds, const std::function<void(const playdate_graphics*)>& drawFunc, LCDSolidColor fillColor)
+pdcpp::Image pdcpp::Image::drawAsImage(const PDRect& bounds, const std::function<void()>& drawFunc, LCDSolidColor fillColor)
 {
-    pdcpp::ScopedGraphicsContext context(bounds, fillColor, false);
-    drawFunc(pdcpp::GlobalPlaydateAPI::get()->graphics);
-    return context.getCopyAsImage();
+    // Using a raw graphics context here to avoid having to call for a copy
+    auto pd = pdcpp::GlobalPlaydateAPI::get();
+    auto context = pd->graphics->newBitmap(int(bounds.width), int(bounds.height), fillColor);
+    pd->graphics->pushContext(context);
+    drawFunc();
+    pd->graphics->popContext();
+    return std::move(pdcpp::Image(context));
 }
 
 pdcpp::Rectangle<int> pdcpp::Image::getBounds() const

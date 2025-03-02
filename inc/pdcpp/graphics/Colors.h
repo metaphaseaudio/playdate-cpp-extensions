@@ -9,32 +9,37 @@
  */
 #pragma once
 #include <pd_api.h>
+#include <pdcpp/graphics/Color.h>
 
 namespace pdcpp
 {
     class Colors
     {
     public:
-        static LCDColor transparent50GrayA;
-        static LCDColor transparent50GrayB;
-        static LCDColor solid50GrayA;
-        static LCDColor solid50GrayB;
-        static LCDColor sparseCheckerA;
 
-        static LCDColor thickVerticalLinesA;
-        static LCDColor verticalLines25A;
-        static LCDColor diagonalLinesRightWhiteOnBlack;
-        static LCDColor diagonalLinesRightBlackOnWhite;
+        static pdcpp::Color transparent50GrayA;
+        static pdcpp::Color transparent50GrayB;
+        static pdcpp::Color solid50GrayA;
+        static pdcpp::Color solid50GrayB;
+        static pdcpp::Color sparseCheckerA;
 
-        static LCDColor steppedDither0;
-        static LCDColor steppedDither1;
-        static LCDColor steppedDither2;
-        static LCDColor steppedDither3;
-        static LCDColor steppedDither4;
-        static LCDColor steppedDither5;
-        static LCDColor steppedDither6;
+        static pdcpp::Color thickVerticalLinesA;
+        static pdcpp::Color verticalLines25A;
+        static pdcpp::Color diagonalLinesRightWhiteOnBlack;
+        static pdcpp::Color diagonalLinesRightBlackOnWhite;
+        static pdcpp::Color black;
+        static pdcpp::Color white;
+        static pdcpp::Color clear;
 
-        static LCDColor gradient[9];
+        static pdcpp::Color steppedDither0;
+        static pdcpp::Color steppedDither1;
+        static pdcpp::Color steppedDither2;
+        static pdcpp::Color steppedDither3;
+        static pdcpp::Color steppedDither4;
+        static pdcpp::Color steppedDither5;
+        static pdcpp::Color steppedDither6;
+
+        static pdcpp::Color gradient[9];
 
     };
 }

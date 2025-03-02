@@ -27,11 +27,13 @@ namespace pdcpp
          */
         SamplePlayer();
 
+        void finished() override;
+
         // Move constructor
-        SamplePlayer(SamplePlayer&& other);
+        SamplePlayer(SamplePlayer&& other) noexcept ;
 
         // Move assignment constructor
-        SamplePlayer& operator=(SamplePlayer&& other);
+        SamplePlayer& operator=(SamplePlayer&& other) noexcept ;
 
         // Destructor. Frees the internal sample player
         ~SamplePlayer();

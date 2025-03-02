@@ -21,6 +21,7 @@
 #include <pdcpp/graphics/Font.h>
 #include <pdcpp/components/Viewport.h>
 #include <pdcpp/core/InputContext.h>
+#include "pdcpp/components/RingMenuComponent.h"
 
 
 /**

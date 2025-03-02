@@ -11,7 +11,7 @@
 #include <algorithm>
 #include <cassert>
 #include "pdcpp/components/Component.h"
-#include "pdcpp/graphics/ScopedGraphicsContext.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 
 
 void pdcpp::Component::setBounds(pdcpp::Rectangle<float> bounds)
@@ -110,8 +110,24 @@ pdcpp::LookAndFeel* pdcpp::Component::getLookAndFeel() const
 void pdcpp::Component::setLookAndFeel(pdcpp::LookAndFeel* newLAF)
 {
     m_CustomLookAndFeel = newLAF;
+
     for (auto& child : m_Children)
         { child->setLookAndFeel(newLAF); }
 
     lookAndFeelChanged();
 }
+
+pdcpp::Color pdcpp::Component::findColor(int colourID, bool inheritFromParent) const
+{
+    if (m_Colors.contains(colourID))
+        { return m_Colors.at(colourID); }
+
+    if (inheritFromParent && p_Parent != nullptr)
+        { return p_Parent->findColor(colourID, true); }
+
+    return getLookAndFeel()->findColor(colourID);
+}
+
+void pdcpp::Component::setColor(int colorID,  pdcpp::Color color) { m_Colors[colorID] = color; }
+void pdcpp::Component::resetColorToDefault(int colorID){ if (m_Colors.contains(colorID)) { m_Colors.erase(colorID); } }
+bool pdcpp::Component::isColorSpecified(int colorID) const { return m_Colors.contains(colorID); }

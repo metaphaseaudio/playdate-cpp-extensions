@@ -9,8 +9,6 @@
  */
 
 #include <pdcpp/core/InputContext.h>
-#include <cassert>
-
 
 void pdcpp::InputContext::popContext()
 {
@@ -20,11 +18,7 @@ void pdcpp::InputContext::popContext()
 
 void pdcpp::InputContext::pushChildContext(pdcpp::InputContext* context)
 {
-    if (p_CurrentManager == nullptr)
-    {
-        assert(false);
-        return;
-    }
+    if (p_CurrentManager == nullptr){ return; }
     p_CurrentManager->pushContext(context);
 }
 
@@ -66,21 +60,34 @@ void pdcpp::InputContextManager::pushContext(InputContext* newContext)
     newContext->contextEntered();
 }
 
-void pdcpp::InputContextManager::popContext()
+void pdcpp::InputContextManager::popContext(int index)
 {
-    if (m_ContextStack.size() <= 1) { return; }
+    // Only pop contexts that are poppable.
+    if (m_ContextStack.size() <= 1 || index < 0 || index >= m_ContextStack.size()) { return; }
 
-    pdcpp::ButtonManager::removeListener(m_ContextStack.back());
-    pdcpp::CrankManager::removeListener(m_ContextStack.back());
+    // If we're popping a specific context that *isn't* the topmost context, we
+    // can do that without notifying anyone since no context is entered/exited.
+    if (index > 0 && index < m_ContextStack.size() - 1)
+    {
+        m_ContextStack.erase(m_ContextStack.begin() + index);
+        return;
+    }
 
-    m_ContextStack.back()->p_CurrentManager = nullptr;
-    m_ContextStack.back()->contextExited();
+    // Otherwise we're popping the top of the stack, context is changing, so
+    // people need to be notified.
+    InputContext* lastContext = m_ContextStack.back();
+    pdcpp::ButtonManager::removeListener(lastContext);
+    pdcpp::CrankManager::removeListener(lastContext);
+    lastContext->p_CurrentManager = nullptr;
+
     m_ContextStack.pop_back();
 
-    pdcpp::ButtonManager::addListener(m_ContextStack.back());
-    pdcpp::CrankManager::addListener(m_ContextStack.back());
+    InputContext* nextContext = m_ContextStack.back();
+    pdcpp::ButtonManager::addListener(nextContext);
+    pdcpp::CrankManager::addListener(nextContext);
 
-    m_ContextStack.back()->contextEntered();
+    lastContext->contextExited();
+    nextContext->contextEntered();
 }
 
 void pdcpp::InputContextManager::resetToBaseContext()

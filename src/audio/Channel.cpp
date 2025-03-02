@@ -32,8 +32,8 @@ pdcpp::Channel::~Channel()
 void pdcpp::Channel::addSource(const pdcpp::SoundSource& source)
     { pdcpp::GlobalPlaydateAPI::get()->sound->channel->addSource(p_Chan, source); }
 
-void pdcpp::Channel::removeSource(const pdcpp::SoundSource& source)
-    { pdcpp::GlobalPlaydateAPI::get()->sound->channel->removeSource(p_Chan, source); }
+bool pdcpp::Channel::removeSource(const pdcpp::SoundSource& source)
+    { return pdcpp::GlobalPlaydateAPI::get()->sound->channel->removeSource(p_Chan, source) == 1; }
 
 void pdcpp::Channel::addEffect(const SoundEffect& effect)
     { pdcpp::GlobalPlaydateAPI::get()->sound->channel->addEffect(p_Chan, effect); }

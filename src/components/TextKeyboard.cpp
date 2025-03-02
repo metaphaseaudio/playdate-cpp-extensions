@@ -6,6 +6,7 @@
 #include "pdcpp/components/TextKeyboard.h"
 #include "pdcpp/graphics/ScopedGraphicsContext.h"
 #include "pdcpp/graphics/Graphics.h"
+#include "pdcpp/graphics/LookAndFeel.h"
 
 #include "keyboard_assets/ImageDataClass_menu_cancel.h"
 #include "keyboard_assets/ImageDataClass_menu_del.h"
@@ -74,8 +75,8 @@ void pdcpp::TextKeyboard::buttonStateChanged(const PDButtons& current, const PDB
     else if (pressed & PDButtons::kButtonDown)  { m_KeyRepeat.keyPressed([&](){ changeSelected(1); }); markDirty(); }
     else if (pressed & PDButtons::kButtonA)
     {
-        if      (isCancel())  { cancelCalled(); }
-        else if (isConfirm()) { confirmCalled(); }
+        if      (isCancel())  { cancelCalled(); popContext(); }
+        else if (isConfirm()) { confirmCalled(); popContext(); }
         else                  { m_KeyRepeat.keyPressed([&](){ submitSelected(); }); }
     }
     else if (pressed & PDButtons::kButtonB)     { m_KeyRepeat.keyPressed([&](){ deleteCalled(); }); }
@@ -154,14 +155,14 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 
     const auto width = 36;
     const auto height = (fontHeight + m_Padding) * chars.size();
-    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&](const
-    playdate_graphics*)
+    return pdcpp::Image::drawAsImage(pdcpp::Rectangle<int>(0, 0, width, height), [&]()
     {
         int offset = 0;
         for (char c : chars)
         {
             //  m_Padding / 2, offset
-            p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height), pdcpp::Font::Justification::Center);
+            std::ignore = p_Font->drawWrappedText(std::string(1, c), pdcpp::Rectangle<float>(4, offset, width, height),
+                    pdcpp::Font::Justification::Center);
             offset += fontHeight + m_Padding;
         }
     });
@@ -170,13 +171,14 @@ pdcpp::Image pdcpp::TextKeyboard::buildColumnImage(const std::vector<char>& char
 void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const pdcpp::Rectangle<float>&)
 {
     // TODO: figure out why this can't simply use a scoped graphics context...
-    auto img = pdcpp::Image::drawAsImage(inBounds, [&](const playdate_graphics* g) {
-        pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), kColorBlack);
+    auto img = pdcpp::Image::drawAsImage(inBounds, [&]()
+    {
+        pdcpp::Graphics::fillRectangle(inBounds.withOrigin({0, 0}).toInt(), pdcpp::Colors::black);
 
         auto bounds = inBounds.withOrigin({0, 0}).toInt();
 
         pdcpp::Graphics::setDrawMode(LCDBitmapDrawMode::kDrawModeNXOR);
-        pdcpp::Graphics::fillRectangle(bounds, kColorBlack);
+        pdcpp::Graphics::fillRectangle(bounds, pdcpp::Colors::black);
 
         // Set up a few constants
         const auto fontHeight = p_Font->getFontHeight();
@@ -215,7 +217,7 @@ void pdcpp::TextKeyboard::redraw(const pdcpp::Rectangle<float>& inBounds, const 
                 break;
         }
 
-        pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, kColorWhite);
+        pdcpp::Graphics::fillRoundedRectangle(selectorBounds, 3, pdcpp::Colors::white);
 
         // Draw/tile the columns
         auto imgBounds = m_LowerImg.getBounds();

@@ -29,6 +29,9 @@ namespace pdcppong
         static constexpr int PLAYER_PADDLE_NOTE = 63;
         static constexpr int COMPUTER_PADDLE_NOTE = 67;
         static constexpr int PLAYER_GOAL_NOTE = 50;
+
+        void finished() override;
+
         static constexpr int COMPUTER_GOAL_NOTE = 55;
 
         void playWhistle();
