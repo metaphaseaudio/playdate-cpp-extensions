@@ -55,7 +55,7 @@ namespace pdcpp
          *
          * @param source the pdcpp::SoundSource to add
          */
-        void addSource(const pdcpp::SoundSource& source);
+        bool addSource(const pdcpp::SoundSource& source);
 
         /**
          * Removes a source from this channel
@@ -126,6 +126,8 @@ namespace pdcpp
         SoundChannel* get() { return p_Chan; }
 
     protected:
+        explicit Channel(SoundChannel* chan) { p_Chan = chan; }
+
         SoundChannel* p_Chan;
     };
 

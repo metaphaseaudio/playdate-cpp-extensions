@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <memory>
 #include <pdcpp/components/Component.h>
 
 namespace pdcpp
