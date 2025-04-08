@@ -9,8 +9,10 @@
  */
 #pragma once
 #include <algorithm>
+#include <cmath>
 #include <optional>
 #include <sstream>
+#include <tuple>
 
 constexpr float kAudioHardwareSampleRate = 44100.0f;
 constexpr float kPI = 3.14159f;
